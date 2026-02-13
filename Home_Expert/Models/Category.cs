@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Home_Expert.Models;
-
+   
 public partial class Category
 {
     [Key]
