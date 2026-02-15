@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<!-- Project Info -->
+	<data name="Project_Title" xml:space="preserve">
+    <value>خبراء المنازل</value>
+  </data>
+
+	<!-- Services -->
+	<data name="Service_Moving" xml:space="preserve">
+    <value>نقل</value>
+  </data>
+	<data name="Service_Sales" xml:space="preserve">
+    <value>مبيعات</value>
+  </data>
+	<data name="Service_Installation" xml:space="preserve">
+    <value>تركيب</value>
+  </data>
+
+	<!-- Hero Section -->
+	<data name="Hero_Title" xml:space="preserve">
+    <value>تمكين فرق التركيب المحترفة</value>
+  </data>
+	<data name="Hero_Description" xml:space="preserve">
+    <value>انضم إلى المنصة الرائدة لخدمات تركيب الأثاث والمطابخ. أدر القوى العاملة لديك، وتتبع الطلبات، ووسع نطاق أعمالك بكل سهولة.</value>
+  </data>
+	<data name="Hero_Trust_Text" xml:space="preserve">
+    <value>موثوق به من قبل أكثر من 1,000 شركة تركيب عالمياً.</value>
+  </data>
+
+	<!-- Footer -->
+	<data name="Footer_Copyright" xml:space="preserve">
+    <value>©2026  خبراء المنازل</value>
+  </data>
+	<data name="Footer_Privacy" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+	<data name="Footer_Terms" xml:space="preserve">
+    <value>شروط الخدمة</value>
+  </data>
+
+	<!-- Form -->
+	<data name="Form_Title" xml:space="preserve">
+    <value>إنشاء حساب جديد</value>
+  </data>
+	<data name="Form_Subtitle" xml:space="preserve">
+    <value>سجل شركتك للبدء في إدارة الخدمات.</value>
+  </data>
+
+	<!-- Steps -->
+	<data name="Step_Details" xml:space="preserve">
+    <value>التفاصيل</value>
+  </data>
+	<data name="Step_Verification" xml:space="preserve">
+    <value>التحقق</value>
+  </data>
+
+	<!-- Labels -->
+	<data name="Label_FullName" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+	<data name="Label_CompanyName" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+	<data name="Label_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+	<data name="Label_Phone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+	<data name="Label_Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+
+	<!-- Placeholders -->
+	<data name="Placeholder_FullName" xml:space="preserve">
+    <value>أدخل اسمك الكامل</value>
+  </data>
+	<data name="Placeholder_CompanyName" xml:space="preserve">
+    <value>اسم شركتك هنا</value>
+  </data>
+	<data name="Placeholder_Email" xml:space="preserve">
+    <value>example@mail.com</value>
+  </data>
+	<data name="Placeholder_Phone" xml:space="preserve">
+    <value>+966 50 000</value>
+  </data>
+
+	<!-- Other -->
+	<data name="Optional" xml:space="preserve">
+    <value>اختياري</value>
+  </data>
+	<data name="Terms_Agreement" xml:space="preserve">
+    <value>أوافق على &lt;a href="#" class="link-accent"&gt;شروط الخدمة&lt;/a&gt; و &lt;a href="#" class="link-accent"&gt;سياسة الخصوصية&lt;/a&gt;.</value>
+  </data>
+	<data name="Button_CreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+	<data name="SignIn_Link" xml:space="preserve">
+    <value>لديك حساب بالفعل؟ &lt;a href="/Registration/Login" class="link-accent"&gt;تسجيل الدخول&lt;/a&gt;</value>
+  </data>
+
+	<!-- OTP Verification -->
+	<data name="OTP_Title" xml:space="preserve">
+    <value>تحقق من حسابك</value>
+  </data>
+	<data name="OTP_Subtitle" xml:space="preserve">
+    <value>لقد أرسلنا رمز التحقق إلى بريدك الإلكتروني. الرجاء إدخاله أدناه.</value>
+  </data>
+	<data name="OTP_ResendIn" xml:space="preserve">
+    <value>إعادة إرسال الرمز خلال</value>
+  </data>
+	<data name="OTP_Resend" xml:space="preserve">
+    <value>لم تستلم الرمز؟ إعادة الإرسال</value>
+  </data>
+	<data name="Button_Verify" xml:space="preserve">
+    <value>تحقق ومتابعة</value>
+  </data>
+	<data name="Back_To_Registration" xml:space="preserve">
+    <value>العودة للتسجيل</value>
+  </data>
+
+	<!-- Login -->
+	<data name="Login_Title" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+	<data name="Login_Subtitle" xml:space="preserve">
+    <value>مرحباً بعودتك! سجل دخولك لمتابعة إدارة خدماتك.</value>
+  </data>
+	<data name="Login_RememberMe" xml:space="preserve">
+    <value>تذكرني</value>
+  </data>
+	<data name="Login_ForgotPassword" xml:space="preserve">
+    <value>نسيت كلمة المرور؟</value>
+  </data>
+	<data name="Button_Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+	<data name="SignUp_Link" xml:space="preserve">
+    <value>ليس لديك حساب؟ &lt;a href="/Registration/Registration" class="link-accent"&gt;إنشاء حساب&lt;/a&gt;</value>
+  </data>
+	<data name="Login_Or" xml:space="preserve">
+    <value>أو</value>
+  </data>
+	<data name="Login_Google" xml:space="preserve">
+    <value>تسجيل الدخول بواسطة Google</value>
+  </data>
+	<data name="Login_Microsoft" xml:space="preserve">
+    <value>تسجيل الدخول بواسطة Microsoft</value>
+  </data>
+</root>

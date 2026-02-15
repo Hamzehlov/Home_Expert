@@ -2,6 +2,9 @@ using Home_Expert.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Home_Expert.DependencyInjections;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+builder.Services.AddLocalizationDependencyInjection();
 
 // Add Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -34,6 +37,8 @@ if (string.IsNullOrEmpty(emailSettings["SmtpPassword"]) || emailSettings["SmtpPa
 
 
 var app = builder.Build();
+var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(locOptions.Value);
 
 // Configure middleware
 if (!app.Environment.IsDevelopment())
@@ -53,7 +58,7 @@ app.UseAuthorization();
 // Default route
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Registration}/{action=Registration}/{id?}");
 app.MapRazorPages();
 
 

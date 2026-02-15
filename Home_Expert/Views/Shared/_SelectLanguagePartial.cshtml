@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+    var currentCountryCode = requestCulture.RequestCulture.UICulture.Name.Split('-').Last().ToLower(); // e.g. "JO" → "jo"
+
+}
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle d-flex" href="#" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="nav-language-icon">
+            <i class="flag-icon flag-icon-@currentCountryCode" title="@requestCulture.RequestCulture.UICulture.Name"></i>
+        </div>
+        <div class="nav-language-text ps-2 pe-2 phone-text">
+            <p class="mt-4 text-black">@requestCulture.RequestCulture.UICulture.DisplayName</p>
+        </div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="languageDropdown">
+        <form id="selectLanguage" asp-controller="Language"
+              asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
+              method="post" class="form-horizontal" role="form">
+            @foreach (var item in cultureItems)
+            {
+                var countryCode = item.Value.Split('-').Last().ToLower(); // Extract "jo" or "us"
+                <button type="submit" name="culture" value="@item.Value" class="dropdown-item">
+                    <div class="nav-language-icon mr-2">
+                        <i class="flag-icon flag-icon-@countryCode" title="@countryCode"></i>
+                    </div>
+                    <div class="nav-language-text ps-2 pe-2">
+                        <p class="mt-4 text-black">@item.Text</p>
+                    </div>
+                </button>
+                <div class="dropdown-divider"></div>
+            }
+        </form>
+    </div>
+</li>

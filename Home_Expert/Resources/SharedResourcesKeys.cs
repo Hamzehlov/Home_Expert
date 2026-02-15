@@ -1,0 +1,71 @@
+﻿using Home_Expert.Models;
+
+namespace Home_Expert.Resources
+{
+	public static class SharedResourcesKeys
+    {
+	// Project Info
+        public const string Project_Title = "Project_Title";
+
+        // Services
+        public const string Service_Moving = "Service_Moving";
+        public const string Service_Sales = "Service_Sales";
+        public const string Service_Installation = "Service_Installation";
+
+        // Hero Section
+        public const string Hero_Title = "Hero_Title";
+        public const string Hero_Description = "Hero_Description";
+        public const string Hero_Trust_Text = "Hero_Trust_Text";
+
+        // Footer
+        public const string Footer_Copyright = "Footer_Copyright";
+        public const string Footer_Privacy = "Footer_Privacy";
+        public const string Footer_Terms = "Footer_Terms";
+
+        // Form
+        public const string Form_Title = "Form_Title";
+        public const string Form_Subtitle = "Form_Subtitle";
+
+        // Steps
+        public const string Step_Details = "Step_Details";
+        public const string Step_Verification = "Step_Verification";
+
+        // Labels
+        public const string Label_FullName = "Label_FullName";
+        public const string Label_CompanyName = "Label_CompanyName";
+        public const string Label_Email = "Label_Email";
+        public const string Label_Phone = "Label_Phone";
+        public const string Label_Password = "Label_Password";
+
+        // Placeholders
+        public const string Placeholder_FullName = "Placeholder_FullName";
+        public const string Placeholder_CompanyName = "Placeholder_CompanyName";
+        public const string Placeholder_Email = "Placeholder_Email";
+        public const string Placeholder_Phone = "Placeholder_Phone";
+
+        // Other
+        public const string Optional = "Optional";
+        public const string Terms_Agreement = "Terms_Agreement";
+        public const string Button_CreateAccount = "Button_CreateAccount";
+        public const string SignIn_Link = "SignIn_Link";
+
+        // OTP Verification
+        public const string OTP_Title = "OTP_Title";
+        public const string OTP_Subtitle = "OTP_Subtitle";
+        public const string OTP_ResendIn = "OTP_ResendIn";
+        public const string OTP_Resend = "OTP_Resend";
+        public const string Button_Verify = "Button_Verify";
+        public const string Back_To_Registration = "Back_To_Registration";
+
+        // Login
+        public const string Login_Title = "Login_Title";
+        public const string Login_Subtitle = "Login_Subtitle";
+        public const string Login_RememberMe = "Login_RememberMe";
+        public const string Login_ForgotPassword = "Login_ForgotPassword";
+        public const string Button_Login = "Button_Login";
+        public const string SignUp_Link = "SignUp_Link";
+        public const string Login_Or = "Login_Or";
+        public const string Login_Google = "Login_Google";
+        public const string Login_Microsoft = "Login_Microsoft";
+    }
+}

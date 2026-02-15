@@ -1,0 +1,467 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@{
+    Layout = null;
+}
+@{
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@inject IStringLocalizer<SharedResource> _sharedResources;
+<!DOCTYPE html>
+<html lang="@culture" dir="@(isArabic ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@_sharedResources[SharedResourcesKeys.Project_Title] </title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/css/accountstyles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Left Side - Hero Section -->
+        <div class="hero-section">
+            <img src="~/img/reqimg.png"
+                 alt="Luxury Modern Kitchen" class="hero-image">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <div>
+                    <h1 class="hero-logo">
+                        @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
+                    </h1>
+                </div>
+
+                <div class="hero-main">
+                    <div class="service-icons">
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">local_shipping</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Moving]
+                            </span>
+                        </div>
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">point_of_sale</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Sales]
+                            </span>
+                        </div>
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">construction</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Installation]
+                            </span>
+                        </div>
+                    </div>
+
+                    <h2 class="hero-title">@_sharedResources[SharedResourcesKeys.Hero_Title]</h2>
+                    <p class="hero-description">@_sharedResources[SharedResourcesKeys.Hero_Description]</p>
+
+                    <div class="user-trust">
+                        <div class="user-avatars">
+                            <img src="~/img/account.png" alt="User" class="user-avatar">
+                            <div class="user-count">1k+</div>
+                        </div>
+                        <p class="trust-text">
+                            @_sharedResources[SharedResourcesKeys.Hero_Trust_Text]
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hero-footer">
+                    <span>@_sharedResources[SharedResourcesKeys.Footer_Copyright]</span>
+                  
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Form Section -->
+        <div class="form-section">
+            <!-- Language Toggle Button -->
+            <div class="language-toggle">
+                <form id="languageForm"
+                      asp-controller="Language"
+                      asp-action="SetLanguage"
+                      method="post">
+
+                    <input type="hidden" name="culture" id="cultureInput" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+
+                    <button type="button" onclick="toggleLanguage()" class="btn-language">
+                        @if (isArabic)
+                        {
+                            <div class="btn-lang-en">
+                                <span class="material-symbols-outlined">language</span>
+                                English
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-lang-ar">
+                                <span class="material-symbols-outlined">language</span>
+                                العربية
+                            </div>
+                        }
+                    </button>
+                </form>
+            </div>
+
+            <div class="form-container">
+                <!-- Step 1: Registration Form -->
+                <div id="step1" class="form-step active">
+                    <div class="form-header">
+                        <h2 class="form-title">@_sharedResources[SharedResourcesKeys.Form_Title]</h2>
+                        <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.Form_Subtitle]</p>
+                    </div>
+
+                    <!-- Progress Steps -->
+                    <div class="progress-steps">
+                        <div class="step-item active">
+                            <span class="step-number">1</span>
+                            <span class="step-label">
+                                @_sharedResources[SharedResourcesKeys.Step_Details]
+                            </span>
+                        </div>
+                        <div class="step-divider"></div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <span class="step-label">
+                                @_sharedResources[SharedResourcesKeys.Step_Verification]
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form id="registrationForm" class="registration-form">
+                        <!-- Full Name -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                @_sharedResources[SharedResourcesKeys.Label_FullName]
+                            </label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">person</span>
+                                <input type="text" name="FullName" id="fullName" class="form-control-custom"
+                                       placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_FullName]" required>
+                            </div>
+                        </div>
+
+                        <!-- Company Name -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                @_sharedResources[SharedResourcesKeys.Label_CompanyName]
+                            </label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">business</span>
+                                <input type="text" name="CompanyName" id="companyName" class="form-control-custom"
+                                       placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_CompanyName]">
+                            </div>
+                        </div>
+
+                        <!-- Email and Phone -->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">
+                                    @_sharedResources[SharedResourcesKeys.Label_Email]
+                                </label>
+                                <div class="input-group-custom">
+                                    <span class="material-symbols-outlined input-icon">mail</span>
+                                    <input type="email" name="Email" id="email" class="form-control-custom"
+                                           placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Email]" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">
+                                    @_sharedResources[SharedResourcesKeys.Label_Phone]
+                                </label>
+                                <div class="input-group-custom">
+                                    <span class="material-symbols-outlined input-icon">call</span>
+                                    <input type="tel" name="Phone" id="phone" class="form-control-custom"
+                                           placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Phone]" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                @_sharedResources[SharedResourcesKeys.Label_Password]
+                            </label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">lock</span>
+                                <input type="password" name="Password" id="password" class="form-control-custom" placeholder="••••••••" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <span class="material-symbols-outlined" id="passwordIcon">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+
+                       
+
+                        <!-- Submit Button -->
+                        <button type="button" onclick="goToStep2()" class="btn-submit">
+                            @_sharedResources[SharedResourcesKeys.Button_CreateAccount]
+                            <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
+                        </button>
+                    </form>
+
+                    <!-- Sign In Link -->
+                    <p class="signin-link">
+                        @Html.Raw(_sharedResources[SharedResourcesKeys.SignIn_Link])
+                    </p>
+                </div>
+
+                <!-- Step 2: OTP Verification -->
+                <div id="step2" class="form-step">
+                    <div class="form-header">
+                        <h2 class="form-title">@_sharedResources[SharedResourcesKeys.Footer_Copyright]</h2>
+                        <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.Footer_Privacy]</p>
+                    </div>
+
+                    <!-- Progress Steps -->
+                    <div class="progress-steps">
+                        <div class="step-item completed">
+                            <span class="step-number">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">check</span>
+                            </span>
+                            <span class="step-label">
+                                @_sharedResources[SharedResourcesKeys.Step_Details]
+                            </span>
+                        </div>
+                        <div class="step-divider completed"></div>
+                        <div class="step-item active">
+                            <span class="step-number">2</span>
+                            <span class="step-label">
+                                @_sharedResources[SharedResourcesKeys.Step_Verification]
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- OTP Form -->
+                    <form asp-action="Register" asp-controller="Account" method="post" class="otp-form" id="otpForm">
+                        @Html.AntiForgeryToken()
+
+                        <!-- Hidden fields with registration data -->
+                        <input type="hidden" name="FullName" id="hiddenFullName" />
+                        <input type="hidden" name="CompanyName" id="hiddenCompanyName" />
+                        <input type="hidden" name="Email" id="hiddenEmail" />
+                        <input type="hidden" name="Phone" id="hiddenPhone" />
+                        <input type="hidden" name="Password" id="hiddenPassword" />
+
+                        <!-- OTP Icon -->
+                        <div class="otp-icon-container">
+                            <div class="otp-icon">
+                                <span class="material-symbols-outlined">mail</span>
+                            </div>
+                        </div>
+
+                        <!-- OTP Input Boxes -->
+                        <div class="otp-inputs">
+                            <input type="text" maxlength="1" class="otp-input" id="otp1" name="otp1" pattern="[0-9]" inputmode="numeric" required>
+                            <input type="text" maxlength="1" class="otp-input" id="otp2" name="otp2" pattern="[0-9]" inputmode="numeric" required>
+                            <input type="text" maxlength="1" class="otp-input" id="otp3" name="otp3" pattern="[0-9]" inputmode="numeric" required>
+                            <input type="text" maxlength="1" class="otp-input" id="otp4" name="otp4" pattern="[0-9]" inputmode="numeric" required>
+                            <input type="text" maxlength="1" class="otp-input" id="otp5" name="otp5" pattern="[0-9]" inputmode="numeric" required>
+                            <input type="text" maxlength="1" class="otp-input" id="otp6" name="otp6" pattern="[0-9]" inputmode="numeric" required>
+                        </div>
+
+                        <!-- Hidden field for combined OTP -->
+                        <input type="hidden" name="OTP" id="otpValue" />
+
+                        <!-- Timer and Resend -->
+                        <div class="otp-timer">
+                            <p class="timer-text">
+                                @_sharedResources[SharedResourcesKeys.Footer_Privacy]
+                                <span id="timer" class="timer-countdown">02:00</span>
+                            </p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit" id="verifyBtn">
+                            @_sharedResources[SharedResourcesKeys.Footer_Copyright]
+                            <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
+                        </button>
+
+                        <!-- Resend Link -->
+                        <div class="resend-container">
+                            <button type="button" class="btn-resend" id="resendBtn" disabled>
+                                @_sharedResources[SharedResourcesKeys.Footer_Terms]
+                            </button>
+                        </div>
+
+                        <!-- Back Button -->
+                        <div class="text-center mt-3">
+                            <button type="button" onclick="goToStep1()" class="btn-link">
+                                <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: middle;">arrow_back</span>
+                                @_sharedResources[SharedResourcesKeys.Footer_Privacy]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleLanguage() {
+            var currentCulture = '@culture';
+            var newCulture = currentCulture.startsWith('ar') ? 'en-US' : 'ar-JO';
+
+            document.getElementById('cultureInput').value = newCulture;
+            document.getElementById('languageForm').submit();
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.textContent = 'visibility';
+            }
+        }
+
+        // Multi-Step Form Functions
+        function goToStep2() {
+            const form = document.getElementById('registrationForm');
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Copy data to hidden fields
+            document.getElementById('hiddenFullName').value = document.getElementById('fullName').value;
+            document.getElementById('hiddenCompanyName').value = document.getElementById('companyName').value;
+            document.getElementById('hiddenEmail').value = document.getElementById('email').value;
+            document.getElementById('hiddenPhone').value = document.getElementById('phone').value;
+            document.getElementById('hiddenPassword').value = document.getElementById('password').value;
+
+            // Hide step 1, show step 2
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+
+            // TODO: Send OTP to email via API
+            console.log('Sending OTP to:', document.getElementById('email').value);
+
+            // Start timer and focus first OTP input
+            initOTPHandlers();
+        }
+
+        function goToStep1() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        }
+
+        // OTP Handlers
+        function initOTPHandlers() {
+            const inputs = document.querySelectorAll('.otp-input');
+            const otpValue = document.getElementById('otpValue');
+
+            inputs.forEach((input, index) => {
+                // Clear previous values
+                input.value = '';
+
+                // Auto-focus next input
+                input.addEventListener('input', function (e) {
+                    const value = e.target.value;
+
+                    if (!/^\d$/.test(value)) {
+                        e.target.value = '';
+                        return;
+                    }
+
+                    if (value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+
+                    updateOTPValue();
+                });
+
+                // Handle backspace
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+
+                // Paste handling
+                input.addEventListener('paste', function (e) {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').trim();
+                    const pastedChars = pastedData.split('').filter(char => /^\d$/.test(char));
+
+                    pastedChars.forEach((char, i) => {
+                        if (index + i < inputs.length) {
+                            inputs[index + i].value = char;
+                        }
+                    });
+
+                    const lastIndex = Math.min(index + pastedChars.length - 1, inputs.length - 1);
+                    inputs[lastIndex].focus();
+
+                    updateOTPValue();
+                });
+            });
+
+            function updateOTPValue() {
+                const otp = Array.from(inputs).map(input => input.value).join('');
+                otpValue.value = otp;
+            }
+
+            // Timer
+            let timeLeft = 120;
+            const timerElement = document.getElementById('timer');
+            const resendBtn = document.getElementById('resendBtn');
+
+            const countdown = setInterval(function () {
+                timeLeft--;
+
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+
+                timerElement.textContent =
+                    minutes.toString().padStart(2, '0') + ':' +
+                    seconds.toString().padStart(2, '0');
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    resendBtn.disabled = false;
+                    resendBtn.classList.add('active');
+                }
+            }, 1000);
+
+            // Resend OTP
+            resendBtn.addEventListener('click', function () {
+                timeLeft = 120;
+                resendBtn.disabled = true;
+                resendBtn.classList.remove('active');
+
+                inputs.forEach(input => input.value = '');
+                inputs[0].focus();
+
+                // TODO: Call API to resend OTP
+                console.log('Resending OTP...');
+            });
+
+            // Focus first input
+            inputs[0].focus();
+        }
+    </script>
+</body>
+</html>

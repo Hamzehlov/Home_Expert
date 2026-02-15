@@ -1,0 +1,220 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@{
+    Layout = null;
+}
+@{
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@inject IStringLocalizer<SharedResource> _sharedResources;
+<!DOCTYPE html>
+<html lang="@culture" dir="@(isArabic ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@_sharedResources[SharedResourcesKeys.Project_Title] </title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/css/accountstyles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Left Side - Hero Section -->
+        <div class="hero-section">
+            <img src="~/img/logimg.png"
+            alt="Luxury Modern Kitchen" class="hero-image">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <div>
+                    <h1 class="hero-logo">
+                        @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
+                    </h1>
+                </div>
+
+                <div class="hero-main">
+                    <div class="service-icons">
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">local_shipping</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Moving]
+                            </span>
+                        </div>
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">point_of_sale</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Sales]
+                            </span>
+                        </div>
+                        <div class="service-icon-item">
+                            <div class="service-icon-box">
+                                <span class="material-symbols-outlined">construction</span>
+                            </div>
+                            <span class="service-label">
+                                @_sharedResources[SharedResourcesKeys.Service_Installation]
+                            </span>
+                        </div>
+                    </div>
+
+                    <h2 class="hero-title">@_sharedResources[SharedResourcesKeys.Hero_Title]</h2>
+                    <p class="hero-description">@_sharedResources[SharedResourcesKeys.Hero_Description]</p>
+
+                    <div class="user-trust">
+                        <div class="user-avatars">
+                            <img src="~/img/account.png"
+                                 alt="User" class="user-avatar">
+                            <div class="user-count">1k+</div>
+                        </div>
+                        <p class="trust-text">
+                            @_sharedResources[SharedResourcesKeys.Hero_Trust_Text]
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hero-footer">
+                    <span>@_sharedResources[SharedResourcesKeys.Footer_Copyright]</span>
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form Section -->
+        <div class="form-section">
+            <!-- Language Toggle Button -->
+            <div class="language-toggle">
+                <form id="languageForm"
+                      asp-controller="Language"
+                      asp-action="SetLanguage"
+                      method="post">
+
+                    <input type="hidden" name="culture" id="cultureInput" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+
+                    <button type="button" onclick="toggleLanguage()" class="btn-language">
+                        @if (isArabic)
+                        {
+                            <div class="btn-lang-en">
+                                <span class="material-symbols-outlined">language</span>
+                                English
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-lang-ar">
+                                <span class="material-symbols-outlined">language</span>
+                                العربية
+                            </div>
+                        }
+                    </button>
+                </form>
+            </div>
+
+            <div class="form-container">
+                <div class="form-header">
+                    <!-- Mobile Logo -->
+                    <div class="mobile-logo d-lg-none">
+                        <h1 class="logo-text">
+                            @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
+                        </h1>
+                    </div>
+
+                    <h2 class="form-title">@_sharedResources[SharedResourcesKeys.Login_Title]</h2>
+                    <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.Login_Subtitle]</p>
+                </div>
+
+                <!-- Login Form -->
+                <form asp-action="Login" asp-controller="Account" method="post" class="registration-form">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            @_sharedResources[SharedResourcesKeys.Label_Email]
+                        </label>
+                        <div class="input-group-custom">
+                            <span class="material-symbols-outlined input-icon">mail</span>
+                            <input type="email" name="Email" id="email" class="form-control-custom"
+                                   placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Email]" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            @_sharedResources[SharedResourcesKeys.Label_Password]
+                        </label>
+                        <div class="input-group-custom">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" name="Password" id="password" class="form-control-custom" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <span class="material-symbols-outlined" id="passwordIcon">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check-custom">
+                            <input type="checkbox" name="RememberMe" class="form-check-input" id="rememberCheck">
+                            <label class="form-check-label" for="rememberCheck">
+                                @_sharedResources[SharedResourcesKeys.Login_RememberMe]
+                            </label>
+                        </div>
+                        <a href="#" class="link-accent forgot-link">
+                            @_sharedResources[SharedResourcesKeys.Login_ForgotPassword]
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">
+                        @_sharedResources[SharedResourcesKeys.Button_Login]
+                        <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
+                    </button>
+                </form>
+
+                <!-- Sign Up Link -->
+               <p class="signin-link">
+                @Html.Raw(_sharedResources[SharedResourcesKeys.SignUp_Link])
+                </p>
+          
+
+           
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <script>
+        function toggleLanguage() {
+            var currentCulture = '@culture';
+            var newCulture = currentCulture.startsWith('ar') ? 'en-US' : 'ar-JO';
+
+            document.getElementById('cultureInput').value = newCulture;
+            document.getElementById('languageForm').submit();
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.textContent = 'visibility';
+            }
+        }
+    </script>
+</body>
+</html>
