@@ -11,63 +11,62 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
-
-  
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+    }
 
     public virtual DbSet<Category> Categories { get; set; }
-
     public virtual DbSet<Chat> Chats { get; set; }
-
     public virtual DbSet<Code> Codes { get; set; }
-
     public virtual DbSet<EscrowTransaction> EscrowTransactions { get; set; }
-
     public virtual DbSet<KitchenCostEstimate> KitchenCostEstimates { get; set; }
-
     public virtual DbSet<KitchenExport> KitchenExports { get; set; }
-
     public virtual DbSet<KitchenMeasurement> KitchenMeasurements { get; set; }
-
     public virtual DbSet<Message> Messages { get; set; }
-
     public virtual DbSet<MovingOffer> MovingOffers { get; set; }
-
     public virtual DbSet<MovingRequest> MovingRequests { get; set; }
-
     public virtual DbSet<MovingStatusLog> MovingStatusLogs { get; set; }
-
     public virtual DbSet<Product> Products { get; set; }
-
     public virtual DbSet<Review> Reviews { get; set; }
-
     public virtual DbSet<Service> Services { get; set; }
-
     public virtual DbSet<ServiceOffer> ServiceOffers { get; set; }
-
     public virtual DbSet<ServiceRequest> ServiceRequests { get; set; }
-
     public virtual DbSet<ServiceRequestIssue> ServiceRequestIssues { get; set; }
-
     public virtual DbSet<Subscription> Subscriptions { get; set; }
-
     public virtual DbSet<SubscriptionFeature> SubscriptionFeatures { get; set; }
-
     public virtual DbSet<UserLocation> UserLocations { get; set; }
-
     public virtual DbSet<Vendor> Vendors { get; set; }
-
     public virtual DbSet<VendorMedium> VendorMedia { get; set; }
-
     public virtual DbSet<VendorSubscription> VendorSubscriptions { get; set; }
-
     public virtual DbSet<Wallet> Wallets { get; set; }
 
-   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-       
+        // ✅✅✅ هذا السطر ضروري جداً! ✅✅✅
+        base.OnModelCreating(modelBuilder);
+
+        // ==========================================
+        // ApplicationUser Configuration
+        // ==========================================
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.ToTable("AspNetUsers");
+
+            // الخصائص الإضافية
+            entity.Property(e => e.FirstName).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.LastName).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Phone).HasMaxLength(20);
+            entity.Property(e => e.OTPCode).HasMaxLength(6);
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
+
+            // تجاهل الخاصية المحسوبة
+            entity.Ignore(e => e.FullName);
+        });
+
+        // ==========================================
+        // باقي الـ Entities
+        // ==========================================
 
         modelBuilder.Entity<Category>(entity =>
         {

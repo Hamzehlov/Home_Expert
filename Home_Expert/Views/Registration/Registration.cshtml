@@ -14,10 +14,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@_sharedResources[SharedResourcesKeys.Project_Title] </title>
+    <title>@_sharedResources[SharedResourcesKeys.Project_Title]</title>
 
     <!-- Bootstrap CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Custom CSS -->
     <link href="~/css/accountstyles.css" rel="stylesheet" />
 </head>
@@ -80,7 +82,6 @@
 
                 <div class="hero-footer">
                     <span>@_sharedResources[SharedResourcesKeys.Footer_Copyright]</span>
-                  
                 </div>
             </div>
         </div>
@@ -119,6 +120,9 @@
             <div class="form-container">
                 <!-- Step 1: Registration Form -->
                 <div id="step1" class="form-step active">
+                    <!-- Alert Box for Step 1 -->
+                    <div id="alertBox" class="alert d-none mb-3" role="alert"></div>
+
                     <div class="form-header">
                         <h2 class="form-title">@_sharedResources[SharedResourcesKeys.Form_Title]</h2>
                         <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.Form_Subtitle]</p>
@@ -163,8 +167,49 @@
                             <div class="input-group-custom">
                                 <span class="material-symbols-outlined input-icon">business</span>
                                 <input type="text" name="CompanyName" id="companyName" class="form-control-custom"
-                                       placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_CompanyName]">
+                                       placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_CompanyName]" required>
                             </div>
+                        </div>
+
+                        <!-- Service Type -->
+                        <div class="mb-4">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Label_ServiceType]</label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">home_repair_service</span>
+                                <select name="ServiceTypeId" id="serviceType" class="form-control-custom" required>
+                                    <option value="">@_sharedResources[SharedResourcesKeys.Placeholder_ServiceType]</option>
+                                    <option value="1">@_sharedResources[SharedResourcesKeys.Service_Furniture]</option>
+                                    <option value="2">@_sharedResources[SharedResourcesKeys.Service_KitchenSales]</option>
+                                    <option value="3">@_sharedResources[SharedResourcesKeys.Service_KitchenInstall]</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Years of Experience -->
+                        <div class="mb-4">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Label_YearsExperience]</label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">work_history</span>
+                                <input type="number" name="YearsExperience" id="yearsExperience" class="form-control-custom"
+                                       placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_YearsExperience]" min="0" max="50">
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Label_Description]</label>
+                            <div class="input-group-custom">
+                                <span class="material-symbols-outlined input-icon">description</span>
+                                <textarea name="Description" id="description" class="form-control-custom" rows="3"
+                                          placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Description]" maxlength="500"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Logo Upload -->
+                        <div class="mb-4">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Label_Logo]</label>
+                            <input type="file" name="Logo" id="logo" class="form-control" accept="image/jpeg,image/jpg,image/png,image/gif">
+                            <small class="text-muted">@_sharedResources[SharedResourcesKeys.Logo_Helper]</small>
                         </div>
 
                         <!-- Email and Phone -->
@@ -198,14 +243,14 @@
                             </label>
                             <div class="input-group-custom">
                                 <span class="material-symbols-outlined input-icon">lock</span>
-                                <input type="password" name="Password" id="password" class="form-control-custom" placeholder="••••••••" required>
+                                <input type="password" name="Password" id="password" class="form-control-custom"
+                                       placeholder="••••••••" required minlength="6">
                                 <button type="button" class="password-toggle" onclick="togglePassword()">
                                     <span class="material-symbols-outlined" id="passwordIcon">visibility</span>
                                 </button>
                             </div>
+                            <small class="text-muted">@_sharedResources[SharedResourcesKeys.Password_Helper]</small>
                         </div>
-
-                       
 
                         <!-- Submit Button -->
                         <button type="button" onclick="goToStep2()" class="btn-submit">
@@ -222,9 +267,12 @@
 
                 <!-- Step 2: OTP Verification -->
                 <div id="step2" class="form-step">
+                    <!-- Alert Box for Step 2 -->
+                    <div id="alertBox2" class="alert d-none mb-3" role="alert"></div>
+
                     <div class="form-header">
-                        <h2 class="form-title">@_sharedResources[SharedResourcesKeys.Footer_Copyright]</h2>
-                        <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.Footer_Privacy]</p>
+                        <h2 class="form-title">@_sharedResources[SharedResourcesKeys.OTP_Title]</h2>
+                        <p class="form-subtitle">@_sharedResources[SharedResourcesKeys.OTP_Subtitle] <span id="emailDisplay" class="fw-bold"></span></p>
                     </div>
 
                     <!-- Progress Steps -->
@@ -247,9 +295,7 @@
                     </div>
 
                     <!-- OTP Form -->
-                    <form asp-action="Register" asp-controller="Account" method="post" class="otp-form" id="otpForm">
-                        @Html.AntiForgeryToken()
-
+                    <form id="otpForm" class="otp-form">
                         <!-- Hidden fields with registration data -->
                         <input type="hidden" name="FullName" id="hiddenFullName" />
                         <input type="hidden" name="CompanyName" id="hiddenCompanyName" />
@@ -274,27 +320,23 @@
                             <input type="text" maxlength="1" class="otp-input" id="otp6" name="otp6" pattern="[0-9]" inputmode="numeric" required>
                         </div>
 
-                        <!-- Hidden field for combined OTP -->
-                        <input type="hidden" name="OTP" id="otpValue" />
-
                         <!-- Timer and Resend -->
                         <div class="otp-timer">
                             <p class="timer-text">
-                                @_sharedResources[SharedResourcesKeys.Footer_Privacy]
-                                <span id="timer" class="timer-countdown">02:00</span>
+                                @_sharedResources[SharedResourcesKeys.OTP_TimerText] <span id="timer" class="timer-countdown">05:00</span>
                             </p>
                         </div>
 
                         <!-- Submit Button -->
                         <button type="submit" class="btn-submit" id="verifyBtn">
-                            @_sharedResources[SharedResourcesKeys.Footer_Copyright]
+                            @_sharedResources[SharedResourcesKeys.OTP_VerifyButton]
                             <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
                         </button>
 
                         <!-- Resend Link -->
                         <div class="resend-container">
                             <button type="button" class="btn-resend" id="resendBtn" disabled>
-                                @_sharedResources[SharedResourcesKeys.Footer_Terms]
+                                @_sharedResources[SharedResourcesKeys.OTP_ResendButton]
                             </button>
                         </div>
 
@@ -302,7 +344,7 @@
                         <div class="text-center mt-3">
                             <button type="button" onclick="goToStep1()" class="btn-link">
                                 <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: middle;">arrow_back</span>
-                                @_sharedResources[SharedResourcesKeys.Footer_Privacy]
+                                @_sharedResources[SharedResourcesKeys.OTP_BackButton]
                             </button>
                         </div>
                     </form>
@@ -315,6 +357,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // ==========================================
+        // 1. Language Toggle
+        // ==========================================
         function toggleLanguage() {
             var currentCulture = '@culture';
             var newCulture = currentCulture.startsWith('ar') ? 'en-US' : 'ar-JO';
@@ -323,6 +368,9 @@
             document.getElementById('languageForm').submit();
         }
 
+        // ==========================================
+        // 2. Password Toggle
+        // ==========================================
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const passwordIcon = document.getElementById('passwordIcon');
@@ -336,8 +384,64 @@
             }
         }
 
-        // Multi-Step Form Functions
-        function goToStep2() {
+        // ==========================================
+        // 3. Alert Box
+        // ==========================================
+        function showAlert(type, message, step = 1) {
+            const alertBox = step === 1
+                ? document.getElementById('alertBox')
+                : document.getElementById('alertBox2');
+
+            if (!alertBox) {
+                alert(message);
+                return;
+            }
+
+            alertBox.className = 'alert';
+            alertBox.classList.add('alert-' + type);
+            alertBox.classList.remove('d-none');
+
+            let icon = '';
+            switch (type) {
+                case 'success':
+                    icon = '<span class="material-symbols-outlined me-2">check_circle</span>';
+                    break;
+                case 'danger':
+                    icon = '<span class="material-symbols-outlined me-2">error</span>';
+                    break;
+                case 'warning':
+                    icon = '<span class="material-symbols-outlined me-2">warning</span>';
+                    break;
+                case 'info':
+                    icon = '<span class="material-symbols-outlined me-2">info</span>';
+                    break;
+            }
+
+            alertBox.innerHTML = icon + message;
+
+            setTimeout(() => {
+                alertBox.classList.add('d-none');
+            }, 7000);
+        }
+
+        // ==========================================
+        // Helper: Safe JSON Parse
+        // ==========================================
+        async function safeJson(response, step) {
+            try {
+                return await response.json();
+            } catch (err) {
+                const text = await response.text();
+                console.error("Server returned non-JSON:", text);
+                showAlert('danger', '@_sharedResources[SharedResourcesKeys.Message_ServerError]', step);
+                return null;
+            }
+        }
+
+        // ==========================================
+        // 4. Go to Step 2 (Register)
+        // ==========================================
+        async function goToStep2() {
             const form = document.getElementById('registrationForm');
 
             if (!form.checkValidity()) {
@@ -345,96 +449,112 @@
                 return;
             }
 
-            // Copy data to hidden fields
-            document.getElementById('hiddenFullName').value = document.getElementById('fullName').value;
-            document.getElementById('hiddenCompanyName').value = document.getElementById('companyName').value;
-            document.getElementById('hiddenEmail').value = document.getElementById('email').value;
-            document.getElementById('hiddenPhone').value = document.getElementById('phone').value;
-            document.getElementById('hiddenPassword').value = document.getElementById('password').value;
+            const formData = new FormData();
 
-            // Hide step 1, show step 2
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
+            const fullName = document.getElementById('fullName').value.trim();
+            const nameParts = fullName.split(' ');
+            const firstName = nameParts[0] || '';
+            const lastName = nameParts.slice(1).join(' ') || nameParts[0];
 
-            // TODO: Send OTP to email via API
-            console.log('Sending OTP to:', document.getElementById('email').value);
+            formData.append('FirstName', firstName);
+            formData.append('LastName', lastName);
+            formData.append('Email', document.getElementById('email').value);
+            formData.append('Password', document.getElementById('password').value);
+            formData.append('ConfirmPassword', document.getElementById('password').value);
+            formData.append('Phone', document.getElementById('phone').value);
+            formData.append('CompanyName', document.getElementById('companyName').value);
+            formData.append('Description', document.getElementById('description').value || '');
+            formData.append('YearsExperience', document.getElementById('yearsExperience').value || 0);
+            formData.append('ServiceTypeId', document.getElementById('serviceType').value);
 
-            // Start timer and focus first OTP input
-            initOTPHandlers();
+            const logoInput = document.getElementById('logo');
+            if (logoInput.files.length > 0) {
+                formData.append('Logo', logoInput.files[0]);
+            }
+
+            const submitBtn = document.querySelector('#step1 .btn-submit');
+            const originalBtnText = submitBtn.innerHTML;
+            const isArabic = '@isArabic' === 'True';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm ' + (isArabic ? 'ms-2' : 'me-2') + '"></span> ' + (isArabic ? 'جاري الإرسال...' : 'Sending...');
+
+            try {
+                const response = await fetch('/api/vendorauth/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await safeJson(response, 1);
+                if (!result) return;
+
+                if (response.ok && (result.success === true || result.Success === true)) {
+                    document.getElementById('hiddenFullName').value = fullName;
+                    document.getElementById('hiddenCompanyName').value = document.getElementById('companyName').value;
+                    document.getElementById('hiddenEmail').value = document.getElementById('email').value;
+                    document.getElementById('hiddenPhone').value = document.getElementById('phone').value;
+                    document.getElementById('hiddenPassword').value = document.getElementById('password').value;
+
+                    document.getElementById('emailDisplay').textContent = document.getElementById('email').value;
+
+                    document.getElementById('step1').classList.remove('active');
+                    document.getElementById('step2').classList.add('active');
+
+                    initOTPHandlers();
+
+                    showAlert('success', result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_OTPSent]', 2);
+                } else {
+                    let errorMessage = result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_ServerError]';
+                    showAlert('danger', errorMessage, 1);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showAlert('danger', '@_sharedResources[SharedResourcesKeys.Message_ServerError]', 1);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
         }
 
+        // ==========================================
+        // 5. Go Back
+        // ==========================================
         function goToStep1() {
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step1').classList.add('active');
         }
 
-        // OTP Handlers
+        // ==========================================
+        // 6. OTP Handlers
+        // ==========================================
         function initOTPHandlers() {
             const inputs = document.querySelectorAll('.otp-input');
-            const otpValue = document.getElementById('otpValue');
+            const resendBtn = document.getElementById('resendBtn');
+            const timerElement = document.getElementById('timer');
+            const isArabic = '@isArabic' === 'True';
 
             inputs.forEach((input, index) => {
-                // Clear previous values
                 input.value = '';
 
-                // Auto-focus next input
                 input.addEventListener('input', function (e) {
-                    const value = e.target.value;
-
-                    if (!/^\d$/.test(value)) {
+                    if (!/^\d$/.test(e.target.value)) {
                         e.target.value = '';
                         return;
                     }
-
-                    if (value && index < inputs.length - 1) {
+                    if (index < inputs.length - 1)
                         inputs[index + 1].focus();
-                    }
-
-                    updateOTPValue();
                 });
 
-                // Handle backspace
                 input.addEventListener('keydown', function (e) {
-                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0)
                         inputs[index - 1].focus();
-                    }
-                });
-
-                // Paste handling
-                input.addEventListener('paste', function (e) {
-                    e.preventDefault();
-                    const pastedData = e.clipboardData.getData('text').trim();
-                    const pastedChars = pastedData.split('').filter(char => /^\d$/.test(char));
-
-                    pastedChars.forEach((char, i) => {
-                        if (index + i < inputs.length) {
-                            inputs[index + i].value = char;
-                        }
-                    });
-
-                    const lastIndex = Math.min(index + pastedChars.length - 1, inputs.length - 1);
-                    inputs[lastIndex].focus();
-
-                    updateOTPValue();
                 });
             });
 
-            function updateOTPValue() {
-                const otp = Array.from(inputs).map(input => input.value).join('');
-                otpValue.value = otp;
-            }
-
-            // Timer
-            let timeLeft = 120;
-            const timerElement = document.getElementById('timer');
-            const resendBtn = document.getElementById('resendBtn');
-
-            const countdown = setInterval(function () {
+            let timeLeft = 60;
+            let countdown = setInterval(() => {
                 timeLeft--;
-
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
-
                 timerElement.textContent =
                     minutes.toString().padStart(2, '0') + ':' +
                     seconds.toString().padStart(2, '0');
@@ -442,26 +562,129 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     resendBtn.disabled = false;
-                    resendBtn.classList.add('active');
                 }
             }, 1000);
 
-            // Resend OTP
-            resendBtn.addEventListener('click', function () {
-                timeLeft = 120;
+            resendBtn.addEventListener('click', async function () {
+                const originalText = resendBtn.innerHTML;
                 resendBtn.disabled = true;
-                resendBtn.classList.remove('active');
+                resendBtn.innerHTML = '<span class="spinner-border spinner-border-sm ' + (isArabic ? 'ms-2' : 'me-2') + '"></span> ' + (isArabic ? 'جاري الإرسال...' : 'Sending...');
 
-                inputs.forEach(input => input.value = '');
-                inputs[0].focus();
+                try {
+                    const response = await fetch('/api/vendorauth/resend-otp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: document.getElementById('hiddenEmail').value
+                        })
+                    });
 
-                // TODO: Call API to resend OTP
-                console.log('Resending OTP...');
+                    const result = await safeJson(response, 2);
+                    if (!result) {
+                        resendBtn.innerHTML = originalText;
+                        return;
+                    }
+
+                    if (response.ok && (result.success === true || result.Success === true)) {
+                        inputs.forEach(input => input.value = '');
+                        inputs[0].focus();
+
+                        clearInterval(countdown);
+                        timeLeft = 300;
+
+                        countdown = setInterval(() => {
+                            timeLeft--;
+                            const minutes = Math.floor(timeLeft / 60);
+                            const seconds = timeLeft % 60;
+                            timerElement.textContent =
+                                minutes.toString().padStart(2, '0') + ':' +
+                                seconds.toString().padStart(2, '0');
+
+                            if (timeLeft <= 0) {
+                                clearInterval(countdown);
+                                resendBtn.disabled = false;
+                            }
+                        }, 1000);
+
+                        showAlert('success', result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_OTPResent]', 2);
+                    } else {
+                        showAlert('danger', result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_ServerError]', 2);
+                        resendBtn.disabled = false;
+                    }
+                } catch (error) {
+                    console.error('Network error:', error);
+                    showAlert('danger', '@_sharedResources[SharedResourcesKeys.Message_ServerError]', 2);
+                    resendBtn.disabled = false;
+                } finally {
+                    resendBtn.innerHTML = originalText;
+                }
             });
 
-            // Focus first input
             inputs[0].focus();
         }
+
+        // ==========================================
+        // 7. Verify OTP
+        // ==========================================
+        document.getElementById('otpForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const otpCode =
+                document.getElementById('otp1').value +
+                document.getElementById('otp2').value +
+                document.getElementById('otp3').value +
+                document.getElementById('otp4').value +
+                document.getElementById('otp5').value +
+                document.getElementById('otp6').value;
+
+            if (otpCode.length !== 6) {
+                showAlert('warning', '@_sharedResources[SharedResourcesKeys.Message_InvalidData]', 2);
+                return;
+            }
+
+            const verifyBtn = document.getElementById('verifyBtn');
+            const originalBtnText = verifyBtn.innerHTML;
+            const isArabic = '@isArabic' === 'True';
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<span class="spinner-border spinner-border-sm ' + (isArabic ? 'ms-2' : 'me-2') + '"></span> ' + (isArabic ? 'جاري التحقق...' : 'Verifying...');
+
+            try {
+                const response = await fetch('/api/vendorauth/verify-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('hiddenEmail').value,
+                        otpCode: otpCode
+                    })
+                });
+
+                const result = await safeJson(response, 2);
+                if (!result) return;
+
+                if (response.ok && (result.success === true || result.Success === true)) {
+                    showAlert('success', result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_RegistrationSuccess]', 2);
+
+                    setTimeout(() => {
+                        window.location.href = '/Registration/Login';
+                    }, 2000);
+                } else {
+                    const errorMsg = result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_OTPIncorrect]';
+                    showAlert('danger', errorMsg, 2);
+
+                    if (errorMsg.includes('استنفذت') || errorMsg.includes('exhausted') || errorMsg.includes('جميع المحاولات') || errorMsg.includes('all attempts')) {
+                        setTimeout(() => {
+                            goToStep1();
+                        }, 5000);
+                    }
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                showAlert('danger', '@_sharedResources[SharedResourcesKeys.Message_ServerError]', 2);
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = originalBtnText;
+            }
+        });
     </script>
 </body>
 </html>
