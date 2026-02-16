@@ -36,7 +36,7 @@ public async Task<bool> SendOtpEmail(string email, string otp)
                 using var client = new MailKit.Net.Smtp.SmtpClient();
                 await client.ConnectAsync(_configuration["EmailSettings:SmtpServer"],
                                       int.Parse(_configuration["EmailSettings:SmtpPort"]),
-                                      MailKit.Security.SecureSocketOptions.StartTls);
+                                      MailKit.Security.SecureSocketOptions.Auto);
 
             await client.AuthenticateAsync(_configuration["EmailSettings:SmtpUsername"],
                                            _configuration["EmailSettings:SmtpPassword"]);
