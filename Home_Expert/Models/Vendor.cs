@@ -32,6 +32,28 @@ public partial class Vendor
 
     public int? CompletedOrders { get; set; }
 
+
+
+
+    // ===== البيانات الجديدة البسيطة =====
+
+    [StringLength(250)]
+    public string? ShowroomAddress { get; set; }  // عنوان المعرض أو المصنع
+
+    public byte[]? ShowroomImage { get; set; }   // صورة واحدة للمعرض/المصنع
+
+    [StringLength(50)]
+    public string? CommercialRegistrationFile { get; set; } // ملف السجل التجاري (PDF)
+
+    [StringLength(50)]
+    public string? WorkLicenseFile { get; set; } // ملف رخصة المهن (PDF)
+
+    [StringLength(20)]
+    public string? PhoneNumber { get; set; } // رقم الهاتف
+
+    // ===== البيانات الجديدة البسيطة =====
+
+
     [InverseProperty("Vendor")]
     public virtual ICollection<Chat> Chats { get; set; } = new List<Chat>();
 
