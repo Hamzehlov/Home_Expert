@@ -59,12 +59,12 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 
-	<!-- Project Info -->
+	<!-- ===== Project Info ===== -->
 	<data name="Project_Title" xml:space="preserve">
     <value>خبراء المنازل</value>
   </data>
 
-	<!-- Services -->
+	<!-- ===== Services ===== -->
 	<data name="Service_Moving" xml:space="preserve">
     <value>نقل</value>
   </data>
@@ -75,7 +75,7 @@
     <value>تركيب</value>
   </data>
 
-	<!-- Hero Section -->
+	<!-- ===== Hero Section ===== -->
 	<data name="Hero_Title" xml:space="preserve">
     <value>تمكين فرق التركيب المحترفة</value>
   </data>
@@ -86,7 +86,7 @@
     <value>موثوق به من قبل أكثر من 1,000 شركة تركيب عالمياً.</value>
   </data>
 
-	<!-- Footer -->
+	<!-- ===== Footer ===== -->
 	<data name="Footer_Copyright" xml:space="preserve">
     <value>©2026  خبراء المنازل</value>
   </data>
@@ -97,7 +97,7 @@
     <value>شروط الخدمة</value>
   </data>
 
-	<!-- Form -->
+	<!-- ===== Form ===== -->
 	<data name="Form_Title" xml:space="preserve">
     <value>إنشاء حساب جديد</value>
   </data>
@@ -105,7 +105,7 @@
     <value>سجل شركتك للبدء في إدارة الخدمات.</value>
   </data>
 
-	<!-- Steps -->
+	<!-- ===== Steps ===== -->
 	<data name="Step_Details" xml:space="preserve">
     <value>التفاصيل</value>
   </data>
@@ -113,9 +113,9 @@
     <value>التحقق</value>
   </data>
 
-	<!-- Labels -->
+	<!-- ===== Labels - General ===== -->
 	<data name="Label_FullName" xml:space="preserve">
-    <value>الاسم الكامل</value>
+    <value>الاسم الأخير</value>
   </data>
 	<data name="Label_CompanyName" xml:space="preserve">
     <value>اسم الشركة</value>
@@ -130,9 +130,52 @@
     <value>كلمة المرور</value>
   </data>
 
-	<!-- Placeholders -->
+	<!-- ===== Labels - Bilingual Name ===== -->
+	<data name="Label_FirstNameAr" xml:space="preserve">
+    <value>الاسم كامل  (عربي)</value>
+  </data>
+	<data name="Label_FirstNameEn" xml:space="preserve">
+    <value>الاسم كامل (إنجليزي)</value>
+  </data>
+
+	<!-- ===== Labels - Bilingual Company ===== -->
+	<data name="Label_CompanyNameAr" xml:space="preserve">
+    <value>اسم الشركة (عربي)</value>
+  </data>
+	<data name="Label_CompanyNameEn" xml:space="preserve">
+    <value>اسم الشركة (إنجليزي)</value>
+  </data>
+
+	<!-- ===== Labels - Bilingual Description ===== -->
+	<data name="Label_DescriptionAr" xml:space="preserve">
+    <value>وصف الشركة (عربي)</value>
+  </data>
+	<data name="Label_DescriptionEn" xml:space="preserve">
+    <value>وصف الشركة (إنجليزي)</value>
+  </data>
+
+	<!-- ===== Labels - Bilingual Showroom Address ===== -->
+	<data name="Label_ShowroomAddressAr" xml:space="preserve">
+    <value>عنوان المعرض (عربي)</value>
+  </data>
+	<data name="Label_ShowroomAddressEn" xml:space="preserve">
+    <value>عنوان المعرض (إنجليزي)</value>
+  </data>
+
+	<!-- ===== Labels - File Uploads ===== -->
+	<data name="Label_ShowroomImage" xml:space="preserve">
+    <value>صورة الموقع</value>
+  </data>
+	<data name="Label_CommercialFile" xml:space="preserve">
+    <value>الملف التجاري</value>
+  </data>
+	<data name="Label_WorkLicense" xml:space="preserve">
+    <value>رخصة المهن</value>
+  </data>
+
+	<!-- ===== Placeholders - General ===== -->
 	<data name="Placeholder_FullName" xml:space="preserve">
-    <value>أدخل اسمك الكامل</value>
+    <value>أدخل اسمك الأخير</value>
   </data>
 	<data name="Placeholder_CompanyName" xml:space="preserve">
     <value>اسم شركتك هنا</value>
@@ -144,7 +187,39 @@
     <value>+966 50 000</value>
   </data>
 
-	<!-- Other -->
+	<!-- ===== Placeholders - Bilingual Name ===== -->
+	<data name="Placeholder_FirstNameAr" xml:space="preserve">
+    <value>مثال: أحمد</value>
+  </data>
+	<data name="Placeholder_FirstNameEn" xml:space="preserve">
+    <value>e.g. Ahmed</value>
+  </data>
+
+	<!-- ===== Placeholders - Bilingual Company ===== -->
+	<data name="Placeholder_CompanyNameAr" xml:space="preserve">
+    <value>اسم الشركة بالعربي</value>
+  </data>
+	<data name="Placeholder_CompanyNameEn" xml:space="preserve">
+    <value>Company name in English</value>
+  </data>
+
+	<!-- ===== Placeholders - Bilingual Description ===== -->
+	<data name="Placeholder_DescriptionAr" xml:space="preserve">
+    <value>أخبرنا عن شركتك وخدماتك بالعربي...</value>
+  </data>
+	<data name="Placeholder_DescriptionEn" xml:space="preserve">
+    <value>Tell us about your company in English...</value>
+  </data>
+
+	<!-- ===== Placeholders - Bilingual Showroom Address ===== -->
+	<data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
+    <value>أدخل عنوان المعرض بالعربي</value>
+  </data>
+	<data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
+    <value>Enter showroom address in English</value>
+  </data>
+
+	<!-- ===== Other ===== -->
 	<data name="Optional" xml:space="preserve">
     <value>اختياري</value>
   </data>
@@ -158,7 +233,7 @@
     <value>لديك حساب بالفعل؟ &lt;a href="/Registration/Login" class="link-accent"&gt;تسجيل الدخول&lt;/a&gt;</value>
   </data>
 
-	<!-- OTP Verification -->
+	<!-- ===== OTP ===== -->
 	<data name="OTP_Title" xml:space="preserve">
     <value>تحقق من حسابك</value>
   </data>
@@ -177,8 +252,20 @@
 	<data name="Back_To_Registration" xml:space="preserve">
     <value>العودة للتسجيل</value>
   </data>
+	<data name="OTP_TimerText" xml:space="preserve">
+    <value>ينتهي الكود خلال:</value>
+  </data>
+	<data name="OTP_VerifyButton" xml:space="preserve">
+    <value>تحقق من الكود</value>
+  </data>
+	<data name="OTP_ResendButton" xml:space="preserve">
+    <value>إعادة إرسال الكود</value>
+  </data>
+	<data name="OTP_BackButton" xml:space="preserve">
+    <value>العودة للخطوة السابقة</value>
+  </data>
 
-	<!-- Login -->
+	<!-- ===== Login ===== -->
 	<data name="Login_Title" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
@@ -206,123 +293,153 @@
 	<data name="Login_Microsoft" xml:space="preserve">
     <value>تسجيل الدخول بواسطة Microsoft</value>
   </data>
+
+	<!-- ===== API Messages ===== -->
 	<data name="Message_OTPSent" xml:space="preserve">
     <value>تم إرسال رمز التحقق إلى بريدك الإلكتروني</value>
-</data>
+  </data>
 	<data name="Message_EmailExists" xml:space="preserve">
     <value>البريد الإلكتروني مستخدم بالفعل</value>
-</data>
+  </data>
 	<data name="Message_InvalidData" xml:space="preserve">
     <value>بيانات غير صحيحة</value>
-</data>
+  </data>
 	<data name="Message_SessionExpired" xml:space="preserve">
     <value>انتهت صلاحية الجلسة، يرجى إعادة التسجيل</value>
-</data>
+  </data>
 	<data name="Message_MaxAttemptsReached" xml:space="preserve">
     <value>لقد استنفذت جميع المحاولات (3/3). يرجى إعادة التسجيل والمحاولة مرة أخرى.</value>
-</data>
+  </data>
 	<data name="Message_OTPIncorrect" xml:space="preserve">
     <value>رمز التحقق غير صحيح. المحاولات المتبقية: {0}</value>
-</data>
+  </data>
 	<data name="Message_RegistrationSuccess" xml:space="preserve">
     <value>تم التسجيل بنجاح</value>
-</data>
+  </data>
 	<data name="Message_UserCreationFailed" xml:space="preserve">
     <value>فشل إنشاء المستخدم</value>
-</data>
+  </data>
 	<data name="Message_OTPResent" xml:space="preserve">
     <value>تم إرسال رمز تحقق جديد</value>
-</data>
+  </data>
 	<data name="Message_ServerError" xml:space="preserve">
     <value>حدث خطأ أثناء معالجة الطلب</value>
-</data>
-	<!-- OTP Step 2 -->
-	<data name="OTP_TimerText" xml:space="preserve">
-    <value>ينتهي الكود خلال:</value>
-</data>
-	<data name="OTP_VerifyButton" xml:space="preserve">
-    <value>تحقق من الكود</value>
-</data>
-	<data name="OTP_ResendButton" xml:space="preserve">
-    <value>إعادة إرسال الكود</value>
-</data>
-	<data name="OTP_BackButton" xml:space="preserve">
-    <value>العودة للخطوة السابقة</value>
-</data>
+  </data>
 
-	<!-- Service Type -->
+	<!-- ===== Service Type ===== -->
 	<data name="Label_ServiceType" xml:space="preserve">
     <value>نوع الخدمة</value>
-</data>
+  </data>
 	<data name="Placeholder_ServiceType" xml:space="preserve">
     <value>اختر نوع الخدمة</value>
-</data>
+  </data>
 	<data name="Service_Furniture" xml:space="preserve">
     <value>نقل أثاث</value>
-</data>
+  </data>
 	<data name="Service_KitchenSales" xml:space="preserve">
     <value>بيع مطابخ</value>
-</data>
+  </data>
 	<data name="Service_KitchenInstall" xml:space="preserve">
     <value>تركيب مطابخ</value>
-</data>
+  </data>
 
-	<!-- Experience & Description -->
+	<!-- ===== Other Fields ===== -->
 	<data name="Label_YearsExperience" xml:space="preserve">
-    <value>سنوات الخبرة (اختياري)</value>
-</data>
+    <value>سنوات الخبرة </value>
+  </data>
 	<data name="Placeholder_YearsExperience" xml:space="preserve">
     <value>مثال: 5</value>
-</data>
+  </data>
 	<data name="Label_Description" xml:space="preserve">
-    <value>وصف الشركة (اختياري)</value>
-</data>
+    <value>وصف الشركة</value>
+  </data>
 	<data name="Placeholder_Description" xml:space="preserve">
     <value>أخبرنا عن شركتك وخدماتك...</value>
-</data>
-
-	<!-- Logo -->
+  </data>
 	<data name="Label_Logo" xml:space="preserve">
-    <value>شعار الشركة (اختياري)</value>
-</data>
+    <value>شعار الشركة</value>
+  </data>
 	<data name="Logo_Helper" xml:space="preserve">
     <value>الحد الأقصى: 2MB، الصيغ المدعومة: JPG, PNG, GIF</value>
-</data>
-
-	<!-- Password Helper -->
+  </data>
 	<data name="Password_Helper" xml:space="preserve">
     <value>كلمة المرور يجب أن تكون 6 أحرف على الأقل</value>
-</data>
+  </data>
 
-	<!-- API Messages -->
-	<data name="Message_OTPSent" xml:space="preserve">
-    <value>تم إرسال رمز التحقق إلى بريدك الإلكتروني</value>
-</data>
-	<data name="Message_EmailExists" xml:space="preserve">
-    <value>البريد الإلكتروني مستخدم بالفعل</value>
-</data>
-	<data name="Message_InvalidData" xml:space="preserve">
-    <value>بيانات غير صحيحة</value>
-</data>
-	<data name="Message_SessionExpired" xml:space="preserve">
-    <value>انتهت صلاحية الجلسة، يرجى إعادة التسجيل</value>
-</data>
-	<data name="Message_MaxAttemptsReached" xml:space="preserve">
-    <value>لقد استنفذت جميع المحاولات (3/3). يرجى إعادة التسجيل والمحاولة مرة أخرى.</value>
-</data>
-	<data name="Message_OTPIncorrect" xml:space="preserve">
-    <value>رمز التحقق غير صحيح. المحاولات المتبقية: {0}</value>
-</data>
-	<data name="Message_RegistrationSuccess" xml:space="preserve">
-    <value>تم التسجيل بنجاح</value>
-</data>
-	<data name="Message_UserCreationFailed" xml:space="preserve">
-    <value>فشل إنشاء المستخدم</value>
-</data>
-	<data name="Message_OTPResent" xml:space="preserve">
-    <value>تم إرسال رمز تحقق جديد</value>
-</data>
-	<data name="Message_ServerError" xml:space="preserve">
-    <value>حدث خطأ أثناء معالجة الطلب</value>
-</data>
+	<!-- ===== Validation Errors - Name ===== -->
+	<data name="Error_FirstNameRequired" xml:space="preserve">
+    <value>الاسم الأول مطلوب</value>
+  </data>
+	<data name="Error_FirstNameLength" xml:space="preserve">
+    <value>الاسم الأول يجب أن لا يتجاوز 50 حرف</value>
+  </data>
+	<data name="Error_FirstArNameRequired" xml:space="preserve">
+    <value>الاسم الأول بالعربي مطلوب</value>
+  </data>
+	<data name="Error_FirsEntNameRequired" xml:space="preserve">
+    <value>الاسم الأول بالإنجليزي مطلوب</value>
+  </data>
+	<data name="Error_LastNameRequired" xml:space="preserve">
+    <value>الاسم الأخير مطلوب</value>
+  </data>
+	<data name="Error_LastNameLength" xml:space="preserve">
+    <value>الاسم الأخير يجب أن لا يتجاوز 50 حرف</value>
+  </data>
+
+	<!-- ===== Validation Errors - Auth ===== -->
+	<data name="Error_EmailRequired" xml:space="preserve">
+    <value>البريد الإلكتروني مطلوب</value>
+  </data>
+	<data name="Error_EmailInvalid" xml:space="preserve">
+    <value>البريد الإلكتروني غير صحيح</value>
+  </data>
+	<data name="Error_PasswordRequired" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
+  </data>
+	<data name="Error_PasswordLength" xml:space="preserve">
+    <value>كلمة المرور يجب أن تكون بين 8 و 100 حرف</value>
+  </data>
+	<data name="Error_PasswordWeak" xml:space="preserve">
+    <value>كلمة المرور يجب أن تحتوي على حرف كبير وحرف صغير ورقم ورمز خاص (!@#$%)</value>
+  </data>
+	<data name="Error_ConfirmPasswordRequired" xml:space="preserve">
+    <value>تأكيد كلمة المرور مطلوب</value>
+  </data>
+	<data name="Error_PasswordMismatch" xml:space="preserve">
+    <value>كلمة المرور وتأكيد كلمة المرور غير متطابقين</value>
+  </data>
+	<data name="Error_PhoneLength" xml:space="preserve">
+    <value>رقم الهاتف يجب أن لا يتجاوز 10 أرقام</value>
+  </data>
+	<data name="Error_PhoneInvalid" xml:space="preserve">
+    <value>رقم الهاتف غير صحيح</value>
+  </data>
+
+	<!-- ===== Validation Errors - Company ===== -->
+	<data name="Error_CompanyNameRequired" xml:space="preserve">
+    <value>اسم الشركة مطلوب</value>
+  </data>
+	<data name="Error_CompanyNameLength" xml:space="preserve">
+    <value>اسم الشركة يجب أن لا يتجاوز 100 حرف</value>
+  </data>
+	<data name="Error_CompanyNameArRequired" xml:space="preserve">
+    <value>اسم الشركة بالعربي مطلوب</value>
+  </data>
+	<data name="Error_CompanyNameEnRequired" xml:space="preserve">
+    <value>اسم الشركة بالإنجليزي مطلوب</value>
+  </data>
+
+	<!-- ===== Validation Errors - Other ===== -->
+	<data name="Error_DescriptionLength" xml:space="preserve">
+    <value>الوصف يجب أن لا يتجاوز 500 حرف</value>
+  </data>
+	<data name="Error_YearsExperienceRange" xml:space="preserve">
+    <value>سنوات الخبرة يجب أن تكون بين 0 و 50</value>
+  </data>
+	<data name="Error_ServiceTypeRequired" xml:space="preserve">
+    <value>نوع الخدمة مطلوب</value>
+  </data>
+	<data name="Error_ShowroomAddressLength" xml:space="preserve">
+    <value>عنوان المعرض يجب أن لا يتجاوز 250 حرف</value>
+  </data>
 </root>

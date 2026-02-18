@@ -15,16 +15,18 @@ public partial class Vendor
     public string UserId { get; set; } = null!;
 
     [StringLength(100)]
-    public string CompanyName { get; set; } = null!;
+    public string CompanyNameAr { get; set; } = null!;
+
+    [StringLength(100)]
+    public string CompanyNameEn { get; set; } = null!;
 
     public byte[]? Logo { get; set; }
 
-    public string? Description { get; set; }
+    public string? DescriptionAr { get; set; }
+    public string? DescriptionEn { get; set; }
 
     public int? YearsExperience { get; set; }
-
     public bool? Verified { get; set; }
-
     public int ServiceTypeId { get; set; }
 
     [Column(TypeName = "decimal(3, 2)")]
@@ -33,15 +35,16 @@ public partial class Vendor
     public int? CompletedOrders { get; set; }
 
     [StringLength(250)]
-    public string? ShowroomAddress { get; set; }
+    public string? ShowroomAddressAr { get; set; }
+
+    [StringLength(250)]
+    public string? ShowroomAddressEn { get; set; }
 
     public byte[]? ShowroomImage { get; set; }
 
-    [StringLength(50)]
-    public string? CommercialRegistrationFile { get; set; }
+    public byte[]? CommercialRegistrationFile { get; set; }
 
-    [StringLength(50)]
-    public string? WorkLicenseFile { get; set; }
+    public byte[]? WorkLicenseFile { get; set; }
 
     [StringLength(20)]
     public string? PhoneNumber { get; set; }

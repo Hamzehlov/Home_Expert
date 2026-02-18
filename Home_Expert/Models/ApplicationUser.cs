@@ -5,41 +5,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Home_Expert.Models; 
+namespace Home_Expert.Models;
 
-    public class ApplicationUser : IdentityUser
-    {
-        [Required]
-        [MaxLength(50)]
-        public string FirstName { get; set; }
+public class ApplicationUser : IdentityUser
+{
+    [Required]
+    [MaxLength(50)]
+    public string FirstNameAr { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string LastName { get; set; }
-
-        [MaxLength(20)]
-        public string? Phone { get; set; }
-
-        public DateTime? EmailVerifiedAt { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
-        // حقول OTP الجديدة
-        [MaxLength(6)]
-        public string? OTPCode { get; set; }
-
-        public DateTime? OTPExpiry { get; set; }
-
-        public int OTPAttempts { get; set; }
-
-        public DateTime? OTPGeneratedAt { get; set; }
-
-        // خاصية محسوبة
-        public string FullName => $"{FirstName} {LastName}";
+    [Required]
+    [MaxLength(50)]
+    public string FirstNameEn { get; set; }
 
 
+    public string ?LastName { get; set; }
 
+    [MaxLength(20)]
+    public string? Phone { get; set; }
 
+    public DateTime? EmailVerifiedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+    // حقول OTP
+    [MaxLength(6)]
+    public string? OTPCode { get; set; }
+    public DateTime? OTPExpiry { get; set; }
+    public int OTPAttempts { get; set; }
+    public DateTime? OTPGeneratedAt { get; set; }
+
+    // ✅ خصائص محسوبة - مصلحة
+    public string FullName => $"{FirstNameAr} {LastName}";
+    public string FullNameEn => $"{FirstNameEn} {LastName}";
 
     [InverseProperty("Customer")]
     public virtual ICollection<Chat> Chats { get; set; } = new List<Chat>();
@@ -70,8 +67,4 @@ namespace Home_Expert.Models;
 
     [InverseProperty("User")]
     public virtual ICollection<Wallet> Wallets { get; set; } = new List<Wallet>();
-
-
 }
-
-

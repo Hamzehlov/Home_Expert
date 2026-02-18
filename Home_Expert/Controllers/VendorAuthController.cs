@@ -35,6 +35,17 @@ namespace Home_Expert.Controllers
             _localizer = localizer;
         }
 
+        [HttpGet("service-types")]
+        public IActionResult GetServiceTypes()
+        {
+            var serviceTypes = _context.Codes
+                .Where(x => x.ParentId == 7 && x.IsActive == true)
+                .Select(s => new { s.Id, s.DescCodeEn, s.DescCodeAr })
+                .ToList();
+
+            return Ok(serviceTypes);
+        }
+
         /// <summary>
         /// الخطوة 1: التسجيل وتخزين البيانات مؤقتًا وإرسال OTP
         /// POST: /api/vendorauth/register
@@ -77,19 +88,53 @@ namespace Home_Expert.Controllers
                     logoBase64 = Convert.ToBase64String(ms.ToArray());
                 }
 
+                // تحويل ShowroomImage إلى Base64
+                string? showroomImageBase64 = null;
+                if (model.ShowroomImage != null && model.ShowroomImage.Length > 0)
+                {
+                    using var ms2 = new MemoryStream();
+                    await model.ShowroomImage.CopyToAsync(ms2);
+                    showroomImageBase64 = Convert.ToBase64String(ms2.ToArray());
+                }
+
+                // تحويل CommercialRegistrationFile إلى Base64
+                string? commercialFileBase64 = null;
+                if (model.CommercialRegistrationFile != null && model.CommercialRegistrationFile.Length > 0)
+                {
+                    using var ms3 = new MemoryStream();
+                    await model.CommercialRegistrationFile.CopyToAsync(ms3);
+                    commercialFileBase64 = Convert.ToBase64String(ms3.ToArray());
+                }
+
+                // تحويل WorkLicenseFile إلى Base64
+                string? workLicenseBase64 = null;
+                if (model.WorkLicenseFile != null && model.WorkLicenseFile.Length > 0)
+                {
+                    using var ms4 = new MemoryStream();
+                    await model.WorkLicenseFile.CopyToAsync(ms4);
+                    workLicenseBase64 = Convert.ToBase64String(ms4.ToArray());
+                }
+
                 // تخزين كل البيانات مؤقتًا في Session
                 var sessionData = new
                 {
-                    model.FirstName,
-                    model.LastName,
+                    model.FirstNameAr,
+                    model.FirstNameEn,
                     model.Email,
                     model.Password,
                     model.Phone,
-                    model.CompanyName,
-                    model.Description,
+                    model.CompanyNameAr,
+                    model.CompanyNameEn,
+                    model.DescriptionAr,
+                    model.DescriptionEn,
                     model.YearsExperience,
                     model.ServiceTypeId,
                     Logo = logoBase64,
+                    model.ShowroomAddressAr,
+                    model.ShowroomAddressEn,
+                    ShowroomImage = showroomImageBase64,
+                    CommercialRegistrationFile = commercialFileBase64,
+                    WorkLicenseFile = workLicenseBase64,
                     OtpCode = otp,
                     OtpExpiry = otpExpiry,
                     OtpAttempts = 0
@@ -156,10 +201,7 @@ namespace Home_Expert.Controllers
 
                 if (!isOtpValid)
                 {
-                    // ✅ زيادة المحاولات
                     otpAttempts++;
-
-                    // ✅ تحقق لو وصل 3 محاولات
                     if (otpAttempts >= 3)
                     {
                         HttpContext.Session.Remove("VendorRegisterData");
@@ -170,7 +212,6 @@ namespace Home_Expert.Controllers
                         });
                     }
 
-                    // ✅ لسا في محاولات متبقية
                     sessionData["OtpAttempts"] = JsonSerializer.SerializeToElement(otpAttempts);
                     HttpContext.Session.SetString("VendorRegisterData", JsonSerializer.Serialize(sessionData));
 
@@ -181,18 +222,17 @@ namespace Home_Expert.Controllers
                     });
                 }
 
-                // ==========================================
-                // OTP صحيح، إنشاء المستخدم
-                // ==========================================
-                var firstName = sessionData["FirstName"].GetString();
-                var lastName = sessionData["LastName"].GetString();
+                // إنشاء المستخدم
+                var firstNameAr = sessionData["FirstNameAr"].GetString();
+                var firstNameEn = sessionData["FirstNameEn"].GetString();
 
                 var user = new ApplicationUser
                 {
                     UserName = sessionData["Email"].GetString()!,
                     Email = sessionData["Email"].GetString()!,
-                    FirstName = firstName,
-                    LastName = lastName,
+                    FirstNameAr = firstNameAr!,
+                    FirstNameEn = firstNameEn!,
+                    LastName = firstNameEn,
                     Phone = sessionData.TryGetValue("Phone", out var phone) ? phone.GetString() : null,
                     EmailConfirmed = true,
                     EmailVerifiedAt = DateTime.UtcNow,
@@ -216,25 +256,61 @@ namespace Home_Expert.Controllers
 
                 await _userManager.AddToRoleAsync(user, "Vendor");
 
+                // استرجاع الملفات من الـ Session
                 byte[]? logoBytes = null;
-                if (sessionData.TryGetValue("Logo", out var logoElement))
+                if (sessionData.TryGetValue("Logo", out var logoElement) && !string.IsNullOrEmpty(logoElement.GetString()))
                 {
-                    var logoString = logoElement.GetString();
-                    if (!string.IsNullOrEmpty(logoString))
-                        logoBytes = Convert.FromBase64String(logoString);
+                    logoBytes = Convert.FromBase64String(logoElement.GetString()!);
                 }
+
+                byte[]? showroomImageBytes = null;
+                if (sessionData.TryGetValue("ShowroomImage", out var siEl) && !string.IsNullOrEmpty(siEl.GetString()))
+                {
+                    showroomImageBytes = Convert.FromBase64String(siEl.GetString()!);
+                }
+
+                byte[]? commercialFileBytes = null;
+                if (sessionData.TryGetValue("CommercialRegistrationFile", out var crEl) && !string.IsNullOrEmpty(crEl.GetString()))
+                {
+                    commercialFileBytes = Convert.FromBase64String(crEl.GetString()!);
+                }
+
+                byte[]? workLicenseBytes = null;
+                if (sessionData.TryGetValue("WorkLicenseFile", out var wlEl) && !string.IsNullOrEmpty(wlEl.GetString()))
+                {
+                    workLicenseBytes = Convert.FromBase64String(wlEl.GetString()!);
+                }
+
+                // استرجاع العناوين
+                string? showroomAddrAr = sessionData.TryGetValue("ShowroomAddressAr", out var addrAr) ? addrAr.GetString() : null;
+                string? showroomAddrEn = sessionData.TryGetValue("ShowroomAddressEn", out var addrEn) ? addrEn.GetString() : null;
+
+                // استرجاع الأوصاف
+                string? descAr = sessionData.TryGetValue("DescriptionAr", out var dAr) ? dAr.GetString() : null;
+                string? descEn = sessionData.TryGetValue("DescriptionEn", out var dEn) ? dEn.GetString() : null;
+
+                // استرجاع أسماء الشركة
+                string? companyNameAr = sessionData["CompanyNameAr"].GetString();
+                string? companyNameEn = sessionData["CompanyNameEn"].GetString();
 
                 var vendor = new Vendor
                 {
                     UserId = user.Id,
-                    CompanyName = sessionData["CompanyName"].GetString()!,
-                    Description = sessionData.TryGetValue("Description", out var desc) ? desc.GetString() : null,
+                    CompanyNameAr = companyNameAr!,
+                    CompanyNameEn = companyNameEn!,
+                    DescriptionAr = descAr,
+                    DescriptionEn = descEn,
                     YearsExperience = sessionData.TryGetValue("YearsExperience", out var years) ? years.GetInt32() : 0,
                     ServiceTypeId = 7,
                     Logo = logoBytes,
                     Verified = false,
                     RatingAvg = 0,
-                    CompletedOrders = 0
+                    CompletedOrders = 0,
+                    ShowroomAddressAr = showroomAddrAr,
+                    ShowroomAddressEn = showroomAddrEn,
+                    ShowroomImage = showroomImageBytes,
+                    CommercialRegistrationFile = commercialFileBytes,
+                    WorkLicenseFile = workLicenseBytes
                 };
 
                 _context.Vendors.Add(vendor);

@@ -1,67 +1,105 @@
 ﻿using Home_Expert.ViewModels.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Home_Expert.ViewModel.RegisterVendorDto
 {
     public class RegisterVendorViewModel
-    {  
-        
-        [Required(ErrorMessage = "الاسم الأول مطلوب")]
-        [StringLength(50, ErrorMessage = "الاسم الأول يجب أن لا يتجاوز 50 حرف")]
-        [Display(Name = "الاسم الأول")]
-        public string FirstName { get; set; }
+    {
+        [Required(ErrorMessage = "Error_FirstArNameRequired")]
+        [StringLength(50, ErrorMessage = "Error_FirstNameLength")]
+        [Display(Name = "Label_FirstNameAr")]
+        public string FirstNameAr { get; set; }
 
-        [Required(ErrorMessage = "الاسم الأخير مطلوب")]
-        [StringLength(50, ErrorMessage = "الاسم الأخير يجب أن لا يتجاوز 50 حرف")]
-        [Display(Name = "الاسم الأخير")]
-        public string LastName { get; set; }
+        [Required(ErrorMessage = "Error_FirsEntNameRequired")]
+        [StringLength(50, ErrorMessage = "Error_FirstNameLength")]
+        [Display(Name = "Label_FirstNameEn")]
+        public string FirstNameEn { get; set; }
 
-        
+     
+
+        [Required(ErrorMessage = "Error_EmailRequired")]
+        [EmailAddress(ErrorMessage = "Error_EmailInvalid")]
+        [Display(Name = "Label_Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "كلمة المرور مطلوبة")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "كلمة المرور يجب أن تكون بين 6 و 100 حرف")]
+        [Required(ErrorMessage = "Error_PasswordRequired")]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "Error_PasswordLength")]
+        [StrongPassword(ErrorMessage = "Error_PasswordWeak")]
         [DataType(DataType.Password)]
-        [Display(Name = "كلمة المرور")]
+        [Display(Name = "Label_Password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "تأكيد كلمة المرور مطلوب")]
+        [Required(ErrorMessage = "Error_ConfirmPasswordRequired")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "كلمة المرور وتأكيد كلمة المرور غير متطابقين")]
-        [Display(Name = "تأكيد كلمة المرور")]
+        [Compare("Password", ErrorMessage = "Error_PasswordMismatch")]
+        [Display(Name = "Label_Password")]
         public string ConfirmPassword { get; set; }
 
-        [StringLength(20, ErrorMessage = "رقم الهاتف يجب أن لا يتجاوز 20 رقم")]
-        [Phone(ErrorMessage = "رقم الهاتف غير صحيح")]
-        [Display(Name = "رقم الهاتف")]
+        [StringLength(10, ErrorMessage = "Error_PhoneLength")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Error_PhoneDigitsOnly")] // فقط 10 أرقام
+        [Phone(ErrorMessage = "Error_PhoneInvalid")]
+        [Display(Name = "Label_Phone")]
         public string? Phone { get; set; }
 
+        [Required(ErrorMessage = "Error_CompanyNameEnRequired")]
+        [StringLength(100, ErrorMessage = "Error_CompanyNameLength")]
+        [Display(Name = "Label_CompanyNameEn")]
+        public string CompanyNameEn { get; set; }
 
-
-
-        [Required(ErrorMessage = "اسم الشركة مطلوب")]
-        [StringLength(100, ErrorMessage = "اسم الشركة يجب أن لا يتجاوز 100 حرف")]
-        [Display(Name = "اسم الشركة")]
-        public string CompanyName { get; set; }
+        [Required(ErrorMessage = "Error_CompanyNameArRequired")]
+        [StringLength(100, ErrorMessage = "Error_CompanyNameLength")]
+        [Display(Name = "Label_CompanyNameAr")]
+        public string CompanyNameAr { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [StringLength(500, ErrorMessage = "الوصف يجب أن لا يتجاوز 500 حرف")]
-        [Display(Name = "وصف الشركة")]
-        public string? Description { get; set; }
+        [StringLength(500, ErrorMessage = "Error_DescriptionLength")]
+        [Display(Name = "Label_DescriptionEn")]
+        public string? DescriptionEn { get; set; }
 
-        [Range(0, 50, ErrorMessage = "سنوات الخبرة يجب أن تكون بين 0 و 50")]
-        [Display(Name = "سنوات الخبرة")]
+        [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "Error_DescriptionLength")]
+        [Display(Name = "Label_DescriptionAr")]
+        public string? DescriptionAr { get; set; }
+
+        [Range(0, 50, ErrorMessage = "Error_YearsExperienceRange")]
+        [Display(Name = "Label_YearsExperience")]
         public int? YearsExperience { get; set; }
 
-        [Required(ErrorMessage = "نوع الخدمة مطلوب")]
-        [Display(Name = "نوع الخدمة")]
+        [Required(ErrorMessage = "Error_ServiceTypeRequired")]
+        [Display(Name = "Label_ServiceType")]
         public int ServiceTypeId { get; set; }
 
         [DataType(DataType.Upload)]
-        [Display(Name = "شعار الشركة")]
+        [Display(Name = "Label_Logo")]
         [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".gif" })]
-        [MaxFileSize(2 * 1024 * 1024)] // 2MB
+        [MaxFileSize(2 * 1024 * 1024)]
         public IFormFile? Logo { get; set; }
 
+        [StringLength(250, ErrorMessage = "Error_ShowroomAddressLength")]
+        [Display(Name = "Label_ShowroomAddressAr")]
+        public string? ShowroomAddressAr { get; set; }
+
+        [StringLength(250, ErrorMessage = "Error_ShowroomAddressLength")]
+        [Display(Name = "Label_ShowroomAddressEn")]
+        public string? ShowroomAddressEn { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Label_ShowroomImage")]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".gif" })]
+        [MaxFileSize(5 * 1024 * 1024)]
+        public IFormFile? ShowroomImage { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Label_CommercialFile")]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".pdf" })]
+        [MaxFileSize(5 * 1024 * 1024)]
+        public IFormFile? CommercialRegistrationFile { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Label_WorkLicense")]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".pdf" })]
+        [MaxFileSize(5 * 1024 * 1024)]
+        public IFormFile? WorkLicenseFile { get; set; }
     }
 }

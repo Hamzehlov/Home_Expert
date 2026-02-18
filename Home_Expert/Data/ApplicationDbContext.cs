@@ -58,16 +58,20 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         {
             entity.ToTable("AspNetUsers");
 
-            // الخصائص الإضافية
-            entity.Property(e => e.FirstName).IsRequired().HasMaxLength(50);
+            // ===== الأسماء الثنائية =====
+            entity.Property(e => e.FirstNameAr).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.FirstNameEn).IsRequired().HasMaxLength(50);
             entity.Property(e => e.LastName).IsRequired().HasMaxLength(50);
+
+            // ===== باقي الخصائص =====
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.OTPCode).HasMaxLength(6);
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
 
-            // تجاهل الخاصية المحسوبة
+            // ===== تجاهل الخصائص المحسوبة =====
             entity.Ignore(e => e.FullName);
+            entity.Ignore(e => e.FullNameEn);
         });
 
         // ==========================================
@@ -357,6 +361,18 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(e => e.RatingAvg).HasDefaultValue(0m);
             entity.Property(e => e.Verified).HasDefaultValue(false);
             entity.Property(e => e.YearsExperience).HasDefaultValue(0);
+
+            // ===== الحقول الثنائية للشركة =====
+            entity.Property(e => e.CompanyNameAr).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.CompanyNameEn).IsRequired().HasMaxLength(100);
+
+            // ===== الحقول الثنائية للوصف =====
+            entity.Property(e => e.DescriptionAr).HasMaxLength(500);
+            entity.Property(e => e.DescriptionEn).HasMaxLength(500);
+
+            // ===== الحقول الثنائية للعنوان =====
+            entity.Property(e => e.ShowroomAddressAr).HasMaxLength(250);
+            entity.Property(e => e.ShowroomAddressEn).HasMaxLength(250);
 
             entity.HasOne(d => d.ServiceType).WithMany(p => p.Vendors)
                 .OnDelete(DeleteBehavior.ClientSetNull)

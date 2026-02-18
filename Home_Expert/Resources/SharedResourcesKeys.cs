@@ -2,9 +2,9 @@
 
 namespace Home_Expert.Resources
 {
-	public static class SharedResourcesKeys
+    public static class SharedResourcesKeys
     {
-	// Project Info
+        // Project Info
         public const string Project_Title = "Project_Title";
 
         // Services
@@ -30,18 +30,55 @@ namespace Home_Expert.Resources
         public const string Step_Details = "Step_Details";
         public const string Step_Verification = "Step_Verification";
 
-        // Labels
+        // Labels - General
         public const string Label_FullName = "Label_FullName";
         public const string Label_CompanyName = "Label_CompanyName";
         public const string Label_Email = "Label_Email";
         public const string Label_Phone = "Label_Phone";
         public const string Label_Password = "Label_Password";
 
-        // Placeholders
+        // Labels - Bilingual Name
+        public const string Label_FirstNameAr = "Label_FirstNameAr";
+        public const string Label_FirstNameEn = "Label_FirstNameEn";
+
+        // Labels - Bilingual Company
+        public const string Label_CompanyNameAr = "Label_CompanyNameAr";
+        public const string Label_CompanyNameEn = "Label_CompanyNameEn";
+
+        // Labels - Bilingual Description
+        public const string Label_DescriptionAr = "Label_DescriptionAr";
+        public const string Label_DescriptionEn = "Label_DescriptionEn";
+
+        // Labels - Bilingual Showroom Address
+        public const string Label_ShowroomAddressAr = "Label_ShowroomAddressAr";
+        public const string Label_ShowroomAddressEn = "Label_ShowroomAddressEn";
+
+        // Labels - File Uploads
+        public const string Label_ShowroomImage = "Label_ShowroomImage";
+        public const string Label_CommercialFile = "Label_CommercialFile";
+        public const string Label_WorkLicense = "Label_WorkLicense";
+
+        // Placeholders - General
         public const string Placeholder_FullName = "Placeholder_FullName";
         public const string Placeholder_CompanyName = "Placeholder_CompanyName";
         public const string Placeholder_Email = "Placeholder_Email";
         public const string Placeholder_Phone = "Placeholder_Phone";
+
+        // Placeholders - Bilingual Name
+        public const string Placeholder_FirstNameAr = "Placeholder_FirstNameAr";
+        public const string Placeholder_FirstNameEn = "Placeholder_FirstNameEn";
+
+        // Placeholders - Bilingual Company
+        public const string Placeholder_CompanyNameAr = "Placeholder_CompanyNameAr";
+        public const string Placeholder_CompanyNameEn = "Placeholder_CompanyNameEn";
+
+        // Placeholders - Bilingual Description
+        public const string Placeholder_DescriptionAr = "Placeholder_DescriptionAr";
+        public const string Placeholder_DescriptionEn = "Placeholder_DescriptionEn";
+
+        // Placeholders - Bilingual Showroom Address
+        public const string Placeholder_ShowroomAddressAr = "Placeholder_ShowroomAddressAr";
+        public const string Placeholder_ShowroomAddressEn = "Placeholder_ShowroomAddressEn";
 
         // Other
         public const string Optional = "Optional";
@@ -49,7 +86,6 @@ namespace Home_Expert.Resources
         public const string Button_CreateAccount = "Button_CreateAccount";
         public const string SignIn_Link = "SignIn_Link";
 
-      
         // Login
         public const string Login_Title = "Login_Title";
         public const string Login_Subtitle = "Login_Subtitle";
@@ -61,7 +97,7 @@ namespace Home_Expert.Resources
         public const string Login_Google = "Login_Google";
         public const string Login_Microsoft = "Login_Microsoft";
 
-        // ✅ رسائل الـ API
+        // API Messages
         public const string Message_OTPSent = "Message_OTPSent";
         public const string Message_EmailExists = "Message_EmailExists";
         public const string Message_InvalidData = "Message_InvalidData";
@@ -73,7 +109,6 @@ namespace Home_Expert.Resources
         public const string Message_OTPResent = "Message_OTPResent";
         public const string Message_ServerError = "Message_ServerError";
 
-        // ✅ Keys إضافية للـ Step 2
         // OTP Verification
         public const string OTP_Title = "OTP_Title";
         public const string OTP_Subtitle = "OTP_Subtitle";
@@ -93,7 +128,7 @@ namespace Home_Expert.Resources
         public const string Service_KitchenSales = "Service_KitchenSales";
         public const string Service_KitchenInstall = "Service_KitchenInstall";
 
-        // Other
+        // Other Fields
         public const string Label_YearsExperience = "Label_YearsExperience";
         public const string Placeholder_YearsExperience = "Placeholder_YearsExperience";
         public const string Label_Description = "Label_Description";
@@ -101,5 +136,36 @@ namespace Home_Expert.Resources
         public const string Label_Logo = "Label_Logo";
         public const string Logo_Helper = "Logo_Helper";
         public const string Password_Helper = "Password_Helper";
+
+        // Validation Errors - Name
+        public const string Error_FirstNameRequired = "Error_FirstNameRequired";
+        public const string Error_FirstNameLength = "Error_FirstNameLength";
+        public const string Error_FirstArNameRequired = "Error_FirstArNameRequired";
+        public const string Error_FirsEntNameRequired = "Error_FirsEntNameRequired";
+        public const string Error_LastNameRequired = "Error_LastNameRequired";
+        public const string Error_LastNameLength = "Error_LastNameLength";
+
+        // Validation Errors - Auth
+        public const string Error_EmailRequired = "Error_EmailRequired";
+        public const string Error_EmailInvalid = "Error_EmailInvalid";
+        public const string Error_PasswordRequired = "Error_PasswordRequired";
+        public const string Error_PasswordLength = "Error_PasswordLength";
+        public const string Error_PasswordWeak = "Error_PasswordWeak";
+        public const string Error_ConfirmPasswordRequired = "Error_ConfirmPasswordRequired";
+        public const string Error_PasswordMismatch = "Error_PasswordMismatch";
+        public const string Error_PhoneLength = "Error_PhoneLength";
+        public const string Error_PhoneInvalid = "Error_PhoneInvalid";
+
+        // Validation Errors - Company
+        public const string Error_CompanyNameRequired = "Error_CompanyNameRequired";
+        public const string Error_CompanyNameLength = "Error_CompanyNameLength";
+        public const string Error_CompanyNameArRequired = "Error_CompanyNameArRequired";
+        public const string Error_CompanyNameEnRequired = "Error_CompanyNameEnRequired";
+
+        // Validation Errors - Other
+        public const string Error_DescriptionLength = "Error_DescriptionLength";
+        public const string Error_YearsExperienceRange = "Error_YearsExperienceRange";
+        public const string Error_ServiceTypeRequired = "Error_ServiceTypeRequired";
+        public const string Error_ShowroomAddressLength = "Error_ShowroomAddressLength";
     }
 }
