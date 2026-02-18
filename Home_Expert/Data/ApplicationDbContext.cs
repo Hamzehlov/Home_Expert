@@ -15,9 +15,12 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
+    public virtual DbSet<Ad> Ads { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Chat> Chats { get; set; }
     public virtual DbSet<Code> Codes { get; set; }
+
     public virtual DbSet<EscrowTransaction> EscrowTransactions { get; set; }
     public virtual DbSet<KitchenCostEstimate> KitchenCostEstimates { get; set; }
     public virtual DbSet<KitchenExport> KitchenExports { get; set; }
@@ -37,6 +40,9 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public virtual DbSet<UserLocation> UserLocations { get; set; }
     public virtual DbSet<Vendor> Vendors { get; set; }
     public virtual DbSet<VendorMedium> VendorMedia { get; set; }
+
+    public virtual DbSet<VendorService> VendorServices { get; set; }
+
     public virtual DbSet<VendorSubscription> VendorSubscriptions { get; set; }
     public virtual DbSet<Wallet> Wallets { get; set; }
 
@@ -67,6 +73,15 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         // ==========================================
         // باقي الـ Entities
         // ==========================================
+
+        modelBuilder.Entity<Ad>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ads__3213E83F645FB863");
+
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+        });
+
 
         modelBuilder.Entity<Category>(entity =>
         {
@@ -362,6 +377,20 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
             entity.HasOne(d => d.Vendor).WithMany(p => p.VendorMedia).HasConstraintName("FK__VendorMed__Vendo__5629CD9C");
         });
+
+        modelBuilder.Entity<VendorService>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__VendorSe__3214EC07F0E019AD");
+
+            entity.HasOne(d => d.Service).WithMany(p => p.VendorServices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Service");
+
+            entity.HasOne(d => d.Vendor).WithMany(p => p.VendorServices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Vendor");
+        });
+
 
         modelBuilder.Entity<VendorSubscription>(entity =>
         {

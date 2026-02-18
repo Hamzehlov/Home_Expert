@@ -32,27 +32,19 @@ public partial class Vendor
 
     public int? CompletedOrders { get; set; }
 
-
-
-
-    // ===== البيانات الجديدة البسيطة =====
-
     [StringLength(250)]
-    public string? ShowroomAddress { get; set; }  // عنوان المعرض أو المصنع
+    public string? ShowroomAddress { get; set; }
 
-    public byte[]? ShowroomImage { get; set; }   // صورة واحدة للمعرض/المصنع
-
-    [StringLength(50)]
-    public string? CommercialRegistrationFile { get; set; } // ملف السجل التجاري (PDF)
+    public byte[]? ShowroomImage { get; set; }
 
     [StringLength(50)]
-    public string? WorkLicenseFile { get; set; } // ملف رخصة المهن (PDF)
+    public string? CommercialRegistrationFile { get; set; }
+
+    [StringLength(50)]
+    public string? WorkLicenseFile { get; set; }
 
     [StringLength(20)]
-    public string? PhoneNumber { get; set; } // رقم الهاتف
-
-    // ===== البيانات الجديدة البسيطة =====
-
+    public string? PhoneNumber { get; set; }
 
     [InverseProperty("Vendor")]
     public virtual ICollection<Chat> Chats { get; set; } = new List<Chat>();
@@ -82,6 +74,9 @@ public partial class Vendor
 
     [InverseProperty("Vendor")]
     public virtual ICollection<VendorMedium> VendorMedia { get; set; } = new List<VendorMedium>();
+
+    [InverseProperty("Vendor")]
+    public virtual ICollection<VendorService> VendorServices { get; set; } = new List<VendorService>();
 
     [InverseProperty("Vendor")]
     public virtual ICollection<VendorSubscription> VendorSubscriptions { get; set; } = new List<VendorSubscription>();

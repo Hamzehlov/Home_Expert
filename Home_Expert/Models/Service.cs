@@ -21,6 +21,8 @@ public partial class Service
 
     public int? CategoryId { get; set; }
 
+    public byte[]? Image { get; set; }
+
     [ForeignKey("CategoryId")]
     [InverseProperty("ServiceCategories")]
     public virtual Code? Category { get; set; }
@@ -31,4 +33,7 @@ public partial class Service
     [ForeignKey("TypeId")]
     [InverseProperty("ServiceTypes")]
     public virtual Code Type { get; set; } = null!;
+
+    [InverseProperty("Service")]
+    public virtual ICollection<VendorService> VendorServices { get; set; } = new List<VendorService>();
 }

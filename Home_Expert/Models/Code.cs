@@ -25,6 +25,9 @@ public partial class Code
 
     public bool? IsActive { get; set; }
 
+
+    public byte[]? Image { get; set; }
+
     [InverseProperty("Status")]
     public virtual ICollection<EscrowTransaction> EscrowTransactions { get; set; } = new List<EscrowTransaction>();
 
