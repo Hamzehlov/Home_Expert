@@ -1,0 +1,144 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+
+@{
+    Layout = null;
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var email = ViewBag.Email as string;
+}
+
+<!DOCTYPE html>
+<html lang="@culture" dir="@(isArabic ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@_sharedResources[SharedResourcesKeys.Project_Title]</title>
+    <link rel="icon" href="~/img/logo.png" type="image/x-icon"> <!-- Favicon-->
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/accountstyles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <img src="~/img/logimg.png" alt="Pending Verification" class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-logo">
+                    @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="form-section">
+            <!-- ✅ Language Toggle Button -->
+            <div class="language-toggle">
+                <form id="languageForm"
+                      asp-controller="Language"
+                      asp-action="SetLanguage"
+                      method="post">
+
+                    <input type="hidden" name="culture" id="cultureInput" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+
+                    <button type="button" onclick="toggleLanguage()" class="btn-language">
+                        @if (isArabic)
+                        {
+                            <div class="btn-lang-en">
+                                <span class="material-symbols-outlined">language</span>
+                                English
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-lang-ar">
+                                <span class="material-symbols-outlined">language</span>
+                                العربية
+                            </div>
+                        }
+                    </button>
+                </form>
+            </div>
+
+            <div class="form-container">
+                <div class="text-center">
+                    <!-- Success Icon -->
+                    <div class="success-icon mb-4">
+                        <span class="material-symbols-outlined" style="font-size: 80px; color: #10b981;">
+                            check_circle
+                        </span>
+                    </div>
+
+                    <!-- Title -->
+                    <h2 class="form-title mb-3">
+                        @(isArabic ? "تم تسجيلك بنجاح!" : "Registration Successful!")
+                    </h2>
+
+                    <!-- Message -->
+                    <div class="alert alert-info" style="max-width: 500px; margin: 0 auto;">
+                        <p  style="font-size: 1.1rem; font-weight: 500; padding:6px; margin-bottom:0px">
+                            @(isArabic ? "شكراً لتسجيلك معنا" : "Thank you for registering with us")
+                        </p>
+                        <p class="mb-0">
+                            @(isArabic ? "حسابك قيد المراجعة. سيتم التواصل معك قريباً." : "Your account is under review. We will contact you soon.")
+                        </p>
+                    </div>
+
+                    <!-- Email Display -->
+                    @if (!string.IsNullOrEmpty(email))
+                    {
+                        <div class="mt-4">
+                            <p class="text-muted mb-1">
+                                @(isArabic ? "البريد الإلكتروني المسجل:" : "Registered Email:")
+                            </p>
+                            <p class="fw-bold text-primary">@email</p>
+                        </div>
+                    }
+
+                    <!-- Info Box -->
+                    <div class="mt-4 p-3" style="background-color: #f3f4f6; border-radius: 12px; max-width: 500px; margin: 1.5rem auto;">
+                        <div class="d-flex align-items-start gap-2">
+                            <span class="material-symbols-outlined" style="color: #667eea; font-size: 24px;">
+                                info
+                            </span>
+                            <div style="text-align: start;">
+                                <p class="mb-0" style="font-size: 0.95rem;">
+                                    @(isArabic
+                                                                        ? "سيقوم فريقنا بمراجعة طلبك والتحقق من بياناتك. ستتلقى إشعاراً عبر البريد الإلكتروني فور الموافقة على حسابك." 
+                                                                                : "Our team will review your request and verify your information. You will receive an email notification once your account is approved.")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back to Login Button -->
+                    <div class="mt-5">
+                        <a href="/Registration/Login" class="btn-submit" style="display: inline-flex; text-decoration: none;">
+                            <span class="material-symbols-outlined" style="font-size: 1.2rem; @(isArabic ? "margin-left" : "margin-right"): 8px;">
+                                arrow_back
+                            </span>
+                            @(isArabic ? "العودة لتسجيل الدخول" : "Back to Login")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ✅ JavaScript -->
+    <script>
+        function toggleLanguage() {
+            var currentCulture = '@culture';
+            var newCulture = currentCulture.startsWith('ar') ? 'en-US' : 'ar-JO';
+            document.getElementById('cultureInput').value = newCulture;
+            document.getElementById('languageForm').submit();
+        }
+    </script>
+</body>
+</html>

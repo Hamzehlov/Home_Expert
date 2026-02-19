@@ -156,15 +156,15 @@
 
 	<!-- ===== Labels - Bilingual Showroom Address ===== -->
 	<data name="Label_ShowroomAddressAr" xml:space="preserve">
-    <value>Showroom Address (Arabic)</value>
+    <value> Address location (Arabic)</value>
   </data>
 	<data name="Label_ShowroomAddressEn" xml:space="preserve">
-    <value>Showroom Address (English)</value>
+    <value> Address  location(English)</value>
   </data>
 
 	<!-- ===== Labels - File Uploads ===== -->
 	<data name="Label_ShowroomImage" xml:space="preserve">
-    <value>Showroom Image</value>
+    <value>Location Image</value>
   </data>
 	<data name="Label_CommercialFile" xml:space="preserve">
     <value>Commercial Registration File</value>
@@ -213,10 +213,10 @@
 
 	<!-- ===== Placeholders - Bilingual Showroom Address ===== -->
 	<data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
-    <value>Enter showroom address in Arabic</value>
+    <value>Enter  address location in Arabic</value>
   </data>
 	<data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
-    <value>Enter showroom address in English</value>
+    <value>Enter  address location in English</value>
   </data>
 
 	<!-- ===== Other ===== -->
@@ -438,6 +438,30 @@
     <value>Service type is required</value>
   </data>
 	<data name="Error_ShowroomAddressLength" xml:space="preserve">
-    <value>Showroom address must not exceed 250 characters</value>
+    <value> address location  must not exceed 250 characters</value>
   </data>
+
+	<data name="Error_AccountNotFound" xml:space="preserve">
+    <value>This account does not exist. Please register first.</value>
+</data>
+	<data name="Error_WrongPassword" xml:space="preserve">
+    <value>Incorrect password. Please try again.</value>
+</data>
+	<data name="Error_AccountLocked" xml:space="preserve">
+    <value>Your account is temporarily locked, please try again later</value>
+</data>
+	<data name="Error_InvalidCredentials" xml:space="preserve">
+    <value>Invalid email or password</value>
+</data>
+	<data name="Message_AccountNotVerified" xml:space="preserve">
+    <value>Your account is not verified. Please wait for admin approval.</value>
+</data>
+
+	<data name="Message_AccountUnderReview" xml:space="preserve">
+    <value>Your account is under review. We will contact you soon.</value>
+</data>
+
+	<data name="Error_PhoneDigitsOnly" xml:space="preserve">
+    <value>Phone number must contain digits only</value>
+</data>
 </root>

@@ -15,6 +15,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@_sharedResources[SharedResourcesKeys.Project_Title]</title>
+    <link rel="icon" href="~/img/logo.png" type="image/x-icon"> <!-- Favicon-->
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/accountstyles.css" rel="stylesheet" />
@@ -30,10 +31,12 @@
 
             <div class="hero-content">
                 <div>
-                    <h1 class="hero-logo">
+                    <h1 class="hero-logo d-flex">
                         @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
                     </h1>
+
                 </div>
+
 
                 <div class="hero-main">
                     <div class="service-icons">
@@ -356,8 +359,14 @@
                                 <label class="form-label">@_sharedResources[SharedResourcesKeys.Label_Phone]</label>
                                 <div class="input-group-custom">
                                     <span class="material-symbols-outlined input-icon">call</span>
-                                    <input type="tel" name="Phone" id="phone" class="form-control-custom"
-                                           placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Phone]">
+                                    <input type="tel"
+                                           name="Phone"
+                                           id="phone"
+                                           class="form-control-custom"
+                                           placeholder="@_sharedResources[SharedResourcesKeys.Placeholder_Phone]"
+                                           maxlength="10"
+                                           pattern="[0-9]{10}"
+                                           inputmode="numeric">
                                 </div>
                             </div>
                         </div>
@@ -595,6 +604,8 @@
             if (!companyNameAr){ showFieldError('companyNameAr',IS_ARABIC ? 'اسم الشركة بالعربي مطلوب'        : 'Company name in Arabic is required');     hasError = true; }
             if (!companyNameEn){ showFieldError('companyNameEn',IS_ARABIC ? 'اسم الشركة بالإنجليزي مطلوب'     : 'Company name in English is required');    hasError = true; }
             if (!serviceType)  { showFieldError('serviceType',  IS_ARABIC ? 'يرجى اختيار نوع الخدمة'          : 'Please select a service type');           hasError = true; }
+            if (!companyNameEn){ showFieldError('descriptionAr',IS_ARABIC ? 'وصف الشركة بالإنجليزي مطلوب'     : ' Description Company  in English is required');    hasError = true; }
+            if (!companyNameEn){ showFieldError('descriptionEn',IS_ARABIC ? 'وصف الشركة بالإنجليزي مطلوب'     : ' Description Company  in English is required');    hasError = true; }
 
             if (!yearsExp) {
                 showFieldError('yearsExperience', IS_ARABIC ? 'سنوات الخبرة مطلوبة' : 'Years of experience is required');
@@ -606,21 +617,35 @@
 
             if (!logoInput.files || logoInput.files.length === 0) { showFieldError('logo', IS_ARABIC ? 'شعار الشركة مطلوب' : 'Company logo is required'); hasError = true; }
 
-            if (!showroomAddrAr) { showFieldError('showroomAddressAr', IS_ARABIC ? 'عنوان المعرض بالعربي مطلوب'      : 'Showroom address in Arabic is required'); hasError = true; }
+            if (!showroomAddrAr) { showFieldError('showroomAddressAr', IS_ARABIC ? 'عنوان الموقع بالعربي مطلوب'      : ' address location in Arabic is required'); hasError = true; }
             else if (showroomAddrAr.length > 250) { showFieldError('showroomAddressAr', IS_ARABIC ? 'العنوان يجب ألا يتجاوز 250 حرف' : 'Max 250 characters'); hasError = true; }
 
-            if (!showroomAddrEn) { showFieldError('showroomAddressEn', IS_ARABIC ? 'عنوان المعرض بالإنجليزي مطلوب'   : 'Showroom address in English is required'); hasError = true; }
+            if (!showroomAddrEn) { showFieldError('showroomAddressEn', IS_ARABIC ? 'عنوان الموقع بالإنجليزي مطلوب'   : 'address location in English is required'); hasError = true; }
             else if (showroomAddrEn.length > 250) { showFieldError('showroomAddressEn', IS_ARABIC ? 'العنوان يجب ألا يتجاوز 250 حرف' : 'Max 250 characters'); hasError = true; }
 
-            if (!showroomImgEl.files    || showroomImgEl.files.length === 0)    { showFieldError('showroomImage',  IS_ARABIC ? 'صورة الموقع مطلوبة'      : 'Showroom image is required');              hasError = true; }
+            if (!showroomImgEl.files    || showroomImgEl.files.length === 0)    { showFieldError('Location Image',  IS_ARABIC ? 'صورة الموقع مطلوبة'      : 'Showroom image is required');              hasError = true; }
             if (!commercialFileEl.files || commercialFileEl.files.length === 0) { showFieldError('commercialFile', IS_ARABIC ? 'الملف التجاري مطلوب'      : 'Commercial registration file is required'); hasError = true; }
             if (!workLicenseEl.files    || workLicenseEl.files.length === 0)    { showFieldError('workLicenseFile',IS_ARABIC ? 'رخصة المهن مطلوبة'        : 'Work license file is required');           hasError = true; }
 
             if (!email) { showFieldError('email', IS_ARABIC ? 'البريد الإلكتروني مطلوب' : 'Email is required'); hasError = true; }
             else if (!isValidEmail(email)) { showFieldError('email', IS_ARABIC ? 'صيغة البريد الإلكتروني غير صحيحة' : 'Invalid email format'); hasError = true; }
 
-            if (!phone)    { showFieldError('phone',    IS_ARABIC ? 'رقم الهاتف مطلوب'   : 'Phone number is required'); hasError = true; }
-            if (!password) { showFieldError('password', IS_ARABIC ? 'كلمة المرور مطلوبة' : 'Password is required');     hasError = true; }
+        // ✅ Phone Validation
+        if (!phone) {
+            showFieldError('phone', IS_ARABIC ? 'رقم الهاتف مطلوب' : 'Phone number is required');
+            hasError = true;
+        } else {
+            // تحقق من أن الرقم أرقام فقط
+            if (!/^\d+$/.test(phone)) {
+                showFieldError('phone', IS_ARABIC ? 'رقم الهاتف يجب أن يحتوي على أرقام فقط' : 'Phone number must contain digits only');
+                hasError = true;
+            }
+            // تحقق من أن الطول 10 أرقام بالضبط
+            else if (phone.length !== 10) {
+                showFieldError('phone', IS_ARABIC ? 'رقم الهاتف يجب أن يكون 10 أرقام بالضبط' : 'Phone number must be exactly 10 digits');
+                hasError = true;
+            }
+        }            if (!password) { showFieldError('password', IS_ARABIC ? 'كلمة المرور مطلوبة' : 'Password is required');     hasError = true; }
             else if (password.length < 8) { showFieldError('password', IS_ARABIC ? 'كلمة المرور يجب أن تكون 8 أحرف على الأقل' : 'Password must be at least 8 characters'); hasError = true; }
 
             if (hasError) {
@@ -848,6 +873,29 @@
         }
 
         loadServiceTypes();
+
+
+        // ==========================================
+        // Real-time Phone Validation
+        // ==========================================
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value;
+
+            // امنع كتابة أي شي غير أرقام
+            value = value.replace(/[^0-9]/g, '');
+
+            // امنع أكثر من 10 أرقام
+            if (value.length > 10) {
+                value = value.substring(0, 10);
+            }
+
+            e.target.value = value;
+
+            // عرض رسالة تحذير لو وصل 10 أرقام
+            if (value.length === 10) {
+                clearFieldError('phone');
+            }
+        });
     </script>
 </body>
 </html>

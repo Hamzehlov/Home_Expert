@@ -15,7 +15,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@_sharedResources[SharedResourcesKeys.Project_Title] </title>
-
+    <link rel="icon" href="~/img/logo.png" type="image/x-icon"> <!-- Favicon-->
     <!-- Bootstrap CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom CSS -->
@@ -118,6 +118,8 @@
             </div>
 
             <div class="form-container">
+                <!-- Alert Box -->
+                <div id="alertBox" class="alert d-none mb-3" role="alert"></div>
                 <div class="form-header">
                     <!-- Mobile Logo -->
                     <div class="mobile-logo d-lg-none">
@@ -131,7 +133,7 @@
                 </div>
 
                 <!-- Login Form -->
-                <form asp-action="Login" asp-controller="Account" method="post" class="registration-form">
+                <form asp-action="Login" asp-controller="Registration" method="post" class="registration-form">
                     @Html.AntiForgeryToken()
 
                     <!-- Email -->
@@ -193,16 +195,20 @@
 
     <!-- Bootstrap JS -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  
     <script>
+        // ==========================================
+        // 1. Language Toggle
+        // ==========================================
         function toggleLanguage() {
             var currentCulture = '@culture';
             var newCulture = currentCulture.startsWith('ar') ? 'en-US' : 'ar-JO';
-
             document.getElementById('cultureInput').value = newCulture;
             document.getElementById('languageForm').submit();
         }
 
+        // ==========================================
+        // 2. Password Toggle
+        // ==========================================
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const passwordIcon = document.getElementById('passwordIcon');
@@ -215,6 +221,88 @@
                 passwordIcon.textContent = 'visibility';
             }
         }
+
+        // ==========================================
+        // 3. Alert Box
+        // ==========================================
+        function showAlert(type, message) {
+            const alertBox = document.getElementById('alertBox');
+            if (!alertBox) {
+                alert(message);
+                return;
+            }
+
+            alertBox.className = 'alert alert-' + type;
+            alertBox.classList.remove('d-none');
+
+            const icons = {
+                success: 'check_circle',
+                danger: 'error',
+                warning: 'warning',
+                info: 'info'
+            };
+
+            const iconHtml = icons[type]
+                ? '<span class="material-symbols-outlined me-2">' + icons[type] + '</span>'
+                : '';
+
+            alertBox.innerHTML = iconHtml + message;
+
+            // Auto hide after 7 seconds
+            setTimeout(() => {
+                alertBox.classList.add('d-none');
+            }, 7000);
+        }
+
+        // ==========================================
+        // 4. Check for TempData Messages
+        // ==========================================
+        @if (TempData["ErrorMessage"] != null)
+        {
+                <text>
+                showAlert('danger', '@TempData["ErrorMessage"]');
+                </text>
+        }
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+                <text>
+                showAlert('success', '@TempData["SuccessMessage"]');
+                </text>
+        }
+
+        @if (TempData["InfoMessage"] != null)
+        {
+                <text>
+                showAlert('info', '@TempData["InfoMessage"]');
+                </text>
+        }
+
+        // ==========================================
+        // 5. Form Validation (Optional)
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const email = document.getElementById('email')?.value.trim();
+                    const password = document.getElementById('password')?.value;
+
+                    if (!email) {
+                        e.preventDefault();
+                        showAlert('warning', '@(isArabic ? "البريد الإلكتروني مطلوب" : "Email is required")');
+                        return false;
+                    }
+
+                    if (!password) {
+                        e.preventDefault();
+                        showAlert('warning', '@(isArabic ? "كلمة المرور مطلوبة" : "Password is required")');
+                        return false;
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

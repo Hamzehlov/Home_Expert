@@ -167,5 +167,17 @@ namespace Home_Expert.Resources
         public const string Error_YearsExperienceRange = "Error_YearsExperienceRange";
         public const string Error_ServiceTypeRequired = "Error_ServiceTypeRequired";
         public const string Error_ShowroomAddressLength = "Error_ShowroomAddressLength";
+
+        // Login Errors
+        public const string Error_AccountNotFound = "Error_AccountNotFound";
+        public const string Error_WrongPassword = "Error_WrongPassword";
+        public const string Error_AccountLocked = "Error_AccountLocked";
+        public const string Error_InvalidCredentials = "Error_InvalidCredentials";
+
+        // Pending Messages
+        public const string Message_AccountNotVerified = "Message_AccountNotVerified";
+        public const string Message_AccountUnderReview = "Message_AccountUnderReview";
+
+        public const string Error_PhoneDigitsOnly = "Error_PhoneDigitsOnly";
     }
 }
