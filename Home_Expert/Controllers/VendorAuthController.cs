@@ -65,14 +65,45 @@ namespace Home_Expert.Controllers
                     });
                 }
 
-                // تحقق من وجود مستخدم بنفس البريد
-                if (await _userManager.FindByEmailAsync(model.Email) != null)
+                // ✅ تحقق من وجود مستخدم بنفس البريد
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
                 {
-                    return BadRequest(new ApiResponse<object>
+                    // شيك على الـ Role
+                    var roles = await _userManager.GetRolesAsync(existingUser);
+
+                    if (roles.Contains("Customer"))
                     {
-                        Success = false,
-                        Message = _localizer["Message_EmailExists"].Value
-                    });
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            Success = false,
+                            Message = _localizer["Message_EmailExistsAsCustomer"].Value
+                        });
+                    }
+                    else if (roles.Contains("Vendor"))
+                    {
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            Success = false,
+                            Message = _localizer["Message_EmailExistsAsVendor"].Value
+                        });
+                    }
+                    else if (roles.Contains("Admin"))
+                    {
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            Success = false,
+                            Message = _localizer["Message_EmailExistsAsAdmin"].Value
+                        });
+                    }
+                    else
+                    {
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            Success = false,
+                            Message = _localizer["Message_EmailExists"].Value
+                        });
+                    }
                 }
 
                 // توليد OTP

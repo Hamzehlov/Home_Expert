@@ -74,6 +74,30 @@ namespace Home_Expert.Controllers
                     return View(model);
                 }
 
+                // ✅ 1.5️⃣ شيك على الـ Role
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                // إذا كان Customer بيحاول يدخل على صفحة Vendor login
+                if (userRoles.Contains("Customer"))
+                {
+                    TempData["ErrorMessage"] = _localizer["Error_CustomerCannotLoginAsVendor"].Value;
+                    return View(model);
+                }
+
+                // إذا كان Admin
+                if (userRoles.Contains("Admin"))
+                {
+                    TempData["ErrorMessage"] = _localizer["Error_AdminLoginRestricted"].Value;
+                    return View(model);
+                }
+
+                // إذا مش Vendor أساساً
+                if (!userRoles.Contains("Vendor"))
+                {
+                    TempData["ErrorMessage"] = _localizer["Error_NotVendorAccount"].Value;
+                    return View(model);
+                }
+
                 // 2️⃣ تحقق من حالة التوثيق من جدول Vendor
                 if (await _userManager.IsInRoleAsync(user, "Vendor"))
                 {
@@ -132,10 +156,10 @@ namespace Home_Expert.Controllers
             }
         }
 
-        // ==========================================
-        // صفحة انتظار التحقق
-        // ==========================================
-        [HttpGet]
+            // ==========================================
+            // صفحة انتظار التحقق
+            // ==========================================
+            [HttpGet]
         public IActionResult PendingVerification()
         {
             var email = TempData["PendingEmail"] as string;

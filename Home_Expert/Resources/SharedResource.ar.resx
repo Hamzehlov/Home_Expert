@@ -466,5 +466,24 @@
 	<data name="Error_PhoneDigitsOnly" xml:space="preserve">
     <value>رقم الهاتف يجب أن يحتوي على أرقام فقط</value>
 </data>
+	
+	<data name="Message_EmailExistsAsCustomer" xml:space="preserve">
+    <value>هذا البريد الإلكتروني مسجل كعميل. يرجى استخدام بريد إلكتروني آخر للتسجيل كمزود خدمة.</value>
+</data>
+	<data name="Message_EmailExistsAsVendor" xml:space="preserve">
+    <value>هذا البريد الإلكتروني مسجل مسبقاً كمزود خدمة. يمكنك تسجيل الدخول مباشرة.</value>
+</data>
+	<data name="Message_EmailExistsAsAdmin" xml:space="preserve">
+    <value>هذا البريد الإلكتروني محجوز للإدارة.</value>
+</data>
 
+	<data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
+    <value>هذا الحساب مسجل كعميل. لا يمكنك تسجيل الدخول كمزود خدمة من هنا.</value>
+</data>
+	<data name="Error_AdminLoginRestricted" xml:space="preserve">
+    <value>حساب الإدارة لا يمكن تسجيل الدخول من هنا.</value>
+</data>
+	<data name="Error_NotVendorAccount" xml:space="preserve">
+    <value>هذا الحساب غير مسجل كمزود خدمة.</value>
+</data>
 </root>

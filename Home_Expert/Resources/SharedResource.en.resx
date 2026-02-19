@@ -464,4 +464,24 @@
 	<data name="Error_PhoneDigitsOnly" xml:space="preserve">
     <value>Phone number must contain digits only</value>
 </data>
+
+	
+	<data name="Message_EmailExistsAsCustomer" xml:space="preserve">
+    <value>This email is registered as a customer. Please use a different email to register as a vendor.</value>
+</data>
+	<data name="Message_EmailExistsAsVendor" xml:space="preserve">
+    <value>This email is already registered as a vendor. You can login directly.</value>
+</data>
+	<data name="Message_EmailExistsAsAdmin" xml:space="preserve">
+    <value>This email is reserved for administration.</value>
+</data>
+	<data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
+    <value>This account is registered as a customer. You cannot login as a vendor here.</value>
+</data>
+	<data name="Error_AdminLoginRestricted" xml:space="preserve">
+    <value>Admin accounts cannot login from here.</value>
+</data>
+	<data name="Error_NotVendorAccount" xml:space="preserve">
+    <value>This account is not registered as a vendor.</value>
+</data>
 </root>

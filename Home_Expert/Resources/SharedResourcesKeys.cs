@@ -179,5 +179,15 @@ namespace Home_Expert.Resources
         public const string Message_AccountUnderReview = "Message_AccountUnderReview";
 
         public const string Error_PhoneDigitsOnly = "Error_PhoneDigitsOnly";
+
+        // Email Exists Messages
+        public const string Message_EmailExistsAsCustomer = "Message_EmailExistsAsCustomer";
+        public const string Message_EmailExistsAsVendor = "Message_EmailExistsAsVendor";
+        public const string Message_EmailExistsAsAdmin = "Message_EmailExistsAsAdmin";
+
+        // Login Role Errors
+        public const string Error_CustomerCannotLoginAsVendor = "Error_CustomerCannotLoginAsVendor";
+        public const string Error_AdminLoginRestricted = "Error_AdminLoginRestricted";
+        public const string Error_NotVendorAccount = "Error_NotVendorAccount";
     }
 }
