@@ -9,13 +9,13 @@ namespace Home_Expert.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    [Required]
+   
     [MaxLength(50)]
-    public string FirstNameAr { get; set; }
+    public string? FirstNameAr { get; set; }
 
-    [Required]
+   
     [MaxLength(50)]
-    public string FirstNameEn { get; set; }
+    public string? FirstNameEn { get; set; }
 
 
     public string ?LastName { get; set; }

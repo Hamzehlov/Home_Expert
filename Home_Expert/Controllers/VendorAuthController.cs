@@ -72,7 +72,7 @@ namespace Home_Expert.Controllers
                     // شيك على الـ Role
                     var roles = await _userManager.GetRolesAsync(existingUser);
 
-                    if (roles.Contains("Customer"))
+                    if (roles.Contains("User"))
                     {
                         return BadRequest(new ApiResponse<object>
                         {

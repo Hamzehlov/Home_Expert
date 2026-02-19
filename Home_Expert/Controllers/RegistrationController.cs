@@ -78,7 +78,7 @@ namespace Home_Expert.Controllers
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 // إذا كان Customer بيحاول يدخل على صفحة Vendor login
-                if (userRoles.Contains("Customer"))
+                if (userRoles.Contains("User"))
                 {
                     TempData["ErrorMessage"] = _localizer["Error_CustomerCannotLoginAsVendor"].Value;
                     return View(model);
