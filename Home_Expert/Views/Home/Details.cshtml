@@ -1,0 +1,182 @@
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/details.css" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <a href="@Url.Action("Index","Orders")">@_sharedResources[SharedResourcesKeys.Orders]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>#92841</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Order_Details] #92841</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="@Url.Action("Index","Orders")" class="btn btn-outline">
+                <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
+                @_sharedResources[SharedResourcesKeys.Back]
+            </a>
+            <a href="@Url.Action("Edit","Orders",new{id=92841})" class="btn btn-accent">
+                <span class="material-symbols-outlined">edit</span>
+                @_sharedResources[SharedResourcesKeys.Edit]
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="detail-hero">
+        <div class="detail-hero-icon"><span class="material-symbols-outlined">chair</span></div>
+        <div class="detail-hero-text">
+            <h2>@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</h2>
+            <p>#92841 · إيلينا جيلبرت</p>
+        </div>
+        <div class="detail-hero-stats">
+            <div class="dh-stat">
+                <div class="dh-stat-val">1,450</div>
+                <div class="dh-stat-label">@_sharedResources[SharedResourcesKeys.Currency] @_sharedResources[SharedResourcesKeys.Col_Amount]</div>
+            </div>
+            <div class="dh-divider"></div>
+            <div class="dh-stat">
+                <div class="dh-stat-val" style="color:#fbbf24;">★ 4.8</div>
+                <div class="dh-stat-label">@_sharedResources[SharedResourcesKeys.Rating]</div>
+            </div>
+            <div class="dh-divider"></div>
+            <div class="dh-stat">
+                <span class="status-badge inprogress">@_sharedResources[SharedResourcesKeys.Status_InProgress]</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-grid">
+
+        <!-- Main Column -->
+        <div>
+            <!-- Order Info -->
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">info</span></div>
+                    <h3>@_sharedResources[SharedResourcesKeys.Order_Info]</h3>
+                </div>
+                <div class="detail-card-body">
+                    <div class="info-grid">
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Col_OrderNo]</div><div class="info-value">#92841</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Col_Service]</div><div class="info-value">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Product_Name]</div><div class="info-value">@_sharedResources[SharedResourcesKeys.Product_Sofa]</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Quantity]</div><div class="info-value">1</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Order_Date]</div><div class="info-value">15/02/2026</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Delivery_Date]</div><div class="info-value">22/02/2026</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Col_Amount]</div><div class="info-value big">1,450 @_sharedResources[SharedResourcesKeys.Currency]</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Payment_Method]</div><div class="info-value">@_sharedResources[SharedResourcesKeys.Bank_Transfer]</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">person</span></div>
+                    <h3>@_sharedResources[SharedResourcesKeys.Customer_Info]</h3>
+                </div>
+                <div class="detail-card-body">
+                    <div class="customer-row">
+                        <div class="customer-avatar">إ</div>
+                        <div>
+                            <p class="customer-name">إيلينا جيلبرت</p>
+                            <p class="customer-since">@_sharedResources[SharedResourcesKeys.Customer_Since] يناير 2025</p>
+                        </div>
+                        <span class="status-badge active" style="margin-inline-start:auto;">@_sharedResources[SharedResourcesKeys.Active_Customer]</span>
+                    </div>
+                    <div class="info-grid">
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Phone]</div><div class="info-value">+966 50 123 4567</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Email]</div><div class="info-value">elena@email.com</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Address]</div><div class="info-value">@_sharedResources[SharedResourcesKeys.Sample_Address]</div></div>
+                        <div><div class="info-label">@_sharedResources[SharedResourcesKeys.Total_Customer_Orders]</div><div class="info-value">5</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">notes</span></div>
+                    <h3>@_sharedResources[SharedResourcesKeys.Notes]</h3>
+                </div>
+                <div class="detail-card-body">
+                    <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin:0;">@_sharedResources[SharedResourcesKeys.Sample_Notes]</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div>
+            <!-- Timeline -->
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">timeline</span></div>
+                    <h3>@_sharedResources[SharedResourcesKeys.Order_Timeline]</h3>
+                </div>
+                <div class="detail-card-body">
+                    <ul class="timeline">
+                        <li class="tl-item">
+                            <div class="tl-dot green"><span class="material-symbols-outlined">check</span></div>
+                            <div><div class="tl-title">@_sharedResources[SharedResourcesKeys.Timeline_Received]</div><div class="tl-time">15/02 10:30</div></div>
+                        </li>
+                        <li class="tl-item">
+                            <div class="tl-dot green"><span class="material-symbols-outlined">check</span></div>
+                            <div><div class="tl-title">@_sharedResources[SharedResourcesKeys.Timeline_Paid]</div><div class="tl-time">15/02 11:00</div></div>
+                        </li>
+                        <li class="tl-item">
+                            <div class="tl-dot blue"><span class="material-symbols-outlined">local_shipping</span></div>
+                            <div><div class="tl-title">@_sharedResources[SharedResourcesKeys.Timeline_Shipping]</div><div class="tl-time">17/02 09:00</div></div>
+                        </li>
+                        <li class="tl-item" style="opacity:.45;">
+                            <div class="tl-dot gray"><span class="material-symbols-outlined">home</span></div>
+                            <div><div class="tl-title">@_sharedResources[SharedResourcesKeys.Timeline_Delivery]</div><div class="tl-time">@_sharedResources[SharedResourcesKeys.Expected] 22/02</div></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">bolt</span></div>
+                    <h3>@_sharedResources[SharedResourcesKeys.Quick_Actions]</h3>
+                </div>
+                <div class="detail-card-body quick-actions">
+                    <button class="btn btn-success">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        @_sharedResources[SharedResourcesKeys.Mark_Complete]
+                    </button>
+                    <button class="btn btn-outline">
+                        <span class="material-symbols-outlined">print</span>
+                        @_sharedResources[SharedResourcesKeys.Print_Invoice]
+                    </button>
+                    <button class="btn btn-outline">
+                        <span class="material-symbols-outlined">share</span>
+                        @_sharedResources[SharedResourcesKeys.Send_Customer]
+                    </button>
+                    <button class="btn btn-danger">
+                        <span class="material-symbols-outlined">cancel</span>
+                        @_sharedResources[SharedResourcesKeys.Cancel_Order]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

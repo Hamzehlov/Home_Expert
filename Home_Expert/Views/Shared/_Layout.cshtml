@@ -1,49 +1,244 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@{
+    Layout = null;
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+@inject IStringLocalizer<SharedResource> _sharedResources;
+<!DOCTYPE html>
+<html lang="@culture" dir="@(isArabic ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Home_Expert</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Home_Expert.styles.css" asp-append-version="true" />
+    <title>@_sharedResources[SharedResourcesKeys.Project_Title]</title>
+    <link rel="icon" href="~/img/logo.png" type="image/x-icon" />
+
+    @if (isArabic)
+    {
+        <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    }
+
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/table.css" />  
+    <link rel="stylesheet" href="~/css/details.css" /> 
+    <link rel="stylesheet" href="~/css/form.css" />    
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home_Expert</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+
+        <div class="sb-header">
+            <div class="sb-logo-icon">
+                <img src="~/img/logo.png" width="80px" />
+            </div>
+            <div class="sb-logo-text">
+                <p class="sb-logo-title">@_sharedResources[SharedResourcesKeys.Project_Title]</p>
+                <p class="sb-logo-sub">Admin Panel</p>
+            </div>
+            <button class="d-lg-none sb-close-btn" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <nav class="sb-nav">
+
+            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Main]</p>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Dashboard]</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Orders")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Orders" ? "active" : "")">
+                        <span class="material-symbols-outlined">receipt_long</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Orders]</span>
+                        <span class="sb-badge">12</span>
+                    </a>
+                </li>
+            </ul>
+
+            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Management]</p>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Services")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Services" ? "active" : "")">
+                        <span class="material-symbols-outlined">home_repair_service</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Services]</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Companies")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Companies" ? "active" : "")">
+                        <span class="material-symbols-outlined">store</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Companies]</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Users")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "active" : "")">
+                        <span class="material-symbols-outlined">group</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Users]</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Messages")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Messages" ? "active" : "")">
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Messages]</span>
+                        <span class="sb-badge">3</span>
+                    </a>
+                </li>
+            </ul>
+
+            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_System]</p>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Settings")"
+                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Settings" ? "active" : "")">
+                        <span class="material-symbols-outlined">tune</span>
+                        <span>@_sharedResources[SharedResourcesKeys.Settings]</span>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <div class="sb-footer">
+            <div class="sb-user">
+                <div class="sb-user-avatar">م</div>
+                <div>
+                    <p class="sb-user-name">@_sharedResources[SharedResourcesKeys.SystemManager]</p>
+                    <p class="sb-user-role">@_sharedResources[SharedResourcesKeys.SuperAdmin]</p>
+                </div>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="ms-auto me-0">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="sb-logout"
+                            title="@_sharedResources[SharedResourcesKeys.Logout]">
+                        <span class="material-symbols-outlined">logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- OVERLAY (mobile) -->
+    <div id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN -->
+    <main id="main">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+
+            <div class="top-bar-left">
+                <button class="d-lg-none sb-hamburger" onclick="toggleSidebar()">
+                    <span class="material-symbols-outlined">menu</span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="search-box">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text"
+                           placeholder="@_sharedResources[SharedResourcesKeys.Search]" />
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Home_Expert - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="top-bar-right">
+
+                <!-- Language -->
+                <form id="languageForm"
+                      asp-controller="Language"
+                      asp-action="SetLanguage"
+                      method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="culture" id="cultureInput" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                    <button type="button" onclick="toggleLanguage()" class="btn-language">
+                        <span class="material-symbols-outlined">language</span>
+                        @if (isArabic)
+                        {
+                            <span>English</span>
+                        }
+                        else
+                        {
+
+                            <span>العربية</span>
+                        }
+                    </button>
+                </form>
+
+                <!-- Notifications -->
+                <div class="notif-wrap">
+                    <a href="@Url.Action("Index", "Messages")" class="top-btn">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </a>
+                    <span class="notif-dot"></span>
+                </div>
+
+                <!-- Avatar -->
+                <div class="avatar-btn">
+                    <img src="~/img/avatar.png"
+                         onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=C5A059&color=fff'"
+                         alt="Admin" />
+                </div>
+
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+        <!-- PAGE BODY -->
+        <div class="page-body">
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h2>أهلاً بك 👋 مدير النظام</h2>
+                    <p>إليك ملخص نشاط خدمات الأثاث والمطابخ اليوم</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="w-stat">
+                        <div class="w-stat-val">842</div>
+                        <div class="w-stat-label">طلب هذا الشهر</div>
+                    </div>
+                    <div class="w-stat-divider"></div>
+                    <div class="w-stat">
+                        <div class="w-stat-val">96%</div>
+                        <div class="w-stat-label">نسبة الرضا</div>
+                    </div>
+                    <div class="w-stat-divider"></div>
+                    <div class="w-stat">
+                        <div class="w-stat-val">36</div>
+                        <div class="w-stat-label">طلب نشط الآن</div>
+                    </div>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+
+    </main>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function toggleLanguage() {
+            var c = '@culture';
+            document.getElementById('cultureInput').value = c.startsWith('ar') ? 'en-US' : 'ar-JO';
+            document.getElementById('languageForm').submit();
+        }
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('show');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

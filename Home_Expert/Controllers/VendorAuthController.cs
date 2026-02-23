@@ -1,11 +1,12 @@
 ﻿using Home_Expert.Models;
+using Home_Expert.Resources;
 using Home_Expert.Services;
 using Home_Expert.ViewModel.Auth;
 using Home_Expert.ViewModel.RegisterVendorDto;
 using Home_Expert.ViewModels.Response;
-using Home_Expert.Resources;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Text.Json;
 
@@ -65,11 +66,9 @@ namespace Home_Expert.Controllers
                     });
                 }
 
-                // ✅ تحقق من وجود مستخدم بنفس البريد
                 var existingUser = await _userManager.FindByEmailAsync(model.Email);
                 if (existingUser != null)
                 {
-                    // شيك على الـ Role
                     var roles = await _userManager.GetRolesAsync(existingUser);
 
                     if (roles.Contains("User"))
@@ -80,14 +79,6 @@ namespace Home_Expert.Controllers
                             Message = _localizer["Message_EmailExistsAsCustomer"].Value
                         });
                     }
-                    else if (roles.Contains("Vendor"))
-                    {
-                        return BadRequest(new ApiResponse<object>
-                        {
-                            Success = false,
-                            Message = _localizer["Message_EmailExistsAsVendor"].Value
-                        });
-                    }
                     else if (roles.Contains("Admin"))
                     {
                         return BadRequest(new ApiResponse<object>
@@ -95,6 +86,33 @@ namespace Home_Expert.Controllers
                             Success = false,
                             Message = _localizer["Message_EmailExistsAsAdmin"].Value
                         });
+                    }
+                    else if (roles.Contains("Vendor"))
+                    {
+                        var existingVendor = await _context.Vendors
+                            .FirstOrDefaultAsync(v => v.UserId == existingUser.Id);
+
+                        if (existingVendor == null || existingVendor.Verified == 1)
+                        {
+                            // Approved ❌
+                            return BadRequest(new ApiResponse<object>
+                            {
+                                Success = false,
+                                Message = _localizer["Message_EmailExistsAsVendor"].Value
+                            });
+                        }
+                        else if (existingVendor.Verified == 0)
+                        {
+                            // Pending ❌
+                            return BadRequest(new ApiResponse<object>
+                            {
+                                Success = false,
+                                Message = _localizer["Message_VendorPending"].Value
+                            });
+                        }
+
+                        // Rejected (2) ✅ نكمل
+                        HttpContext.Session.SetString("ExistingVendorUserId", existingUser.Id);
                     }
                     else
                     {
@@ -172,7 +190,6 @@ namespace Home_Expert.Controllers
                 };
                 HttpContext.Session.SetString("VendorRegisterData", JsonSerializer.Serialize(sessionData));
 
-                // إرسال OTP
                 await _otpService.SendOtpEmail(model.Email, otp);
 
                 return Ok(new ApiResponse<object>
@@ -227,7 +244,6 @@ namespace Home_Expert.Controllers
                 DateTime otpExpiry = sessionData["OtpExpiry"].GetDateTime();
                 int otpAttempts = sessionData["OtpAttempts"].GetInt32();
 
-                // ✅ تحقق من OTP أولاً
                 bool isOtpValid = _otpService.ValidateOtp(model.OtpCode.Trim(), storedOtp.Trim(), otpExpiry);
 
                 if (!isOtpValid)
@@ -253,101 +269,136 @@ namespace Home_Expert.Controllers
                     });
                 }
 
-                // إنشاء المستخدم
-                var firstNameAr = sessionData["FirstNameAr"].GetString();
-                var firstNameEn = sessionData["FirstNameEn"].GetString();
-
-                var user = new ApplicationUser
-                {
-                    UserName = sessionData["Email"].GetString()!,
-                    Email = sessionData["Email"].GetString()!,
-                    FirstNameAr = firstNameAr!,
-                    FirstNameEn = firstNameEn!,
-                    LastName = firstNameEn,
-                    Phone = sessionData.TryGetValue("Phone", out var phone) ? phone.GetString() : null,
-                    EmailConfirmed = true,
-                    EmailVerifiedAt = DateTime.UtcNow,
-                    OTPCode = storedOtp,
-                    OTPExpiry = otpExpiry,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                };
-
-                string password = sessionData["Password"].GetString()!;
-                var result = await _userManager.CreateAsync(user, password);
-                if (!result.Succeeded)
-                {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = _localizer["Message_UserCreationFailed"].Value,
-                        Errors = result.Errors.Select(e => e.Description).ToList()
-                    });
-                }
-
-                await _userManager.AddToRoleAsync(user, "Vendor");
-
                 // استرجاع الملفات من الـ Session
                 byte[]? logoBytes = null;
                 if (sessionData.TryGetValue("Logo", out var logoElement) && !string.IsNullOrEmpty(logoElement.GetString()))
-                {
                     logoBytes = Convert.FromBase64String(logoElement.GetString()!);
-                }
 
                 byte[]? showroomImageBytes = null;
                 if (sessionData.TryGetValue("ShowroomImage", out var siEl) && !string.IsNullOrEmpty(siEl.GetString()))
-                {
                     showroomImageBytes = Convert.FromBase64String(siEl.GetString()!);
-                }
 
                 byte[]? commercialFileBytes = null;
                 if (sessionData.TryGetValue("CommercialRegistrationFile", out var crEl) && !string.IsNullOrEmpty(crEl.GetString()))
-                {
                     commercialFileBytes = Convert.FromBase64String(crEl.GetString()!);
-                }
 
                 byte[]? workLicenseBytes = null;
                 if (sessionData.TryGetValue("WorkLicenseFile", out var wlEl) && !string.IsNullOrEmpty(wlEl.GetString()))
-                {
                     workLicenseBytes = Convert.FromBase64String(wlEl.GetString()!);
-                }
 
-                // استرجاع العناوين
                 string? showroomAddrAr = sessionData.TryGetValue("ShowroomAddressAr", out var addrAr) ? addrAr.GetString() : null;
                 string? showroomAddrEn = sessionData.TryGetValue("ShowroomAddressEn", out var addrEn) ? addrEn.GetString() : null;
-
-                // استرجاع الأوصاف
                 string? descAr = sessionData.TryGetValue("DescriptionAr", out var dAr) ? dAr.GetString() : null;
                 string? descEn = sessionData.TryGetValue("DescriptionEn", out var dEn) ? dEn.GetString() : null;
-
-                // استرجاع أسماء الشركة
                 string? companyNameAr = sessionData["CompanyNameAr"].GetString();
                 string? companyNameEn = sessionData["CompanyNameEn"].GetString();
+                int serviceTypeId = sessionData.TryGetValue("ServiceTypeId", out var stId) ? stId.GetInt32() : 7;
+                int yearsExp = sessionData.TryGetValue("YearsExperience", out var years) ? years.GetInt32() : 0;
 
-                var vendor = new Vendor
+                // ✅ شيك إذا كان Rejected وبدنا Update
+                var existingVendorUserId = HttpContext.Session.GetString("ExistingVendorUserId");
+
+                if (!string.IsNullOrEmpty(existingVendorUserId))
                 {
-                    UserId = user.Id,
-                    CompanyNameAr = companyNameAr!,
-                    CompanyNameEn = companyNameEn!,
-                    DescriptionAr = descAr,
-                    DescriptionEn = descEn,
-                    YearsExperience = sessionData.TryGetValue("YearsExperience", out var years) ? years.GetInt32() : 0,
-                    ServiceTypeId = 7,
-                    Logo = logoBytes,
-                    Verified = false,
-                    RatingAvg = 0,
-                    CompletedOrders = 0,
-                    ShowroomAddressAr = showroomAddrAr,
-                    ShowroomAddressEn = showroomAddrEn,
-                    ShowroomImage = showroomImageBytes,
-                    CommercialRegistrationFile = commercialFileBytes,
-                    WorkLicenseFile = workLicenseBytes
-                };
+                    // Update على الـ Vendor الموجود (كان Rejected)
+                    var existingVendor = await _context.Vendors
+                        .FirstOrDefaultAsync(v => v.UserId == existingVendorUserId);
 
-                _context.Vendors.Add(vendor);
+                    if (existingVendor != null)
+                    {
+                        existingVendor.CompanyNameAr = companyNameAr!;
+                        existingVendor.CompanyNameEn = companyNameEn!;
+                        existingVendor.DescriptionAr = descAr;
+                        existingVendor.DescriptionEn = descEn;
+                        existingVendor.YearsExperience = yearsExp;
+                        existingVendor.ServiceTypeId = serviceTypeId;
+                        existingVendor.Logo = logoBytes;
+                        existingVendor.Verified = 0; // يرجع Pending
+                        existingVendor.RejectionReasonAr = null;
+                        existingVendor.RejectionReasonEn = null;
+                        existingVendor.ShowroomAddressAr = showroomAddrAr;
+                        existingVendor.ShowroomAddressEn = showroomAddrEn;
+                        existingVendor.ShowroomImage = showroomImageBytes;
+                        existingVendor.CommercialRegistrationFile = commercialFileBytes;
+                        existingVendor.WorkLicenseFile = workLicenseBytes;
+
+                        _context.Vendors.Update(existingVendor);
+                    }
+
+                    // Update بيانات المستخدم الموجود
+                    var existingUser = await _userManager.FindByIdAsync(existingVendorUserId);
+                    if (existingUser != null)
+                    {
+                        existingUser.FirstNameAr = sessionData["FirstNameAr"].GetString()!;
+                        existingUser.FirstNameEn = sessionData["FirstNameEn"].GetString()!;
+                        existingUser.Phone = sessionData.TryGetValue("Phone", out var ph) ? ph.GetString() : existingUser.Phone;
+                        existingUser.UpdatedAt = DateTime.UtcNow;
+                        await _userManager.UpdateAsync(existingUser);
+                    }
+                }
+                else
+                {
+                    // ✅ Create مستخدم جديد
+                    var firstNameAr = sessionData["FirstNameAr"].GetString();
+                    var firstNameEn = sessionData["FirstNameEn"].GetString();
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = sessionData["Email"].GetString()!,
+                        Email = sessionData["Email"].GetString()!,
+                        FirstNameAr = firstNameAr!,
+                        FirstNameEn = firstNameEn!,
+                        LastName = firstNameEn,
+                        Phone = sessionData.TryGetValue("Phone", out var phone) ? phone.GetString() : null,
+                        EmailConfirmed = true,
+                        EmailVerifiedAt = DateTime.UtcNow,
+                        OTPCode = storedOtp,
+                        OTPExpiry = otpExpiry,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow
+                    };
+
+                    string password = sessionData["Password"].GetString()!;
+                    var result = await _userManager.CreateAsync(user, password);
+                    if (!result.Succeeded)
+                    {
+                        return BadRequest(new ApiResponse<object>
+                        {
+                            Success = false,
+                            Message = _localizer["Message_UserCreationFailed"].Value,
+                            Errors = result.Errors.Select(e => e.Description).ToList()
+                        });
+                    }
+
+                    await _userManager.AddToRoleAsync(user, "Vendor");
+
+                    var vendor = new Vendor
+                    {
+                        UserId = user.Id,
+                        CompanyNameAr = companyNameAr!,
+                        CompanyNameEn = companyNameEn!,
+                        DescriptionAr = descAr,
+                        DescriptionEn = descEn,
+                        YearsExperience = yearsExp,
+                        ServiceTypeId = serviceTypeId,
+                        Logo = logoBytes,
+                        Verified = 0, // Pending
+                        RatingAvg = 0,
+                        CompletedOrders = 0,
+                        ShowroomAddressAr = showroomAddrAr,
+                        ShowroomAddressEn = showroomAddrEn,
+                        ShowroomImage = showroomImageBytes,
+                        CommercialRegistrationFile = commercialFileBytes,
+                        WorkLicenseFile = workLicenseBytes
+                    };
+
+                    _context.Vendors.Add(vendor);
+                }
+
                 await _context.SaveChangesAsync();
 
                 HttpContext.Session.Remove("VendorRegisterData");
+                HttpContext.Session.Remove("ExistingVendorUserId");
 
                 return Ok(new ApiResponse<object>
                 {
@@ -377,21 +428,15 @@ namespace Home_Expert.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var errors = ModelState.Values
-                        .SelectMany(v => v.Errors)
-                        .Select(e => e.ErrorMessage)
-                        .ToList();
-
                     return BadRequest(new ApiResponse<object>
                     {
                         Success = false,
                         Message = _localizer["Message_InvalidData"].Value,
-                        Errors = errors
+                        Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList()
                     });
                 }
 
                 var sessionData = HttpContext.Session.GetString("VendorRegisterData");
-
                 if (string.IsNullOrEmpty(sessionData))
                 {
                     return BadRequest(new ApiResponse<object>
@@ -403,7 +448,6 @@ namespace Home_Expert.Controllers
 
                 var registerData = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(sessionData);
 
-                // التحقق من أن البريد مطابق
                 string sessionEmail = registerData["Email"].GetString();
                 if (sessionEmail != model.Email)
                 {
@@ -414,7 +458,6 @@ namespace Home_Expert.Controllers
                     });
                 }
 
-                // توليد OTP جديد
                 string newOtp = _otpService.GenerateOtp();
                 DateTime newExpiry = DateTime.UtcNow.AddMinutes(5);
 
@@ -422,16 +465,11 @@ namespace Home_Expert.Controllers
                 registerData["OtpExpiry"] = JsonSerializer.SerializeToElement(newExpiry);
                 registerData["OtpAttempts"] = JsonSerializer.SerializeToElement(0);
 
-                HttpContext.Session.SetString("VendorRegisterData",
-                    JsonSerializer.Serialize(registerData));
+                HttpContext.Session.SetString("VendorRegisterData", JsonSerializer.Serialize(registerData));
 
-                // إرسال OTP الجديد
                 bool emailSent = await _otpService.SendOtpEmail(model.Email, newOtp);
-
                 if (!emailSent)
-                {
                     _logger.LogWarning("Email sending failed, but OTP was generated: {Otp}", newOtp);
-                }
 
                 var response = new RegisterResponseViewModel
                 {

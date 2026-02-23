@@ -26,7 +26,7 @@ public partial class Vendor
     public string? DescriptionEn { get; set; }
 
     public int? YearsExperience { get; set; }
-    public bool? Verified { get; set; }
+    public byte? Verified { get; set; }
     public int ServiceTypeId { get; set; }
 
     [Column(TypeName = "decimal(3, 2)")]
@@ -45,6 +45,8 @@ public partial class Vendor
     public byte[]? CommercialRegistrationFile { get; set; }
 
     public byte[]? WorkLicenseFile { get; set; }
+    public string? RejectionReasonAr { get; set; }
+    public string? RejectionReasonEn { get; set; }
 
     [StringLength(20)]
     public string? PhoneNumber { get; set; }

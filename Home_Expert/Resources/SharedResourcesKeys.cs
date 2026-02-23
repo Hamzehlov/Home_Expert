@@ -189,5 +189,192 @@ namespace Home_Expert.Resources
         public const string Error_CustomerCannotLoginAsVendor = "Error_CustomerCannotLoginAsVendor";
         public const string Error_AdminLoginRestricted = "Error_AdminLoginRestricted";
         public const string Error_NotVendorAccount = "Error_NotVendorAccount";
+
+        // ── عام ──
+        public const string Dashboard = "Dashboard";
+        public const string Search = "Search";
+        public const string Admin = "Admin";
+        public const string Logout = "Logout";
+
+        // ── Sidebar ──
+        public const string Nav_Main = "Nav_Main";
+        public const string Nav_Management = "Nav_Management";
+        public const string Nav_System = "Nav_System";
+        public const string Orders = "Orders";
+        public const string Services = "Services";
+        public const string Companies = "Companies";
+        public const string Users = "Users";
+        public const string Messages = "Messages";
+        public const string Settings = "Settings";
+        public const string SuperAdmin = "SuperAdmin";
+        public const string SystemManager = "SystemManager";
+
+        // ── Welcome Banner ──
+        public const string Welcome_Title = "Welcome_Title";
+        public const string Welcome_Subtitle = "Welcome_Subtitle";
+        public const string Welcome_Orders = "Welcome_Orders";
+        public const string Welcome_Satisfaction = "Welcome_Satisfaction";
+        public const string Welcome_Active = "Welcome_Active";
+        public const string Monthly_Orders = "Monthly_Orders";
+        public const string Satisfaction_Rate = "Satisfaction_Rate";
+        public const string Active_Now = "Active_Now";
+
+        // ── Section Titles ──
+        public const string Main_Services = "Main_Services";
+        public const string Recent_Orders = "Recent_Orders";
+        public const string Top_Services = "Top_Services";
+        public const string View_All = "View_All";
+        public const string View_Details = "View_Details";
+
+        // ── Service Cards ──
+        public const string Srv_Active = "Srv_Active";
+        public const string Srv_New = "Srv_New";
+        public const string Srv_TotalOrders = "Srv_TotalOrders";
+        public const string Srv_ActiveOrders = "Srv_ActiveOrders";
+        public const string Srv_Sales = "Srv_Sales";
+        public const string Srv_MonthProgress = "Srv_MonthProgress";
+
+        // ── Service Names ──
+        public const string Srv_FurnitureSale = "Srv_FurnitureSale";
+        public const string Srv_FurnitureMoving = "Srv_FurnitureMoving";
+        public const string Srv_KitchenSale = "Srv_KitchenSale";
+        public const string Srv_KitchenInstall = "Srv_KitchenInstall";
+        public const string Srv_FurnitureInstall = "Srv_FurnitureInstall";
+        public const string Srv_Maintenance = "Srv_Maintenance";
+
+        // ── Service Descriptions ──
+        public const string Srv_FurnitureSale_Desc = "Srv_FurnitureSale_Desc";
+        public const string Srv_FurnitureMoving_Desc = "Srv_FurnitureMoving_Desc";
+        public const string Srv_KitchenSale_Desc = "Srv_KitchenSale_Desc";
+        public const string Srv_KitchenInstall_Desc = "Srv_KitchenInstall_Desc";
+        public const string Srv_FurnitureInstall_Desc = "Srv_FurnitureInstall_Desc";
+        public const string Srv_Maintenance_Desc = "Srv_Maintenance_Desc";
+
+        // ── Orders Table ──
+        public const string Col_Service = "Col_Service";
+        public const string Col_Customer = "Col_Customer";
+        public const string Col_Status = "Col_Status";
+        public const string Col_Amount = "Col_Amount";
+
+        // ── Status ──
+        public const string Status_InProgress = "Status_InProgress";
+        public const string Status_Done = "Status_Done";
+        public const string Status_Pending = "Status_Pending";
+        public const string Status_Cancelled = "Status_Cancelled";  // ── Filters ──
+        public const string Filter_AllStatus = "Filter_AllStatus";
+        public const string Filter_AllTime = "Filter_AllTime";
+        public const string Filter_Today = "Filter_Today";
+        public const string Filter_ThisWeek = "Filter_ThisWeek";
+        public const string Filter_ThisMonth = "Filter_ThisMonth";
+        public const string Export = "Export";
+
+        // ── Table columns ──
+        public const string Col_OrderNo = "Col_OrderNo";
+        public const string Col_Date = "Col_Date";
+        public const string Col_Actions = "Col_Actions";
+        public const string Total_Orders = "Total_Orders";
+        public const string Showing = "Showing";
+        public const string Of = "Of";
+
+        // ── Nav / Actions ──
+        public const string Back = "Back";
+        public const string Details = "Details";
+        public const string Edit = "Edit";
+        public const string Delete = "Delete";
+        public const string Cancel = "Cancel";
+        public const string Save_Order = "Save_Order";
+        public const string Save_Draft = "Save_Draft";
+        public const string Save_Changes = "Save_Changes";
+        public const string Delete_Confirm = "Delete_Confirm";
+        public const string Add_New_Order = "Add_New_Order";
+
+        // ── Page subtitles ──
+        public const string Orders_FurnitureSale = "Orders_FurnitureSale";
+        public const string Orders_FurnitureSale_Sub = "Orders_FurnitureSale_Sub";
+        public const string Add_Order_Sub = "Add_Order_Sub";
+        public const string Edit_Order = "Edit_Order";
+        public const string Edit_Order_Sub = "Edit_Order_Sub";
+        public const string Order_Details = "Order_Details";
+
+        // ── Order form fields ──
+        public const string Service_Type = "Service_Type";
+        public const string Select_Service = "Select_Service";
+        public const string Product_Name = "Product_Name";
+        public const string Product_Name_Placeholder = "Product_Name_Placeholder";
+        public const string Product_Sofa = "Product_Sofa";
+        public const string Quantity = "Quantity";
+        public const string Amount_SAR = "Amount_SAR";
+        public const string Currency = "Currency";
+        public const string Order_Date = "Order_Date";
+        public const string Delivery_Date = "Delivery_Date";
+        public const string Payment_Method = "Payment_Method";
+        public const string Bank_Transfer = "Bank_Transfer";
+        public const string Cash = "Cash";
+        public const string Credit_Card = "Credit_Card";
+        public const string Mada = "Mada";
+        public const string Notes = "Notes";
+        public const string Notes_Placeholder = "Notes_Placeholder";
+        public const string Product_Images = "Product_Images";
+        public const string Upload_Label = "Upload_Label";
+        public const string Upload_Hint = "Upload_Hint";
+
+        // ── Customer fields ──
+        public const string Customer_Name = "Customer_Name";
+        public const string Customer_Info = "Customer_Info";
+        public const string Customer_Since = "Customer_Since";
+        public const string Active_Customer = "Active_Customer";
+        public const string Total_Customer_Orders = "Total_Customer_Orders";
+        public const string Full_Name = "Full_Name";
+        public const string Phone = "Phone";
+        public const string Email = "Email";
+        public const string City = "City";
+        public const string City_Riyadh = "City_Riyadh";
+        public const string City_Jeddah = "City_Jeddah";
+        public const string City_Dammam = "City_Dammam";
+        public const string City_Mecca = "City_Mecca";
+        public const string Address = "Address";
+        public const string Address_Placeholder = "Address_Placeholder";
+        public const string Sample_Address = "Sample_Address";
+        public const string Sample_Notes = "Sample_Notes";
+
+        // ── Detail page ──
+        public const string Order_Info = "Order_Info";
+        public const string Edit_Order_Info = "Edit_Order_Info";
+        public const string Edit_Customer_Info = "Edit_Customer_Info";
+        public const string Rating = "Rating";
+        public const string Order_Timeline = "Order_Timeline";
+        public const string Timeline_Received = "Timeline_Received";
+        public const string Timeline_Paid = "Timeline_Paid";
+        public const string Timeline_Shipping = "Timeline_Shipping";
+        public const string Timeline_Delivery = "Timeline_Delivery";
+        public const string Expected = "Expected";
+        public const string Quick_Actions = "Quick_Actions";
+        public const string Mark_Complete = "Mark_Complete";
+        public const string Print_Invoice = "Print_Invoice";
+        public const string Send_Customer = "Send_Customer";
+        public const string Cancel_Order = "Cancel_Order";
+
+        // ── Sidebar tips ──
+        public const string Input_Tips = "Input_Tips";
+        public const string Tip_Required = "Tip_Required";
+        public const string Tip_Phone = "Tip_Phone";
+        public const string Tip_Notes = "Tip_Notes";
+        public const string Tip_Images = "Tip_Images";
+        public const string Tip_Notify = "Tip_Notify";
+        public const string Quick_Stats = "Quick_Stats";
+        public const string Today_Orders = "Today_Orders";
+        public const string Month_Orders = "Month_Orders";
+        public const string Top_Service = "Top_Service";
+
+        // ── Edit sidebar ──
+        public const string Order_Meta = "Order_Meta";
+        public const string Created_At = "Created_At";
+        public const string Last_Modified = "Last_Modified";
+        public const string Today = "Today";
+        public const string Warnings = "Warnings";
+        public const string Warning_Complete = "Warning_Complete";
+        public const string Warning_Amount = "Warning_Amount";
+        public const string Warning_Log = "Warning_Log";
+        public const string Edit_Warning = "Edit_Warning";
     }
 }

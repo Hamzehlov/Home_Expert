@@ -17,6 +17,22 @@ namespace Home_Expert.Controllers
         {
             return View();
         }
+        public IActionResult create()
+        {
+            return View();
+        }
+        public IActionResult edit()
+        {
+            return View();
+        }
+        public IActionResult details() 
+            {
+                return View();
+            }
+        public IActionResult table()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

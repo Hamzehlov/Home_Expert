@@ -817,7 +817,7 @@
 
                 if (response.ok && (result.success === true || result.Success === true)) {
                     showAlert('success', result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_RegistrationSuccess]', 2);
-                    setTimeout(() => { window.location.href = '/Registration/Login'; }, 2000);
+                    setTimeout(() => { window.location.href = '/Registration/PendingVerification'; }, 2000);
                 } else {
                     const errorMsg = result.message || result.Message || '@_sharedResources[SharedResourcesKeys.Message_OTPIncorrect]';
                     showAlert('danger', errorMsg, 2);

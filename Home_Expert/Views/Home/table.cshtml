@@ -1,0 +1,376 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+    <style>
+        /* إخفاء عناصر DataTables الافتراضية — نستخدم toolbar مخصص */
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            display: none !important;
+        }
+
+        /* أيقونات الترتيب */
+        table.dataTable thead th {
+            background-image: none !important;
+        }
+
+            table.dataTable thead th.sorting_asc .sort-icon,
+            table.dataTable thead th.sorting_desc .sort-icon {
+                color: var(--accent);
+            }
+
+        /* رسالة "لا توجد نتائج" */
+        .dataTables_empty {
+            text-align: center !important;
+            padding: 40px 20px !important;
+            color: var(--muted);
+            font-size: .88rem;
+        }
+    </style>
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@_sharedResources[SharedResourcesKeys.Orders]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Orders_FurnitureSale]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Orders_FurnitureSale_Sub]</p>
+        </div>
+        <a href="@Url.Action("Create", "Orders")" class="btn btn-primary">
+            <span class="material-symbols-outlined">add</span>
+            @_sharedResources[SharedResourcesKeys.Add_New_Order]
+        </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat-pill">
+            <div class="stat-pill-icon green"><span class="material-symbols-outlined">receipt_long</span></div>
+            <div>
+                <div class="stat-pill-val">248</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Total_Orders]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon blue"><span class="material-symbols-outlined">pending</span></div>
+            <div>
+                <div class="stat-pill-val">18</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_InProgress]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon gold"><span class="material-symbols-outlined">check_circle</span></div>
+            <div>
+                <div class="stat-pill-val">214</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_Done]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon red"><span class="material-symbols-outlined">cancel</span></div>
+            <div>
+                <div class="stat-pill-val">16</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_Cancelled]</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+
+        <!-- Toolbar -->
+        <div class="table-toolbar">
+            <div class="tbl-search">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" id="dtSearch"
+                       placeholder="@_sharedResources[SharedResourcesKeys.Search]" />
+            </div>
+            <div class="table-toolbar-end">
+                <select class="tbl-filter" id="statusFilter">
+                    <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllStatus]</option>
+                    <option value="@_sharedResources[SharedResourcesKeys.Status_InProgress]">@_sharedResources[SharedResourcesKeys.Status_InProgress]</option>
+                    <option value="@_sharedResources[SharedResourcesKeys.Status_Done]">@_sharedResources[SharedResourcesKeys.Status_Done]</option>
+                    <option value="@_sharedResources[SharedResourcesKeys.Status_Pending]">@_sharedResources[SharedResourcesKeys.Status_Pending]</option>
+                    <option value="@_sharedResources[SharedResourcesKeys.Status_Cancelled]">@_sharedResources[SharedResourcesKeys.Status_Cancelled]</option>
+                </select>
+                <select class="tbl-filter" id="timeFilter">
+                    <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllTime]</option>
+                    <option value="today">@_sharedResources[SharedResourcesKeys.Filter_Today]</option>
+                    <option value="week">@_sharedResources[SharedResourcesKeys.Filter_ThisWeek]</option>
+                    <option value="month">@_sharedResources[SharedResourcesKeys.Filter_ThisMonth]</option>
+                </select>
+                <button class="btn btn-outline btn-sm" onclick="exportCSV()">
+                    <span class="material-symbols-outlined">file_download</span>
+                    @_sharedResources[SharedResourcesKeys.Export]
+                </button>
+            </div>
+        </div>
+
+        <!-- الجدول -->
+        <table id="ordersTable" class="data-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" class="tbl-check" id="checkAll" /></th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_OrderNo] <span class="material-symbols-outlined sort-icon">unfold_more</span></th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Service]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Customer]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Date] <span class="material-symbols-outlined sort-icon">unfold_more</span></th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Amount] <span class="material-symbols-outlined sort-icon">unfold_more</span></th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Actions]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* foreach (var item in Model) { *@
+                <tr>
+                    <td><input type="checkbox" class="tbl-check row-check" /></td>
+                    <td style="font-weight:700;color:var(--primary);">#92841</td>
+                    <td>
+                        <div class="srv-cell">
+                            <div class="srv-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=60&q=80" alt="" /></div>
+                            <div>
+                                <div class="srv-cell-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div>
+                                <div class="srv-cell-sub">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>إيلينا جيلبرت</td>
+                    <td data-order="20260215" style="color:var(--muted);font-size:.8rem;">15/02/2026</td>
+                    <td><span class="status-badge inprogress">@_sharedResources[SharedResourcesKeys.Status_InProgress]</span></td>
+                    <td data-order="1450"><span class="amount-cell">1,450 @_sharedResources[SharedResourcesKeys.Currency]</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a asp-action="Details" asp-route-id="92841" class="action-btn view" title="@_sharedResources[SharedResourcesKeys.Details]">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="92841" class="action-btn edit" title="@_sharedResources[SharedResourcesKeys.Edit]">
+                                <span class="material-symbols-outlined">edit</span>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="92841" class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]">
+                                <span class="material-symbols-outlined">delete</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="tbl-check row-check" /></td>
+                    <td style="font-weight:700;color:var(--primary);">#92840</td>
+                    <td>
+                        <div class="srv-cell">
+                            <div class="srv-thumb-icon" style="background:rgba(30,126,126,.08);color:#1e7e7e;">
+                                <span class="material-symbols-outlined">countertops</span>
+                            </div>
+                            <div>
+                                <div class="srv-cell-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div>
+                                <div class="srv-cell-sub">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ماركوس رايت</td>
+                    <td data-order="20260214" style="color:var(--muted);font-size:.8rem;">14/02/2026</td>
+                    <td><span class="status-badge active">@_sharedResources[SharedResourcesKeys.Status_Done]</span></td>
+                    <td data-order="3200"><span class="amount-cell">3,200 @_sharedResources[SharedResourcesKeys.Currency]</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a asp-action="Details" asp-route-id="92840" class="action-btn view" title="@_sharedResources[SharedResourcesKeys.Details]"><span class="material-symbols-outlined">visibility</span></a>
+                            <a asp-action="Edit" asp-route-id="92840" class="action-btn edit" title="@_sharedResources[SharedResourcesKeys.Edit]"><span class="material-symbols-outlined">edit</span></a>
+                            <a asp-action="Delete" asp-route-id="92840" class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]"><span class="material-symbols-outlined">delete</span></a>
+                        </div>
+                    </td>
+                </tr>
+                @* } *@
+            </tbody>
+        </table>
+
+        <!-- Footer مخصص: info + pagination -->
+        <div class="table-footer">
+            <div class="table-info" id="dtInfo"></div>
+            <div class="pagination" id="dtPagination"></div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script>
+        var isArabic = @(isArabic ? "true" : "false");
+        var dt;
+
+        /* ── ترجمة عربية كاملة ── */
+        var dtLangAr = {
+            sEmptyTable:     "لا توجد بيانات",
+            sInfo:           "عرض _START_ إلى _END_ من _TOTAL_ سجل",
+            sInfoEmpty:      "عرض 0 إلى 0 من 0 سجل",
+            sInfoFiltered:   "(مصفى من _MAX_ سجل)",
+            sLengthMenu:     "أظهر _MENU_ سجلاً",
+            sLoadingRecords: "جارٍ التحميل...",
+            sProcessing:     "جارٍ المعالجة...",
+            sSearch:         "بحث:",
+            sZeroRecords:    "لم يُعثر على نتائج مطابقة",
+            oPaginate: { sFirst: "الأول", sLast: "الأخير", sNext: "التالي", sPrevious: "السابق" },
+            oAria: { sSortAscending: ": ترتيب تصاعدي", sSortDescending: ": ترتيب تنازلي" }
+        };
+
+        /* ── ترجمة إنجليزية ── */
+        var dtLangEn = {
+            sEmptyTable:     "No data available",
+            sInfo:           "Showing _START_ to _END_ of _TOTAL_ entries",
+            sInfoEmpty:      "Showing 0 to 0 of 0 entries",
+            sInfoFiltered:   "(filtered from _MAX_ entries)",
+            sLengthMenu:     "Show _MENU_ entries",
+            sLoadingRecords: "Loading...",
+            sProcessing:     "Processing...",
+            sSearch:         "Search:",
+            sZeroRecords:    "No matching records found",
+            oPaginate: { sFirst: "First", sLast: "Last", sNext: "Next", sPrevious: "Previous" }
+        };
+
+        $(document).ready(function () {
+
+            dt = $('#ordersTable').DataTable({
+                language:    isArabic ? dtLangAr : dtLangEn,
+                dom:         't',          // فقط الجدول — بدون controls
+                pageLength:  10,
+                lengthChange: false,
+                order:       [[1, 'desc']], // ترتيب افتراضي: رقم الطلب تنازلياً
+                columnDefs: [
+                    { orderable: false, targets: [0, 2, 7] }, // checkbox، الخدمة، الإجراءات
+                    { searchable: false, targets: [0, 7] }
+                ],
+                drawCallback: function () {
+                    renderInfo();
+                    renderPagination();
+                },
+                initComplete: function () {
+                    renderInfo();
+                    renderPagination();
+                }
+            });
+
+            /* ── بحث مباشر من input مخصص ── */
+            $('#dtSearch').on('input', function () {
+                dt.search(this.value).draw();
+            });
+
+            /* ── فلتر الحالة (عمود 5) ── */
+            $('#statusFilter').on('change', function () {
+                dt.column(5).search(this.value).draw();
+            });
+
+            /* ── تحديد الكل ── */
+            $('#checkAll').on('change', function () {
+                $('.row-check').prop('checked', this.checked);
+            });
+        });
+
+        /* ════ Info المخصص ════ */
+        function renderInfo() {
+            var p = dt.page.info();
+            var txt = '';
+            if (p.end === 0) {
+                txt = isArabic ? 'لا توجد نتائج' : 'No results';
+            } else if (isArabic) {
+                txt = 'عرض ' + (p.start + 1) + ' إلى ' + p.end + ' من ' + p.recordsDisplay + ' سجل';
+                if (p.recordsDisplay !== p.recordsTotal)
+                    txt += ' (مصفى من ' + p.recordsTotal + ')';
+            } else {
+                txt = 'Showing ' + (p.start + 1) + ' to ' + p.end + ' of ' + p.recordsDisplay + ' entries';
+                if (p.recordsDisplay !== p.recordsTotal)
+                    txt += ' (filtered from ' + p.recordsTotal + ')';
+            }
+            $('#dtInfo').text(txt);
+        }
+
+        /* ════ Pagination المخصص ════ */
+        function renderPagination() {
+            var p        = dt.page.info();
+            var total    = p.pages;
+            var current  = p.page;
+            var $wrap    = $('#dtPagination').empty();
+
+            if (total <= 1) return;
+
+            var prevIcon = isArabic ? 'chevron_right' : 'chevron_left';
+            var nextIcon = isArabic ? 'chevron_left'  : 'chevron_right';
+
+            /* زر السابق */
+            $wrap.append(
+                $('<button class="page-btn"' + (current === 0 ? ' disabled' : '') + '>' +
+                  '<span class="material-symbols-outlined">' + prevIcon + '</span></button>')
+                .on('click', function () { if (current > 0) dt.page('previous').draw('page'); })
+            );
+
+            /* أرقام الصفحات مع ellipsis */
+            var start = Math.max(0, current - 2);
+            var end   = Math.min(total - 1, current + 2);
+
+            if (start > 0) {
+                $wrap.append(pageBtn(0, current));
+                if (start > 1) $wrap.append('<button class="page-btn" disabled>…</button>');
+            }
+            for (var i = start; i <= end; i++) $wrap.append(pageBtn(i, current));
+            if (end < total - 1) {
+                if (end < total - 2) $wrap.append('<button class="page-btn" disabled>…</button>');
+                $wrap.append(pageBtn(total - 1, current));
+            }
+
+            /* زر التالي */
+            $wrap.append(
+                $('<button class="page-btn"' + (current === total - 1 ? ' disabled' : '') + '>' +
+                  '<span class="material-symbols-outlined">' + nextIcon + '</span></button>')
+                .on('click', function () { if (current < total - 1) dt.page('next').draw('page'); })
+            );
+        }
+
+        function pageBtn(idx, current) {
+            return $('<button class="page-btn' + (idx === current ? ' active' : '') + '">' + (idx + 1) + '</button>')
+                .on('click', function () { dt.page(idx).draw('page'); });
+        }
+
+        /* ════ تصدير CSV مع BOM للعربية ════ */
+        function exportCSV() {
+            var rows = [];
+            /* Header */
+            var header = [];
+            $('#ordersTable thead th').each(function (i) {
+                if (i === 0 || i === 7) return;
+                header.push('"' + $(this).text().trim() + '"');
+            });
+            rows.push(header.join(','));
+
+            /* Rows */
+            dt.rows({ search: 'applied' }).every(function () {
+                var row = [];
+                $(this.node()).find('td').each(function (i) {
+                    if (i === 0 || i === 7) return;
+                    row.push('"' + $(this).text().trim().replace(/"/g, '""') + '"');
+                });
+                rows.push(row.join(','));
+            });
+
+            var bom  = '\uFEFF'; /* UTF-8 BOM لدعم Excel مع العربية */
+            var blob = new Blob([bom + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            var url  = URL.createObjectURL(blob);
+            var a    = document.createElement('a');
+            a.href = url; a.download = 'orders.csv'; a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+}

@@ -1,0 +1,228 @@
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/form.css" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <a href="@Url.Action("Index","Orders")">@_sharedResources[SharedResourcesKeys.Orders]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <a href="@Url.Action("Details","Orders",new{id=Model?.Id})">#@Model?.Id</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@_sharedResources[SharedResourcesKeys.Edit]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Edit_Order] #@Model?.Id</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Edit_Order_Sub]</p>
+        </div>
+        <a href="@Url.Action("Details","Orders",new{id=Model?.Id})" class="btn btn-outline">
+            <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
+            @_sharedResources[SharedResourcesKeys.Back]
+        </a>
+    </div>
+
+    <!-- Edit Warning Alert -->
+    <div class="alert alert-warning">
+        <span class="material-symbols-outlined">warning</span>
+        @_sharedResources[SharedResourcesKeys.Edit_Warning]
+    </div>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="form-layout">
+
+            <!-- Main Form -->
+            <div>
+
+                <!-- Order Info -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon"><span class="material-symbols-outlined">edit_note</span></div>
+                        <h3>@_sharedResources[SharedResourcesKeys.Edit_Order_Info]</h3>
+                    </div>
+                    <div class="form-card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Service_Type]
+                                </label>
+                                <select class="form-control" >
+                                    <option value="1">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</option>
+                                    <option value="2">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving]</option>
+                                    <option value="3">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale]</option>
+                                    <option value="4">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</option>
+                                    <option value="5">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall]</option>
+                                    <option value="6">@_sharedResources[SharedResourcesKeys.Srv_Maintenance]</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Product_Name]
+                                </label>
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Quantity]</label>
+                                <input  type="number" class="form-control" min="1" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Amount_SAR]
+                                </label>
+                                <input type="number" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Order_Date]</label>
+                                <input " type="date" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Delivery_Date]</label>
+                                <input  type="date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Payment_Method]</label>
+                                <select class="form-control">
+                                    <option value="bank">@_sharedResources[SharedResourcesKeys.Bank_Transfer]</option>
+                                    <option value="cash">@_sharedResources[SharedResourcesKeys.Cash]</option>
+                                    <option value="card">@_sharedResources[SharedResourcesKeys.Credit_Card]</option>
+                                    <option value="mada">@_sharedResources[SharedResourcesKeys.Mada]</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Col_Status]</label>
+                                <select class="form-control">
+                                    <option value="pending">@_sharedResources[SharedResourcesKeys.Status_Pending]</option>
+                                    <option value="inprogress">@_sharedResources[SharedResourcesKeys.Status_InProgress]</option>
+                                    <option value="done">@_sharedResources[SharedResourcesKeys.Status_Done]</option>
+                                    <option value="cancelled">@_sharedResources[SharedResourcesKeys.Status_Cancelled]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Notes]</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Info -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon"><span class="material-symbols-outlined">person</span></div>
+                        <h3>@_sharedResources[SharedResourcesKeys.Edit_Customer_Info]</h3>
+                    </div>
+                    <div class="form-card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Customer_Name]
+                                </label>
+                                <input  type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Phone]
+                                </label>
+                                <input  type="tel" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Email]</label>
+                                <input  type="email" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.City]</label>
+                                <select class="form-control">
+                                    <option value="riyadh">@_sharedResources[SharedResourcesKeys.City_Riyadh]</option>
+                                    <option value="jeddah">@_sharedResources[SharedResourcesKeys.City_Jeddah]</option>
+                                    <option value="dammam">@_sharedResources[SharedResourcesKeys.City_Dammam]</option>
+                                    <option value="mecca">@_sharedResources[SharedResourcesKeys.City_Mecca]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Address]</label>
+                            <textarea class="form-control" style="min-height:70px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-accent">
+                        <span class="material-symbols-outlined">save</span>
+                        @_sharedResources[SharedResourcesKeys.Save_Changes]
+                    </button>
+                    <a href="@Url.Action("Details","Orders",new{id=Model?.Id})" class="btn btn-outline">
+                        @_sharedResources[SharedResourcesKeys.Cancel]
+                    </a>
+                    <a href="@Url.Action("Delete","Orders",new{id=Model?.Id})"
+                       class="btn btn-danger"
+                       style="margin-inline-start:auto;"
+                       onclick="return confirm('@_sharedResources[SharedResourcesKeys.Delete_Confirm]')">
+                        <span class="material-symbols-outlined">delete</span>
+                        @_sharedResources[SharedResourcesKeys.Delete]
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header"><h4>📌 @_sharedResources[SharedResourcesKeys.Order_Meta]</h4></div>
+                    <div class="sidebar-card-body">
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Col_OrderNo]</span>
+                            <span class="sidebar-stat-val">#@Model?.Id</span>
+                        </div>
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Created_At]</span>
+                            <span class="sidebar-stat-val" style="font-size:.8rem;">@Model?.CreatedAt.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Last_Modified]</span>
+                            <span class="sidebar-stat-val" style="font-size:.8rem;">@_sharedResources[SharedResourcesKeys.Today]</span>
+                        </div>
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Col_Status]</span>
+                            <span class="status-badge inprogress">@_sharedResources[SharedResourcesKeys.Status_InProgress]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header"><h4>⚠️ @_sharedResources[SharedResourcesKeys.Warnings]</h4></div>
+                    <div class="sidebar-card-body">
+                        <ul class="tips-list">
+                            <li><span class="material-symbols-outlined" style="color:#ef4444;">error</span>@_sharedResources[SharedResourcesKeys.Warning_Complete]</li>
+                            <li><span class="material-symbols-outlined" style="color:#f59e0b;">warning</span>@_sharedResources[SharedResourcesKeys.Warning_Amount]</li>
+                            <li><span class="material-symbols-outlined">info</span>@_sharedResources[SharedResourcesKeys.Warning_Log]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

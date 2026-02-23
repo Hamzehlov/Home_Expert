@@ -359,18 +359,17 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
             entity.Property(e => e.CompletedOrders).HasDefaultValue(0);
             entity.Property(e => e.RatingAvg).HasDefaultValue(0m);
-            entity.Property(e => e.Verified).HasDefaultValue(false);
+            entity.Property(e => e.Verified).HasDefaultValue((byte)0);
             entity.Property(e => e.YearsExperience).HasDefaultValue(0);
 
-            // ===== الحقول الثنائية للشركة =====
+            // ✅ أضف هاد
+            entity.Property(e => e.RejectionReasonAr).HasMaxLength(500).IsRequired(false);
+            entity.Property(e => e.RejectionReasonEn).HasMaxLength(500).IsRequired(false);
+
             entity.Property(e => e.CompanyNameAr).IsRequired().HasMaxLength(100);
             entity.Property(e => e.CompanyNameEn).IsRequired().HasMaxLength(100);
-
-            // ===== الحقول الثنائية للوصف =====
             entity.Property(e => e.DescriptionAr).HasMaxLength(500);
             entity.Property(e => e.DescriptionEn).HasMaxLength(500);
-
-            // ===== الحقول الثنائية للعنوان =====
             entity.Property(e => e.ShowroomAddressAr).HasMaxLength(250);
             entity.Property(e => e.ShowroomAddressEn).HasMaxLength(250);
 
@@ -382,7 +381,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Vendors_AspNetUsers");
         });
-
         modelBuilder.Entity<VendorMedium>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__VendorMe__3214EC07524F27F1");

@@ -15,8 +15,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@_sharedResources[SharedResourcesKeys.Project_Title]</title>
-    <link rel="icon" href="~/img/logo.png" type="image/x-icon"> <!-- Favicon-->
-
+    <link rel="icon" href="~/img/logo.png" type="image/x-icon">
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/accountstyles.css" rel="stylesheet" />
 </head>
@@ -34,23 +33,18 @@
                         @_sharedResources[SharedResourcesKeys.Project_Title]<span class="logo-dot"></span>
                     </h1>
                 </div>
-
             </div>
-
         </div>
-
         <!-- Content Section -->
         <div class="form-section">
-            <!-- ✅ Language Toggle Button -->
+            <!-- Language Toggle -->
             <div class="language-toggle">
                 <form id="languageForm"
                       asp-controller="Language"
                       asp-action="SetLanguage"
                       method="post">
-
                     <input type="hidden" name="culture" id="cultureInput" />
                     <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-
                     <button type="button" onclick="toggleLanguage()" class="btn-language">
                         @if (isArabic)
                         {
@@ -72,34 +66,36 @@
 
             <div class="form-container">
                 <div class="text-center">
-                    <!-- Success Icon -->
-                    <div class="success-icon mb-4">
-                        <span class="material-symbols-outlined" style="font-size: 80px; color: #10b981;">
-                            check_circle
+                    <!-- Reject Icon -->
+                    <div class="mb-4">
+                        <span class="material-symbols-outlined" style="font-size: 80px; color: #ef4444;">
+                            cancel
                         </span>
                     </div>
 
                     <!-- Title -->
                     <h2 class="form-title mb-3">
-                        @(isArabic ? "تم تسجيلك بنجاح!" : "Registration Successful!")
+                        @(isArabic ? "تم رفض طلبك" : "Your Request Has Been Rejected")
                     </h2>
 
                     <!-- Message -->
-                    <div class="alert alert-info" style="max-width: 500px; margin: 0 auto;">
-                        <p  style="font-size: 1.1rem; font-weight: 500; padding:6px; margin-bottom:0px">
-                            @(isArabic ? "شكراً لتسجيلك معنا" : "Thank you for registering with us")
+                    <div class="alert alert-danger" style="max-width: 500px; margin: 0 auto;">
+                        <p style="font-size: 1.1rem; font-weight: 500; padding:6px; margin-bottom:0px">
+                            @(isArabic ? "عذراً، لم يتم قبول طلب تسجيلك" : "Sorry, your registration request was not approved")
                         </p>
                         <p class="mb-0">
-                            @(isArabic ? "حسابك قيد المراجعة. سيتم التواصل معك قريباً." : "Your account is under review. We will contact you soon.")
+                            @(isArabic
+                                                        ? "يرجى مراجعة بريدك الإلكتروني لمعرفة سبب الرفض."
+                                                        : "Please check your email to know the reason for rejection.")
                         </p>
                     </div>
 
-                    <!-- Email Display -->
+                    <!-- Email -->
                     @if (!string.IsNullOrEmpty(email))
                     {
                         <div class="mt-4">
                             <p class="text-muted mb-1">
-                                @(isArabic ? "البريد الإلكتروني المسجل:" : "Registered Email:")
+                                @(isArabic ? "البريد الإلكتروني:" : "Email:")
                             </p>
                             <p class="fw-bold text-primary">@email</p>
                         </div>
@@ -114,16 +110,23 @@
                             <div style="text-align: start;">
                                 <p class="mb-0" style="font-size: 0.95rem;">
                                     @(isArabic
-                                                                        ? "سيقوم فريقنا بمراجعة طلبك والتحقق من بياناتك. ستتلقى إشعاراً عبر البريد الإلكتروني فور الموافقة على حسابك." 
-                                                                                : "Our team will review your request and verify your information. You will receive an email notification once your account is approved.")
+                                                                        ? "يمكنك تصحيح بياناتك والتقديم مجدداً. سيقوم فريقنا بمراجعة طلبك الجديد."
+                                                                        : "You can correct your information and reapply. Our team will review your new request.")
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Back to Login Button -->
-                    <div class="mt-5">
-                        <a href="/Registration/Login" class="btn-submit" style="display: inline-flex; text-decoration: none;">
+                    <!-- Buttons -->
+                    <div class="mt-5 d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/Registration/Registration" class="btn-submit" style="display: inline-flex; text-decoration: none;">
+                            <span class="material-symbols-outlined" style="font-size: 1.2rem; @(isArabic ? "margin-left" : "margin-right"): 8px;">
+                                refresh
+                            </span>
+                            @(isArabic ? "إعادة التقديم" : "Reapply")
+                        </a>
+
+                        <a href="/Registration/Login" class="btn btn-outline-secondary" style="display: inline-flex; align-items: center; border-radius: 10px; padding: 10px 20px;">
                             <span class="material-symbols-outlined" style="font-size: 1.2rem; @(isArabic ? "margin-left" : "margin-right"): 8px;">
                                 arrow_back
                             </span>
@@ -136,8 +139,6 @@
     </div>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- ✅ JavaScript -->
     <script>
         function toggleLanguage() {
             var currentCulture = '@culture';

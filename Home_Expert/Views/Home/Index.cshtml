@@ -1,8 +1,386 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = _sharedResources[SharedResourcesKeys.Dashboard].Value;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+<!-- ── Services Section ── -->
+<div class="section-title">@_sharedResources[SharedResourcesKeys.Main_Services]</div>
+
+<div class="services-grid">
+
+    <!-- 1: بيع الأثاث -->
+    <div class="srv-card c1">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">chair</span></div>
+            <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">248</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">18</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">32k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>78%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:78%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "FurnitureSales")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+12%</span>
+        </div>
+    </div>
+
+    <!-- 2: ترحيل الأثاث -->
+    <div class="srv-card c2">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">local_shipping</span></div>
+            <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">185</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">9</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">18k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>62%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:62%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "FurnitureMoving")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+8%</span>
+        </div>
+    </div>
+
+    <!-- 3: بيع المطابخ -->
+    <div class="srv-card c3">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">countertops</span></div>
+            <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">312</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">22</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">58k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>85%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:85%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "KitchenSales")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+21%</span>
+        </div>
+    </div>
+
+    <!-- 4: تركيب المطابخ -->
+    <div class="srv-card c4">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">construction</span></div>
+            <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">197</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">11</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">41k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>71%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:71%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "KitchenInstall")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+15%</span>
+        </div>
+    </div>
+
+    <!-- 5: تركيب الأثاث -->
+    <div class="srv-card c5">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">handyman</span></div>
+            <span class="srv-badge new">@_sharedResources[SharedResourcesKeys.Srv_New]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">89</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">7</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">12k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>48%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:48%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "FurnitureInstall")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend down"><span class="material-symbols-outlined">trending_down</span>-3%</span>
+        </div>
+    </div>
+
+    <!-- 6: صيانة وإصلاح -->
+    <div class="srv-card c6">
+        <div class="bg-circle"></div>
+        <div class="srv-top">
+            <div class="srv-icon"><span class="material-symbols-outlined">build</span></div>
+            <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Maintenance]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Maintenance_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">143</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">5</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                </div>
+                <div class="srv-divider"></div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">9k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>55%</span>
+                </div>
+                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:55%"></div></div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "Maintenance")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+6%</span>
+        </div>
+    </div>
+
+</div><!-- /services-grid -->
+<!-- ── Bottom Grid ── -->
+<div class="bottom-grid">
+
+    <!-- Recent Orders -->
+    <div class="dash-card">
+        <div class="dash-card-header">
+            <span class="dash-card-title">@_sharedResources[SharedResourcesKeys.Recent_Orders]</span>
+            <a href="@Url.Action("Index", "Orders")" class="dash-view-all">
+                @_sharedResources[SharedResourcesKeys.View_All]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+        </div>
+        <table class="mini-table">
+            <thead>
+                <tr>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Service]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Customer]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Col_Amount]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* هون تحط foreach لو بتجيب البيانات من الـ Model *@
+                <tr>
+                    <td>
+                        <div class="order-service">
+                            <div class="order-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=80&q=80" alt="" /></div>
+                            <div><div class="order-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div><div class="order-id">#92841</div></div>
+                        </div>
+                    </td>
+                    <td>إيلينا جيلبرت</td>
+                    <td><span class="badge inprogress">@_sharedResources[SharedResourcesKeys.Status_InProgress]</span></td>
+                    <td style="font-weight:800;color:#0A3D44;">1,450 ر.س</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="order-service">
+                            <div class="order-thumb"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=80&q=80" alt="" /></div>
+                            <div><div class="order-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div><div class="order-id">#92840</div></div>
+                        </div>
+                    </td>
+                    <td>ماركوس رايت</td>
+                    <td><span class="badge done">@_sharedResources[SharedResourcesKeys.Status_Done]</span></td>
+                    <td style="font-weight:800;color:#0A3D44;">3,200 ر.س</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="order-service">
+                            <div class="order-thumb"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=80&q=80" alt="" /></div>
+                            <div><div class="order-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving]</div><div class="order-id">#92839</div></div>
+                        </div>
+                    </td>
+                    <td>سارة الأحمدي</td>
+                    <td><span class="badge pending">@_sharedResources[SharedResourcesKeys.Status_Pending]</span></td>
+                    <td style="font-weight:800;color:#0A3D44;">580 ر.س</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Top Services -->
+    <div class="dash-card">
+        <div class="dash-card-header">
+            <span class="dash-card-title">@_sharedResources[SharedResourcesKeys.Top_Services]</span>
+        </div>
+        <div class="top-services-list">
+            <div class="ts-item">
+                <div class="ts-rank gold">1</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:85%"></div></div>
+                </div>
+                <div class="ts-pct">85%</div>
+            </div>
+            <div class="ts-item">
+                <div class="ts-rank silver">2</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:78%"></div></div>
+                </div>
+                <div class="ts-pct">78%</div>
+            </div>
+            <div class="ts-item">
+                <div class="ts-rank bronze">3</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:71%"></div></div>
+                </div>
+                <div class="ts-pct">71%</div>
+            </div>
+            <div class="ts-item">
+                <div class="ts-rank">4</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:62%"></div></div>
+                </div>
+                <div class="ts-pct">62%</div>
+            </div>
+            <div class="ts-item">
+                <div class="ts-rank">5</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_Maintenance]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:55%"></div></div>
+                </div>
+                <div class="ts-pct">55%</div>
+            </div>
+            <div class="ts-item">
+                <div class="ts-rank">6</div>
+                <div class="ts-info">
+                    <div class="ts-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall]</div>
+                    <div class="ts-bar"><div class="ts-fill" style="width:48%"></div></div>
+                </div>
+                <div class="ts-pct">48%</div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /bottom-grid -->
