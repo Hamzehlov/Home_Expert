@@ -116,12 +116,17 @@
 
         <div class="sb-footer">
             <div class="sb-user">
-                <div class="sb-user-avatar">م</div>
+                <div class="sb-user-avatar">
+                    <div class="avatar-btn">
+                        <img src="~/img/account.png"
+                             alt="Admin" />
+                    </div>
+                </div>
                 <div>
                     <p class="sb-user-name">@_sharedResources[SharedResourcesKeys.SystemManager]</p>
                     <p class="sb-user-role">@_sharedResources[SharedResourcesKeys.SuperAdmin]</p>
                 </div>
-                <form asp-controller="Account" asp-action="Logout" method="post" class="ms-auto me-0">
+                <form asp-controller="Registration" asp-action="Logout" method="post" class="ms-auto me-0">
                     @Html.AntiForgeryToken()
                     <button type="submit" class="sb-logout"
                             title="@_sharedResources[SharedResourcesKeys.Logout]">
@@ -187,8 +192,8 @@
 
                 <!-- Avatar -->
                 <div class="avatar-btn">
-                    <img src="~/img/avatar.png"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=C5A059&color=fff'"
+                    <img src="~/img/account.png"
+                         
                          alt="Admin" />
                 </div>
 
@@ -198,29 +203,7 @@
         <!-- PAGE BODY -->
         <div class="page-body">
 
-            <!-- Welcome Banner -->
-            <div class="welcome-banner">
-                <div class="welcome-text">
-                    <h2>أهلاً بك 👋 مدير النظام</h2>
-                    <p>إليك ملخص نشاط خدمات الأثاث والمطابخ اليوم</p>
-                </div>
-                <div class="welcome-stats">
-                    <div class="w-stat">
-                        <div class="w-stat-val">842</div>
-                        <div class="w-stat-label">طلب هذا الشهر</div>
-                    </div>
-                    <div class="w-stat-divider"></div>
-                    <div class="w-stat">
-                        <div class="w-stat-val">96%</div>
-                        <div class="w-stat-label">نسبة الرضا</div>
-                    </div>
-                    <div class="w-stat-divider"></div>
-                    <div class="w-stat">
-                        <div class="w-stat-val">36</div>
-                        <div class="w-stat-label">طلب نشط الآن</div>
-                    </div>
-                </div>
-            </div>
+         
             @RenderBody()
         </div>
 

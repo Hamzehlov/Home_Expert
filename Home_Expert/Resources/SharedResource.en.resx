@@ -730,7 +730,7 @@
     <value>Showroom Address</value>
 </data>
 	<data name="Vendor_ShowroomImage" xml:space="preserve">
-    <value>Showroom Image</value>
+    <value>Location Image</value>
 </data>
 	<data name="Vendor_Documents" xml:space="preserve">
     <value>Documents</value>

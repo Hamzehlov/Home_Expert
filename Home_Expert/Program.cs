@@ -1,6 +1,7 @@
 using Home_Expert.DependencyInjections;
 using Home_Expert.Models;
 using Home_Expert.Services;
+using Home_Expert.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,17 @@ builder.Services.AddControllers()
 // 2. Services Registration
 // ==========================================
 builder.Services.AddScoped<IOtpService, OtpService>();
-
+//لحماية الروابط برمز مؤقت
+builder.Services.Configure<SecureIdOptions>(o =>
+{
+    o.TokenQueryKey = "rid";
+    o.IdQueryKey = "id";
+    o.DefaultTtl = TimeSpan.FromMinutes(15);
+    o.BindToUser = false; // خليها true إذا بدك الروابط ما تشتغل بين مستخدمين
+});
+builder.Services.AddSingleton<ISecureIdService, SecureIdService>();
+// IMiddleware registration
+builder.Services.AddScoped<SecureIdMiddleware>();
 // ==========================================
 // 3. Controllers & Views
 // ==========================================
@@ -164,6 +175,7 @@ app.UseStaticFiles();
 
 // 6. Routing
 app.UseRouting();
+app.UseMiddleware<SecureIdMiddleware>();
 
 // 7. CORS (لو فعّلته)
 // app.UseCors("AllowAll");

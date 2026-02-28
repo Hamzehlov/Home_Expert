@@ -13,7 +13,29 @@
     <link rel="stylesheet" href="~/css/table.css" />
     <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
 }
-
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+    <div class="welcome-text">
+        <h2>أهلاً بك 👋 مدير النظام</h2>
+        <p>إليك ملخص نشاط خدمات الأثاث والمطابخ اليوم</p>
+    </div>
+    <div class="welcome-stats">
+        <div class="w-stat">
+            <div class="w-stat-val">842</div>
+            <div class="w-stat-label">طلب هذا الشهر</div>
+        </div>
+        <div class="w-stat-divider"></div>
+        <div class="w-stat">
+            <div class="w-stat-val">96%</div>
+            <div class="w-stat-label">نسبة الرضا</div>
+        </div>
+        <div class="w-stat-divider"></div>
+        <div class="w-stat">
+            <div class="w-stat-val">36</div>
+            <div class="w-stat-label">طلب نشط الآن</div>
+        </div>
+    </div>
+</div>
 <div class="page-wrapper">
 
     <div class="page-header">
@@ -142,7 +164,7 @@
                         </td>
                         <td>
                             <div class="actions-cell">
-                                <a asp-action="Details" asp-route-id="@vendor.Id" class="action-btn view"
+                                <a asp-action="Details" asp-controller="VendorApplications" asp-route-id="@vendor.Id" class="action-btn view"
                                    title="@_sharedResources[SharedResourcesKeys.Vendors_ViewDetails]">
                                     <span class="material-symbols-outlined">visibility</span>
                                 </a>
