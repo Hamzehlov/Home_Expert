@@ -1,0 +1,385 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@model IEnumerable<Home_Expert.Models.Vendor>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var tableDir = isArabic ? "rtl" : "ltr";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
+}
+
+<div class="page-wrapper">
+
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.PendingVendors_Description]</p>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-pill">
+            <div class="stat-pill-icon" style="background:rgba(10,61,68,.1);color:#0A3D44;">
+                <span class="material-symbols-outlined">storefront</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count()</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon" style="background:rgba(245,158,11,.1);color:#b45309;">
+                <span class="material-symbols-outlined">pending_actions</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(v => v.Verified == 0)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_Pending]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon green"><span class="material-symbols-outlined">verified</span></div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(v => v.Verified == 1)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_Approved]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon red"><span class="material-symbols-outlined">cancel</span></div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(v => v.Verified == 2)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Status_Rejected]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-toolbar-extra">
+            <select class="tbl-filter" id="statusFilter">
+                <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllStatus]</option>
+                <option value="pending">@_sharedResources[SharedResourcesKeys.Status_Pending]</option>
+                <option value="approved">@_sharedResources[SharedResourcesKeys.Status_Approved]</option>
+                <option value="rejected">@_sharedResources[SharedResourcesKeys.Status_Rejected]</option>
+            </select>
+         
+        </div>
+
+        <table id="vendorsTable" class="data-table" style="width:100%" dir="@tableDir">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_CompanyName]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_Email]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_ServiceType]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_Experience]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Vendors_Actions]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vendor in Model)
+                {
+                    var statusKey = vendor.Verified == 0 ? "pending" : vendor.Verified == 1 ? "approved" : "rejected";
+                    var companyName = isArabic ? vendor.CompanyNameAr : vendor.CompanyNameEn;
+                    var companyNameOther = isArabic ? vendor.CompanyNameEn : vendor.CompanyNameAr;
+                    var serviceTypeName = isArabic ? vendor.ServiceType?.DescCodeAr ?? "-" : vendor.ServiceType?.DescCodeEn ?? "-";
+
+                    <tr data-status="@statusKey">
+                        <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
+                        <td>
+                            <div class="company-cell">
+                                <div class="company-avatar">
+                                    @if (vendor.Logo != null)
+                                    {
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(vendor.Logo)" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <span class="material-symbols-outlined">storefront</span>
+                                    }
+                                </div>
+                                <div>
+                                    <div class="company-name">@companyName</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="font-size:.82rem;color:var(--muted);">@(vendor.User?.Email ?? "-")</td>
+                        <td>@serviceTypeName</td>
+                        <td>
+                            @if (vendor.YearsExperience.HasValue)
+                            {
+                                <span>@vendor.YearsExperience</span>
+                            }
+                            else
+                            {
+                                <span style="color:var(--muted)">-</span>
+                            }
+                        </td>
+                        <td data-search="@statusKey">
+                            @if (vendor.Verified == 0)
+                            {
+                                <span class="status-badge" style="background:rgba(245,158,11,.12);color:#b45309;">@_sharedResources[SharedResourcesKeys.Status_Pending]</span>
+                            }
+                            else if (vendor.Verified == 1)
+                            {
+                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Status_Approved]</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge" style="background:rgba(239,68,68,.1);color:#991b1b;">@_sharedResources[SharedResourcesKeys.Status_Rejected]</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <a asp-action="Details" asp-route-id="@vendor.Id" class="action-btn view"
+                                   title="@_sharedResources[SharedResourcesKeys.Vendors_ViewDetails]">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </a>
+                                @if (vendor.Verified != 1)
+                                {
+                                    <button type="button" class="action-btn approve"
+                                            title="@_sharedResources[SharedResourcesKeys.Vendors_Accept]"
+                                            onclick="confirmApprove(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\\'"))')">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </button>
+                                }
+                                @if (vendor.Verified != 2)
+                                {
+                                    <button type="button" class="action-btn reject"
+                                            title="@_sharedResources[SharedResourcesKeys.Vendors_Reject]"
+                                            onclick="openRejectModal(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\\'"))')">
+                                        <span class="material-symbols-outlined">cancel</span>
+                                    </button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ══ REJECT MODAL ══ -->
+<div class="modal-overlay" id="rejectModal">
+    <div class="modal-box">
+        <div class="modal-title">
+            <span class="material-symbols-outlined" style="color:#ef4444;">cancel</span>
+            @_sharedResources[SharedResourcesKeys.Rejection_Title]
+        </div>
+        <div class="modal-sub">
+            @_sharedResources[SharedResourcesKeys.Message_ConfirmReject]
+            <span class="modal-company-name" id="rejectCompanyName"></span>
+        </div>
+        <hr class="modal-divider" />
+        <div class="modal-label">@_sharedResources[SharedResourcesKeys.Rejection_ReasonAr]</div>
+        <textarea class="modal-textarea" id="rejectReasonAr" placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="rtl"></textarea>
+        <div style="margin-top:12px;"></div>
+        <div class="modal-label">@_sharedResources[SharedResourcesKeys.Rejection_ReasonEn]</div>
+        <textarea class="modal-textarea" id="rejectReasonEn" placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="ltr"></textarea>
+        <div class="modal-footer">
+            <button class="btn btn-outline btn-sm" onclick="closeRejectModal()">@_sharedResources[SharedResourcesKeys.Rejection_Cancel]</button>
+            <button class="btn btn-primary btn-sm" style="background:#ef4444;border-color:#ef4444;" onclick="submitReject()">
+                <span class="material-symbols-outlined" style="font-size:1rem;">arrow_forward</span>
+                @_sharedResources[SharedResourcesKeys.Rejection_Submit]
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ CONFIRM DIALOG ══ -->
+<div class="confirm-overlay" id="confirmDialog">
+    <div class="confirm-box">
+        <div class="confirm-icon" id="confirmIcon"></div>
+        <div class="confirm-title" id="confirmTitle"></div>
+        <div class="confirm-sub" id="confirmSub"></div>
+        <div class="confirm-actions">
+            <button class="btn btn-outline btn-sm" onclick="closeConfirm()">
+                @_sharedResources[SharedResourcesKeys.Rejection_Cancel]
+            </button>
+            <button class="btn btn-primary btn-sm" id="confirmOkBtn" onclick="confirmOk()"></button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<form id="approveForm" method="post" action="@Url.Action("Approve","VendorApplications")" style="display:none">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="approveVendorId" name="id" />
+</form>
+<form id="rejectForm" method="post" action="@Url.Action("Reject","VendorApplications")" style="display:none">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="rejectVendorId" name="id" />
+    <input type="hidden" id="rejectReasonArInput" name="rejectionReasonAr" />
+    <input type="hidden" id="rejectReasonEnInput" name="rejectionReasonEn" />
+</form>
+
+@section Scripts {
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+        /* ══ Global Variables ══ */
+        var isArabic = @(isArabic ? "true" : "false");
+        var dt;
+        var currentRejectId = null;
+        var _rejectAr = '', _rejectEn = '';
+        var _confirmCallback = null;
+        var msgReasonRequired = isArabic ? 'يرجى إدخال سبب الرفض' : 'Please enter a rejection reason';
+
+   
+        $(document).ready(function () {
+
+            dt = $('#vendorsTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                ordering: true,
+                autoWidth: false,
+                language: {
+                    search:       isArabic ? "بحث:"   : "Search:",
+                    lengthMenu:   isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+                    zeroRecords:  isArabic ? "لا يوجد عناصر لعرضها"       : "No matching records",
+                    info:         isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty:    isArabic ? "لا يوجد عناصر متاحة"         : "No entries available",
+                    infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)"        : "(filtered from _MAX_ total entries)",
+                    paginate: {
+                        first:    isArabic ? "الأول"  : "First",
+                        last:     isArabic ? "الأخير" : "Last",
+                        next:     isArabic ? "التالي" : "Next",
+                        previous: isArabic ? "السابق" : "Previous"
+                    }
+                },
+                columnDefs: [
+                    { orderable: false, targets: [0, 6] }
+                ],
+                drawCallback: function () {
+                    var api = this.api();
+                    var startIndex = api.page.info().start;
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = startIndex + i + 1;
+                    });
+                }
+            });
+
+            /* ══ Status Filter ══*/
+            $('#statusFilter').on('change', function () {
+                dt.column(5).search($(this).val(), false, false).draw();
+            });
+
+            /* ══ Server Messages ══ */
+            var _serverMsg = '@Html.Raw(TempData["Success"] ?? "")';
+            var _serverErr = '@Html.Raw(TempData["Error"] ?? "")';
+            if (_serverMsg) showToast(_serverMsg, 'success');
+            if (_serverErr) showToast(_serverErr, 'error');
+
+        }); 
+
+
+       
+
+        /* ════ Confirm Dialog ════ */
+        function showConfirm(icon, title, sub, okLabel, okColor, callback) {
+            document.getElementById('confirmIcon').textContent  = icon;
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmSub').textContent   = sub;
+            var btn = document.getElementById('confirmOkBtn');
+            btn.textContent       = okLabel;
+            btn.style.background  = okColor;
+            btn.style.borderColor = okColor;
+            _confirmCallback = callback;
+            document.getElementById('confirmDialog').classList.add('open');
+        }
+
+        function closeConfirm() {
+            document.getElementById('confirmDialog').classList.remove('open');
+            _confirmCallback = null;
+        }
+
+        function confirmOk() {
+            var cb = _confirmCallback;
+            closeConfirm();
+            if (cb) cb();
+        }
+
+        document.getElementById('confirmDialog').addEventListener('click', function (e) {
+            if (e.target === this) closeConfirm();
+        });
+
+        /* ════ Approve ════ */
+        function confirmApprove(id, name) {
+            showConfirm(
+                '✅',
+                isArabic ? 'تأكيد القبول' : 'Confirm Approval',
+                (isArabic ? 'هل تريد قبول طلب انضمام: ' : 'Accept application for: ') + name + '؟',
+                isArabic ? 'قبول' : 'Approve',
+                '#10b981',
+                function () {
+                    document.getElementById('approveVendorId').value = id;
+                    document.getElementById('approveForm').submit();
+                }
+            );
+        }
+
+        /* ════ Reject Modal ════ */
+        function openRejectModal(id, name) {
+            currentRejectId = id;
+            document.getElementById('rejectCompanyName').textContent = name;
+            document.getElementById('rejectReasonAr').value = '';
+            document.getElementById('rejectReasonEn').value = '';
+            document.getElementById('rejectModal').classList.add('open');
+        }
+
+        function closeRejectModal() {
+            document.getElementById('rejectModal').classList.remove('open');
+        }
+
+        function submitReject() {
+            var ar = document.getElementById('rejectReasonAr').value.trim();
+            var en = document.getElementById('rejectReasonEn').value.trim();
+            if (!ar && !en) { showToast(msgReasonRequired, 'error'); return; }
+
+            _rejectAr = ar; _rejectEn = en;
+            var name = document.getElementById('rejectCompanyName').textContent;
+            closeRejectModal();
+
+            showConfirm(
+                '❌',
+                isArabic ? 'تأكيد الرفض' : 'Confirm Rejection',
+                (isArabic ? 'هل تريد رفض طلب انضمام: ' : 'Reject application for: ') + name + '؟',
+                isArabic ? 'تأكيد الرفض' : 'Confirm Reject',
+                '#ef4444',
+                function () {
+                    document.getElementById('rejectVendorId').value      = currentRejectId;
+                    document.getElementById('rejectReasonArInput').value = _rejectAr;
+                    document.getElementById('rejectReasonEnInput').value = _rejectEn;
+                    document.getElementById('rejectForm').submit();
+                }
+            );
+        }
+
+        document.getElementById('rejectModal').addEventListener('click', function (e) {
+            if (e.target === this) closeRejectModal();
+        });
+
+        /* ════ Toast ════ */
+        function showToast(msg, type) {
+            var icon = type === 'success' ? 'check_circle' : 'error';
+            var $t = $('<div class="toast ' + type + '">' +
+                       '<span class="material-symbols-outlined">' + icon + '</span>' +
+                       '<span>' + msg + '</span></div>');
+            $('#toastWrap').append($t);
+            setTimeout(function () { $t.fadeOut(400, function () { $t.remove(); }); }, 4000);
+        }
+    </script>
+}

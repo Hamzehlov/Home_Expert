@@ -88,9 +88,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 // ==========================================
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Logout";
-    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.LoginPath = "/Registration/Login";
+    options.LogoutPath = "/Registration/Logout";
+    options.AccessDeniedPath = "/Registration/AccessDenied";
     options.ExpireTimeSpan = TimeSpan.FromDays(7); // مدة بقاء الـ Cookie
     options.SlidingExpiration = true; // تجديد تلقائي
     options.Cookie.HttpOnly = true;
@@ -182,7 +182,7 @@ app.MapControllers();
 // Map MVC Routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Registration}/{action=Registration}/{id?}");
+    pattern: "{controller=Registration}/{action=Login}/{id?}");
 
 // Map Razor Pages
 app.MapRazorPages();

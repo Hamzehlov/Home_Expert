@@ -669,5 +669,124 @@
 	<data name="Warning_Amount"   xml:space="preserve"><value>تعديل المبلغ يستلزم إعادة التأكيد</value></data>
 	<data name="Warning_Log"      xml:space="preserve"><value>يُسجَّل تاريخ التعديل تلقائياً</value></data>
 	<data name="Edit_Warning"     xml:space="preserve"><value>أنت تقوم بتعديل طلب موجود. تأكد من صحة البيانات قبل الحفظ.</value></data>
+	<!-- Pending Vendors -->
+	<data name="PendingVendors_Title" xml:space="preserve">
+    <value>الشركات المتقدمة</value>
+</data>
+	<data name="PendingVendors_Count" xml:space="preserve">
+    <value>شركة قيد الانتظار</value>
+</data>
+	<data name="PendingVendors_Description" xml:space="preserve">
+    <value>شركات جديدة في انتظار المراجعة والموافقة</value>
+</data>
+	<data name="PendingVendors_ViewAll" xml:space="preserve">
+    <value>عرض الكل</value>
+</data>
 
+	<!-- Vendors Table -->
+	<data name="Vendors_CompanyName" xml:space="preserve">
+    <value>اسم الشركة</value>
+</data>
+	<data name="Vendors_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+</data>
+	<data name="Vendors_Phone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+</data>
+	<data name="Vendors_ServiceType" xml:space="preserve">
+    <value>نوع الخدمة</value>
+</data>
+	<data name="Vendors_Experience" xml:space="preserve">
+    <value>سنوات الخبرة</value>
+</data>
+	<data name="Vendors_SubmittedDate" xml:space="preserve">
+    <value>تاريخ التقديم</value>
+</data>
+	<data name="Vendors_Status" xml:space="preserve">
+    <value>الحالة</value>
+</data>
+	<data name="Vendors_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+</data>
+	<data name="Vendors_Accept" xml:space="preserve">
+    <value>قبول</value>
+</data>
+	<data name="Vendors_Reject" xml:space="preserve">
+    <value>رفض</value>
+</data>
+	<data name="Vendors_ViewDetails" xml:space="preserve">
+    <value>عرض التفاصيل</value>
+</data>
+
+	<!-- Vendor Details -->
+	<data name="Vendor_Details_Title" xml:space="preserve">
+    <value>تفاصيل الشركة</value>
+</data>
+	<data name="Vendor_Logo" xml:space="preserve">
+    <value>الشعار</value>
+</data>
+	<data name="Vendor_Description" xml:space="preserve">
+    <value>الوصف</value>
+</data>
+	<data name="Vendor_ShowroomAddress" xml:space="preserve">
+    <value>عنوان المعرض</value>
+</data>
+	<data name="Vendor_ShowroomImage" xml:space="preserve">
+    <value>صورة المعرض</value>
+</data>
+	<data name="Vendor_Documents" xml:space="preserve">
+    <value>المستندات</value>
+</data>
+	<data name="Vendor_CommercialReg" xml:space="preserve">
+    <value>السجل التجاري</value>
+</data>
+	<data name="Vendor_WorkLicense" xml:space="preserve">
+    <value>رخصة العمل</value>
+</data>
+
+	<!-- Rejection -->
+	<data name="Rejection_Title" xml:space="preserve">
+    <value>رفض الشركة</value>
+</data>
+	<data name="Rejection_Reason" xml:space="preserve">
+    <value>سبب الرفض</value>
+</data>
+	<data name="Rejection_ReasonAr" xml:space="preserve">
+    <value>سبب الرفض (عربي)</value>
+</data>
+	<data name="Rejection_ReasonEn" xml:space="preserve">
+    <value>سبب الرفض (إنجليزي)</value>
+</data>
+	<data name="Rejection_Submit" xml:space="preserve">
+    <value>تأكيد الرفض</value>
+</data>
+	<data name="Rejection_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+</data>
+
+	<!-- Messages -->
+	<data name="Message_VendorAccepted" xml:space="preserve">
+    <value>تم قبول الشركة بنجاح</value>
+</data>
+	<data name="Message_VendorRejected" xml:space="preserve">
+    <value>تم رفض الشركة</value>
+</data>
+	<data name="Message_EmailSent" xml:space="preserve">
+    <value>تم إرسال بريد إلكتروني للشركة</value>
+</data>
+	<data name="Message_ConfirmAccept" xml:space="preserve">
+    <value>هل أنت متأكد من قبول هذه الشركة؟</value>
+</data>
+	<data name="Message_ConfirmReject" xml:space="preserve">
+    <value>هل أنت متأكد من رفض هذه الشركة؟</value>
+</data>
+
+	<!-- Status -->
+	
+	<data name="Status_Approved" xml:space="preserve">
+    <value>مقبول</value>
+</data>
+	<data name="Status_Rejected" xml:space="preserve">
+    <value>مرفوض</value>
+</data>
 </root>

@@ -5,9 +5,9 @@ using Home_Expert.ViewModel.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Text.Json;
+
 namespace Home_Expert.Controllers
 {
     public class RegistrationController : Controller
@@ -16,7 +16,7 @@ namespace Home_Expert.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly ILogger<RegistrationController> _logger;
-        private readonly ApplicationDbContext _context; 
+        private readonly ApplicationDbContext _context;
         private readonly IOtpService _otpService;
 
         public RegistrationController(
@@ -24,9 +24,8 @@ namespace Home_Expert.Controllers
             UserManager<ApplicationUser> userManager,
             IStringLocalizer<SharedResource> localizer,
             ILogger<RegistrationController> logger,
-            ApplicationDbContext context, 
-            IOtpService otpService
-) 
+            ApplicationDbContext context,
+            IOtpService otpService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -34,7 +33,6 @@ namespace Home_Expert.Controllers
             _logger = logger;
             _context = context;
             _otpService = otpService;
-
         }
 
         // ==========================================
@@ -55,6 +53,9 @@ namespace Home_Expert.Controllers
             return View();
         }
 
+        // ==========================================
+        // معالجة تسجيل الدخول
+        // ==========================================
         // ==========================================
         // معالجة تسجيل الدخول
         // ==========================================
@@ -81,65 +82,78 @@ namespace Home_Expert.Controllers
                     return View(model);
                 }
 
-                // ✅ 1.5️⃣ شيك على الـ Role
                 var userRoles = await _userManager.GetRolesAsync(user);
 
-                // إذا كان Customer بيحاول يدخل على صفحة Vendor login
+                // ❌ User (Customer) — ممنوع من لوحة التحكم
                 if (userRoles.Contains("User"))
                 {
                     TempData["ErrorMessage"] = _localizer["Error_CustomerCannotLoginAsVendor"].Value;
                     return View(model);
                 }
 
-                // إذا كان Admin
+                // ✅ Admin  — دخول مباشر على Home/Index
                 if (userRoles.Contains("Admin"))
                 {
-                    TempData["ErrorMessage"] = _localizer["Error_AdminLoginRestricted"].Value;
+                    var adminResult = await _signInManager.PasswordSignInAsync(
+                        user.UserName!,
+                        model.Password,
+                        model.RememberMe,
+                        lockoutOnFailure: false
+                    );
+
+                    if (adminResult.Succeeded)
+                    {
+                        _logger.LogInformation("Admin {Email} logged in successfully", model.Email);
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    if (adminResult.IsLockedOut)
+                    {
+                        TempData["ErrorMessage"] = _localizer["Error_AccountLocked"].Value;
+                        return View(model);
+                    }
+
+                    TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
                     return View(model);
                 }
 
-                // إذا مش Vendor أساساً
+                // ❌ ليس Vendor
                 if (!userRoles.Contains("Vendor"))
                 {
                     TempData["ErrorMessage"] = _localizer["Error_NotVendorAccount"].Value;
                     return View(model);
                 }
 
-                // 2️⃣ تحقق من حالة التوثيق من جدول Vendor
-                if (await _userManager.IsInRoleAsync(user, "Vendor"))
+                // 2️⃣ تحقق من حالة توثيق الـ Vendor
+                var vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.UserId == user.Id);
+
+                if (vendor != null && vendor.Verified == 0)
                 {
-                    var vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.UserId == user.Id);
-
-                    if (vendor != null && vendor.Verified == 0)
+                    // قيد المراجعة — Pending
+                    var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
+                    if (!passwordCheck)
                     {
-                        // ✅ تحقق من كلمة المرور أولاً
-                        var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-                        if (!passwordCheck)
-                        {
-                            TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
-                            return View(model);
-                        }
-
-                        TempData["PendingEmail"] = model.Email;
-                        return RedirectToAction("PendingVerification", "Registration");
+                        TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
+                        return View(model);
                     }
-
-                    if (vendor != null && vendor.Verified == 2)
-                    {
-                        // ✅ تحقق من كلمة المرور أولاً
-                        var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-                        if (!passwordCheck)
-                        {
-                            TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
-                            return View(model);
-                        }
-
-                        TempData["RejectedEmail"] = model.Email;
-                        return RedirectToAction("RejectedVerification", "Registration");
-                    }
+                    TempData["PendingEmail"] = model.Email;
+                    return RedirectToAction("PendingVerification", "Registration");
                 }
 
-                // 3️⃣ محاولة تسجيل الدخول
+                if (vendor != null && vendor.Verified == 2)
+                {
+                    // مرفوض — Rejected
+                    var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
+                    if (!passwordCheck)
+                    {
+                        TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
+                        return View(model);
+                    }
+                    TempData["RejectedEmail"] = model.Email;
+                    return RedirectToAction("RejectedVerification", "Registration");
+                }
+
+                // 3️⃣ محاولة تسجيل الدخول للـ Vendor
                 var result = await _signInManager.PasswordSignInAsync(
                     user.UserName!,
                     model.Password,
@@ -147,32 +161,20 @@ namespace Home_Expert.Controllers
                     lockoutOnFailure: false
                 );
 
-                // 4️⃣ نجح تسجيل الدخول
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User {Email} logged in successfully", model.Email);
+                    _logger.LogInformation("Vendor {Email} logged in successfully", model.Email);
 
-                    // التوجيه حسب الـ Role
-                    if (await _userManager.IsInRoleAsync(user, "Vendor"))
-                    {
-                        return RedirectToAction("Index", "VendorDashboard");
-                    }
-                    else if (await _userManager.IsInRoleAsync(user, "Customer"))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-
-                    return LocalRedirect(returnUrl);
+                    // ✅ Vendor موافق عليه (Verified == 1 أو أي قيمة أخرى) → Home/Index
+                    return RedirectToAction("Index", "Home");
                 }
 
-                // 5️⃣ الحساب محظور
                 if (result.IsLockedOut)
                 {
                     TempData["ErrorMessage"] = _localizer["Error_AccountLocked"].Value;
                     return View(model);
                 }
 
-                // 6️⃣ كلمة المرور غير صحيحة
                 TempData["ErrorMessage"] = _localizer["Error_WrongPassword"].Value;
                 return View(model);
             }
@@ -184,30 +186,27 @@ namespace Home_Expert.Controllers
             }
         }
 
-            // ==========================================
-            // صفحة انتظار التحقق
-            // ==========================================
-            [HttpGet]
+        // ==========================================
+        // صفحة انتظار التحقق
+        // ==========================================
+        [HttpGet]
         public IActionResult PendingVerification()
         {
             var email = TempData["PendingEmail"] as string;
-
             if (string.IsNullOrEmpty(email))
-            {
                 return RedirectToAction("Login");
-            }
 
             ViewBag.Email = email;
             return View();
         }
+
         // ==========================================
-        // صفحة  رفض
+        // صفحة الرفض
         // ==========================================
         [HttpGet]
         public IActionResult RejectedVerification()
         {
             var email = TempData["RejectedEmail"] as string;
-
             if (string.IsNullOrEmpty(email))
                 return RedirectToAction("Login");
 
@@ -244,6 +243,13 @@ namespace Home_Expert.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPasswordSendOtp(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                TempData["ForgotError"] = _localizer["Message_InvalidData"].Value;
+                TempData["ForgotStep"] = "1";
+                return RedirectToAction("ForgotPassword");
+            }
+
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
@@ -285,9 +291,33 @@ namespace Home_Expert.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ForgotPasswordVerifyOtp(string otpCode)
         {
+            _logger.LogInformation("=== ForgotPasswordVerifyOtp Called ===");
+            _logger.LogInformation("OTP Code Received: '{OtpCode}'", otpCode ?? "NULL");
+            _logger.LogInformation("OTP Code Length: {Length}", otpCode?.Length ?? 0);
+
+            // ✅ تحقق من otpCode
+            if (string.IsNullOrWhiteSpace(otpCode) || otpCode.Length != 6)
+            {
+                _logger.LogWarning("Invalid OTP format");
+
+                var sessionStrCheck = HttpContext.Session.GetString("ForgotPasswordData");
+                string emailCheck = "";
+                if (!string.IsNullOrEmpty(sessionStrCheck))
+                {
+                    var dataCheck = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(sessionStrCheck);
+                    emailCheck = dataCheck?["Email"].GetString() ?? "";
+                }
+
+                TempData["ForgotError"] = _localizer["Message_InvalidData"].Value;
+                TempData["ForgotStep"] = "2";
+                TempData["ForgotEmail"] = emailCheck;
+                return RedirectToAction("ForgotPassword");
+            }
+
             var sessionStr = HttpContext.Session.GetString("ForgotPasswordData");
             if (string.IsNullOrEmpty(sessionStr))
             {
+                _logger.LogWarning("Session expired");
                 TempData["ForgotError"] = _localizer["Message_SessionExpired"].Value;
                 TempData["ForgotStep"] = "1";
                 return RedirectToAction("ForgotPassword");
@@ -299,11 +329,18 @@ namespace Home_Expert.Controllers
             int attempts = data["OtpAttempts"].GetInt32();
             string email = data["Email"].GetString()!;
 
+            _logger.LogInformation("Stored OTP: '{StoredOtp}'", storedOtp);
+            _logger.LogInformation("Expiry: {Expiry}", expiry);
+            _logger.LogInformation("Attempts: {Attempts}", attempts);
+
             bool isValid = _otpService.ValidateOtp(otpCode.Trim(), storedOtp.Trim(), expiry);
+            _logger.LogInformation("OTP Valid: {IsValid}", isValid);
 
             if (!isValid)
             {
                 attempts++;
+                _logger.LogWarning("Invalid OTP. Attempt {Attempt}/3", attempts);
+
                 if (attempts >= 3)
                 {
                     HttpContext.Session.Remove("ForgotPasswordData");
@@ -321,6 +358,9 @@ namespace Home_Expert.Controllers
                 return RedirectToAction("ForgotPassword");
             }
 
+            _logger.LogInformation("OTP verified successfully for {Email}", email);
+
+            // ✅ نجح التحقق
             HttpContext.Session.Remove("ForgotPasswordData");
             HttpContext.Session.SetString("ForgotPasswordVerified", email);
 

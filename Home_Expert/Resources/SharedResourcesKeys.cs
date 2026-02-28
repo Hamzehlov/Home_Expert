@@ -376,5 +376,52 @@ namespace Home_Expert.Resources
         public const string Warning_Amount = "Warning_Amount";
         public const string Warning_Log = "Warning_Log";
         public const string Edit_Warning = "Edit_Warning";
+        // Pending Vendors
+        public const string PendingVendors_Title = "PendingVendors_Title";
+        public const string PendingVendors_Count = "PendingVendors_Count";
+        public const string PendingVendors_Description = "PendingVendors_Description";
+        public const string PendingVendors_ViewAll = "PendingVendors_ViewAll";
+
+        // Vendors Table
+        public const string Vendors_CompanyName = "Vendors_CompanyName";
+        public const string Vendors_Email = "Vendors_Email";
+        public const string Vendors_Phone = "Vendors_Phone";
+        public const string Vendors_ServiceType = "Vendors_ServiceType";
+        public const string Vendors_Experience = "Vendors_Experience";
+        public const string Vendors_SubmittedDate = "Vendors_SubmittedDate";
+        public const string Vendors_Status = "Vendors_Status";
+        public const string Vendors_Actions = "Vendors_Actions";
+        public const string Vendors_Accept = "Vendors_Accept";
+        public const string Vendors_Reject = "Vendors_Reject";
+        public const string Vendors_ViewDetails = "Vendors_ViewDetails";
+
+        // Vendor Details
+        public const string Vendor_Details_Title = "Vendor_Details_Title";
+        public const string Vendor_Logo = "Vendor_Logo";
+        public const string Vendor_Description = "Vendor_Description";
+        public const string Vendor_ShowroomAddress = "Vendor_ShowroomAddress";
+        public const string Vendor_ShowroomImage = "Vendor_ShowroomImage";
+        public const string Vendor_Documents = "Vendor_Documents";
+        public const string Vendor_CommercialReg = "Vendor_CommercialReg";
+        public const string Vendor_WorkLicense = "Vendor_WorkLicense";
+
+        // Rejection
+        public const string Rejection_Title = "Rejection_Title";
+        public const string Rejection_Reason = "Rejection_Reason";
+        public const string Rejection_ReasonAr = "Rejection_ReasonAr";
+        public const string Rejection_ReasonEn = "Rejection_ReasonEn";
+        public const string Rejection_Submit = "Rejection_Submit";
+        public const string Rejection_Cancel = "Rejection_Cancel";
+
+        // Messages
+        public const string Message_VendorAccepted = "Message_VendorAccepted";
+        public const string Message_VendorRejected = "Message_VendorRejected";
+        public const string Message_EmailSent = "Message_EmailSent";
+        public const string Message_ConfirmAccept = "Message_ConfirmAccept";
+        public const string Message_ConfirmReject = "Message_ConfirmReject";
+
+        // Status
+        public const string Status_Approved = "Status_Approved";
+        public const string Status_Rejected = "Status_Rejected";
     }
 }
