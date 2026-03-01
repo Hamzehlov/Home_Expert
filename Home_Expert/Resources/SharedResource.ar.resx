@@ -1,792 +1,1053 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-	<!-- ===== Project Info ===== -->
-	<data name="Project_Title" xml:space="preserve">
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Project_Title" xml:space="preserve">
     <value>خبراء المنازل</value>
   </data>
-
-	<!-- ===== Services ===== -->
-	<data name="Service_Moving" xml:space="preserve">
+  <data name="Service_Moving" xml:space="preserve">
     <value>نقل</value>
   </data>
-	<data name="Service_Sales" xml:space="preserve">
+  <data name="Service_Sales" xml:space="preserve">
     <value>مبيعات</value>
   </data>
-	<data name="Service_Installation" xml:space="preserve">
+  <data name="Service_Installation" xml:space="preserve">
     <value>تركيب</value>
   </data>
-
-	<!-- ===== Hero Section ===== -->
-	<data name="Hero_Title" xml:space="preserve">
+  <data name="Hero_Title" xml:space="preserve">
     <value>تمكين فرق التركيب المحترفة</value>
   </data>
-	<data name="Hero_Description" xml:space="preserve">
+  <data name="Hero_Description" xml:space="preserve">
     <value>انضم إلى المنصة الرائدة لخدمات تركيب الأثاث والمطابخ. أدر القوى العاملة لديك، وتتبع الطلبات، ووسع نطاق أعمالك بكل سهولة.</value>
   </data>
-	<data name="Hero_Trust_Text" xml:space="preserve">
+  <data name="Hero_Trust_Text" xml:space="preserve">
     <value>موثوق به من قبل أكثر من 1,000 شركة تركيب عالمياً.</value>
   </data>
-
-	<!-- ===== Footer ===== -->
-	<data name="Footer_Copyright" xml:space="preserve">
+  <data name="Footer_Copyright" xml:space="preserve">
     <value>©2026  خبراء المنازل</value>
   </data>
-	<data name="Footer_Privacy" xml:space="preserve">
+  <data name="Footer_Privacy" xml:space="preserve">
     <value>سياسة الخصوصية</value>
   </data>
-	<data name="Footer_Terms" xml:space="preserve">
+  <data name="Footer_Terms" xml:space="preserve">
     <value>شروط الخدمة</value>
   </data>
-
-	<!-- ===== Form ===== -->
-	<data name="Form_Title" xml:space="preserve">
+  <data name="Form_Title" xml:space="preserve">
     <value>إنشاء حساب جديد</value>
   </data>
-	<data name="Form_Subtitle" xml:space="preserve">
+  <data name="Form_Subtitle" xml:space="preserve">
     <value>سجل شركتك للبدء في إدارة الخدمات.</value>
   </data>
-
-	<!-- ===== Steps ===== -->
-	<data name="Step_Details" xml:space="preserve">
+  <data name="Step_Details" xml:space="preserve">
     <value>التفاصيل</value>
   </data>
-	<data name="Step_Verification" xml:space="preserve">
+  <data name="Step_Verification" xml:space="preserve">
     <value>التحقق</value>
   </data>
-
-	<!-- ===== Labels - General ===== -->
-	<data name="Label_FullName" xml:space="preserve">
+  <data name="Label_FullName" xml:space="preserve">
     <value>الاسم الأخير</value>
   </data>
-	<data name="Label_CompanyName" xml:space="preserve">
+  <data name="Label_CompanyName" xml:space="preserve">
     <value>اسم الشركة</value>
   </data>
-	<data name="Label_Email" xml:space="preserve">
+  <data name="Label_Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
-	<data name="Label_Phone" xml:space="preserve">
+  <data name="Label_Phone" xml:space="preserve">
     <value>رقم الهاتف</value>
   </data>
-	<data name="Label_Password" xml:space="preserve">
+  <data name="Label_Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Name ===== -->
-	<data name="Label_FirstNameAr" xml:space="preserve">
+  <data name="Label_FirstNameAr" xml:space="preserve">
     <value>الاسم كامل  (عربي)</value>
   </data>
-	<data name="Label_FirstNameEn" xml:space="preserve">
+  <data name="Label_FirstNameEn" xml:space="preserve">
     <value>الاسم كامل (إنجليزي)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Company ===== -->
-	<data name="Label_CompanyNameAr" xml:space="preserve">
+  <data name="Label_CompanyNameAr" xml:space="preserve">
     <value>اسم الشركة (عربي)</value>
   </data>
-	<data name="Label_CompanyNameEn" xml:space="preserve">
+  <data name="Label_CompanyNameEn" xml:space="preserve">
     <value>اسم الشركة (إنجليزي)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Description ===== -->
-	<data name="Label_DescriptionAr" xml:space="preserve">
+  <data name="Label_DescriptionAr" xml:space="preserve">
     <value>وصف الشركة (عربي)</value>
   </data>
-	<data name="Label_DescriptionEn" xml:space="preserve">
+  <data name="Label_DescriptionEn" xml:space="preserve">
     <value>وصف الشركة (إنجليزي)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Showroom Address ===== -->
-	<data name="Label_ShowroomAddressAr" xml:space="preserve">
+  <data name="Label_ShowroomAddressAr" xml:space="preserve">
     <value>عنوان المعرض (عربي)</value>
   </data>
-	<data name="Label_ShowroomAddressEn" xml:space="preserve">
+  <data name="Label_ShowroomAddressEn" xml:space="preserve">
     <value>عنوان المعرض (إنجليزي)</value>
   </data>
-
-	<!-- ===== Labels - File Uploads ===== -->
-	<data name="Label_ShowroomImage" xml:space="preserve">
+  <data name="Label_ShowroomImage" xml:space="preserve">
     <value>صورة الموقع</value>
   </data>
-	<data name="Label_CommercialFile" xml:space="preserve">
+  <data name="Label_CommercialFile" xml:space="preserve">
     <value>الملف التجاري</value>
   </data>
-	<data name="Label_WorkLicense" xml:space="preserve">
+  <data name="Label_WorkLicense" xml:space="preserve">
     <value>رخصة المهن</value>
   </data>
-
-	<!-- ===== Placeholders - General ===== -->
-	<data name="Placeholder_FullName" xml:space="preserve">
+  <data name="Placeholder_FullName" xml:space="preserve">
     <value>أدخل اسمك الأخير</value>
   </data>
-	<data name="Placeholder_CompanyName" xml:space="preserve">
+  <data name="Placeholder_CompanyName" xml:space="preserve">
     <value>اسم شركتك هنا</value>
   </data>
-	<data name="Placeholder_Email" xml:space="preserve">
+  <data name="Placeholder_Email" xml:space="preserve">
     <value>example@mail.com</value>
   </data>
-	<data name="Placeholder_Phone" xml:space="preserve">
+  <data name="Placeholder_Phone" xml:space="preserve">
     <value>+966 50 000</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Name ===== -->
-	<data name="Placeholder_FirstNameAr" xml:space="preserve">
+  <data name="Placeholder_FirstNameAr" xml:space="preserve">
     <value>مثال: أحمد</value>
   </data>
-	<data name="Placeholder_FirstNameEn" xml:space="preserve">
+  <data name="Placeholder_FirstNameEn" xml:space="preserve">
     <value>e.g. Ahmed</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Company ===== -->
-	<data name="Placeholder_CompanyNameAr" xml:space="preserve">
+  <data name="Placeholder_CompanyNameAr" xml:space="preserve">
     <value>اسم الشركة بالعربي</value>
   </data>
-	<data name="Placeholder_CompanyNameEn" xml:space="preserve">
+  <data name="Placeholder_CompanyNameEn" xml:space="preserve">
     <value>Company name in English</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Description ===== -->
-	<data name="Placeholder_DescriptionAr" xml:space="preserve">
+  <data name="Placeholder_DescriptionAr" xml:space="preserve">
     <value>أخبرنا عن شركتك وخدماتك بالعربي...</value>
   </data>
-	<data name="Placeholder_DescriptionEn" xml:space="preserve">
+  <data name="Placeholder_DescriptionEn" xml:space="preserve">
     <value>Tell us about your company in English...</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Showroom Address ===== -->
-	<data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
+  <data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
     <value>أدخل عنوان الموقع بالعربي</value>
   </data>
-	<data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
+  <data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
     <value>Enter  address location in English</value>
   </data>
-
-	<!-- ===== Other ===== -->
-	<data name="Optional" xml:space="preserve">
+  <data name="Optional" xml:space="preserve">
     <value>اختياري</value>
   </data>
-	<data name="Terms_Agreement" xml:space="preserve">
+  <data name="Terms_Agreement" xml:space="preserve">
     <value>أوافق على &lt;a href="#" class="link-accent"&gt;شروط الخدمة&lt;/a&gt; و &lt;a href="#" class="link-accent"&gt;سياسة الخصوصية&lt;/a&gt;.</value>
   </data>
-	<data name="Button_CreateAccount" xml:space="preserve">
+  <data name="Button_CreateAccount" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>
-	<data name="SignIn_Link" xml:space="preserve">
+  <data name="SignIn_Link" xml:space="preserve">
     <value>لديك حساب بالفعل؟ &lt;a href="/Registration/Login" class="link-accent"&gt;تسجيل الدخول&lt;/a&gt;</value>
   </data>
-
-	<!-- ===== OTP ===== -->
-	<data name="OTP_Title" xml:space="preserve">
+  <data name="OTP_Title" xml:space="preserve">
     <value>تحقق من حسابك</value>
   </data>
-	<data name="OTP_Subtitle" xml:space="preserve">
+  <data name="OTP_Subtitle" xml:space="preserve">
     <value>لقد أرسلنا رمز التحقق إلى بريدك الإلكتروني. الرجاء إدخاله أدناه.</value>
   </data>
-	<data name="OTP_ResendIn" xml:space="preserve">
+  <data name="OTP_ResendIn" xml:space="preserve">
     <value>إعادة إرسال الرمز خلال</value>
   </data>
-	<data name="OTP_Resend" xml:space="preserve">
+  <data name="OTP_Resend" xml:space="preserve">
     <value>لم تستلم الرمز؟ إعادة الإرسال</value>
   </data>
-	<data name="Button_Verify" xml:space="preserve">
+  <data name="Button_Verify" xml:space="preserve">
     <value>تحقق ومتابعة</value>
   </data>
-	<data name="Back_To_Registration" xml:space="preserve">
+  <data name="Back_To_Registration" xml:space="preserve">
     <value>العودة للتسجيل</value>
   </data>
-	<data name="OTP_TimerText" xml:space="preserve">
+  <data name="OTP_TimerText" xml:space="preserve">
     <value>ينتهي الكود خلال:</value>
   </data>
-	<data name="OTP_VerifyButton" xml:space="preserve">
+  <data name="OTP_VerifyButton" xml:space="preserve">
     <value>تحقق من الكود</value>
   </data>
-	<data name="OTP_ResendButton" xml:space="preserve">
+  <data name="OTP_ResendButton" xml:space="preserve">
     <value>إعادة إرسال الكود</value>
   </data>
-	<data name="OTP_BackButton" xml:space="preserve">
+  <data name="OTP_BackButton" xml:space="preserve">
     <value>العودة للخطوة السابقة</value>
   </data>
-
-	<!-- ===== Login ===== -->
-	<data name="Login_Title" xml:space="preserve">
+  <data name="Login_Title" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
-	<data name="Login_Subtitle" xml:space="preserve">
+  <data name="Login_Subtitle" xml:space="preserve">
     <value>مرحباً بعودتك! سجل دخولك لمتابعة إدارة خدماتك.</value>
   </data>
-	<data name="Login_RememberMe" xml:space="preserve">
+  <data name="Login_RememberMe" xml:space="preserve">
     <value>تذكرني</value>
   </data>
-	<data name="Login_ForgotPassword" xml:space="preserve">
+  <data name="Login_ForgotPassword" xml:space="preserve">
     <value>نسيت كلمة المرور؟</value>
   </data>
-	<data name="Button_Login" xml:space="preserve">
+  <data name="Button_Login" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
-	<data name="SignUp_Link" xml:space="preserve">
+  <data name="SignUp_Link" xml:space="preserve">
     <value>ليس لديك حساب؟ &lt;a href="/Registration/Registration" class="link-accent"&gt;إنشاء حساب&lt;/a&gt;</value>
   </data>
-	<data name="Login_Or" xml:space="preserve">
+  <data name="Login_Or" xml:space="preserve">
     <value>أو</value>
   </data>
-	<data name="Login_Google" xml:space="preserve">
+  <data name="Login_Google" xml:space="preserve">
     <value>تسجيل الدخول بواسطة Google</value>
   </data>
-	<data name="Login_Microsoft" xml:space="preserve">
+  <data name="Login_Microsoft" xml:space="preserve">
     <value>تسجيل الدخول بواسطة Microsoft</value>
   </data>
-
-	<!-- ===== API Messages ===== -->
-	<data name="Message_OTPSent" xml:space="preserve">
+  <data name="Message_OTPSent" xml:space="preserve">
     <value>تم إرسال رمز التحقق إلى بريدك الإلكتروني</value>
   </data>
-	<data name="Message_EmailExists" xml:space="preserve">
+  <data name="Message_EmailExists" xml:space="preserve">
     <value>البريد الإلكتروني مستخدم بالفعل</value>
   </data>
-	<data name="Message_InvalidData" xml:space="preserve">
+  <data name="Message_InvalidData" xml:space="preserve">
     <value>بيانات غير صحيحة</value>
   </data>
-	<data name="Message_SessionExpired" xml:space="preserve">
+  <data name="Message_SessionExpired" xml:space="preserve">
     <value>انتهت صلاحية الجلسة، يرجى إعادة التسجيل</value>
   </data>
-	<data name="Message_MaxAttemptsReached" xml:space="preserve">
+  <data name="Message_MaxAttemptsReached" xml:space="preserve">
     <value>لقد استنفذت جميع المحاولات (3/3). يرجى إعادة التسجيل والمحاولة مرة أخرى.</value>
   </data>
-	<data name="Message_OTPIncorrect" xml:space="preserve">
+  <data name="Message_OTPIncorrect" xml:space="preserve">
     <value>رمز التحقق غير صحيح. المحاولات المتبقية: {0}</value>
   </data>
-	<data name="Message_RegistrationSuccess" xml:space="preserve">
+  <data name="Message_RegistrationSuccess" xml:space="preserve">
     <value>تم التسجيل بنجاح</value>
   </data>
-	<data name="Message_UserCreationFailed" xml:space="preserve">
+  <data name="Message_UserCreationFailed" xml:space="preserve">
     <value>فشل إنشاء المستخدم</value>
   </data>
-	<data name="Message_OTPResent" xml:space="preserve">
+  <data name="Message_OTPResent" xml:space="preserve">
     <value>تم إرسال رمز تحقق جديد</value>
   </data>
-	<data name="Message_ServerError" xml:space="preserve">
+  <data name="Message_ServerError" xml:space="preserve">
     <value>حدث خطأ أثناء معالجة الطلب</value>
   </data>
-
-	<!-- ===== Service Type ===== -->
-	<data name="Label_ServiceType" xml:space="preserve">
+  <data name="Label_ServiceType" xml:space="preserve">
     <value>نوع الخدمة</value>
   </data>
-	<data name="Placeholder_ServiceType" xml:space="preserve">
+  <data name="Placeholder_ServiceType" xml:space="preserve">
     <value>اختر نوع الخدمة</value>
   </data>
-	<data name="Service_Furniture" xml:space="preserve">
+  <data name="Service_Furniture" xml:space="preserve">
     <value>نقل أثاث</value>
   </data>
-	<data name="Service_KitchenSales" xml:space="preserve">
+  <data name="Service_KitchenSales" xml:space="preserve">
     <value>بيع مطابخ</value>
   </data>
-	<data name="Service_KitchenInstall" xml:space="preserve">
+  <data name="Service_KitchenInstall" xml:space="preserve">
     <value>تركيب مطابخ</value>
   </data>
-
-	<!-- ===== Other Fields ===== -->
-	<data name="Label_YearsExperience" xml:space="preserve">
+  <data name="Label_YearsExperience" xml:space="preserve">
     <value>سنوات الخبرة </value>
   </data>
-	<data name="Placeholder_YearsExperience" xml:space="preserve">
+  <data name="Placeholder_YearsExperience" xml:space="preserve">
     <value>مثال: 5</value>
   </data>
-	<data name="Label_Description" xml:space="preserve">
+  <data name="Label_Description" xml:space="preserve">
     <value>وصف الشركة</value>
   </data>
-	<data name="Placeholder_Description" xml:space="preserve">
+  <data name="Placeholder_Description" xml:space="preserve">
     <value>أخبرنا عن شركتك وخدماتك...</value>
   </data>
-	<data name="Label_Logo" xml:space="preserve">
+  <data name="Label_Logo" xml:space="preserve">
     <value>شعار الشركة</value>
   </data>
-	<data name="Logo_Helper" xml:space="preserve">
+  <data name="Logo_Helper" xml:space="preserve">
     <value>الحد الأقصى: 2MB، الصيغ المدعومة: JPG, PNG, GIF</value>
   </data>
-	<data name="Password_Helper" xml:space="preserve">
+  <data name="Password_Helper" xml:space="preserve">
     <value>كلمة المرور يجب أن تكون 6 أحرف على الأقل</value>
   </data>
-
-	<!-- ===== Validation Errors - Name ===== -->
-	<data name="Error_FirstNameRequired" xml:space="preserve">
+  <data name="Error_FirstNameRequired" xml:space="preserve">
     <value>الاسم الأول مطلوب</value>
   </data>
-	<data name="Error_FirstNameLength" xml:space="preserve">
+  <data name="Error_FirstNameLength" xml:space="preserve">
     <value>الاسم الأول يجب أن لا يتجاوز 50 حرف</value>
   </data>
-	<data name="Error_FirstArNameRequired" xml:space="preserve">
+  <data name="Error_FirstArNameRequired" xml:space="preserve">
     <value>الاسم الأول بالعربي مطلوب</value>
   </data>
-	<data name="Error_FirsEntNameRequired" xml:space="preserve">
+  <data name="Error_FirsEntNameRequired" xml:space="preserve">
     <value>الاسم الأول بالإنجليزي مطلوب</value>
   </data>
-	<data name="Error_LastNameRequired" xml:space="preserve">
+  <data name="Error_LastNameRequired" xml:space="preserve">
     <value>الاسم الأخير مطلوب</value>
   </data>
-	<data name="Error_LastNameLength" xml:space="preserve">
+  <data name="Error_LastNameLength" xml:space="preserve">
     <value>الاسم الأخير يجب أن لا يتجاوز 50 حرف</value>
   </data>
-
-	<!-- ===== Validation Errors - Auth ===== -->
-	<data name="Error_EmailRequired" xml:space="preserve">
+  <data name="Error_EmailRequired" xml:space="preserve">
     <value>البريد الإلكتروني مطلوب</value>
   </data>
-	<data name="Error_EmailInvalid" xml:space="preserve">
+  <data name="Error_EmailInvalid" xml:space="preserve">
     <value>البريد الإلكتروني غير صحيح</value>
   </data>
-	<data name="Error_PasswordRequired" xml:space="preserve">
+  <data name="Error_PasswordRequired" xml:space="preserve">
     <value>كلمة المرور مطلوبة</value>
   </data>
-	<data name="Error_PasswordLength" xml:space="preserve">
+  <data name="Error_PasswordLength" xml:space="preserve">
     <value>كلمة المرور يجب أن تكون بين 8 و 100 حرف</value>
   </data>
-	<data name="Error_PasswordWeak" xml:space="preserve">
+  <data name="Error_PasswordWeak" xml:space="preserve">
     <value>كلمة المرور يجب أن تحتوي على حرف كبير وحرف صغير ورقم ورمز خاص (!@#$%)</value>
   </data>
-	<data name="Error_ConfirmPasswordRequired" xml:space="preserve">
+  <data name="Error_ConfirmPasswordRequired" xml:space="preserve">
     <value>تأكيد كلمة المرور مطلوب</value>
   </data>
-	<data name="Error_PasswordMismatch" xml:space="preserve">
+  <data name="Error_PasswordMismatch" xml:space="preserve">
     <value>كلمة المرور وتأكيد كلمة المرور غير متطابقين</value>
   </data>
-	<data name="Error_PhoneLength" xml:space="preserve">
+  <data name="Error_PhoneLength" xml:space="preserve">
     <value>رقم الهاتف يجب أن لا يتجاوز 10 أرقام</value>
   </data>
-	<data name="Error_PhoneInvalid" xml:space="preserve">
+  <data name="Error_PhoneInvalid" xml:space="preserve">
     <value>رقم الهاتف غير صحيح</value>
   </data>
-
-	<!-- ===== Validation Errors - Company ===== -->
-	<data name="Error_CompanyNameRequired" xml:space="preserve">
+  <data name="Error_CompanyNameRequired" xml:space="preserve">
     <value>اسم الشركة مطلوب</value>
   </data>
-	<data name="Error_CompanyNameLength" xml:space="preserve">
+  <data name="Error_CompanyNameLength" xml:space="preserve">
     <value>اسم الشركة يجب أن لا يتجاوز 100 حرف</value>
   </data>
-	<data name="Error_CompanyNameArRequired" xml:space="preserve">
+  <data name="Error_CompanyNameArRequired" xml:space="preserve">
     <value>اسم الشركة بالعربي مطلوب</value>
   </data>
-	<data name="Error_CompanyNameEnRequired" xml:space="preserve">
+  <data name="Error_CompanyNameEnRequired" xml:space="preserve">
     <value>اسم الشركة بالإنجليزي مطلوب</value>
   </data>
-
-	<!-- ===== Validation Errors - Other ===== -->
-	<data name="Error_DescriptionLength" xml:space="preserve">
+  <data name="Error_DescriptionLength" xml:space="preserve">
     <value>الوصف يجب أن لا يتجاوز 500 حرف</value>
   </data>
-	<data name="Error_YearsExperienceRange" xml:space="preserve">
+  <data name="Error_YearsExperienceRange" xml:space="preserve">
     <value>سنوات الخبرة يجب أن تكون بين 0 و 50</value>
   </data>
-	<data name="Error_ServiceTypeRequired" xml:space="preserve">
+  <data name="Error_ServiceTypeRequired" xml:space="preserve">
     <value>نوع الخدمة مطلوب</value>
   </data>
-	<data name="Error_ShowroomAddressLength" xml:space="preserve">
+  <data name="Error_ShowroomAddressLength" xml:space="preserve">
     <value>عنوان المعرض يجب أن لا يتجاوز 250 حرف</value>
   </data>
-
-	<data name="Error_AccountNotFound" xml:space="preserve">
+  <data name="Error_AccountNotFound" xml:space="preserve">
     <value>هذا الحساب غير موجود. يرجى التسجيل أولاً.</value>
-</data>
-	<data name="Error_WrongPassword" xml:space="preserve">
+  </data>
+  <data name="Error_WrongPassword" xml:space="preserve">
     <value>كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.</value>
-</data>
-	<data name="Error_AccountLocked" xml:space="preserve">
+  </data>
+  <data name="Error_AccountLocked" xml:space="preserve">
     <value>حسابك محظور مؤقتاً، يرجى المحاولة لاحقاً</value>
-</data>
-	<data name="Error_InvalidCredentials" xml:space="preserve">
+  </data>
+  <data name="Error_InvalidCredentials" xml:space="preserve">
     <value>البريد الإلكتروني أو كلمة المرور غير صحيحة</value>
-</data>
-	<data name="Message_AccountNotVerified" xml:space="preserve">
+  </data>
+  <data name="Message_AccountNotVerified" xml:space="preserve">
     <value>حسابك غير موثّق. يرجى انتظار موافقة الإدارة.</value>
-</data>
-
-	<data name="Message_AccountUnderReview" xml:space="preserve">
+  </data>
+  <data name="Message_AccountUnderReview" xml:space="preserve">
     <value>حسابك قيد المراجعة. سيتم التواصل معك قريباً.</value>
-</data>
-
-	<data name="Error_PhoneDigitsOnly" xml:space="preserve">
+  </data>
+  <data name="Error_PhoneDigitsOnly" xml:space="preserve">
     <value>رقم الهاتف يجب أن يحتوي على أرقام فقط</value>
-</data>
-	
-	<data name="Message_EmailExistsAsCustomer" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsCustomer" xml:space="preserve">
     <value>هذا البريد الإلكتروني مسجل كعميل. يرجى استخدام بريد إلكتروني آخر للتسجيل كمزود خدمة.</value>
-</data>
-	<data name="Message_EmailExistsAsVendor" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsVendor" xml:space="preserve">
     <value>هذا البريد الإلكتروني مسجل مسبقاً كمزود خدمة. يمكنك تسجيل الدخول مباشرة.</value>
-</data>
-	<data name="Message_EmailExistsAsAdmin" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsAdmin" xml:space="preserve">
     <value>هذا البريد الإلكتروني محجوز للإدارة.</value>
-</data>
-
-	<data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
+  </data>
+  <data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
     <value>هذا الحساب مسجل كعميل. لا يمكنك تسجيل الدخول كمزود خدمة من هنا.</value>
-</data>
-	<data name="Error_AdminLoginRestricted" xml:space="preserve">
+  </data>
+  <data name="Error_AdminLoginRestricted" xml:space="preserve">
     <value>حساب الإدارة لا يمكن تسجيل الدخول من هنا.</value>
-</data>
-	<data name="Error_NotVendorAccount" xml:space="preserve">
+  </data>
+  <data name="Error_NotVendorAccount" xml:space="preserve">
     <value>هذا الحساب غير مسجل كمزود خدمة.</value>
-</data>
-	<data name="Dashboard"        xml:space="preserve"><value>لوحة التحكم</value></data>
-	<data name="Search"           xml:space="preserve"><value>البحث في النظام...</value></data>
-	<data name="Admin"            xml:space="preserve"><value>المدير</value></data>
-	<data name="Logout"           xml:space="preserve"><value>تسجيل الخروج</value></data>
-
-	<!-- Sidebar -->
-	<data name="Nav_Main"         xml:space="preserve"><value>الرئيسية</value></data>
-	<data name="Nav_Management"   xml:space="preserve"><value>الإدارة</value></data>
-	<data name="Nav_System"       xml:space="preserve"><value>النظام</value></data>
-	<data name="Orders"           xml:space="preserve"><value>الطلبات</value></data>
-	<data name="Services"         xml:space="preserve"><value>الخدمات</value></data>
-	<data name="Companies"        xml:space="preserve"><value>الشركات</value></data>
-	<data name="Users"            xml:space="preserve"><value>المستخدمون</value></data>
-	<data name="Messages"         xml:space="preserve"><value>الرسائل</value></data>
-	<data name="Settings"         xml:space="preserve"><value>الإعدادات</value></data>
-	<data name="SuperAdmin"       xml:space="preserve"><value>Super Admin</value></data>
-	<data name="SystemManager"    xml:space="preserve"><value>مدير النظام</value></data>
-
-	<!-- Welcome Banner -->
-	<data name="Welcome_Title"       xml:space="preserve"><value>أهلاً بك 👋 مدير النظام</value></data>
-	<data name="Welcome_Subtitle"    xml:space="preserve"><value>إليك ملخص نشاط خدمات الأثاث والمطابخ اليوم</value></data>
-	<data name="Monthly_Orders"      xml:space="preserve"><value>طلب هذا الشهر</value></data>
-	<data name="Satisfaction_Rate"   xml:space="preserve"><value>نسبة الرضا</value></data>
-	<data name="Active_Now"          xml:space="preserve"><value>طلب نشط الآن</value></data>
-
-	<!-- Section Titles -->
-	<data name="Main_Services"    xml:space="preserve"><value>خدماتنا الرئيسية</value></data>
-	<data name="Recent_Orders"    xml:space="preserve"><value>أحدث الطلبات</value></data>
-	<data name="Top_Services"     xml:space="preserve"><value>أعلى الخدمات طلباً</value></data>
-	<data name="View_All"         xml:space="preserve"><value>عرض الكل</value></data>
-	<data name="View_Details"     xml:space="preserve"><value>عرض التفاصيل</value></data>
-
-	<!-- Service Cards -->
-	<data name="Srv_Active"        xml:space="preserve"><value>نشط</value></data>
-	<data name="Srv_New"           xml:space="preserve"><value>جديد</value></data>
-	<data name="Srv_TotalOrders"   xml:space="preserve"><value>طلب كلي</value></data>
-	<data name="Srv_ActiveOrders"  xml:space="preserve"><value>نشط</value></data>
-	<data name="Srv_Sales"         xml:space="preserve"><value>مبيعات</value></data>
-	<data name="Srv_MonthProgress" xml:space="preserve"><value>إنجاز الشهر</value></data>
-
-	<!-- Service Names -->
-	<data name="Srv_FurnitureSale"    xml:space="preserve"><value>بيع الأثاث</value></data>
-	<data name="Srv_FurnitureMoving"  xml:space="preserve"><value>ترحيل الأثاث</value></data>
-	<data name="Srv_KitchenSale"      xml:space="preserve"><value>بيع المطابخ</value></data>
-	<data name="Srv_KitchenInstall"   xml:space="preserve"><value>تركيب المطابخ</value></data>
-	<data name="Srv_FurnitureInstall" xml:space="preserve"><value>تركيب الأثاث</value></data>
-	<data name="Srv_Maintenance"      xml:space="preserve"><value>صيانة وإصلاح</value></data>
-
-	<!-- Service Descriptions -->
-	<data name="Srv_FurnitureSale_Desc"    xml:space="preserve"><value>بيع وتوريد أثاث منزلي فاخر لجميع أنواع الغرف والمساحات</value></data>
-	<data name="Srv_FurnitureMoving_Desc"  xml:space="preserve"><value>نقل وترحيل الأثاث بأمان مع خدمة تغليف وفك وتركيب احترافية</value></data>
-	<data name="Srv_KitchenSale_Desc"      xml:space="preserve"><value>توريد مطابخ عصرية ومنزلية بأحدث التصاميم وأجود المواد</value></data>
-	<data name="Srv_KitchenInstall_Desc"   xml:space="preserve"><value>تركيب وتنصيب المطابخ بدقة عالية من فريق متخصص ومحترف</value></data>
-	<data name="Srv_FurnitureInstall_Desc" xml:space="preserve"><value>تجميع وتركيب الأثاث المنزلي والمكتبي بأيدي فنيين متخصصين</value></data>
-	<data name="Srv_Maintenance_Desc"      xml:space="preserve"><value>خدمة صيانة وإصلاح الأثاث والمطابخ التالفة باحترافية وسرعة</value></data>
-
-	<!-- Orders Table -->
-	<data name="Col_Service"   xml:space="preserve"><value>الخدمة</value></data>
-	<data name="Col_Customer"  xml:space="preserve"><value>العميل</value></data>
-	<data name="Col_Status"    xml:space="preserve"><value>الحالة</value></data>
-	<data name="Col_Amount"    xml:space="preserve"><value>المبلغ</value></data>
-
-	<!-- Status -->
-	<data name="Status_InProgress" xml:space="preserve"><value>قيد التنفيذ</value></data>
-	<data name="Status_Done"       xml:space="preserve"><value>مكتمل</value></data>
-	<data name="Status_Pending"    xml:space="preserve"><value>انتظار</value></data>
-	<data name="Status_Cancelled"  xml:space="preserve"><value>ملغي</value></data>
-	<!-- Filters -->
-	<data name="Filter_AllStatus" xml:space="preserve"><value>جميع الحالات</value></data>
-	<data name="Filter_AllTime"   xml:space="preserve"><value>كل الأوقات</value></data>
-	<data name="Filter_Today"     xml:space="preserve"><value>اليوم</value></data>
-	<data name="Filter_ThisWeek"  xml:space="preserve"><value>هذا الأسبوع</value></data>
-	<data name="Filter_ThisMonth" xml:space="preserve"><value>هذا الشهر</value></data>
-	<data name="Export"           xml:space="preserve"><value>تصدير</value></data>
-
-	<!-- Table columns -->
-	<data name="Col_OrderNo"   xml:space="preserve"><value>رقم الطلب</value></data>
-	<data name="Col_Date"      xml:space="preserve"><value>التاريخ</value></data>
-	<data name="Col_Actions"   xml:space="preserve"><value>الإجراءات</value></data>
-	<data name="Total_Orders"  xml:space="preserve"><value>إجمالي الطلبات</value></data>
-	<data name="Showing"       xml:space="preserve"><value>عرض</value></data>
-	<data name="Of"            xml:space="preserve"><value>من</value></data>
-
-	<!-- Nav / Actions -->
-	<data name="Back"           xml:space="preserve"><value>رجوع</value></data>
-	<data name="Details"        xml:space="preserve"><value>تفاصيل</value></data>
-	<data name="Edit"           xml:space="preserve"><value>تعديل</value></data>
-	<data name="Delete"         xml:space="preserve"><value>حذف</value></data>
-	<data name="Cancel"         xml:space="preserve"><value>إلغاء</value></data>
-	<data name="Save_Order"     xml:space="preserve"><value>حفظ الطلب</value></data>
-	<data name="Save_Draft"     xml:space="preserve"><value>حفظ مسودة</value></data>
-	<data name="Save_Changes"   xml:space="preserve"><value>حفظ التعديلات</value></data>
-	<data name="Delete_Confirm" xml:space="preserve"><value>هل أنت متأكد من حذف هذا الطلب؟</value></data>
-	<data name="Add_New_Order"  xml:space="preserve"><value>إضافة طلب جديد</value></data>
-
-	<!-- Page subtitles -->
-	<data name="Orders_FurnitureSale"     xml:space="preserve"><value>طلبات بيع الأثاث</value></data>
-	<data name="Orders_FurnitureSale_Sub" xml:space="preserve"><value>إدارة وتتبع جميع طلبات بيع الأثاث</value></data>
-	<data name="Add_Order_Sub"            xml:space="preserve"><value>أدخل بيانات الطلب الجديد</value></data>
-	<data name="Edit_Order"               xml:space="preserve"><value>تعديل الطلب</value></data>
-	<data name="Edit_Order_Sub"           xml:space="preserve"><value>تعديل بيانات الطلب</value></data>
-	<data name="Order_Details"            xml:space="preserve"><value>تفاصيل الطلب</value></data>
-
-	<!-- Order fields -->
-	<data name="Service_Type"             xml:space="preserve"><value>نوع الخدمة</value></data>
-	<data name="Select_Service"           xml:space="preserve"><value>اختر نوع الخدمة</value></data>
-	<data name="Product_Name"             xml:space="preserve"><value>اسم المنتج</value></data>
-	<data name="Product_Name_Placeholder" xml:space="preserve"><value>مثال: أريكة جلد فاخر</value></data>
-	<data name="Product_Sofa"             xml:space="preserve"><value>أريكة جلد فاخر - L شكل</value></data>
-	<data name="Quantity"                 xml:space="preserve"><value>الكمية</value></data>
-	<data name="Amount_SAR"               xml:space="preserve"><value>المبلغ (ر.س)</value></data>
-	<data name="Currency"                 xml:space="preserve"><value>ر.س</value></data>
-	<data name="Order_Date"               xml:space="preserve"><value>تاريخ الطلب</value></data>
-	<data name="Delivery_Date"            xml:space="preserve"><value>تاريخ التسليم المتوقع</value></data>
-	<data name="Payment_Method"           xml:space="preserve"><value>طريقة الدفع</value></data>
-	<data name="Bank_Transfer"            xml:space="preserve"><value>تحويل بنكي</value></data>
-	<data name="Cash"                     xml:space="preserve"><value>نقد</value></data>
-	<data name="Credit_Card"              xml:space="preserve"><value>بطاقة ائتمان</value></data>
-	<data name="Mada"                     xml:space="preserve"><value>مدى</value></data>
-	<data name="Notes"                    xml:space="preserve"><value>ملاحظات</value></data>
-	<data name="Notes_Placeholder"        xml:space="preserve"><value>أي ملاحظات إضافية حول الطلب...</value></data>
-	<data name="Product_Images"           xml:space="preserve"><value>صور المنتج</value></data>
-	<data name="Upload_Label"             xml:space="preserve"><value>اسحب الصور هنا أو انقر للرفع</value></data>
-	<data name="Upload_Hint"              xml:space="preserve"><value>PNG, JPG, WEBP · الحد الأقصى 5MB لكل صورة</value></data>
-
-	<!-- Customer fields -->
-	<data name="Customer_Name"         xml:space="preserve"><value>اسم العميل</value></data>
-	<data name="Customer_Info"         xml:space="preserve"><value>معلومات العميل</value></data>
-	<data name="Customer_Since"        xml:space="preserve"><value>عميل منذ</value></data>
-	<data name="Active_Customer"       xml:space="preserve"><value>عميل نشط</value></data>
-	<data name="Total_Customer_Orders" xml:space="preserve"><value>إجمالي طلباته</value></data>
-	<data name="Full_Name"             xml:space="preserve"><value>الاسم الكامل</value></data>
-	<data name="Phone"                 xml:space="preserve"><value>رقم الجوال</value></data>
-	<data name="Email"                 xml:space="preserve"><value>البريد الإلكتروني</value></data>
-	<data name="City"                  xml:space="preserve"><value>المدينة</value></data>
-	<data name="City_Riyadh"           xml:space="preserve"><value>الرياض</value></data>
-	<data name="City_Jeddah"           xml:space="preserve"><value>جدة</value></data>
-	<data name="City_Dammam"           xml:space="preserve"><value>الدمام</value></data>
-	<data name="City_Mecca"            xml:space="preserve"><value>مكة المكرمة</value></data>
-	<data name="Address"               xml:space="preserve"><value>عنوان التوصيل</value></data>
-	<data name="Address_Placeholder"   xml:space="preserve"><value>الحي، الشارع، رقم المبنى...</value></data>
-	<data name="Sample_Address"        xml:space="preserve"><value>حي النزهة، الرياض</value></data>
-	<data name="Sample_Notes"          xml:space="preserve"><value>العميل يطلب التوصيل صباحاً قبل الساعة 12، مع ضرورة اصطحاب فريق التركيب.</value></data>
-
-	<!-- Detail page -->
-	<data name="Order_Info"          xml:space="preserve"><value>معلومات الطلب</value></data>
-	<data name="Edit_Order_Info"     xml:space="preserve"><value>تعديل معلومات الطلب</value></data>
-	<data name="Edit_Customer_Info"  xml:space="preserve"><value>تعديل معلومات العميل</value></data>
-	<data name="Rating"              xml:space="preserve"><value>تقييم العميل</value></data>
-	<data name="Order_Timeline"      xml:space="preserve"><value>تتبع الطلب</value></data>
-	<data name="Timeline_Received"   xml:space="preserve"><value>تم استلام الطلب</value></data>
-	<data name="Timeline_Paid"       xml:space="preserve"><value>تم تأكيد الدفع</value></data>
-	<data name="Timeline_Shipping"   xml:space="preserve"><value>قيد التجهيز والشحن</value></data>
-	<data name="Timeline_Delivery"   xml:space="preserve"><value>التوصيل والتركيب</value></data>
-	<data name="Expected"            xml:space="preserve"><value>متوقع</value></data>
-	<data name="Quick_Actions"       xml:space="preserve"><value>إجراءات سريعة</value></data>
-	<data name="Mark_Complete"       xml:space="preserve"><value>تأكيد الإتمام</value></data>
-	<data name="Print_Invoice"       xml:space="preserve"><value>طباعة الفاتورة</value></data>
-	<data name="Send_Customer"       xml:space="preserve"><value>إرسال للعميل</value></data>
-	<data name="Cancel_Order"        xml:space="preserve"><value>إلغاء الطلب</value></data>
-
-	<!-- Tips -->
-	<data name="Input_Tips"   xml:space="preserve"><value>تعليمات الإدخال</value></data>
-	<data name="Tip_Required" xml:space="preserve"><value>الحقول المعلمة بـ * إلزامية</value></data>
-	<data name="Tip_Phone"    xml:space="preserve"><value>تأكد من صحة رقم جوال العميل</value></data>
-	<data name="Tip_Notes"    xml:space="preserve"><value>أضف ملاحظات التوصيل إن وجدت</value></data>
-	<data name="Tip_Images"   xml:space="preserve"><value>يمكن رفع حتى 5 صور للمنتج</value></data>
-	<data name="Tip_Notify"   xml:space="preserve"><value>سيتم إرسال إشعار للعميل تلقائياً</value></data>
-	<data name="Quick_Stats"  xml:space="preserve"><value>الإحصائيات السريعة</value></data>
-	<data name="Today_Orders" xml:space="preserve"><value>طلبات اليوم</value></data>
-	<data name="Month_Orders" xml:space="preserve"><value>طلبات هذا الشهر</value></data>
-	<data name="Top_Service"  xml:space="preserve"><value>أعلى خدمة طلباً</value></data>
-
-	<!-- Edit sidebar -->
-	<data name="Order_Meta"       xml:space="preserve"><value>معلومات الطلب</value></data>
-	<data name="Created_At"       xml:space="preserve"><value>تاريخ الإنشاء</value></data>
-	<data name="Last_Modified"    xml:space="preserve"><value>آخر تعديل</value></data>
-	<data name="Today"            xml:space="preserve"><value>اليوم</value></data>
-	<data name="Warnings"         xml:space="preserve"><value>تنبيهات</value></data>
-	<data name="Warning_Complete" xml:space="preserve"><value>تغيير الحالة إلى مكتمل سيرسل إشعاراً للعميل</value></data>
-	<data name="Warning_Amount"   xml:space="preserve"><value>تعديل المبلغ يستلزم إعادة التأكيد</value></data>
-	<data name="Warning_Log"      xml:space="preserve"><value>يُسجَّل تاريخ التعديل تلقائياً</value></data>
-	<data name="Edit_Warning"     xml:space="preserve"><value>أنت تقوم بتعديل طلب موجود. تأكد من صحة البيانات قبل الحفظ.</value></data>
-	<!-- Pending Vendors -->
-	<data name="PendingVendors_Title" xml:space="preserve">
-    <value>الشركات المتقدمة</value>
-</data>
-	<data name="PendingVendors_Count" xml:space="preserve">
-    <value>شركة قيد الانتظار</value>
-</data>
-	<data name="PendingVendors_Description" xml:space="preserve">
-    <value>شركات جديدة في انتظار المراجعة والموافقة</value>
-</data>
-	<data name="PendingVendors_ViewAll" xml:space="preserve">
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>البحث في النظام...</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>المدير</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Nav_Main" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Nav_Management" xml:space="preserve">
+    <value>الإدارة</value>
+  </data>
+  <data name="Nav_System" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>الطلبات</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>الخدمات</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>الشركات</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمون</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>الرسائل</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>Super Admin</value>
+  </data>
+  <data name="SystemManager" xml:space="preserve">
+    <value>مدير النظام</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>أهلاً بك 👋 مدير النظام</value>
+  </data>
+  <data name="Welcome_Subtitle" xml:space="preserve">
+    <value>إليك ملخص نشاط خدمات الأثاث والمطابخ اليوم</value>
+  </data>
+  <data name="Monthly_Orders" xml:space="preserve">
+    <value>طلب هذا الشهر</value>
+  </data>
+  <data name="Satisfaction_Rate" xml:space="preserve">
+    <value>نسبة الرضا</value>
+  </data>
+  <data name="Active_Now" xml:space="preserve">
+    <value>طلب نشط الآن</value>
+  </data>
+  <data name="Main_Services" xml:space="preserve">
+    <value>خدماتنا الرئيسية</value>
+  </data>
+  <data name="Recent_Orders" xml:space="preserve">
+    <value>أحدث الطلبات</value>
+  </data>
+  <data name="Top_Services" xml:space="preserve">
+    <value>أعلى الخدمات طلباً</value>
+  </data>
+  <data name="View_All" xml:space="preserve">
     <value>عرض الكل</value>
-</data>
-
-	<!-- Vendors Table -->
-	<data name="Vendors_CompanyName" xml:space="preserve">
-    <value>اسم الشركة</value>
-</data>
-	<data name="Vendors_Email" xml:space="preserve">
-    <value>البريد الإلكتروني</value>
-</data>
-	<data name="Vendors_Phone" xml:space="preserve">
-    <value>رقم الهاتف</value>
-</data>
-	<data name="Vendors_ServiceType" xml:space="preserve">
-    <value>نوع الخدمة</value>
-</data>
-	<data name="Vendors_Experience" xml:space="preserve">
-    <value>سنوات الخبرة</value>
-</data>
-	<data name="Vendors_SubmittedDate" xml:space="preserve">
-    <value>تاريخ التقديم</value>
-</data>
-	<data name="Vendors_Status" xml:space="preserve">
-    <value>الحالة</value>
-</data>
-	<data name="Vendors_Actions" xml:space="preserve">
-    <value>الإجراءات</value>
-</data>
-	<data name="Vendors_Accept" xml:space="preserve">
-    <value>قبول</value>
-</data>
-	<data name="Vendors_Reject" xml:space="preserve">
-    <value>رفض</value>
-</data>
-	<data name="Vendors_ViewDetails" xml:space="preserve">
+  </data>
+  <data name="View_Details" xml:space="preserve">
     <value>عرض التفاصيل</value>
-</data>
-
-	<!-- Vendor Details -->
-	<data name="Vendor_Details_Title" xml:space="preserve">
-    <value>تفاصيل الشركة</value>
-</data>
-	<data name="Vendor_Logo" xml:space="preserve">
-    <value>الشعار</value>
-</data>
-	<data name="Vendor_Description" xml:space="preserve">
-    <value>الوصف</value>
-</data>
-	<data name="Vendor_ShowroomAddress" xml:space="preserve">
-    <value>عنوان المعرض</value>
-</data>
-	<data name="Vendor_ShowroomImage" xml:space="preserve">
-    <value>صورة المعرض</value>
-</data>
-	<data name="Vendor_Documents" xml:space="preserve">
-    <value>المستندات</value>
-</data>
-	<data name="Vendor_CommercialReg" xml:space="preserve">
-    <value>السجل التجاري</value>
-</data>
-	<data name="Vendor_WorkLicense" xml:space="preserve">
-    <value>رخصة العمل</value>
-</data>
-
-	<!-- Rejection -->
-	<data name="Rejection_Title" xml:space="preserve">
-    <value>رفض الشركة</value>
-</data>
-	<data name="Rejection_Reason" xml:space="preserve">
-    <value>سبب الرفض</value>
-</data>
-	<data name="Rejection_ReasonAr" xml:space="preserve">
-    <value>سبب الرفض (عربي)</value>
-</data>
-	<data name="Rejection_ReasonEn" xml:space="preserve">
-    <value>سبب الرفض (إنجليزي)</value>
-</data>
-	<data name="Rejection_Submit" xml:space="preserve">
-    <value>تأكيد الرفض</value>
-</data>
-	<data name="Rejection_Cancel" xml:space="preserve">
+  </data>
+  <data name="Srv_Active" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="Srv_New" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Srv_TotalOrders" xml:space="preserve">
+    <value>طلب كلي</value>
+  </data>
+  <data name="Srv_ActiveOrders" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="Srv_Sales" xml:space="preserve">
+    <value>مبيعات</value>
+  </data>
+  <data name="Srv_MonthProgress" xml:space="preserve">
+    <value>إنجاز الشهر</value>
+  </data>
+  <data name="Srv_FurnitureSale" xml:space="preserve">
+    <value>بيع الأثاث</value>
+  </data>
+  <data name="Srv_FurnitureMoving" xml:space="preserve">
+    <value>ترحيل الأثاث</value>
+  </data>
+  <data name="Srv_KitchenSale" xml:space="preserve">
+    <value>بيع المطابخ</value>
+  </data>
+  <data name="Srv_KitchenInstall" xml:space="preserve">
+    <value>تركيب المطابخ</value>
+  </data>
+  <data name="Srv_FurnitureInstall" xml:space="preserve">
+    <value>تركيب الأثاث</value>
+  </data>
+  <data name="Srv_Maintenance" xml:space="preserve">
+    <value>صيانة وإصلاح</value>
+  </data>
+  <data name="Srv_FurnitureSale_Desc" xml:space="preserve">
+    <value>بيع وتوريد أثاث منزلي فاخر لجميع أنواع الغرف والمساحات</value>
+  </data>
+  <data name="Srv_FurnitureMoving_Desc" xml:space="preserve">
+    <value>نقل وترحيل الأثاث بأمان مع خدمة تغليف وفك وتركيب احترافية</value>
+  </data>
+  <data name="Srv_KitchenSale_Desc" xml:space="preserve">
+    <value>توريد مطابخ عصرية ومنزلية بأحدث التصاميم وأجود المواد</value>
+  </data>
+  <data name="Srv_KitchenInstall_Desc" xml:space="preserve">
+    <value>تركيب وتنصيب المطابخ بدقة عالية من فريق متخصص ومحترف</value>
+  </data>
+  <data name="Srv_FurnitureInstall_Desc" xml:space="preserve">
+    <value>تجميع وتركيب الأثاث المنزلي والمكتبي بأيدي فنيين متخصصين</value>
+  </data>
+  <data name="Srv_Maintenance_Desc" xml:space="preserve">
+    <value>خدمة صيانة وإصلاح الأثاث والمطابخ التالفة باحترافية وسرعة</value>
+  </data>
+  <data name="Col_Service" xml:space="preserve">
+    <value>الخدمة</value>
+  </data>
+  <data name="Col_Customer" xml:space="preserve">
+    <value>العميل</value>
+  </data>
+  <data name="Col_Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Col_Amount" xml:space="preserve">
+    <value>المبلغ</value>
+  </data>
+  <data name="Status_InProgress" xml:space="preserve">
+    <value>قيد التنفيذ</value>
+  </data>
+  <data name="Status_Done" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="Status_Pending" xml:space="preserve">
+    <value>انتظار</value>
+  </data>
+  <data name="Status_Cancelled" xml:space="preserve">
+    <value>ملغي</value>
+  </data>
+  <data name="Filter_AllStatus" xml:space="preserve">
+    <value>جميع الحالات</value>
+  </data>
+  <data name="Filter_AllTime" xml:space="preserve">
+    <value>كل الأوقات</value>
+  </data>
+  <data name="Filter_Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="Filter_ThisWeek" xml:space="preserve">
+    <value>هذا الأسبوع</value>
+  </data>
+  <data name="Filter_ThisMonth" xml:space="preserve">
+    <value>هذا الشهر</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="Col_OrderNo" xml:space="preserve">
+    <value>رقم الطلب</value>
+  </data>
+  <data name="Col_Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="Col_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Total_Orders" xml:space="preserve">
+    <value>إجمالي الطلبات</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>تفاصيل</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
-</data>
-
-	<!-- Messages -->
-	<data name="Message_VendorAccepted" xml:space="preserve">
+  </data>
+  <data name="Save_Order" xml:space="preserve">
+    <value>حفظ الطلب</value>
+  </data>
+  <data name="Save_Draft" xml:space="preserve">
+    <value>حفظ مسودة</value>
+  </data>
+  <data name="Save_Changes" xml:space="preserve">
+    <value>حفظ التعديلات</value>
+  </data>
+  <data name="Delete_Confirm" xml:space="preserve">
+    <value>هل أنت متأكد من حذف هذا الطلب؟</value>
+  </data>
+  <data name="Add_New_Order" xml:space="preserve">
+    <value>إضافة طلب جديد</value>
+  </data>
+  <data name="Orders_FurnitureSale" xml:space="preserve">
+    <value>طلبات بيع الأثاث</value>
+  </data>
+  <data name="Orders_FurnitureSale_Sub" xml:space="preserve">
+    <value>إدارة وتتبع جميع طلبات بيع الأثاث</value>
+  </data>
+  <data name="Add_Order_Sub" xml:space="preserve">
+    <value>أدخل بيانات الطلب الجديد</value>
+  </data>
+  <data name="Edit_Order" xml:space="preserve">
+    <value>تعديل الطلب</value>
+  </data>
+  <data name="Edit_Order_Sub" xml:space="preserve">
+    <value>تعديل بيانات الطلب</value>
+  </data>
+  <data name="Order_Details" xml:space="preserve">
+    <value>تفاصيل الطلب</value>
+  </data>
+  <data name="Service_Type" xml:space="preserve">
+    <value>نوع الخدمة</value>
+  </data>
+  <data name="Select_Service" xml:space="preserve">
+    <value>اختر نوع الخدمة</value>
+  </data>
+  <data name="Product_Name" xml:space="preserve">
+    <value>اسم المنتج</value>
+  </data>
+  <data name="Product_Name_Placeholder" xml:space="preserve">
+    <value>مثال: أريكة جلد فاخر</value>
+  </data>
+  <data name="Product_Sofa" xml:space="preserve">
+    <value>أريكة جلد فاخر - L شكل</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Amount_SAR" xml:space="preserve">
+    <value>المبلغ (ر.س)</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>ر.س</value>
+  </data>
+  <data name="Order_Date" xml:space="preserve">
+    <value>تاريخ الطلب</value>
+  </data>
+  <data name="Delivery_Date" xml:space="preserve">
+    <value>تاريخ التسليم المتوقع</value>
+  </data>
+  <data name="Payment_Method" xml:space="preserve">
+    <value>طريقة الدفع</value>
+  </data>
+  <data name="Bank_Transfer" xml:space="preserve">
+    <value>تحويل بنكي</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>نقد</value>
+  </data>
+  <data name="Credit_Card" xml:space="preserve">
+    <value>بطاقة ائتمان</value>
+  </data>
+  <data name="Mada" xml:space="preserve">
+    <value>مدى</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Notes_Placeholder" xml:space="preserve">
+    <value>أي ملاحظات إضافية حول الطلب...</value>
+  </data>
+  <data name="Product_Images" xml:space="preserve">
+    <value>صور المنتج</value>
+  </data>
+  <data name="Upload_Label" xml:space="preserve">
+    <value>اسحب الصور هنا أو انقر للرفع</value>
+  </data>
+  <data name="Upload_Hint" xml:space="preserve">
+    <value>PNG, JPG, WEBP · الحد الأقصى 5MB لكل صورة</value>
+  </data>
+  <data name="Customer_Name" xml:space="preserve">
+    <value>اسم العميل</value>
+  </data>
+  <data name="Customer_Info" xml:space="preserve">
+    <value>معلومات العميل</value>
+  </data>
+  <data name="Customer_Since" xml:space="preserve">
+    <value>عميل منذ</value>
+  </data>
+  <data name="Active_Customer" xml:space="preserve">
+    <value>عميل نشط</value>
+  </data>
+  <data name="Total_Customer_Orders" xml:space="preserve">
+    <value>إجمالي طلباته</value>
+  </data>
+  <data name="Full_Name" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
+  </data>
+  <data name="City_Riyadh" xml:space="preserve">
+    <value>الرياض</value>
+  </data>
+  <data name="City_Jeddah" xml:space="preserve">
+    <value>جدة</value>
+  </data>
+  <data name="City_Dammam" xml:space="preserve">
+    <value>الدمام</value>
+  </data>
+  <data name="City_Mecca" xml:space="preserve">
+    <value>مكة المكرمة</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>عنوان التوصيل</value>
+  </data>
+  <data name="Address_Placeholder" xml:space="preserve">
+    <value>الحي، الشارع، رقم المبنى...</value>
+  </data>
+  <data name="Sample_Address" xml:space="preserve">
+    <value>حي النزهة، الرياض</value>
+  </data>
+  <data name="Sample_Notes" xml:space="preserve">
+    <value>العميل يطلب التوصيل صباحاً قبل الساعة 12، مع ضرورة اصطحاب فريق التركيب.</value>
+  </data>
+  <data name="Order_Info" xml:space="preserve">
+    <value>معلومات الطلب</value>
+  </data>
+  <data name="Edit_Order_Info" xml:space="preserve">
+    <value>تعديل معلومات الطلب</value>
+  </data>
+  <data name="Edit_Customer_Info" xml:space="preserve">
+    <value>تعديل معلومات العميل</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>تقييم العميل</value>
+  </data>
+  <data name="Order_Timeline" xml:space="preserve">
+    <value>تتبع الطلب</value>
+  </data>
+  <data name="Timeline_Received" xml:space="preserve">
+    <value>تم استلام الطلب</value>
+  </data>
+  <data name="Timeline_Paid" xml:space="preserve">
+    <value>تم تأكيد الدفع</value>
+  </data>
+  <data name="Timeline_Shipping" xml:space="preserve">
+    <value>قيد التجهيز والشحن</value>
+  </data>
+  <data name="Timeline_Delivery" xml:space="preserve">
+    <value>التوصيل والتركيب</value>
+  </data>
+  <data name="Expected" xml:space="preserve">
+    <value>متوقع</value>
+  </data>
+  <data name="Quick_Actions" xml:space="preserve">
+    <value>إجراءات سريعة</value>
+  </data>
+  <data name="Mark_Complete" xml:space="preserve">
+    <value>تأكيد الإتمام</value>
+  </data>
+  <data name="Print_Invoice" xml:space="preserve">
+    <value>طباعة الفاتورة</value>
+  </data>
+  <data name="Send_Customer" xml:space="preserve">
+    <value>إرسال للعميل</value>
+  </data>
+  <data name="Cancel_Order" xml:space="preserve">
+    <value>إلغاء الطلب</value>
+  </data>
+  <data name="Input_Tips" xml:space="preserve">
+    <value>تعليمات الإدخال</value>
+  </data>
+  <data name="Tip_Required" xml:space="preserve">
+    <value>الحقول المعلمة بـ * إلزامية</value>
+  </data>
+  <data name="Tip_Phone" xml:space="preserve">
+    <value>تأكد من صحة رقم جوال العميل</value>
+  </data>
+  <data name="Tip_Notes" xml:space="preserve">
+    <value>أضف ملاحظات التوصيل إن وجدت</value>
+  </data>
+  <data name="Tip_Images" xml:space="preserve">
+    <value>يمكن رفع حتى 5 صور للمنتج</value>
+  </data>
+  <data name="Tip_Notify" xml:space="preserve">
+    <value>سيتم إرسال إشعار للعميل تلقائياً</value>
+  </data>
+  <data name="Quick_Stats" xml:space="preserve">
+    <value>الإحصائيات السريعة</value>
+  </data>
+  <data name="Today_Orders" xml:space="preserve">
+    <value>طلبات اليوم</value>
+  </data>
+  <data name="Month_Orders" xml:space="preserve">
+    <value>طلبات هذا الشهر</value>
+  </data>
+  <data name="Top_Service" xml:space="preserve">
+    <value>أعلى خدمة طلباً</value>
+  </data>
+  <data name="Order_Meta" xml:space="preserve">
+    <value>معلومات الطلب</value>
+  </data>
+  <data name="Created_At" xml:space="preserve">
+    <value>تاريخ الإنشاء</value>
+  </data>
+  <data name="Last_Modified" xml:space="preserve">
+    <value>آخر تعديل</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>تنبيهات</value>
+  </data>
+  <data name="Warning_Complete" xml:space="preserve">
+    <value>تغيير الحالة إلى مكتمل سيرسل إشعاراً للعميل</value>
+  </data>
+  <data name="Warning_Amount" xml:space="preserve">
+    <value>تعديل المبلغ يستلزم إعادة التأكيد</value>
+  </data>
+  <data name="Warning_Log" xml:space="preserve">
+    <value>يُسجَّل تاريخ التعديل تلقائياً</value>
+  </data>
+  <data name="Edit_Warning" xml:space="preserve">
+    <value>أنت تقوم بتعديل طلب موجود. تأكد من صحة البيانات قبل الحفظ.</value>
+  </data>
+  <data name="PendingVendors_Title" xml:space="preserve">
+    <value>الشركات المتقدمة</value>
+  </data>
+  <data name="PendingVendors_Count" xml:space="preserve">
+    <value>شركة قيد الانتظار</value>
+  </data>
+  <data name="PendingVendors_Description" xml:space="preserve">
+    <value>شركات جديدة في انتظار المراجعة والموافقة</value>
+  </data>
+  <data name="PendingVendors_ViewAll" xml:space="preserve">
+    <value>عرض الكل</value>
+  </data>
+  <data name="Vendors_CompanyName" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="Vendors_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Vendors_Phone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="Vendors_ServiceType" xml:space="preserve">
+    <value>نوع الخدمة</value>
+  </data>
+  <data name="Vendors_Experience" xml:space="preserve">
+    <value>سنوات الخبرة</value>
+  </data>
+  <data name="Vendors_SubmittedDate" xml:space="preserve">
+    <value>تاريخ التقديم</value>
+  </data>
+  <data name="Vendors_Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Vendors_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Vendors_Accept" xml:space="preserve">
+    <value>قبول</value>
+  </data>
+  <data name="Vendors_Reject" xml:space="preserve">
+    <value>رفض</value>
+  </data>
+  <data name="Vendors_ViewDetails" xml:space="preserve">
+    <value>عرض التفاصيل</value>
+  </data>
+  <data name="Vendor_Details_Title" xml:space="preserve">
+    <value>تفاصيل الشركة</value>
+  </data>
+  <data name="Vendor_Logo" xml:space="preserve">
+    <value>الشعار</value>
+  </data>
+  <data name="Vendor_Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="Vendor_ShowroomAddress" xml:space="preserve">
+    <value>عنوان المعرض</value>
+  </data>
+  <data name="Vendor_ShowroomImage" xml:space="preserve">
+    <value>صورة المعرض</value>
+  </data>
+  <data name="Vendor_Documents" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="Vendor_CommercialReg" xml:space="preserve">
+    <value>السجل التجاري</value>
+  </data>
+  <data name="Vendor_WorkLicense" xml:space="preserve">
+    <value>رخصة العمل</value>
+  </data>
+  <data name="Rejection_Title" xml:space="preserve">
+    <value>رفض الشركة</value>
+  </data>
+  <data name="Rejection_Reason" xml:space="preserve">
+    <value>سبب الرفض</value>
+  </data>
+  <data name="Rejection_ReasonAr" xml:space="preserve">
+    <value>سبب الرفض (عربي)</value>
+  </data>
+  <data name="Rejection_ReasonEn" xml:space="preserve">
+    <value>سبب الرفض (إنجليزي)</value>
+  </data>
+  <data name="Rejection_Submit" xml:space="preserve">
+    <value>تأكيد الرفض</value>
+  </data>
+  <data name="Rejection_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Message_VendorAccepted" xml:space="preserve">
     <value>تم قبول الشركة بنجاح</value>
-</data>
-	<data name="Message_VendorRejected" xml:space="preserve">
+  </data>
+  <data name="Message_VendorRejected" xml:space="preserve">
     <value>تم رفض الشركة</value>
-</data>
-	<data name="Message_EmailSent" xml:space="preserve">
+  </data>
+  <data name="Message_EmailSent" xml:space="preserve">
     <value>تم إرسال بريد إلكتروني للشركة</value>
-</data>
-	<data name="Message_ConfirmAccept" xml:space="preserve">
+  </data>
+  <data name="Message_ConfirmAccept" xml:space="preserve">
     <value>هل أنت متأكد من قبول هذه الشركة؟</value>
-</data>
-	<data name="Message_ConfirmReject" xml:space="preserve">
+  </data>
+  <data name="Message_ConfirmReject" xml:space="preserve">
     <value>هل أنت متأكد من رفض هذه الشركة؟</value>
-</data>
-
-	<!-- Status -->
-	
-	<data name="Status_Approved" xml:space="preserve">
+  </data>
+  <data name="Status_Approved" xml:space="preserve">
     <value>مقبول</value>
-</data>
-	<data name="Status_Rejected" xml:space="preserve">
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
     <value>مرفوض</value>
-</data>
+  </data>
+  <data name="Srv_Services" xml:space="preserve">
+    <value>الخدمات</value>
+  </data>
+  <data name="Srv_Services_Desc" xml:space="preserve">
+    <value>إدارة ومتابعة جميع الخدمات المتاحة داخل النظام</value>
+  </data>
 </root>

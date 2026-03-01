@@ -12,6 +12,11 @@ namespace Home_Expert.Resources
         public const string Service_Sales = "Service_Sales";
         public const string Service_Installation = "Service_Installation";
 
+        // ServicesCard
+
+        public const string Srv_Services = "Srv_Services";
+        public const string Srv_Services_Desc = "Srv_Services_Desc";
+
         // Hero Section
         public const string Hero_Title = "Hero_Title";
         public const string Hero_Description = "Hero_Description";

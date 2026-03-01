@@ -1,790 +1,1050 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-	<!-- ===== Project Info ===== -->
-	<data name="Project_Title" xml:space="preserve">
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Project_Title" xml:space="preserve">
     <value>Home Expert</value>
   </data>
-
-	<!-- ===== Services ===== -->
-	<data name="Service_Moving" xml:space="preserve">
+  <data name="Service_Moving" xml:space="preserve">
     <value>Moving</value>
   </data>
-	<data name="Service_Sales" xml:space="preserve">
+  <data name="Service_Sales" xml:space="preserve">
     <value>Sales</value>
   </data>
-	<data name="Service_Installation" xml:space="preserve">
+  <data name="Service_Installation" xml:space="preserve">
     <value>Installation</value>
   </data>
-
-	<!-- ===== Hero Section ===== -->
-	<data name="Hero_Title" xml:space="preserve">
+  <data name="Hero_Title" xml:space="preserve">
     <value>Empowering Professional Installation Teams</value>
   </data>
-	<data name="Hero_Description" xml:space="preserve">
+  <data name="Hero_Description" xml:space="preserve">
     <value>Join the premier platform for furniture and kitchen installation services. Manage your workforce, track orders, and scale your business with ease.</value>
   </data>
-	<data name="Hero_Trust_Text" xml:space="preserve">
+  <data name="Hero_Trust_Text" xml:space="preserve">
     <value>Trusted by over 1,000+ installation companies globally.</value>
   </data>
-
-	<!-- ===== Footer ===== -->
-	<data name="Footer_Copyright" xml:space="preserve">
+  <data name="Footer_Copyright" xml:space="preserve">
     <value>© 2026 Home Expert</value>
   </data>
-	<data name="Footer_Privacy" xml:space="preserve">
+  <data name="Footer_Privacy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
-	<data name="Footer_Terms" xml:space="preserve">
+  <data name="Footer_Terms" xml:space="preserve">
     <value>Terms of Service</value>
   </data>
-
-	<!-- ===== Form ===== -->
-	<data name="Form_Title" xml:space="preserve">
+  <data name="Form_Title" xml:space="preserve">
     <value>Create an Account</value>
   </data>
-	<data name="Form_Subtitle" xml:space="preserve">
+  <data name="Form_Subtitle" xml:space="preserve">
     <value>Register your company to start managing services.</value>
   </data>
-
-	<!-- ===== Steps ===== -->
-	<data name="Step_Details" xml:space="preserve">
+  <data name="Step_Details" xml:space="preserve">
     <value>Details</value>
   </data>
-	<data name="Step_Verification" xml:space="preserve">
+  <data name="Step_Verification" xml:space="preserve">
     <value>Verification</value>
   </data>
-
-	<!-- ===== Labels - General ===== -->
-	<data name="Label_FullName" xml:space="preserve">
+  <data name="Label_FullName" xml:space="preserve">
     <value>Last Name</value>
   </data>
-	<data name="Label_CompanyName" xml:space="preserve">
+  <data name="Label_CompanyName" xml:space="preserve">
     <value>Company Name</value>
   </data>
-	<data name="Label_Email" xml:space="preserve">
+  <data name="Label_Email" xml:space="preserve">
     <value>Email Address</value>
   </data>
-	<data name="Label_Phone" xml:space="preserve">
+  <data name="Label_Phone" xml:space="preserve">
     <value>Phone Number</value>
   </data>
-	<data name="Label_Password" xml:space="preserve">
+  <data name="Label_Password" xml:space="preserve">
     <value>Password</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Name ===== -->
-	<data name="Label_FirstNameAr" xml:space="preserve">
+  <data name="Label_FirstNameAr" xml:space="preserve">
     <value>FULL Name (Arabic)</value>
   </data>
-	<data name="Label_FirstNameEn" xml:space="preserve">
+  <data name="Label_FirstNameEn" xml:space="preserve">
     <value>FULL Name (English)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Company ===== -->
-	<data name="Label_CompanyNameAr" xml:space="preserve">
+  <data name="Label_CompanyNameAr" xml:space="preserve">
     <value>Company Name (Arabic)</value>
   </data>
-	<data name="Label_CompanyNameEn" xml:space="preserve">
+  <data name="Label_CompanyNameEn" xml:space="preserve">
     <value>Company Name (English)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Description ===== -->
-	<data name="Label_DescriptionAr" xml:space="preserve">
+  <data name="Label_DescriptionAr" xml:space="preserve">
     <value>Company Description (Arabic)</value>
   </data>
-	<data name="Label_DescriptionEn" xml:space="preserve">
+  <data name="Label_DescriptionEn" xml:space="preserve">
     <value>Company Description (English)</value>
   </data>
-
-	<!-- ===== Labels - Bilingual Showroom Address ===== -->
-	<data name="Label_ShowroomAddressAr" xml:space="preserve">
+  <data name="Label_ShowroomAddressAr" xml:space="preserve">
     <value> Address location (Arabic)</value>
   </data>
-	<data name="Label_ShowroomAddressEn" xml:space="preserve">
+  <data name="Label_ShowroomAddressEn" xml:space="preserve">
     <value> Address  location(English)</value>
   </data>
-
-	<!-- ===== Labels - File Uploads ===== -->
-	<data name="Label_ShowroomImage" xml:space="preserve">
+  <data name="Label_ShowroomImage" xml:space="preserve">
     <value>Location Image</value>
   </data>
-	<data name="Label_CommercialFile" xml:space="preserve">
+  <data name="Label_CommercialFile" xml:space="preserve">
     <value>Commercial Registration File</value>
   </data>
-	<data name="Label_WorkLicense" xml:space="preserve">
+  <data name="Label_WorkLicense" xml:space="preserve">
     <value>Work License</value>
   </data>
-
-	<!-- ===== Placeholders - General ===== -->
-	<data name="Placeholder_FullName" xml:space="preserve">
+  <data name="Placeholder_FullName" xml:space="preserve">
     <value>Enter your last name</value>
   </data>
-	<data name="Placeholder_CompanyName" xml:space="preserve">
+  <data name="Placeholder_CompanyName" xml:space="preserve">
     <value>Company Name</value>
   </data>
-	<data name="Placeholder_Email" xml:space="preserve">
+  <data name="Placeholder_Email" xml:space="preserve">
     <value>ABC@example.com</value>
   </data>
-	<data name="Placeholder_Phone" xml:space="preserve">
+  <data name="Placeholder_Phone" xml:space="preserve">
     <value>+1 (555) 000</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Name ===== -->
-	<data name="Placeholder_FirstNameAr" xml:space="preserve">
+  <data name="Placeholder_FirstNameAr" xml:space="preserve">
     <value>e.g. أحمد</value>
   </data>
-	<data name="Placeholder_FirstNameEn" xml:space="preserve">
+  <data name="Placeholder_FirstNameEn" xml:space="preserve">
     <value>e.g. Ahmed</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Company ===== -->
-	<data name="Placeholder_CompanyNameAr" xml:space="preserve">
+  <data name="Placeholder_CompanyNameAr" xml:space="preserve">
     <value>Company name in Arabic</value>
   </data>
-	<data name="Placeholder_CompanyNameEn" xml:space="preserve">
+  <data name="Placeholder_CompanyNameEn" xml:space="preserve">
     <value>Company name in English</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Description ===== -->
-	<data name="Placeholder_DescriptionAr" xml:space="preserve">
+  <data name="Placeholder_DescriptionAr" xml:space="preserve">
     <value>Describe your company in Arabic...</value>
   </data>
-	<data name="Placeholder_DescriptionEn" xml:space="preserve">
+  <data name="Placeholder_DescriptionEn" xml:space="preserve">
     <value>Tell us about your company in English...</value>
   </data>
-
-	<!-- ===== Placeholders - Bilingual Showroom Address ===== -->
-	<data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
+  <data name="Placeholder_ShowroomAddressAr" xml:space="preserve">
     <value>Enter  address location in Arabic</value>
   </data>
-	<data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
+  <data name="Placeholder_ShowroomAddressEn" xml:space="preserve">
     <value>Enter  address location in English</value>
   </data>
-
-	<!-- ===== Other ===== -->
-
-	<data name="Terms_Agreement" xml:space="preserve">
+  <data name="Terms_Agreement" xml:space="preserve">
     <value>I agree to the &lt;a href="#" class="link-accent"&gt;Terms of Service&lt;/a&gt; and &lt;a href="#" class="link-accent"&gt;Privacy Policy&lt;/a&gt;.</value>
   </data>
-	<data name="Button_CreateAccount" xml:space="preserve">
+  <data name="Button_CreateAccount" xml:space="preserve">
     <value>Create Account</value>
   </data>
-	<data name="SignIn_Link" xml:space="preserve">
+  <data name="SignIn_Link" xml:space="preserve">
     <value>Already have an account? &lt;a href="/Registration/Login" class="link-accent"&gt;Sign In&lt;/a&gt;</value>
   </data>
-
-	<!-- ===== OTP ===== -->
-	<data name="OTP_Title" xml:space="preserve">
+  <data name="OTP_Title" xml:space="preserve">
     <value>Verify Your Account</value>
   </data>
-	<data name="OTP_Subtitle" xml:space="preserve">
+  <data name="OTP_Subtitle" xml:space="preserve">
     <value>We've sent a verification code to your email. Please enter it below.</value>
   </data>
-	<data name="OTP_ResendIn" xml:space="preserve">
+  <data name="OTP_ResendIn" xml:space="preserve">
     <value>Resend code in</value>
   </data>
-	<data name="OTP_Resend" xml:space="preserve">
+  <data name="OTP_Resend" xml:space="preserve">
     <value>Didn't receive the code? Resend</value>
   </data>
-	<data name="Button_Verify" xml:space="preserve">
+  <data name="Button_Verify" xml:space="preserve">
     <value>Verify &amp; Continue</value>
   </data>
-	<data name="Back_To_Registration" xml:space="preserve">
+  <data name="Back_To_Registration" xml:space="preserve">
     <value>Back to Registration</value>
   </data>
-	<data name="OTP_TimerText" xml:space="preserve">
+  <data name="OTP_TimerText" xml:space="preserve">
     <value>Code expires in:</value>
   </data>
-	<data name="OTP_VerifyButton" xml:space="preserve">
+  <data name="OTP_VerifyButton" xml:space="preserve">
     <value>Verify Code</value>
   </data>
-	<data name="OTP_ResendButton" xml:space="preserve">
+  <data name="OTP_ResendButton" xml:space="preserve">
     <value>Resend Code</value>
   </data>
-	<data name="OTP_BackButton" xml:space="preserve">
+  <data name="OTP_BackButton" xml:space="preserve">
     <value>Back to Previous Step</value>
   </data>
-
-	<!-- ===== Login ===== -->
-	<data name="Login_Title" xml:space="preserve">
+  <data name="Login_Title" xml:space="preserve">
     <value>Welcome Back</value>
   </data>
-	<data name="Login_Subtitle" xml:space="preserve">
+  <data name="Login_Subtitle" xml:space="preserve">
     <value>Sign in to continue managing your services.</value>
   </data>
-	<data name="Login_RememberMe" xml:space="preserve">
+  <data name="Login_RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
-	<data name="Login_ForgotPassword" xml:space="preserve">
+  <data name="Login_ForgotPassword" xml:space="preserve">
     <value>Forgot Password?</value>
   </data>
-	<data name="Button_Login" xml:space="preserve">
+  <data name="Button_Login" xml:space="preserve">
     <value>Sign In</value>
   </data>
-	<data name="SignUp_Link" xml:space="preserve">
+  <data name="SignUp_Link" xml:space="preserve">
     <value>Don't have an account? &lt;a href="/Registration/Registration" class="link-accent"&gt;Sign Up&lt;/a&gt;</value>
   </data>
-	<data name="Login_Or" xml:space="preserve">
+  <data name="Login_Or" xml:space="preserve">
     <value>OR</value>
   </data>
-	<data name="Login_Google" xml:space="preserve">
+  <data name="Login_Google" xml:space="preserve">
     <value>Continue with Google</value>
   </data>
-	<data name="Login_Microsoft" xml:space="preserve">
+  <data name="Login_Microsoft" xml:space="preserve">
     <value>Continue with Microsoft</value>
   </data>
-
-	<!-- ===== API Messages ===== -->
-	<data name="Message_OTPSent" xml:space="preserve">
+  <data name="Message_OTPSent" xml:space="preserve">
     <value>Verification code has been sent to your email</value>
   </data>
-	<data name="Message_EmailExists" xml:space="preserve">
+  <data name="Message_EmailExists" xml:space="preserve">
     <value>Email address is already in use</value>
   </data>
-	<data name="Message_InvalidData" xml:space="preserve">
+  <data name="Message_InvalidData" xml:space="preserve">
     <value>Invalid data</value>
   </data>
-	<data name="Message_SessionExpired" xml:space="preserve">
+  <data name="Message_SessionExpired" xml:space="preserve">
     <value>Session expired, please register again</value>
   </data>
-	<data name="Message_MaxAttemptsReached" xml:space="preserve">
+  <data name="Message_MaxAttemptsReached" xml:space="preserve">
     <value>You have exhausted all attempts (3/3). Please register again.</value>
   </data>
-	<data name="Message_OTPIncorrect" xml:space="preserve">
+  <data name="Message_OTPIncorrect" xml:space="preserve">
     <value>Incorrect verification code. Remaining attempts: {0}</value>
   </data>
-	<data name="Message_RegistrationSuccess" xml:space="preserve">
+  <data name="Message_RegistrationSuccess" xml:space="preserve">
     <value>Registration successful</value>
   </data>
-	<data name="Message_UserCreationFailed" xml:space="preserve">
+  <data name="Message_UserCreationFailed" xml:space="preserve">
     <value>Failed to create user</value>
   </data>
-	<data name="Message_OTPResent" xml:space="preserve">
+  <data name="Message_OTPResent" xml:space="preserve">
     <value>New verification code sent</value>
   </data>
-	<data name="Message_ServerError" xml:space="preserve">
+  <data name="Message_ServerError" xml:space="preserve">
     <value>An error occurred while processing the request</value>
   </data>
-
-	<!-- ===== Service Type ===== -->
-	<data name="Label_ServiceType" xml:space="preserve">
+  <data name="Label_ServiceType" xml:space="preserve">
     <value>Service Type</value>
   </data>
-	<data name="Placeholder_ServiceType" xml:space="preserve">
+  <data name="Placeholder_ServiceType" xml:space="preserve">
     <value>Select service type</value>
   </data>
-	<data name="Service_Furniture" xml:space="preserve">
+  <data name="Service_Furniture" xml:space="preserve">
     <value>Furniture Moving</value>
   </data>
-	<data name="Service_KitchenSales" xml:space="preserve">
+  <data name="Service_KitchenSales" xml:space="preserve">
     <value>Kitchen Sales</value>
   </data>
-	<data name="Service_KitchenInstall" xml:space="preserve">
+  <data name="Service_KitchenInstall" xml:space="preserve">
     <value>Kitchen Installation</value>
   </data>
-
-	<!-- ===== Other Fields ===== -->
-	<data name="Label_YearsExperience" xml:space="preserve">
+  <data name="Label_YearsExperience" xml:space="preserve">
     <value>Years of Experience </value>
   </data>
-	<data name="Placeholder_YearsExperience" xml:space="preserve">
+  <data name="Placeholder_YearsExperience" xml:space="preserve">
     <value>Example: 5</value>
   </data>
-	<data name="Label_Description" xml:space="preserve">
+  <data name="Label_Description" xml:space="preserve">
     <value>Company Description</value>
   </data>
-	<data name="Placeholder_Description" xml:space="preserve">
+  <data name="Placeholder_Description" xml:space="preserve">
     <value>Tell us about your company and services...</value>
   </data>
-	<data name="Label_Logo" xml:space="preserve">
+  <data name="Label_Logo" xml:space="preserve">
     <value>Company Logo </value>
   </data>
-	<data name="Logo_Helper" xml:space="preserve">
+  <data name="Logo_Helper" xml:space="preserve">
     <value>Max: 2MB, Supported formats: JPG, PNG, GIF</value>
   </data>
-	<data name="Password_Helper" xml:space="preserve">
+  <data name="Password_Helper" xml:space="preserve">
     <value>Password must be at least 6 characters</value>
   </data>
-
-	<!-- ===== Validation Errors - Name ===== -->
-	<data name="Error_FirstNameRequired" xml:space="preserve">
+  <data name="Error_FirstNameRequired" xml:space="preserve">
     <value>First name is required</value>
   </data>
-	<data name="Error_FirstNameLength" xml:space="preserve">
+  <data name="Error_FirstNameLength" xml:space="preserve">
     <value>First name must not exceed 50 characters</value>
   </data>
-	<data name="Error_FirstArNameRequired" xml:space="preserve">
+  <data name="Error_FirstArNameRequired" xml:space="preserve">
     <value>First name in Arabic is required</value>
   </data>
-	<data name="Error_FirsEntNameRequired" xml:space="preserve">
+  <data name="Error_FirsEntNameRequired" xml:space="preserve">
     <value>First name in English is required</value>
   </data>
-	<data name="Error_LastNameRequired" xml:space="preserve">
+  <data name="Error_LastNameRequired" xml:space="preserve">
     <value>Last name is required</value>
   </data>
-	<data name="Error_LastNameLength" xml:space="preserve">
+  <data name="Error_LastNameLength" xml:space="preserve">
     <value>Last name must not exceed 50 characters</value>
   </data>
-
-	<!-- ===== Validation Errors - Auth ===== -->
-	<data name="Error_EmailRequired" xml:space="preserve">
+  <data name="Error_EmailRequired" xml:space="preserve">
     <value>Email is required</value>
   </data>
-	<data name="Error_EmailInvalid" xml:space="preserve">
+  <data name="Error_EmailInvalid" xml:space="preserve">
     <value>Invalid email address</value>
   </data>
-	<data name="Error_PasswordRequired" xml:space="preserve">
+  <data name="Error_PasswordRequired" xml:space="preserve">
     <value>Password is required</value>
   </data>
-	<data name="Error_PasswordLength" xml:space="preserve">
+  <data name="Error_PasswordLength" xml:space="preserve">
     <value>Password must be between 8 and 100 characters</value>
   </data>
-	<data name="Error_PasswordWeak" xml:space="preserve">
+  <data name="Error_PasswordWeak" xml:space="preserve">
     <value>Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%)</value>
   </data>
-	<data name="Error_ConfirmPasswordRequired" xml:space="preserve">
+  <data name="Error_ConfirmPasswordRequired" xml:space="preserve">
     <value>Password confirmation is required</value>
   </data>
-	<data name="Error_PasswordMismatch" xml:space="preserve">
+  <data name="Error_PasswordMismatch" xml:space="preserve">
     <value>Password and confirmation password do not match</value>
   </data>
-	<data name="Error_PhoneLength" xml:space="preserve">
+  <data name="Error_PhoneLength" xml:space="preserve">
     <value>Phone number must not exceed 10 digits</value>
   </data>
-	<data name="Error_PhoneInvalid" xml:space="preserve">
+  <data name="Error_PhoneInvalid" xml:space="preserve">
     <value>Invalid phone number</value>
   </data>
-
-	<!-- ===== Validation Errors - Company ===== -->
-	<data name="Error_CompanyNameRequired" xml:space="preserve">
+  <data name="Error_CompanyNameRequired" xml:space="preserve">
     <value>Company name is required</value>
   </data>
-	<data name="Error_CompanyNameLength" xml:space="preserve">
+  <data name="Error_CompanyNameLength" xml:space="preserve">
     <value>Company name must not exceed 100 characters</value>
   </data>
-	<data name="Error_CompanyNameArRequired" xml:space="preserve">
+  <data name="Error_CompanyNameArRequired" xml:space="preserve">
     <value>Company name in Arabic is required</value>
   </data>
-	<data name="Error_CompanyNameEnRequired" xml:space="preserve">
+  <data name="Error_CompanyNameEnRequired" xml:space="preserve">
     <value>Company name in English is required</value>
   </data>
-
-	<!-- ===== Validation Errors - Other ===== -->
-	<data name="Error_DescriptionLength" xml:space="preserve">
+  <data name="Error_DescriptionLength" xml:space="preserve">
     <value>Description must not exceed 500 characters</value>
   </data>
-	<data name="Error_YearsExperienceRange" xml:space="preserve">
+  <data name="Error_YearsExperienceRange" xml:space="preserve">
     <value>Years of experience must be between 0 and 50</value>
   </data>
-	<data name="Error_ServiceTypeRequired" xml:space="preserve">
+  <data name="Error_ServiceTypeRequired" xml:space="preserve">
     <value>Service type is required</value>
   </data>
-	<data name="Error_ShowroomAddressLength" xml:space="preserve">
+  <data name="Error_ShowroomAddressLength" xml:space="preserve">
     <value> address location  must not exceed 250 characters</value>
   </data>
-
-	<data name="Error_AccountNotFound" xml:space="preserve">
+  <data name="Error_AccountNotFound" xml:space="preserve">
     <value>This account does not exist. Please register first.</value>
-</data>
-	<data name="Error_WrongPassword" xml:space="preserve">
+  </data>
+  <data name="Error_WrongPassword" xml:space="preserve">
     <value>Incorrect password. Please try again.</value>
-</data>
-	<data name="Error_AccountLocked" xml:space="preserve">
+  </data>
+  <data name="Error_AccountLocked" xml:space="preserve">
     <value>Your account is temporarily locked, please try again later</value>
-</data>
-	<data name="Error_InvalidCredentials" xml:space="preserve">
+  </data>
+  <data name="Error_InvalidCredentials" xml:space="preserve">
     <value>Invalid email or password</value>
-</data>
-	<data name="Message_AccountNotVerified" xml:space="preserve">
+  </data>
+  <data name="Message_AccountNotVerified" xml:space="preserve">
     <value>Your account is not verified. Please wait for admin approval.</value>
-</data>
-
-	<data name="Message_AccountUnderReview" xml:space="preserve">
+  </data>
+  <data name="Message_AccountUnderReview" xml:space="preserve">
     <value>Your account is under review. We will contact you soon.</value>
-</data>
-
-	<data name="Error_PhoneDigitsOnly" xml:space="preserve">
+  </data>
+  <data name="Error_PhoneDigitsOnly" xml:space="preserve">
     <value>Phone number must contain digits only</value>
-</data>
-
-	
-	<data name="Message_EmailExistsAsCustomer" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsCustomer" xml:space="preserve">
     <value>This email is registered as a customer. Please use a different email to register as a vendor.</value>
-</data>
-	<data name="Message_EmailExistsAsVendor" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsVendor" xml:space="preserve">
     <value>This email is already registered as a vendor. You can login directly.</value>
-</data>
-	<data name="Message_EmailExistsAsAdmin" xml:space="preserve">
+  </data>
+  <data name="Message_EmailExistsAsAdmin" xml:space="preserve">
     <value>This email is reserved for administration.</value>
-</data>
-	<data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
+  </data>
+  <data name="Error_CustomerCannotLoginAsVendor" xml:space="preserve">
     <value>This account is registered as a customer. You cannot login as a vendor here.</value>
-</data>
-	<data name="Error_AdminLoginRestricted" xml:space="preserve">
+  </data>
+  <data name="Error_AdminLoginRestricted" xml:space="preserve">
     <value>Admin accounts cannot login from here.</value>
-</data>
-	<data name="Error_NotVendorAccount" xml:space="preserve">
+  </data>
+  <data name="Error_NotVendorAccount" xml:space="preserve">
     <value>This account is not registered as a vendor.</value>
-</data>
-	<data name="Dashboard"        xml:space="preserve"><value>Dashboard</value></data>
-	<data name="Search"           xml:space="preserve"><value>Search the system...</value></data>
-	<data name="Admin"            xml:space="preserve"><value>Admin</value></data>
-	<data name="Logout"           xml:space="preserve"><value>Logout</value></data>
-
-	<!-- Sidebar -->
-	<data name="Nav_Main"         xml:space="preserve"><value>Main</value></data>
-	<data name="Nav_Management"   xml:space="preserve"><value>Management</value></data>
-	<data name="Nav_System"       xml:space="preserve"><value>System</value></data>
-	<data name="Orders"           xml:space="preserve"><value>Orders</value></data>
-	<data name="Services"         xml:space="preserve"><value>Services</value></data>
-	<data name="Companies"        xml:space="preserve"><value>Companies</value></data>
-	<data name="Users"            xml:space="preserve"><value>Users</value></data>
-	<data name="Messages"         xml:space="preserve"><value>Messages</value></data>
-	<data name="Settings"         xml:space="preserve"><value>Settings</value></data>
-	<data name="SuperAdmin"       xml:space="preserve"><value>Super Admin</value></data>
-	<data name="SystemManager"    xml:space="preserve"><value>System Manager</value></data>
-
-	<!-- Welcome Banner -->
-	<data name="Welcome_Title"       xml:space="preserve"><value>Welcome back 👋 System Manager</value></data>
-	<data name="Welcome_Subtitle"    xml:space="preserve"><value>Here's a summary of today's furniture and kitchen services</value></data>
-	<data name="Monthly_Orders"      xml:space="preserve"><value>Orders This Month</value></data>
-	<data name="Satisfaction_Rate"   xml:space="preserve"><value>Satisfaction Rate</value></data>
-	<data name="Active_Now"          xml:space="preserve"><value>Active Orders Now</value></data>
-
-	<!-- Section Titles -->
-	<data name="Main_Services"    xml:space="preserve"><value>Our Main Services</value></data>
-	<data name="Recent_Orders"    xml:space="preserve"><value>Recent Orders</value></data>
-	<data name="Top_Services"     xml:space="preserve"><value>Top Requested Services</value></data>
-	<data name="View_All"         xml:space="preserve"><value>View All</value></data>
-	<data name="View_Details"     xml:space="preserve"><value>View Details</value></data>
-
-	<!-- Service Cards -->
-	<data name="Srv_Active"        xml:space="preserve"><value>Active</value></data>
-	<data name="Srv_New"           xml:space="preserve"><value>New</value></data>
-	<data name="Srv_TotalOrders"   xml:space="preserve"><value>Total Orders</value></data>
-	<data name="Srv_ActiveOrders"  xml:space="preserve"><value>Active</value></data>
-	<data name="Srv_Sales"         xml:space="preserve"><value>Sales</value></data>
-	<data name="Srv_MonthProgress" xml:space="preserve"><value>Month Progress</value></data>
-
-	<!-- Service Names -->
-	<data name="Srv_FurnitureSale"    xml:space="preserve"><value>Furniture Sales</value></data>
-	<data name="Srv_FurnitureMoving"  xml:space="preserve"><value>Furniture Moving</value></data>
-	<data name="Srv_KitchenSale"      xml:space="preserve"><value>Kitchen Sales</value></data>
-	<data name="Srv_KitchenInstall"   xml:space="preserve"><value>Kitchen Installation</value></data>
-	<data name="Srv_FurnitureInstall" xml:space="preserve"><value>Furniture Assembly</value></data>
-	<data name="Srv_Maintenance"      xml:space="preserve"><value>Maintenance &amp; Repair</value></data>
-
-	<!-- Service Descriptions -->
-	<data name="Srv_FurnitureSale_Desc"    xml:space="preserve"><value>Supply and sell premium home furniture for all room types and spaces</value></data>
-	<data name="Srv_FurnitureMoving_Desc"  xml:space="preserve"><value>Safe furniture relocation with professional packing, disassembly and assembly</value></data>
-	<data name="Srv_KitchenSale_Desc"      xml:space="preserve"><value>Supply modern and home kitchens with the latest designs and finest materials</value></data>
-	<data name="Srv_KitchenInstall_Desc"   xml:space="preserve"><value>Precision kitchen installation and setup by a specialized professional team</value></data>
-	<data name="Srv_FurnitureInstall_Desc" xml:space="preserve"><value>Assembly and installation of home and office furniture by skilled technicians</value></data>
-	<data name="Srv_Maintenance_Desc"      xml:space="preserve"><value>Professional and fast maintenance and repair of damaged furniture and kitchens</value></data>
-
-	<!-- Orders Table -->
-	<data name="Col_Service"   xml:space="preserve"><value>Service</value></data>
-	<data name="Col_Customer"  xml:space="preserve"><value>Customer</value></data>
-	<data name="Col_Status"    xml:space="preserve"><value>Status</value></data>
-	<data name="Col_Amount"    xml:space="preserve"><value>Amount</value></data>
-
-	<!-- Status -->
-	<data name="Status_InProgress" xml:space="preserve"><value>In Progress</value></data>
-	<data name="Status_Done"       xml:space="preserve"><value>Completed</value></data>
-	<data name="Status_Pending"    xml:space="preserve"><value>Pending</value></data>
-	<data name="Status_Cancelled"  xml:space="preserve"><value>Cancelled</value></data>
-	<!-- Filters -->
-	<data name="Filter_AllStatus" xml:space="preserve"><value>All Statuses</value></data>
-	<data name="Filter_AllTime"   xml:space="preserve"><value>All Time</value></data>
-	<data name="Filter_Today"     xml:space="preserve"><value>Today</value></data>
-	<data name="Filter_ThisWeek"  xml:space="preserve"><value>This Week</value></data>
-	<data name="Filter_ThisMonth" xml:space="preserve"><value>This Month</value></data>
-	<data name="Export"           xml:space="preserve"><value>Export</value></data>
-
-	<!-- Table columns -->
-	<data name="Col_OrderNo"   xml:space="preserve"><value>Order No.</value></data>
-	<data name="Col_Date"      xml:space="preserve"><value>Date</value></data>
-	<data name="Col_Actions"   xml:space="preserve"><value>Actions</value></data>
-	<data name="Total_Orders"  xml:space="preserve"><value>Total Orders</value></data>
-	<data name="Showing"       xml:space="preserve"><value>Showing</value></data>
-	<data name="Of"            xml:space="preserve"><value>of</value></data>
-
-	<!-- Nav / Actions -->
-	<data name="Back"           xml:space="preserve"><value>Back</value></data>
-	<data name="Details"        xml:space="preserve"><value>Details</value></data>
-	<data name="Edit"           xml:space="preserve"><value>Edit</value></data>
-	<data name="Delete"         xml:space="preserve"><value>Delete</value></data>
-	<data name="Cancel"         xml:space="preserve"><value>Cancel</value></data>
-	<data name="Save_Order"     xml:space="preserve"><value>Save Order</value></data>
-	<data name="Save_Draft"     xml:space="preserve"><value>Save Draft</value></data>
-	<data name="Save_Changes"   xml:space="preserve"><value>Save Changes</value></data>
-	<data name="Delete_Confirm" xml:space="preserve"><value>Are you sure you want to delete this order?</value></data>
-	<data name="Add_New_Order"  xml:space="preserve"><value>Add New Order</value></data>
-
-	<!-- Page subtitles -->
-	<data name="Orders_FurnitureSale"     xml:space="preserve"><value>Furniture Sales Orders</value></data>
-	<data name="Orders_FurnitureSale_Sub" xml:space="preserve"><value>Manage and track all furniture sales orders</value></data>
-	<data name="Add_Order_Sub"            xml:space="preserve"><value>Enter the details for the new order</value></data>
-	<data name="Edit_Order"               xml:space="preserve"><value>Edit Order</value></data>
-	<data name="Edit_Order_Sub"           xml:space="preserve"><value>Modify the order information</value></data>
-	<data name="Order_Details"            xml:space="preserve"><value>Order Details</value></data>
-
-	<!-- Order fields -->
-	<data name="Service_Type"             xml:space="preserve"><value>Service Type</value></data>
-	<data name="Select_Service"           xml:space="preserve"><value>Select a service</value></data>
-	<data name="Product_Name"             xml:space="preserve"><value>Product Name</value></data>
-	<data name="Product_Name_Placeholder" xml:space="preserve"><value>e.g. Luxury Leather Sofa</value></data>
-	<data name="Product_Sofa"             xml:space="preserve"><value>Luxury L-Shape Leather Sofa</value></data>
-	<data name="Quantity"                 xml:space="preserve"><value>Quantity</value></data>
-	<data name="Amount_SAR"               xml:space="preserve"><value>Amount (SAR)</value></data>
-	<data name="Currency"                 xml:space="preserve"><value>SAR</value></data>
-	<data name="Order_Date"               xml:space="preserve"><value>Order Date</value></data>
-	<data name="Delivery_Date"            xml:space="preserve"><value>Expected Delivery Date</value></data>
-	<data name="Payment_Method"           xml:space="preserve"><value>Payment Method</value></data>
-	<data name="Bank_Transfer"            xml:space="preserve"><value>Bank Transfer</value></data>
-	<data name="Cash"                     xml:space="preserve"><value>Cash</value></data>
-	<data name="Credit_Card"              xml:space="preserve"><value>Credit Card</value></data>
-	<data name="Mada"                     xml:space="preserve"><value>Mada</value></data>
-	<data name="Notes"                    xml:space="preserve"><value>Notes</value></data>
-	<data name="Notes_Placeholder"        xml:space="preserve"><value>Any additional notes about the order...</value></data>
-	<data name="Product_Images"           xml:space="preserve"><value>Product Images</value></data>
-	<data name="Upload_Label"             xml:space="preserve"><value>Drag images here or click to upload</value></data>
-	<data name="Upload_Hint"              xml:space="preserve"><value>PNG, JPG, WEBP · Max 5MB per image</value></data>
-
-	<!-- Customer fields -->
-	<data name="Customer_Name"         xml:space="preserve"><value>Customer Name</value></data>
-	<data name="Customer_Info"         xml:space="preserve"><value>Customer Information</value></data>
-	<data name="Customer_Since"        xml:space="preserve"><value>Customer since</value></data>
-	<data name="Active_Customer"       xml:space="preserve"><value>Active Customer</value></data>
-	<data name="Total_Customer_Orders" xml:space="preserve"><value>Total Orders</value></data>
-	<data name="Full_Name"             xml:space="preserve"><value>Full Name</value></data>
-	<data name="Phone"                 xml:space="preserve"><value>Mobile Number</value></data>
-	<data name="Email"                 xml:space="preserve"><value>Email Address</value></data>
-	<data name="City"                  xml:space="preserve"><value>City</value></data>
-	<data name="City_Riyadh"           xml:space="preserve"><value>Riyadh</value></data>
-	<data name="City_Jeddah"           xml:space="preserve"><value>Jeddah</value></data>
-	<data name="City_Dammam"           xml:space="preserve"><value>Dammam</value></data>
-	<data name="City_Mecca"            xml:space="preserve"><value>Mecca</value></data>
-	<data name="Address"               xml:space="preserve"><value>Delivery Address</value></data>
-	<data name="Address_Placeholder"   xml:space="preserve"><value>District, Street, Building No...</value></data>
-	<data name="Sample_Address"        xml:space="preserve"><value>Al-Nuzha District, Riyadh</value></data>
-	<data name="Sample_Notes"          xml:space="preserve"><value>Customer requests morning delivery before 12 PM, with installation team required.</value></data>
-
-	<!-- Detail page -->
-	<data name="Order_Info"          xml:space="preserve"><value>Order Information</value></data>
-	<data name="Edit_Order_Info"     xml:space="preserve"><value>Edit Order Information</value></data>
-	<data name="Edit_Customer_Info"  xml:space="preserve"><value>Edit Customer Information</value></data>
-	<data name="Rating"              xml:space="preserve"><value>Customer Rating</value></data>
-	<data name="Order_Timeline"      xml:space="preserve"><value>Order Tracking</value></data>
-	<data name="Timeline_Received"   xml:space="preserve"><value>Order Received</value></data>
-	<data name="Timeline_Paid"       xml:space="preserve"><value>Payment Confirmed</value></data>
-	<data name="Timeline_Shipping"   xml:space="preserve"><value>Preparing &amp; Shipping</value></data>
-	<data name="Timeline_Delivery"   xml:space="preserve"><value>Delivery &amp; Installation</value></data>
-	<data name="Expected"            xml:space="preserve"><value>Expected</value></data>
-	<data name="Quick_Actions"       xml:space="preserve"><value>Quick Actions</value></data>
-	<data name="Mark_Complete"       xml:space="preserve"><value>Mark as Complete</value></data>
-	<data name="Print_Invoice"       xml:space="preserve"><value>Print Invoice</value></data>
-	<data name="Send_Customer"       xml:space="preserve"><value>Send to Customer</value></data>
-	<data name="Cancel_Order"        xml:space="preserve"><value>Cancel Order</value></data>
-
-	<!-- Tips -->
-	<data name="Input_Tips"   xml:space="preserve"><value>Input Guidelines</value></data>
-	<data name="Tip_Required" xml:space="preserve"><value>Fields marked with * are required</value></data>
-	<data name="Tip_Phone"    xml:space="preserve"><value>Verify the customer's mobile number before saving</value></data>
-	<data name="Tip_Notes"    xml:space="preserve"><value>Add delivery notes if applicable</value></data>
-	<data name="Tip_Images"   xml:space="preserve"><value>You can upload up to 5 product images</value></data>
-	<data name="Tip_Notify"   xml:space="preserve"><value>Customer will be notified automatically</value></data>
-	<data name="Quick_Stats"  xml:space="preserve"><value>Quick Statistics</value></data>
-	<data name="Today_Orders" xml:space="preserve"><value>Today's Orders</value></data>
-	<data name="Month_Orders" xml:space="preserve"><value>This Month's Orders</value></data>
-	<data name="Top_Service"  xml:space="preserve"><value>Top Service</value></data>
-
-	<!-- Edit sidebar -->
-	<data name="Order_Meta"       xml:space="preserve"><value>Order Details</value></data>
-	<data name="Created_At"       xml:space="preserve"><value>Created At</value></data>
-	<data name="Last_Modified"    xml:space="preserve"><value>Last Modified</value></data>
-	<data name="Today"            xml:space="preserve"><value>Today</value></data>
-	<data name="Warnings"         xml:space="preserve"><value>Warnings</value></data>
-	<data name="Warning_Complete" xml:space="preserve"><value>Changing status to Complete will notify the customer</value></data>
-	<data name="Warning_Amount"   xml:space="preserve"><value>Editing the amount requires re-confirmation</value></data>
-	<data name="Warning_Log"      xml:space="preserve"><value>Edit date is logged automatically</value></data>
-	<data name="Edit_Warning"     xml:space="preserve"><value>You are editing an existing order. Verify all data before saving.</value></data>
-	<!-- Pending Vendors -->
-	<data name="PendingVendors_Title" xml:space="preserve">
-    <value>Pending Companies</value>
-</data>
-	<data name="PendingVendors_Count" xml:space="preserve">
-    <value>Pending Company</value>
-</data>
-	<data name="PendingVendors_Description" xml:space="preserve">
-    <value>New companies awaiting review and approval</value>
-</data>
-	<data name="PendingVendors_ViewAll" xml:space="preserve">
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search the system...</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Nav_Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Nav_Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="Nav_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>Super Admin</value>
+  </data>
+  <data name="SystemManager" xml:space="preserve">
+    <value>System Manager</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>Welcome back 👋 System Manager</value>
+  </data>
+  <data name="Welcome_Subtitle" xml:space="preserve">
+    <value>Here's a summary of today's furniture and kitchen services</value>
+  </data>
+  <data name="Monthly_Orders" xml:space="preserve">
+    <value>Orders This Month</value>
+  </data>
+  <data name="Satisfaction_Rate" xml:space="preserve">
+    <value>Satisfaction Rate</value>
+  </data>
+  <data name="Active_Now" xml:space="preserve">
+    <value>Active Orders Now</value>
+  </data>
+  <data name="Main_Services" xml:space="preserve">
+    <value>Our Main Services</value>
+  </data>
+  <data name="Recent_Orders" xml:space="preserve">
+    <value>Recent Orders</value>
+  </data>
+  <data name="Top_Services" xml:space="preserve">
+    <value>Top Requested Services</value>
+  </data>
+  <data name="View_All" xml:space="preserve">
     <value>View All</value>
-</data>
-
-	<!-- Vendors Table -->
-	<data name="Vendors_CompanyName" xml:space="preserve">
-    <value>Company Name</value>
-</data>
-	<data name="Vendors_Email" xml:space="preserve">
-    <value>Email</value>
-</data>
-	<data name="Vendors_Phone" xml:space="preserve">
-    <value>Phone Number</value>
-</data>
-	<data name="Vendors_ServiceType" xml:space="preserve">
-    <value>Service Type</value>
-</data>
-	<data name="Vendors_Experience" xml:space="preserve">
-    <value>Years of Experience</value>
-</data>
-	<data name="Vendors_SubmittedDate" xml:space="preserve">
-    <value>Submitted Date</value>
-</data>
-	<data name="Vendors_Status" xml:space="preserve">
-    <value>Status</value>
-</data>
-	<data name="Vendors_Actions" xml:space="preserve">
-    <value>Actions</value>
-</data>
-	<data name="Vendors_Accept" xml:space="preserve">
-    <value>Accept</value>
-</data>
-	<data name="Vendors_Reject" xml:space="preserve">
-    <value>Reject</value>
-</data>
-	<data name="Vendors_ViewDetails" xml:space="preserve">
+  </data>
+  <data name="View_Details" xml:space="preserve">
     <value>View Details</value>
-</data>
-
-	<!-- Vendor Details -->
-	<data name="Vendor_Details_Title" xml:space="preserve">
-    <value>Company Details</value>
-</data>
-	<data name="Vendor_Logo" xml:space="preserve">
-    <value>Logo</value>
-</data>
-	<data name="Vendor_Description" xml:space="preserve">
-    <value>Description</value>
-</data>
-	<data name="Vendor_ShowroomAddress" xml:space="preserve">
-    <value>Showroom Address</value>
-</data>
-	<data name="Vendor_ShowroomImage" xml:space="preserve">
-    <value>Location Image</value>
-</data>
-	<data name="Vendor_Documents" xml:space="preserve">
-    <value>Documents</value>
-</data>
-	<data name="Vendor_CommercialReg" xml:space="preserve">
-    <value>Commercial Registration</value>
-</data>
-	<data name="Vendor_WorkLicense" xml:space="preserve">
-    <value>Work License</value>
-</data>
-
-	<!-- Rejection -->
-	<data name="Rejection_Title" xml:space="preserve">
-    <value>Reject Company</value>
-</data>
-	<data name="Rejection_Reason" xml:space="preserve">
-    <value>Rejection Reason</value>
-</data>
-	<data name="Rejection_ReasonAr" xml:space="preserve">
-    <value>Rejection Reason (Arabic)</value>
-</data>
-	<data name="Rejection_ReasonEn" xml:space="preserve">
-    <value>Rejection Reason (English)</value>
-</data>
-	<data name="Rejection_Submit" xml:space="preserve">
-    <value>Confirm Rejection</value>
-</data>
-	<data name="Rejection_Cancel" xml:space="preserve">
+  </data>
+  <data name="Srv_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Srv_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Srv_TotalOrders" xml:space="preserve">
+    <value>Total Orders</value>
+  </data>
+  <data name="Srv_ActiveOrders" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Srv_Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Srv_MonthProgress" xml:space="preserve">
+    <value>Month Progress</value>
+  </data>
+  <data name="Srv_FurnitureSale" xml:space="preserve">
+    <value>Furniture Sales</value>
+  </data>
+  <data name="Srv_FurnitureMoving" xml:space="preserve">
+    <value>Furniture Moving</value>
+  </data>
+  <data name="Srv_KitchenSale" xml:space="preserve">
+    <value>Kitchen Sales</value>
+  </data>
+  <data name="Srv_KitchenInstall" xml:space="preserve">
+    <value>Kitchen Installation</value>
+  </data>
+  <data name="Srv_FurnitureInstall" xml:space="preserve">
+    <value>Furniture Assembly</value>
+  </data>
+  <data name="Srv_Maintenance" xml:space="preserve">
+    <value>Maintenance &amp; Repair</value>
+  </data>
+  <data name="Srv_FurnitureSale_Desc" xml:space="preserve">
+    <value>Supply and sell premium home furniture for all room types and spaces</value>
+  </data>
+  <data name="Srv_FurnitureMoving_Desc" xml:space="preserve">
+    <value>Safe furniture relocation with professional packing, disassembly and assembly</value>
+  </data>
+  <data name="Srv_KitchenSale_Desc" xml:space="preserve">
+    <value>Supply modern and home kitchens with the latest designs and finest materials</value>
+  </data>
+  <data name="Srv_KitchenInstall_Desc" xml:space="preserve">
+    <value>Precision kitchen installation and setup by a specialized professional team</value>
+  </data>
+  <data name="Srv_FurnitureInstall_Desc" xml:space="preserve">
+    <value>Assembly and installation of home and office furniture by skilled technicians</value>
+  </data>
+  <data name="Srv_Maintenance_Desc" xml:space="preserve">
+    <value>Professional and fast maintenance and repair of damaged furniture and kitchens</value>
+  </data>
+  <data name="Col_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Col_Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Col_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Col_Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Status_InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Status_Done" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Status_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Filter_AllStatus" xml:space="preserve">
+    <value>All Statuses</value>
+  </data>
+  <data name="Filter_AllTime" xml:space="preserve">
+    <value>All Time</value>
+  </data>
+  <data name="Filter_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Filter_ThisWeek" xml:space="preserve">
+    <value>This Week</value>
+  </data>
+  <data name="Filter_ThisMonth" xml:space="preserve">
+    <value>This Month</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Col_OrderNo" xml:space="preserve">
+    <value>Order No.</value>
+  </data>
+  <data name="Col_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Col_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Total_Orders" xml:space="preserve">
+    <value>Total Orders</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>Showing</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
-</data>
-
-	<!-- Messages -->
-	<data name="Message_VendorAccepted" xml:space="preserve">
+  </data>
+  <data name="Save_Order" xml:space="preserve">
+    <value>Save Order</value>
+  </data>
+  <data name="Save_Draft" xml:space="preserve">
+    <value>Save Draft</value>
+  </data>
+  <data name="Save_Changes" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Delete_Confirm" xml:space="preserve">
+    <value>Are you sure you want to delete this order?</value>
+  </data>
+  <data name="Add_New_Order" xml:space="preserve">
+    <value>Add New Order</value>
+  </data>
+  <data name="Orders_FurnitureSale" xml:space="preserve">
+    <value>Furniture Sales Orders</value>
+  </data>
+  <data name="Orders_FurnitureSale_Sub" xml:space="preserve">
+    <value>Manage and track all furniture sales orders</value>
+  </data>
+  <data name="Add_Order_Sub" xml:space="preserve">
+    <value>Enter the details for the new order</value>
+  </data>
+  <data name="Edit_Order" xml:space="preserve">
+    <value>Edit Order</value>
+  </data>
+  <data name="Edit_Order_Sub" xml:space="preserve">
+    <value>Modify the order information</value>
+  </data>
+  <data name="Order_Details" xml:space="preserve">
+    <value>Order Details</value>
+  </data>
+  <data name="Service_Type" xml:space="preserve">
+    <value>Service Type</value>
+  </data>
+  <data name="Select_Service" xml:space="preserve">
+    <value>Select a service</value>
+  </data>
+  <data name="Product_Name" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="Product_Name_Placeholder" xml:space="preserve">
+    <value>e.g. Luxury Leather Sofa</value>
+  </data>
+  <data name="Product_Sofa" xml:space="preserve">
+    <value>Luxury L-Shape Leather Sofa</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Amount_SAR" xml:space="preserve">
+    <value>Amount (SAR)</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>SAR</value>
+  </data>
+  <data name="Order_Date" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="Delivery_Date" xml:space="preserve">
+    <value>Expected Delivery Date</value>
+  </data>
+  <data name="Payment_Method" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Bank_Transfer" xml:space="preserve">
+    <value>Bank Transfer</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="Credit_Card" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="Mada" xml:space="preserve">
+    <value>Mada</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Notes_Placeholder" xml:space="preserve">
+    <value>Any additional notes about the order...</value>
+  </data>
+  <data name="Product_Images" xml:space="preserve">
+    <value>Product Images</value>
+  </data>
+  <data name="Upload_Label" xml:space="preserve">
+    <value>Drag images here or click to upload</value>
+  </data>
+  <data name="Upload_Hint" xml:space="preserve">
+    <value>PNG, JPG, WEBP · Max 5MB per image</value>
+  </data>
+  <data name="Customer_Name" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="Customer_Info" xml:space="preserve">
+    <value>Customer Information</value>
+  </data>
+  <data name="Customer_Since" xml:space="preserve">
+    <value>Customer since</value>
+  </data>
+  <data name="Active_Customer" xml:space="preserve">
+    <value>Active Customer</value>
+  </data>
+  <data name="Total_Customer_Orders" xml:space="preserve">
+    <value>Total Orders</value>
+  </data>
+  <data name="Full_Name" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Mobile Number</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="City_Riyadh" xml:space="preserve">
+    <value>Riyadh</value>
+  </data>
+  <data name="City_Jeddah" xml:space="preserve">
+    <value>Jeddah</value>
+  </data>
+  <data name="City_Dammam" xml:space="preserve">
+    <value>Dammam</value>
+  </data>
+  <data name="City_Mecca" xml:space="preserve">
+    <value>Mecca</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Delivery Address</value>
+  </data>
+  <data name="Address_Placeholder" xml:space="preserve">
+    <value>District, Street, Building No...</value>
+  </data>
+  <data name="Sample_Address" xml:space="preserve">
+    <value>Al-Nuzha District, Riyadh</value>
+  </data>
+  <data name="Sample_Notes" xml:space="preserve">
+    <value>Customer requests morning delivery before 12 PM, with installation team required.</value>
+  </data>
+  <data name="Order_Info" xml:space="preserve">
+    <value>Order Information</value>
+  </data>
+  <data name="Edit_Order_Info" xml:space="preserve">
+    <value>Edit Order Information</value>
+  </data>
+  <data name="Edit_Customer_Info" xml:space="preserve">
+    <value>Edit Customer Information</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Customer Rating</value>
+  </data>
+  <data name="Order_Timeline" xml:space="preserve">
+    <value>Order Tracking</value>
+  </data>
+  <data name="Timeline_Received" xml:space="preserve">
+    <value>Order Received</value>
+  </data>
+  <data name="Timeline_Paid" xml:space="preserve">
+    <value>Payment Confirmed</value>
+  </data>
+  <data name="Timeline_Shipping" xml:space="preserve">
+    <value>Preparing &amp; Shipping</value>
+  </data>
+  <data name="Timeline_Delivery" xml:space="preserve">
+    <value>Delivery &amp; Installation</value>
+  </data>
+  <data name="Expected" xml:space="preserve">
+    <value>Expected</value>
+  </data>
+  <data name="Quick_Actions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+  <data name="Mark_Complete" xml:space="preserve">
+    <value>Mark as Complete</value>
+  </data>
+  <data name="Print_Invoice" xml:space="preserve">
+    <value>Print Invoice</value>
+  </data>
+  <data name="Send_Customer" xml:space="preserve">
+    <value>Send to Customer</value>
+  </data>
+  <data name="Cancel_Order" xml:space="preserve">
+    <value>Cancel Order</value>
+  </data>
+  <data name="Input_Tips" xml:space="preserve">
+    <value>Input Guidelines</value>
+  </data>
+  <data name="Tip_Required" xml:space="preserve">
+    <value>Fields marked with * are required</value>
+  </data>
+  <data name="Tip_Phone" xml:space="preserve">
+    <value>Verify the customer's mobile number before saving</value>
+  </data>
+  <data name="Tip_Notes" xml:space="preserve">
+    <value>Add delivery notes if applicable</value>
+  </data>
+  <data name="Tip_Images" xml:space="preserve">
+    <value>You can upload up to 5 product images</value>
+  </data>
+  <data name="Tip_Notify" xml:space="preserve">
+    <value>Customer will be notified automatically</value>
+  </data>
+  <data name="Quick_Stats" xml:space="preserve">
+    <value>Quick Statistics</value>
+  </data>
+  <data name="Today_Orders" xml:space="preserve">
+    <value>Today's Orders</value>
+  </data>
+  <data name="Month_Orders" xml:space="preserve">
+    <value>This Month's Orders</value>
+  </data>
+  <data name="Top_Service" xml:space="preserve">
+    <value>Top Service</value>
+  </data>
+  <data name="Order_Meta" xml:space="preserve">
+    <value>Order Details</value>
+  </data>
+  <data name="Created_At" xml:space="preserve">
+    <value>Created At</value>
+  </data>
+  <data name="Last_Modified" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="Warning_Complete" xml:space="preserve">
+    <value>Changing status to Complete will notify the customer</value>
+  </data>
+  <data name="Warning_Amount" xml:space="preserve">
+    <value>Editing the amount requires re-confirmation</value>
+  </data>
+  <data name="Warning_Log" xml:space="preserve">
+    <value>Edit date is logged automatically</value>
+  </data>
+  <data name="Edit_Warning" xml:space="preserve">
+    <value>You are editing an existing order. Verify all data before saving.</value>
+  </data>
+  <data name="PendingVendors_Title" xml:space="preserve">
+    <value>Pending Companies</value>
+  </data>
+  <data name="PendingVendors_Count" xml:space="preserve">
+    <value>Pending Company</value>
+  </data>
+  <data name="PendingVendors_Description" xml:space="preserve">
+    <value>New companies awaiting review and approval</value>
+  </data>
+  <data name="PendingVendors_ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="Vendors_CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="Vendors_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Vendors_Phone" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Vendors_ServiceType" xml:space="preserve">
+    <value>Service Type</value>
+  </data>
+  <data name="Vendors_Experience" xml:space="preserve">
+    <value>Years of Experience</value>
+  </data>
+  <data name="Vendors_SubmittedDate" xml:space="preserve">
+    <value>Submitted Date</value>
+  </data>
+  <data name="Vendors_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Vendors_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Vendors_Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Vendors_Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Vendors_ViewDetails" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="Vendor_Details_Title" xml:space="preserve">
+    <value>Company Details</value>
+  </data>
+  <data name="Vendor_Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="Vendor_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Vendor_ShowroomAddress" xml:space="preserve">
+    <value>Showroom Address</value>
+  </data>
+  <data name="Vendor_ShowroomImage" xml:space="preserve">
+    <value>Location Image</value>
+  </data>
+  <data name="Vendor_Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Vendor_CommercialReg" xml:space="preserve">
+    <value>Commercial Registration</value>
+  </data>
+  <data name="Vendor_WorkLicense" xml:space="preserve">
+    <value>Work License</value>
+  </data>
+  <data name="Rejection_Title" xml:space="preserve">
+    <value>Reject Company</value>
+  </data>
+  <data name="Rejection_Reason" xml:space="preserve">
+    <value>Rejection Reason</value>
+  </data>
+  <data name="Rejection_ReasonAr" xml:space="preserve">
+    <value>Rejection Reason (Arabic)</value>
+  </data>
+  <data name="Rejection_ReasonEn" xml:space="preserve">
+    <value>Rejection Reason (English)</value>
+  </data>
+  <data name="Rejection_Submit" xml:space="preserve">
+    <value>Confirm Rejection</value>
+  </data>
+  <data name="Rejection_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Message_VendorAccepted" xml:space="preserve">
     <value>Company has been accepted successfully</value>
-</data>
-	<data name="Message_VendorRejected" xml:space="preserve">
+  </data>
+  <data name="Message_VendorRejected" xml:space="preserve">
     <value>Company has been rejected</value>
-</data>
-	<data name="Message_EmailSent" xml:space="preserve">
+  </data>
+  <data name="Message_EmailSent" xml:space="preserve">
     <value>Email has been sent to the company</value>
-</data>
-	<data name="Message_ConfirmAccept" xml:space="preserve">
+  </data>
+  <data name="Message_ConfirmAccept" xml:space="preserve">
     <value>Are you sure you want to accept this company?</value>
-</data>
-	<data name="Message_ConfirmReject" xml:space="preserve">
+  </data>
+  <data name="Message_ConfirmReject" xml:space="preserve">
     <value>Are you sure you want to reject this company?</value>
-</data>
-
-	<!-- Status -->
-
-	<data name="Status_Approved" xml:space="preserve">
+  </data>
+  <data name="Status_Approved" xml:space="preserve">
     <value>Approved</value>
-</data>
-	<data name="Status_Rejected" xml:space="preserve">
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
     <value>Rejected</value>
-</data>
+  </data>
+  <data name="Srv_Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Srv_Services_Desc" xml:space="preserve">
+    <value>Manage and monitor all available services in the system</value>
+  </data>
 </root>
