@@ -134,4 +134,55 @@
   <data name="Srv_Services_Desc" xml:space="preserve">
     <value />
   </data>
+  <data name="Products_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products_Desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products_Active" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products_Total" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products_New" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products_Sales" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Active" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Running" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Pending" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ads_Views" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lookup_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lookup_Desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lookup" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lookup_LastQuery" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Start_Lookup" xml:space="preserve">
+    <value />
+  </data>
 </root>

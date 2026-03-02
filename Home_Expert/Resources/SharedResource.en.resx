@@ -123,6 +123,12 @@
   <data name="Service_Moving" xml:space="preserve">
     <value>Moving</value>
   </data>
+  <data name="Srv_Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Srv_Services_Desc" xml:space="preserve">
+    <value>Manage and monitor all available services in the system</value>
+  </data>
   <data name="Service_Sales" xml:space="preserve">
     <value>Sales</value>
   </data>
@@ -1041,10 +1047,55 @@
   <data name="Status_Rejected" xml:space="preserve">
     <value>Rejected</value>
   </data>
-  <data name="Srv_Services" xml:space="preserve">
-    <value>Services</value>
+  <data name="Products_Title" xml:space="preserve">
+    <value>Products</value>
   </data>
-  <data name="Srv_Services_Desc" xml:space="preserve">
-    <value>Manage and monitor all available services in the system</value>
+  <data name="Products_Desc" xml:space="preserve">
+    <value>All available products in the system</value>
+  </data>
+  <data name="Products_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Products_Total" xml:space="preserve">
+    <value>Total Products</value>
+  </data>
+  <data name="Products_New" xml:space="preserve">
+    <value>New Products</value>
+  </data>
+  <data name="Products_Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Ads_Title" xml:space="preserve">
+    <value>Ads</value>
+  </data>
+  <data name="Ads_Desc" xml:space="preserve">
+    <value>All ad campaigns</value>
+  </data>
+  <data name="Ads_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Ads_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Ads_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Ads_Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="Lookup_Title" xml:space="preserve">
+    <value>Lookup_Title</value>
+  </data>
+  <data name="Lookup_Desc" xml:space="preserve">
+    <value>Use the system to search information</value>
+  </data>
+  <data name="Lookup" xml:space="preserve">
+    <value>Lookup</value>
+  </data>
+  <data name="Lookup_LastQuery" xml:space="preserve">
+    <value>Last Query</value>
+  </data>
+  <data name="Start_Lookup" xml:space="preserve">
+    <value>Start Lookup</value>
   </data>
 </root>

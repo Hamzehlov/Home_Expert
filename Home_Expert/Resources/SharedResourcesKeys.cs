@@ -428,5 +428,30 @@ namespace Home_Expert.Resources
         // Status
         public const string Status_Approved = "Status_Approved";
         public const string Status_Rejected = "Status_Rejected";
+
+
+        // ── Dashboard Cards ──
+        // ── Products Card ──
+        public const string Products_Title = "Products_Title";
+        public const string Products_Desc = "Products_Desc";
+        public const string Products_Active = "Products_Active";
+        public const string Products_Total = "Products_Total";
+        public const string Products_New = "Products_New";
+        public const string Products_Sales = "Products_Sales";
+
+        // ── Ads Card ──
+        public const string Ads_Title = "Ads_Title";
+        public const string Ads_Desc = "Ads_Desc";
+        public const string Ads_Active = "Ads_Active";
+        public const string Ads_Running = "Ads_Running";
+        public const string Ads_Pending = "Ads_Pending";
+        public const string Ads_Views = "Ads_Views";
+
+        // ── Look Up Card ──
+        public const string Lookup_Title = "Lookup_Title";
+        public const string Lookup_Desc = "Lookup_Desc";
+        public const string Lookup = "Lookup";                  // للbadge
+        public const string Lookup_LastQuery = "Lookup_LastQuery";
+        public const string Start_Lookup = "Start_Lookup";     // زر البداية
     }
 }

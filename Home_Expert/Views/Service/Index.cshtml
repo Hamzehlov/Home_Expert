@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Home_Expert.Models.Ad>
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var tableDir = isArabic ? "rtl" : "ltr";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
+}
+
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+    <div class="welcome-text">
+        <h2>أهلاً بك 👋 مدير النظام</h2>
+        <p>إليك ملخص نشاط الإعلانات اليوم</p>
+    </div>
+    <div class="welcome-stats">
+        <div class="w-stat">
+            <div class="w-stat-val">@Model.Count()</div>
+            <div class="w-stat-label">عدد الإعلانات</div>
+        </div>
+        <div class="w-stat-divider"></div>
+        <div class="w-stat">
+            <div class="w-stat-val">@Model.Count(a => a.IsActive==true)</div>
+            <div class="w-stat-label">الإعلانات المفعلّة</div>
+        </div>
+        <div class="w-stat-divider"></div>
+        <div class="w-stat">
+            <div class="w-stat-val">@Model.Count(a => !a.IsActive==false)</div>
+            <div class="w-stat-label">الإعلانات غير المفعلّة</div>
+        </div>
+    </div>
+</div>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>إدارة الإعلانات</span>
+            </div>
+            <h1>إدارة الإعلانات</h1>
+            <p>هنا يمكنك إدارة جميع الإعلانات، تعديلها، حذفها، وتفعيل/إلغاء التفعيل.</p>
+        </div>
+        <div class="page-header-actions">
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <span class="material-symbols-outlined">add</span> إضافة إعلان
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <table id="adsTable" class="data-table" style="width:100%" dir="@tableDir">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>العنوان</th>
+                    <th>النص</th>
+                    <th>الصورة</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ad in Model)
+                {
+                    var statusKey = ad.IsActive==true ? "active" : "inactive";
+                    <tr data-status="@statusKey">
+                        <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
+                        <td>@(isArabic? ad.AdText: ad.AdText)</td>
+                        <td>@(isArabic? ad.AdText: ad.AdText)</td>
+                        <td>
+                            @if (ad.Image != null)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(ad.Image)" style="height:50px;" />
+                            }
+                            else
+                            {
+                                
+                                                }
+                        </td>
+                        <td>
+                            <span class="status-badge @(ad.IsActive == true ? "active" : "inactive")">
+                                @(ad.IsActive ==true? "مفعل" : "غير مفعل")
+                            </span>
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <a asp-action="Edit" asp-route-id="@ad.Id" class="action-btn edit" title="تعديل">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@ad.Id" method="post" style="display:inline">
+                                    <button type="submit" class="action-btn delete" title="حذف">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
+                                </form>
+                                <form asp-action="ToggleActive" asp-route-id="@ad.Id" method="post" style="display:inline">
+                                    <button type="submit" class="action-btn toggle" title="تفعيل/إلغاء التفعيل">
+                                        <span class="material-symbols-outlined">@((ad.IsActive == true) ? "block" : "check_circle")</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+        var isArabic = @(isArabic ? "true" : "false");
+        var dt;
+
+        $(document).ready(function () {
+            dt = $('#adsTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                ordering: true,
+                autoWidth: false,
+                language: {
+                    search:       isArabic ? "بحث:"   : "Search:",
+                    lengthMenu:   isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+                    zeroRecords:  isArabic ? "لا يوجد عناصر لعرضها"       : "No matching records",
+                    info:         isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty:    isArabic ? "لا يوجد عناصر متاحة"         : "No entries available",
+                    infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)"        : "(filtered from _MAX_ total entries)",
+                    paginate: {
+                        first:    isArabic ? "الأول"  : "First",
+                        last:     isArabic ? "الأخير" : "Last",
+                        next:     isArabic ? "التالي" : "Next",
+                        previous: isArabic ? "السابق" : "Previous"
+                    }
+                },
+                columnDefs: [
+                    { orderable: false, targets: [0, 5] }
+                ],
+                drawCallback: function () {
+                    var api = this.api();
+                    var startIndex = api.page.info().start;
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = startIndex + i + 1;
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,133 @@
+﻿@* @using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@model Home_Expert.Models.Ad
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/form.css" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <a href="@Url.Action("Index", "Ads")">@_sharedResources[SharedResourcesKeys.Ads]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@(Model.Id == 0 ? @_sharedResources[SharedResourcesKeys.Add_New_Ad] : @_sharedResources[SharedResourcesKeys.Edit_Ad])</span>
+            </div>
+            <h1>@(Model.Id == 0 ? @_sharedResources[SharedResourcesKeys.Add_New_Ad] : @_sharedResources[SharedResourcesKeys.Edit_Ad])</h1>
+            <p>@(Model.Id == 0 ? @_sharedResources[SharedResourcesKeys.Add_Ad_Sub] : @_sharedResources[SharedResourcesKeys.Edit_Ad_Sub])</p>
+        </div>
+        <a href="@Url.Action("Index", "Ads")" class="btn btn-outline">
+            <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
+            @_sharedResources[SharedResourcesKeys.Back]
+        </a>
+    </div>
+
+    <form asp-action="@(Model.Id == 0 ? "Create" : "Edit")" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="form-layout">
+
+            <!-- Main Form -->
+            <div>
+
+                <!-- Ad Info -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon"><span class="material-symbols-outlined">info</span></div>
+                        <h3>@_sharedResources[SharedResourcesKeys.Ad_Info]</h3>
+                    </div>
+                    <div class="form-card-body">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Title_Ar]
+                                </label>
+                                <input asp-for="TitleAr" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Title_Ar_Placeholder]" />
+                                <span asp-validation-for="TitleAr" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.Title_En]
+                                </label>
+                                <input asp-for="TitleEn" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Title_En_Placeholder]" />
+                                <span asp-validation-for="TitleEn" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.AdText_Ar]
+                                </label>
+                                <textarea asp-for="AdTextAr" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.AdText_Ar_Placeholder]"></textarea>
+                                <span asp-validation-for="AdTextAr" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>@_sharedResources[SharedResourcesKeys.AdText_En]
+                                </label>
+                                <textarea asp-for="AdTextEn" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.AdText_En_Placeholder]"></textarea>
+                                <span asp-validation-for="AdTextEn" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Ad_Image]</label>
+                            <input type="file" name="ImageFile" class="form-control" />
+                            @if (Model.Image != null)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Image)" style="height:100px;margin-top:5px;" />
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">@_sharedResources[SharedResourcesKeys.Ad_Status]</label>
+                            <select asp-for="IsActive" class="form-control">
+                                <option value="true">@_sharedResources[SharedResourcesKeys.Active]</option>
+                                <option value="false">@_sharedResources[SharedResourcesKeys.Inactive]</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-symbols-outlined">save</span>
+                        @(Model.Id == 0 ? @_sharedResources[SharedResourcesKeys.Save_Ad] : @_sharedResources[SharedResourcesKeys.Update_Ad])
+                    </button>
+                    <a href="@Url.Action("Index", "Ads")" class="btn btn-outline">@_sharedResources[SharedResourcesKeys.Cancel]</a>
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header"><h4>💡 @_sharedResources[SharedResourcesKeys.Input_Tips]</h4></div>
+                    <div class="sidebar-card-body">
+                        <ul class="tips-list">
+                            <li><span class="material-symbols-outlined">check_circle</span>@_sharedResources[SharedResourcesKeys.Tip_Required]</li>
+                            <li><span class="material-symbols-outlined">check_circle</span>@_sharedResources[SharedResourcesKeys.Tip_Text_Length]</li>
+                            <li><span class="material-symbols-outlined">check_circle</span>@_sharedResources[SharedResourcesKeys.Tip_Images]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div> *@

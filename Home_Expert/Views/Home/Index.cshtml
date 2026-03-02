@@ -63,6 +63,106 @@
 
 
 
+
+
+     <!-- Products Card -->
+    <div class="srv-card c1">
+        <div class="srv-card-header">
+            <div class="srv-top">
+                <div class="srv-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
+            </div>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Products_Title]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Products_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">320</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
+                </div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">45</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_New]</div>
+                </div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">12k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Sales]</div>
+                </div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "Products")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Ads Card -->
+    <div class="srv-card c2">
+        <div class="srv-card-header">
+            <div class="srv-top">
+                <div class="srv-icon"><span class="material-symbols-outlined">campaign</span></div>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Ads_Active]</span>
+            </div>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Ads_Title]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Ads_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">15</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Running]</div>
+                </div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">5</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Pending]</div>
+                </div>
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">20k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Views]</div>
+                </div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "Ads")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Look Up Card -->
+    <div class="srv-card c3">
+        <div class="srv-card-header">
+            <div class="srv-top">
+                <div class="srv-icon"><span class="material-symbols-outlined">search</span></div>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Lookup]</span>
+            </div>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Lookup_Title]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Lookup_Desc]</div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Lookup_LastQuery]</span><span>---</span>
+                </div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:0%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("Index", "Lookup")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.Start_Lookup]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- جديد -->
     <!-- 7: الخدمات -->
     <div class="srv-card c7">
         <div class="srv-card-header">
@@ -132,6 +232,19 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- جديد -->
     <!-- 1: بيع الأثاث -->
     <div class="srv-card c1">
         <div class="srv-card-header">
