@@ -390,7 +390,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(d => d.User).WithMany(p => p.Vendors)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Vendors_AspNetUsers");
-        });
+        });  
         modelBuilder.Entity<VendorMedium>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__VendorMe__3214EC07524F27F1");
