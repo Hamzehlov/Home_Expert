@@ -21,11 +21,18 @@ public partial class Ad
     public string AdText { get; set; } = null!;
 
     [Column("image")]
-    public byte[] Image { get; set; } = null!;
+    public byte[]? Image { get; set; }
 
     [Column("is_active")]
     public bool? IsActive { get; set; }
 
     [Column("created_at", TypeName = "datetime")]
     public DateTime? CreatedAt { get; set; }
+
+    [Column("title_en")]
+    [StringLength(255)]
+    public string? TitleEn { get; set; }
+
+    [Column("ad_text_en")]
+    public string? AdTextEn { get; set; }
 }

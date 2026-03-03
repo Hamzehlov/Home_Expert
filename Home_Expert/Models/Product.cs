@@ -9,6 +9,7 @@ namespace Home_Expert.Models;
 public partial class Product
 {
     [Key]
+
     public int Id { get; set; }
 
     public int VendorId { get; set; }
@@ -34,6 +35,9 @@ public partial class Product
     [ForeignKey("CategoryId")]
     [InverseProperty("Products")]
     public virtual Category Category { get; set; } = null!;
+
+    [InverseProperty("Product")]
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 
     [ForeignKey("VendorId")]
     [InverseProperty("Products")]

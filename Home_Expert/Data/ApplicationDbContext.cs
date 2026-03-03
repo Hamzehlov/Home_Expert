@@ -30,6 +30,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public virtual DbSet<MovingRequest> MovingRequests { get; set; }
     public virtual DbSet<MovingStatusLog> MovingStatusLogs { get; set; }
     public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
     public virtual DbSet<Review> Reviews { get; set; }
     public virtual DbSet<Service> Services { get; set; }
     public virtual DbSet<ServiceOffer> ServiceOffers { get; set; }
@@ -249,6 +250,15 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(d => d.Vendor).WithMany(p => p.Products)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Products__Vendor__72C60C4A");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ProductI__3214EC07685F7581");
+
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages).HasConstraintName("FK_ProductImages_Products");
         });
 
         modelBuilder.Entity<Review>(entity =>
