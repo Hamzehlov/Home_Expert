@@ -453,5 +453,141 @@ namespace Home_Expert.Resources
         public const string Lookup = "Lookup";                  // للbadge
         public const string Lookup_LastQuery = "Lookup_LastQuery";
         public const string Start_Lookup = "Start_Lookup";     // زر البداية
+
+
+
+
+
+        // ── Ads indix ──
+        public const string Ads_Description = "Ads_Description";       // وصف الصفحة
+        public const string Ads_Total = "Ads_Total";                   // إجمالي الإعلانات
+        public const string Ads_Inactive = "Ads_Inactive";             // الإعلانات غير النشطة
+        public const string Ads_AddNew = "Ads_AddNew";                 // زر إضافة إعلان جديد
+        public const string Ads_Text = "Ads_Text";                     // نص الإعلان
+        public const string Ads_Image = "Ads_Image";                   // صورة الإعلان
+        public const string Ads_Status = "Ads_Status";                 // حالة الإعلان
+        public const string Ads_Actions = "Ads_Actions";               // عمود الإجراءات
+        public const string ToggleStatus = "ToggleStatus";             // زر تفعيل/تعطيل
+
+
+
+        // ── Ads Form Fields ──
+        public const string Add_New_Ad = "Add_New_Ad";                 // عنوان الصفحة "إضافة إعلان جديد"
+        public const string Add_Ad_Sub = "Add_Ad_Sub";                 // وصف الصفحة "يمكنك إضافة إعلان جديد هنا"
+
+        public const string Ad_Info = "Ad_Info";                       // قسم معلومات الإعلان
+        public const string Ad_Title_Ar = "Ad_Title_Ar";               // عنوان الإعلان بالعربي
+        public const string Ad_Title_En = "Ad_Title_En";               // عنوان الإعلان بالإنجليزي
+        public const string Ad_Text_Ar = "Ad_Text_Ar";                 // نص الإعلان بالعربي
+        public const string Ad_Text_En = "Ad_Text_En";                 // نص الإعلان بالإنجليزي
+        public const string Ad_Image = "Ad_Image";                     // عنوان قسم رفع صورة الإعلان
+
+        public const string Ad_Title_Ar_Placeholder = "Ad_Title_Ar_Placeholder"; // placeholder للعنوان بالعربي
+        public const string Ad_Title_En_Placeholder = "Ad_Title_En_Placeholder"; // placeholder للعنوان بالإنجليزي
+        public const string Ad_Text_Ar_Placeholder = "Ad_Text_Ar_Placeholder";   // placeholder للنص بالعربي
+        public const string Ad_Text_En_Placeholder = "Ad_Text_En_Placeholder";   // placeholder للنص بالإنجليزي         
+        public const string Save_Ad = "Save_Ad";
+        public const string Ads = "Ads";   // للإشارة العامة إلى صفحة الإعلانات
+        public const string Edit_Ad = "Edit_Ad";         // عنوان الصفحة "تعديل الإعلان"
+        public const string Edit_Ad_Sub = "Edit_Ad_Sub"; // وصف الصفحة "يمكنك تعديل بيانات الإعلان هنا"
+
+
+
+        // ── Services index ──
+        public const string Services_Title = "Services_Title";             // عنوان صفحة الخدمات
+        public const string Services_Description = "Services_Description"; // وصف صفحة الخدمات
+        public const string Services_Total = "Services_Total";             // إجمالي الخدمات
+        public const string Services_Active = "Services_Active";           // الخدمات النشطة
+        public const string Services_Inactive = "Services_Inactive";       // الخدمات غير النشطة
+        public const string Services_AddNew = "Services_AddNew";           // زر إضافة خدمة جديد
+        public const string Services_Name = "Services_Name";               // اسم الخدمة
+        public const string Services_Type = "Services_Type";               // نوع الخدمة
+        public const string Services_Category = "Services_Category";       // تصنيف الخدمة
+        public const string Services_Status = "Services_Status";           // حالة الخدمة
+        public const string Services_Actions = "Services_Actions";         // عمود الإجراءات للخدمات
+        public const string ToggleServiceStatus = "ToggleServiceStatus";
+        public const string Services_Image = "Services_Image";             // عمود صورة الخدمة
+
+
+
+        // ── Services Form Fields ──
+        public const string Services_Info = "Services_Info";
+        public const string Services_NameAr = "Services_NameAr";
+        public const string Services_NameAr_Placeholder = "Services_NameAr_Placeholder";
+        public const string Services_NameEn = "Services_NameEn";
+        public const string Services_NameEn_Placeholder = "Services_NameEn_Placeholder";
+        public const string Select_Type = "Select_Type";
+        public const string Select_Category = "Select_Category";
+        public const string Save = "Save";
+        public const string Services_Edit = "Services_Edit";
+        public const string Total_Services = "Total_Services";
+
+
+        // ── Products index ──
+       
+        public const string Products_Description = "Products_Description";   // وصف الصفح
+        public const string Products_Inactive = "Products_Inactive";         // المنتجات غير النشطة
+        public const string Products_AddNew = "Products_AddNew";             // زر إضافة منتج جديد
+        public const string Products_Name = "Products_Name";                 // اسم المنتج
+        public const string Products_NameAr = "Products_NameAr";             // اسم المنتج بالعربية
+        public const string Products_NameEn = "Products_NameEn";             // اسم المنتج بالإنجليزية
+        public const string Products_DescriptionField = "Products_DescriptionField"; // حقل الوصف
+        public const string Products_PriceRange = "Products_PriceRange";     // نطاق السعر
+        public const string Products_Image = "Products_Image";               // عمود الصور
+        public const string Products_Status = "Products_Status";             // حالة المنتج
+        public const string Products_Actions = "Products_Actions";           // عمود الإجراءات
+        public const string Products_Edit = "Products_Edit";                 // زر تعديل
+        public const string Products_Delete = "Products_Delete";             // زر حذف
+        public const string ToggleProductStatus = "ToggleProductStatus";    // زر تفعيل/تعطيل
+        public const string Products_ActiveBadge = "Products_ActiveBadge";   // badge للمنتج نشط
+        public const string Products_InactiveBadge = "Products_InactiveBadge"; // badge للمنتج غير نشط
+                                                                               // ── Products Related ──
+        public const string Products_Company = "Products_Company"; // اسم الشركة/البائع للمنتج
+
+
+
+
+
+
+
+
+
+
+
+        // Products  Form Fields ──
+        public const string Products_NameAr_Placeholder = "Products_NameAr_Placeholder"; // هذا المفتاح مفقود
+        public const string Products_NameEn_Placeholder = "Products_NameEn_Placeholder"; // هذا المفتاح مفقود
+        public const string Products_DescriptionField_Placeholder = "Products_DescriptionField_Placeholder";
+        public const string Products_Category = "Products_Category";
+        public const string Min = "Min";
+        public const string Max = "Max";
+        public const string Products_Info = "Products_Info"; // قسم معلومات المنتج
+        public const string Total_Products = "Total_Products";
+
+
+
+
+
+
+
+        // ── Company Types index ──
+        public const string CompanyTypes_Title = "CompanyTypes_Title";               // عنوان الصفحة
+        public const string CompanyTypes_Description = "CompanyTypes_Description";   // وصف الصفحة
+        public const string CompanyTypes_Total = "CompanyTypes_Total";               // إجمالي الأنواع
+        public const string CompanyTypes_Active = "CompanyTypes_Active";             // النشطة
+        public const string CompanyTypes_Inactive = "CompanyTypes_Inactive";         // غير النشطة
+        public const string CompanyTypes_AddNew = "CompanyTypes_AddNew";             // زر إضافة نوع جديد
+        public const string CompanyTypes_Name = "CompanyTypes_Name";                 // اسم النوع
+        public const string CompanyTypes_DescriptionField = "CompanyTypes_DescriptionField"; // الوصف
+        public const string CompanyTypes_Status = "CompanyTypes_Status";             // حالة النوع
+        public const string CompanyTypes_Actions = "CompanyTypes_Actions";           // عمود الإجراءات
+        public const string CompanyTypes_ActiveBadge = "CompanyTypes_ActiveBadge";   // badge نشط
+        public const string CompanyTypes_InactiveBadge = "CompanyTypes_InactiveBadge"; // badge غير نشط
+
+
+
+
+
+
     }
 }

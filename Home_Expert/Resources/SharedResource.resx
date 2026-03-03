@@ -185,4 +185,43 @@
   <data name="Start_Lookup" xml:space="preserve">
     <value />
   </data>
+  <data name="Edit_Ad" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Edit_Ad_Sub" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_Image" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_NameAr" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_NameAr_Placeholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_NameEn" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_NameEn_Placeholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Select_Type" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Select_Category" xml:space="preserve">
+    <value>Select_Category</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Total_Services" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Services_Edit" xml:space="preserve">
+    <value />
+  </data>
 </root>

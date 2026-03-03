@@ -1,0 +1,192 @@
+﻿@model Home_Expert.ViewModel.Service.ProductViewModel
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/form.css" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <a href="@Url.Action("Index", "Products")">@_sharedResources[SharedResourcesKeys.Products_Title]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@_sharedResources[SharedResourcesKeys.Products_AddNew]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Products_AddNew]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Products_Description]</p>
+        </div>
+        <a href="@Url.Action("Index", "Products")" class="btn btn-outline">
+            <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
+            @_sharedResources[SharedResourcesKeys.Back]
+        </a>
+    </div>
+
+    <form asp-action="CreateProduc" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="VendorId" />
+
+        <div class="form-layout">
+
+            <!-- Main Form -->
+            <div>
+
+                <!-- Product Info -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                        <h3>@_sharedResources[SharedResourcesKeys.Products_Info]</h3>
+                    </div>
+                    <div class="form-card-body">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label"><span class="required">*</span>@_sharedResources[SharedResourcesKeys.Products_NameAr]</label>
+                                <input asp-for="NameAr" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Products_NameAr_Placeholder]" />
+                                <span asp-validation-for="NameAr" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label"><span class="required">*</span>@_sharedResources[SharedResourcesKeys.Products_NameEn]</label>
+                                <input asp-for="NameEn" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Products_NameEn_Placeholder]" />
+                                <span asp-validation-for="NameEn" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Products_DescriptionField]</label>
+                                <textarea asp-for="Description" class="form-control" rows="3" placeholder="@_sharedResources[SharedResourcesKeys.Products_DescriptionField_Placeholder]"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label"><span class="required">*</span>@_sharedResources[SharedResourcesKeys.Products_Category]</label>
+                                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", isArabic ? "NameAr" : "NameEn"))">
+                                    <option value="">@_sharedResources[SharedResourcesKeys.Select_Category]</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">@_sharedResources[SharedResourcesKeys.Products_PriceRange]</label>
+                                <div class="d-flex gap-2">
+                                    <input asp-for="PriceRangeMin" type="number" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Min]" />
+                                    <input asp-for="PriceRangeMax" type="number" class="form-control" placeholder="@_sharedResources[SharedResourcesKeys.Max]" />
+                                </div>
+                                <span asp-validation-for="PriceRangeMin" class="text-danger"></span>
+                                <span asp-validation-for="PriceRangeMax" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-check form-switch">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label class="form-check-label">@_sharedResources[SharedResourcesKeys.Products_Active]</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon"><span class="material-symbols-outlined">photo_library</span></div>
+                        <h3>@_sharedResources[SharedResourcesKeys.Products_Image]</h3>
+                    </div>
+                    <div class="form-card-body">
+                        <input id="ProductImages" asp-for="ProductImages" type="file" accept="image/*" multiple style="display:none;" />
+                        <div class="img-upload" onclick="document.getElementById('ProductImages').click()">
+                            <div class="img-upload-icon"><span class="material-symbols-outlined">cloud_upload</span></div>
+                            <div class="img-upload-label">@_sharedResources[SharedResourcesKeys.Upload_Label]</div>
+                            <div class="img-upload-hint">@_sharedResources[SharedResourcesKeys.Upload_Hint]</div>
+                        </div>
+                        <span asp-validation-for="ProductImages" class="text-danger"></span>
+
+                        <!-- Preview + اختيار الصورة الرئيسية -->
+                        <div id="preview-images" class="d-flex gap-2 mt-2"></div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-symbols-outlined">save</span>
+                        @_sharedResources[SharedResourcesKeys.Save]
+                    </button>
+                    <a href="@Url.Action("Index", "Products")" class="btn btn-outline">@_sharedResources[SharedResourcesKeys.Cancel]</a>
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header"><h4>💡 @_sharedResources[SharedResourcesKeys.Input_Tips]</h4></div>
+                    <div class="sidebar-card-body">
+                        <ul class="tips-list">
+                            <li><span class="material-symbols-outlined">check_circle</span>@_sharedResources[SharedResourcesKeys.Tip_Required]</li>
+                            <li><span class="material-symbols-outlined">check_circle</span>@_sharedResources[SharedResourcesKeys.Tip_Images]</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header"><h4>📊 @_sharedResources[SharedResourcesKeys.Quick_Stats]</h4></div>
+                    <div class="sidebar-card-body">
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Total_Products]</span>
+                            <span class="sidebar-stat-val">@Model.TotalProducts</span>
+                        </div>
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
+                            <span class="sidebar-stat-val">@Model.ActiveProducts</span>
+                        </div>
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Products_Inactive]</span>
+                            <span class="sidebar-stat-val" style="color:var(--accent);">@Model.InactiveProducts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        const input = document.getElementById('ProductImages');
+        const preview = document.getElementById('preview-images');
+
+        input.addEventListener('change', function() {
+            preview.innerHTML = '';
+            Array.from(input.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.style.position = 'relative';
+                    div.style.display = 'inline-block';
+
+                    div.innerHTML = `
+                        <img src="${e.target.result}" style="width:100px;height:100px;object-fit:cover;border:1px solid #ccc;">
+                        <input type="radio" name="MainImageFileName" value="${file.name}" ${index === 0 ? 'checked' : ''} style="position:absolute;bottom:5px;left:5px;">
+                    `;
+                    preview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+}

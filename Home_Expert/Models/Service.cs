@@ -21,6 +21,8 @@ public partial class Service
 
     public int? CategoryId { get; set; }
 
+    public bool IsActive { get; set; } = true;
+
     public byte[]? Image { get; set; }
 
     [ForeignKey("CategoryId")]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Home_Expert.Models.Ad>
+﻿@model IEnumerable<Home_Expert.Models.Product>
 @using Home_Expert.Resources
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> _sharedResources
@@ -22,21 +22,21 @@
             <div class="breadcrumb">
                 <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
                 <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
-                <span>@_sharedResources[SharedResourcesKeys.Ads_Title]</span>
+                <span>@_sharedResources[SharedResourcesKeys.Products_Title]</span>
             </div>
-            <h1>@_sharedResources[SharedResourcesKeys.Ads_Title]</h1>
-            <p>@_sharedResources[SharedResourcesKeys.Ads_Description]</p>
+            <h1>@_sharedResources[SharedResourcesKeys.Products_Title]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Products_Description]</p>
         </div>
     </div>
 
     <div class="stats-row">
         <div class="stat-pill">
             <div class="stat-pill-icon" style="background:rgba(10,61,68,.1);color:#0A3D44;">
-                <span class="material-symbols-outlined">campaign</span>
+                <span class="material-symbols-outlined">inventory_2</span>
             </div>
             <div>
                 <div class="stat-pill-val">@Model.Count()</div>
-                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Ads_Total]</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
             </div>
         </div>
         <div class="stat-pill">
@@ -44,8 +44,8 @@
                 <span class="material-symbols-outlined">check_circle</span>
             </div>
             <div>
-                <div class="stat-pill-val">@Model.Count(a => a.IsActive == true)</div>
-                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Ads_Active]</div>
+                <div class="stat-pill-val">@Model.Count(p => p.IsActive == true)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Products_Active]</div>
             </div>
         </div>
         <div class="stat-pill">
@@ -53,52 +53,54 @@
                 <span class="material-symbols-outlined">cancel</span>
             </div>
             <div>
-                <div class="stat-pill-val">@Model.Count(a => a.IsActive == false)</div>
-                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Ads_Inactive]</div>
+                <div class="stat-pill-val">@Model.Count(p => p.IsActive == false)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Products_Inactive]</div>
             </div>
         </div>
     </div>
 
     <div class="table-card">
         <div class="table-toolbar-extra">
-            <a class="btn btn-primary" asp-action="Create">
+            <a class="btn btn-primary" asp-action="CreateProduc">
                 <span class="material-symbols-outlined">add</span>
-                @_sharedResources[SharedResourcesKeys.Ads_AddNew]
+                @_sharedResources[SharedResourcesKeys.Products_AddNew]
             </a>
             <select class="tbl-filter" id="statusFilter">
                 <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllStatus]</option>
-                <option value="active">@_sharedResources[SharedResourcesKeys.Ads_Active]</option>
-                <option value="inactive">@_sharedResources[SharedResourcesKeys.Ads_Inactive]</option>
+                <option value="active">@_sharedResources[SharedResourcesKeys.Products_Active]</option>
+                <option value="inactive">@_sharedResources[SharedResourcesKeys.Products_Inactive]</option>
             </select>
         </div>
 
-        <table id="adsTable" class="data-table" style="width:100%" dir="@tableDir">
+        <table id="productsTable" class="data-table" style="width:100%" dir="@tableDir">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>@_sharedResources[SharedResourcesKeys.Ads_Title]</th>
-                    <th>@_sharedResources[SharedResourcesKeys.Ads_Text]</th>
-                    <th>@_sharedResources[SharedResourcesKeys.Ads_Image]</th>
-                    <th>@_sharedResources[SharedResourcesKeys.Ads_Status]</th>
-                    <th>@_sharedResources[SharedResourcesKeys.Ads_Actions]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Name]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Description]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Image]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Company]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Products_Actions]</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var ad in Model)
+                @foreach (var product in Model)
                 {
-                    var statusKey = ad.IsActive == true ? "active" : "inactive";
-                    var title = isArabic ? ad.Title : (ad.TitleEn ?? ad.Title);
-                    var titleOther = isArabic ? (ad.TitleEn ?? "-") : (ad.Title ?? "-");
-                    var adText = isArabic ? ad.AdText : (ad.AdTextEn ?? ad.AdText);
+                    var statusKey = product.IsActive == true ? "active" : "inactive";
+                    var name = isArabic ? product.NameAr : (product.NameEn ?? product.NameAr);
+                    var nameOther = isArabic ? (product.NameEn ?? "-") : (product.NameAr ?? "-");
+                    var desc = string.IsNullOrEmpty(product.Description) ? "-" : product.Description;
 
                     <tr data-status="@statusKey">
                         <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
                         <td>
                             <div class="company-cell">
                                 <div class="company-avatar">
-                                    @if (ad.Image != null && ad.Image.Length > 0)
+                                    @if (product.ProductImages.Any(pi => pi.IsMain))
                                     {
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(ad.Image)" alt="Ad Image" />
+                                        var mainImg = product.ProductImages.First(pi => pi.IsMain).ImageData;
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(mainImg)" alt="Product Image" />
                                     }
                                     else
                                     {
@@ -106,46 +108,53 @@
                                     }
                                 </div>
                                 <div>
-                                    <div class="company-name">@title</div>
-                                    <div class="company-other-name" style="font-size:.75rem;color:var(--muted);">@titleOther</div>
+                                    <div class="company-name">@name</div>
+                                    <div class="company-other-name" style="font-size:.75rem;color:var(--muted);">@nameOther</div>
                                 </div>
                             </div>
                         </td>
-                        <td>@adText</td>
+                        <td>@desc</td>
                         <td>
-                            @* إذا أردت يمكن وضع نسخة مصغرة للصورة هنا أو تركها فارغة *@
-                        </td>
-                        <td data-search="@statusKey">
-                            @if (ad.IsActive==true)
+                            @if (product.ProductImages != null && product.ProductImages.Any())
                             {
-                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Ads_Active]</span>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openImagesModal(@product.Id)">
+                                    عرض الصور (@product.ProductImages.Count)
+                                </button>
+                            }
+                            else
+                            {
+                                <span class="text-muted">لا توجد صور</span>
+                            }
+                        </td>
+                        <td>@(isArabic? product.Vendor.CompanyNameAr : (product.Vendor.CompanyNameEn ?? product.Vendor.CompanyNameAr))</td>
+                        <td data-search="@statusKey">
+                            @if (product.IsActive == true)
+                            {
+                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
                             }
                             else
                             {
                                 <span class="status-badge" style="background:rgba(239,68,68,.1);color:#991b1b;">
-                                    @_sharedResources[SharedResourcesKeys.Ads_Inactive]
+                                    @_sharedResources[SharedResourcesKeys.Products_Inactive]
                                 </span>
                             }
                         </td>
                         <td>
                             <div class="actions-cell">
-                                <!-- Edit -->
                                 <a class="action-btn edit" title="@_sharedResources[SharedResourcesKeys.Edit]"
-                                   asp-action="Edit" asp-route-id="@ad.Id">
+                                   asp-action="EditProduc" asp-route-id="@product.Id">
                                     <span class="material-symbols-outlined">edit</span>
                                 </a>
 
-                                <!-- Toggle Status -->
                                 <a class="action-btn toggle" title="@_sharedResources[SharedResourcesKeys.ToggleStatus]"
-                                   asp-action="ToggleActive" asp-route-id="@ad.Id">
+                                   asp-action="ToggleProductStatus" asp-route-id="@product.Id">
                                     <span class="material-symbols-outlined">
-                                        @(ad.IsActive==true ? "toggle_on" : "toggle_off")
+                                        @(product.IsActive == true ? "toggle_on" : "toggle_off")
                                     </span>
                                 </a>
 
-                                <!-- Delete -->
                                 <a class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]"
-                                   asp-action="Delete" asp-route-id="@ad.Id"
+                                   asp-action="DeleteProduct" asp-route-id="@product.Id"
                                    onclick="return confirm('@_sharedResources[SharedResourcesKeys.Delete_Confirm]');">
                                     <span class="material-symbols-outlined">delete</span>
                                 </a>
@@ -158,33 +167,6 @@
     </div>
 </div>
 
-<!-- MODALS & TOASTS -->
-<div class="modal-overlay" id="adModal">
-    <div class="modal-box">
-        <div class="modal-title" id="adModalTitle"></div>
-        <div class="modal-body" id="adModalBody">
-            <!-- سيتم تحميل Partial View هنا -->
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-outline btn-sm" onclick="closeAdModal()">@_sharedResources[SharedResourcesKeys.Cancel]</button>
-        </div>
-    </div>
-</div>
-
-<div class="confirm-overlay" id="confirmDialog">
-    <div class="confirm-box">
-        <div class="confirm-icon" id="confirmIcon"></div>
-        <div class="confirm-title" id="confirmTitle"></div>
-        <div class="confirm-sub" id="confirmSub"></div>
-        <div class="confirm-actions">
-            <button class="btn btn-outline btn-sm" onclick="closeConfirm()">@_sharedResources[SharedResourcesKeys.Cancel]</button>
-            <button class="btn btn-primary btn-sm" id="confirmOkBtn"></button>
-        </div>
-    </div>
-</div>
-
-<div class="toast-wrap" id="toastWrap"></div>
-
 @section Scripts {
     <script src="~/js/jquery-3.7.1.min.js"></script>
     <script src="~/lib/datatable/jquery.datatables.min.js"></script>
@@ -193,7 +175,7 @@
         var dt;
 
         $(document).ready(function () {
-            dt = $('#adsTable').DataTable({
+            dt = $('#productsTable').DataTable({
                 responsive: true,
                 pageLength: 10,
                 ordering: true,
@@ -212,7 +194,7 @@
                         previous: isArabic ? "السابق" : "Previous"
                     }
                 },
-                columnDefs: [{ orderable: false, targets: [0, 5] }],
+                columnDefs: [{ orderable: false, targets: [0, 6] }],
                 drawCallback: function () {
                     var api = this.api();
                     var startIndex = api.page.info().start;
@@ -222,18 +204,14 @@
                 }
             });
 
-            /* ══ Status Filter ══*/
             $('#statusFilter').on('change', function () {
-                dt.column(4).search($(this).val(), false, false).draw();
+                dt.column(5).search($(this).val(), false, false).draw();
             });
 
-            /* ══ Server Messages ══ */
             var _serverMsg = '@Html.Raw(TempData["Success"] ?? "")';
             var _serverErr = '@Html.Raw(TempData["Error"] ?? "")';
             if (_serverMsg) showToast(_serverMsg, 'success');
             if (_serverErr) showToast(_serverErr, 'error');
         });
-
-        // ستضيف هنا دوال openCreateModal, openEditModal, confirmDelete, confirmToggle, showToast, showConfirm بنفس أسلوب صفحة Vendors
     </script>
 }

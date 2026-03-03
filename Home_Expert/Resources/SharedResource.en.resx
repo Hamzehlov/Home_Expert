@@ -129,6 +129,96 @@
   <data name="Srv_Services_Desc" xml:space="preserve">
     <value>Manage and monitor all available services in the system</value>
   </data>
+  <data name="Products_Title" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Products_Desc" xml:space="preserve">
+    <value>All available products in the system</value>
+  </data>
+  <data name="Products_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Products_Total" xml:space="preserve">
+    <value>Total Products</value>
+  </data>
+  <data name="Products_New" xml:space="preserve">
+    <value>New Products</value>
+  </data>
+  <data name="Products_Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Ads_Title" xml:space="preserve">
+    <value>Ads</value>
+  </data>
+  <data name="Ads_Desc" xml:space="preserve">
+    <value>All ad campaigns</value>
+  </data>
+  <data name="Ads_Active" xml:space="preserve">
+    <value>Active Ads</value>
+  </data>
+  <data name="Ads_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Ads_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Ads_Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="Lookup_Title" xml:space="preserve">
+    <value>Types of Companies</value>
+  </data>
+  <data name="Lookup_Desc" xml:space="preserve">
+    <value>All Business Entity Types</value>
+  </data>
+  <data name="Lookup" xml:space="preserve">
+    <value>Lookup</value>
+  </data>
+  <data name="Lookup_LastQuery" xml:space="preserve">
+    <value>Last Query</value>
+  </data>
+  <data name="Start_Lookup" xml:space="preserve">
+    <value>Start Lookup</value>
+  </data>
+  <data name="Edit_Ad" xml:space="preserve">
+    <value>Edit Ad</value>
+  </data>
+  <data name="Edit_Ad_Sub" xml:space="preserve">
+    <value>You can edit the ad details here</value>
+  </data>
+  <data name="Services_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Services_Info" xml:space="preserve">
+    <value>Service Information</value>
+  </data>
+  <data name="Services_NameAr" xml:space="preserve">
+    <value>Service Name</value>
+  </data>
+  <data name="Services_NameAr_Placeholder" xml:space="preserve">
+    <value>Enter service name in Arabic</value>
+  </data>
+  <data name="Services_NameEn" xml:space="preserve">
+    <value>Service Name</value>
+  </data>
+  <data name="Services_NameEn_Placeholder" xml:space="preserve">
+    <value>Enter service name in English</value>
+  </data>
+  <data name="Select_Type" xml:space="preserve">
+    <value>Select Type</value>
+  </data>
+  <data name="Select_Category" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Total_Services" xml:space="preserve">
+    <value>Total Services</value>
+  </data>
+  <data name="Services_Edit" xml:space="preserve">
+    <value>Edit Service</value>
+  </data>
   <data name="Service_Sales" xml:space="preserve">
     <value>Sales</value>
   </data>
@@ -1047,55 +1137,184 @@
   <data name="Status_Rejected" xml:space="preserve">
     <value>Rejected</value>
   </data>
-  <data name="Products_Title" xml:space="preserve">
-    <value>Products</value>
+  <data name="Ads_Description" xml:space="preserve">
+    <value>Manage and view all ads details</value>
   </data>
-  <data name="Products_Desc" xml:space="preserve">
-    <value>All available products in the system</value>
+  <data name="Ads_Total" xml:space="preserve">
+    <value>Total Ads</value>
   </data>
-  <data name="Products_Active" xml:space="preserve">
-    <value>Active</value>
+  <data name="Ads_Inactive" xml:space="preserve">
+    <value>Inactive Ads</value>
   </data>
-  <data name="Products_Total" xml:space="preserve">
-    <value>Total Products</value>
+  <data name="Ads_AddNew" xml:space="preserve">
+    <value>Add New Ad</value>
   </data>
-  <data name="Products_New" xml:space="preserve">
-    <value>New Products</value>
+  <data name="Ads_Text" xml:space="preserve">
+    <value>Ad Text</value>
   </data>
-  <data name="Products_Sales" xml:space="preserve">
-    <value>Sales</value>
+  <data name="Ads_Image" xml:space="preserve">
+    <value>Ad Image</value>
   </data>
-  <data name="Ads_Title" xml:space="preserve">
+  <data name="Ads_Status" xml:space="preserve">
+    <value>Ad Status</value>
+  </data>
+  <data name="Ads_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ToggleStatus" xml:space="preserve">
+    <value>Toggle Status</value>
+  </data>
+  <data name="Add_New_Ad" xml:space="preserve">
+    <value>Add New Ad</value>
+  </data>
+  <data name="Add_Ad_Sub" xml:space="preserve">
+    <value>You can add a new ad here</value>
+  </data>
+  <data name="Ad_Info" xml:space="preserve">
+    <value>Ad Information</value>
+  </data>
+  <data name="Ad_Title_Ar" xml:space="preserve">
+    <value>Ad Title (Arabic)</value>
+  </data>
+  <data name="Ad_Title_En" xml:space="preserve">
+    <value>Ad Title (English)</value>
+  </data>
+  <data name="Ad_Text_Ar" xml:space="preserve">
+    <value>Ad Text (Arabic)</value>
+  </data>
+  <data name="Ad_Text_En" xml:space="preserve">
+    <value>Ad Text (English)</value>
+  </data>
+  <data name="Ad_Image" xml:space="preserve">
+    <value>Ad Image</value>
+  </data>
+  <data name="Ad_Title_Ar_Placeholder" xml:space="preserve">
+    <value>Enter ad title in Arabic</value>
+  </data>
+  <data name="Ad_Title_En_Placeholder" xml:space="preserve">
+    <value>Enter ad title in English</value>
+  </data>
+  <data name="Ad_Text_Ar_Placeholder" xml:space="preserve">
+    <value>Enter ad text in Arabic</value>
+  </data>
+  <data name="Ad_Text_En_Placeholder" xml:space="preserve">
+    <value>Enter ad text in English</value>
+  </data>
+  <data name="Save_Ad" xml:space="preserve">
+    <value>Save Ad</value>
+  </data>
+  <data name="Ads" xml:space="preserve">
     <value>Ads</value>
   </data>
-  <data name="Ads_Desc" xml:space="preserve">
-    <value>All ad campaigns</value>
+  <data name="Services_Title" xml:space="preserve">
+    <value>Services</value>
   </data>
-  <data name="Ads_Active" xml:space="preserve">
+  <data name="Services_Description" xml:space="preserve">
+    <value>Overview of all available services</value>
+  </data>
+  <data name="Services_Total" xml:space="preserve">
+    <value>Total Services</value>
+  </data>
+  <data name="Services_Active" xml:space="preserve">
+    <value>Active Services</value>
+  </data>
+  <data name="Services_Inactive" xml:space="preserve">
+    <value>Inactive Services</value>
+  </data>
+  <data name="Services_AddNew" xml:space="preserve">
+    <value>Add New Service</value>
+  </data>
+  <data name="Services_Name" xml:space="preserve">
+    <value>Service Name</value>
+  </data>
+  <data name="Services_Type" xml:space="preserve">
+    <value>Service Type</value>
+  </data>
+  <data name="Services_Category" xml:space="preserve">
+    <value>Service Category</value>
+  </data>
+  <data name="Services_Status" xml:space="preserve">
+    <value>Service Status</value>
+  </data>
+  <data name="Services_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ToggleServiceStatus" xml:space="preserve">
+    <value>Activate / Deactivate Service</value>
+  </data>
+  <data name="Products_Description" xml:space="preserve">
+    <value>Page Description</value>
+  </data>
+  <data name="Products_Inactive" xml:space="preserve">
+    <value>Inactive Products</value>
+  </data>
+  <data name="Products_AddNew" xml:space="preserve">
+    <value>Add New Product</value>
+  </data>
+  <data name="Products_Name" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="Products_NameAr" xml:space="preserve">
+    <value>Product Name (Arabic)</value>
+  </data>
+  <data name="Products_NameEn" xml:space="preserve">
+    <value>Product Name (English)</value>
+  </data>
+  <data name="Products_DescriptionField" xml:space="preserve">
+    <value>Description Field</value>
+  </data>
+  <data name="Products_PriceRange" xml:space="preserve">
+    <value>Price Range</value>
+  </data>
+  <data name="Products_Image" xml:space="preserve">
+    <value>Product Images</value>
+  </data>
+  <data name="Products_Status" xml:space="preserve">
+    <value>Product Status</value>
+  </data>
+  <data name="Products_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Products_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Products_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ToggleProductStatus" xml:space="preserve">
+    <value>Toggle Status</value>
+  </data>
+  <data name="Products_ActiveBadge" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="Ads_Running" xml:space="preserve">
-    <value>Running</value>
+  <data name="Products_InactiveBadge" xml:space="preserve">
+    <value>Inactive</value>
   </data>
-  <data name="Ads_Pending" xml:space="preserve">
-    <value>Pending</value>
+  <data name="Products_Company" xml:space="preserve">
+    <value>Company / Vendor</value>
   </data>
-  <data name="Ads_Views" xml:space="preserve">
-    <value>Views</value>
+  <data name="Products_NameAr_Placeholder" xml:space="preserve">
+    <value>Enter product name in Arabic</value>
   </data>
-  <data name="Lookup_Title" xml:space="preserve">
-    <value>Lookup_Title</value>
+  <data name="Products_NameEn_Placeholder" xml:space="preserve">
+    <value>Enter product name in English</value>
   </data>
-  <data name="Lookup_Desc" xml:space="preserve">
-    <value>Use the system to search information</value>
+  <data name="Products_DescriptionField_Placeholder" xml:space="preserve">
+    <value>Enter product description</value>
   </data>
-  <data name="Lookup" xml:space="preserve">
-    <value>Lookup</value>
+  <data name="Products_Category" xml:space="preserve">
+    <value>Select Category</value>
   </data>
-  <data name="Lookup_LastQuery" xml:space="preserve">
-    <value>Last Query</value>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
   </data>
-  <data name="Start_Lookup" xml:space="preserve">
-    <value>Start Lookup</value>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Total_Products" xml:space="preserve">
+    <value>Total Products</value>
+  </data>
+  <data name="Products_Info" xml:space="preserve">
+    <value>Product Information</value>
   </data>
 </root>

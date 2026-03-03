@@ -129,6 +129,96 @@
   <data name="Srv_Services_Desc" xml:space="preserve">
     <value>إدارة ومتابعة جميع الخدمات المتاحة داخل النظام</value>
   </data>
+  <data name="Products_Title" xml:space="preserve">
+    <value>المنتجات</value>
+  </data>
+  <data name="Products_Desc" xml:space="preserve">
+    <value>جميع المنتجات المتوفرة في النظام</value>
+  </data>
+  <data name="Products_Active" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="Products_Total" xml:space="preserve">
+    <value>إجمالي المنتجات</value>
+  </data>
+  <data name="Products_New" xml:space="preserve">
+    <value>منتجات جديدة</value>
+  </data>
+  <data name="Products_Sales" xml:space="preserve">
+    <value>المبيعات</value>
+  </data>
+  <data name="Ads_Title" xml:space="preserve">
+    <value>الإعلانات</value>
+  </data>
+  <data name="Ads_Desc" xml:space="preserve">
+    <value>جميع الحملات الإعلانية</value>
+  </data>
+  <data name="Ads_Active" xml:space="preserve">
+    <value>الإعلانات النشطة</value>
+  </data>
+  <data name="Ads_Running" xml:space="preserve">
+    <value>قيد التشغيل</value>
+  </data>
+  <data name="Ads_Pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="Ads_Views" xml:space="preserve">
+    <value>عدد المشاهدات</value>
+  </data>
+  <data name="Lookup_Title" xml:space="preserve">
+    <value>أنواع الشركات</value>
+  </data>
+  <data name="Lookup_Desc" xml:space="preserve">
+    <value>جميع أنواع الشركات</value>
+  </data>
+  <data name="Lookup" xml:space="preserve">
+    <value>ابحث</value>
+  </data>
+  <data name="Lookup_LastQuery" xml:space="preserve">
+    <value>آخر استعلام</value>
+  </data>
+  <data name="Start_Lookup" xml:space="preserve">
+    <value>ابدأ البحث</value>
+  </data>
+  <data name="Edit_Ad" xml:space="preserve">
+    <value>تعديل الإعلان</value>
+  </data>
+  <data name="Edit_Ad_Sub" xml:space="preserve">
+    <value>يمكنك تعديل بيانات الإعلان هنا</value>
+  </data>
+  <data name="Services_Image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="Services_Info" xml:space="preserve">
+    <value>معلومات الخدمة</value>
+  </data>
+  <data name="Services_NameAr" xml:space="preserve">
+    <value>اسم الخدمة</value>
+  </data>
+  <data name="Services_NameAr_Placeholder" xml:space="preserve">
+    <value>أدخل اسم الخدمة باللغة العربية</value>
+  </data>
+  <data name="Services_NameEn" xml:space="preserve">
+    <value>اسم الخدمة</value>
+  </data>
+  <data name="Services_NameEn_Placeholder" xml:space="preserve">
+    <value>أدخل اسم الخدمة باللغة الإنجليزية</value>
+  </data>
+  <data name="Select_Type" xml:space="preserve">
+    <value>اختر النوع</value>
+  </data>
+  <data name="Select_Category" xml:space="preserve">
+    <value>اختر التصنيف</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Total_Services" xml:space="preserve">
+    <value>إجمالي الخدمات</value>
+  </data>
+  <data name="Services_Edit" xml:space="preserve">
+    <value>تعديل خدمة</value>
+  </data>
   <data name="Service_Sales" xml:space="preserve">
     <value>مبيعات</value>
   </data>
@@ -1050,55 +1140,184 @@
   <data name="Status_Rejected" xml:space="preserve">
     <value>مرفوض</value>
   </data>
-  <data name="Products_Title" xml:space="preserve">
-    <value>المنتجات</value>
+  <data name="Ads_Description" xml:space="preserve">
+    <value>إدارة الإعلانات وعرض كل تفاصيلها</value>
   </data>
-  <data name="Products_Desc" xml:space="preserve">
-    <value>جميع المنتجات المتوفرة في النظام</value>
+  <data name="Ads_Total" xml:space="preserve">
+    <value>إجمالي الإعلانات</value>
   </data>
-  <data name="Products_Active" xml:space="preserve">
-    <value>نشط</value>
+  <data name="Ads_Inactive" xml:space="preserve">
+    <value>الإعلانات غير النشطة</value>
   </data>
-  <data name="Products_Total" xml:space="preserve">
-    <value>إجمالي المنتجات</value>
+  <data name="Ads_AddNew" xml:space="preserve">
+    <value>إضافة إعلان جديد</value>
   </data>
-  <data name="Products_New" xml:space="preserve">
-    <value>منتجات جديدة</value>
+  <data name="Ads_Text" xml:space="preserve">
+    <value>نص الإعلان</value>
   </data>
-  <data name="Products_Sales" xml:space="preserve">
-    <value>المبيعات</value>
+  <data name="Ads_Image" xml:space="preserve">
+    <value>صورة الإعلان</value>
   </data>
-  <data name="Ads_Title" xml:space="preserve">
+  <data name="Ads_Status" xml:space="preserve">
+    <value>حالة الإعلان</value>
+  </data>
+  <data name="Ads_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="ToggleStatus" xml:space="preserve">
+    <value>تبديل الحالة</value>
+  </data>
+  <data name="Add_New_Ad" xml:space="preserve">
+    <value>إضافة إعلان جديد</value>
+  </data>
+  <data name="Add_Ad_Sub" xml:space="preserve">
+    <value>يمكنك إضافة إعلان جديد هنا</value>
+  </data>
+  <data name="Ad_Info" xml:space="preserve">
+    <value>معلومات الإعلان</value>
+  </data>
+  <data name="Ad_Title_Ar" xml:space="preserve">
+    <value>عنوان الإعلان (عربي)</value>
+  </data>
+  <data name="Ad_Title_En" xml:space="preserve">
+    <value>عنوان الإعلان (إنجليزي)</value>
+  </data>
+  <data name="Ad_Text_Ar" xml:space="preserve">
+    <value>نص الإعلان (عربي)</value>
+  </data>
+  <data name="Ad_Text_En" xml:space="preserve">
+    <value>نص الإعلان (إنجليزي)</value>
+  </data>
+  <data name="Ad_Image" xml:space="preserve">
+    <value>صورة الإعلان</value>
+  </data>
+  <data name="Ad_Title_Ar_Placeholder" xml:space="preserve">
+    <value>أدخل عنوان الإعلان بالعربية</value>
+  </data>
+  <data name="Ad_Title_En_Placeholder" xml:space="preserve">
+    <value>Enter ad title in English</value>
+  </data>
+  <data name="Ad_Text_Ar_Placeholder" xml:space="preserve">
+    <value>أدخل نص الإعلان بالعربية</value>
+  </data>
+  <data name="Ad_Text_En_Placeholder" xml:space="preserve">
+    <value>Enter ad text in English</value>
+  </data>
+  <data name="Save_Ad" xml:space="preserve">
+    <value>حفظ الإعلان</value>
+  </data>
+  <data name="Ads" xml:space="preserve">
     <value>الإعلانات</value>
   </data>
-  <data name="Ads_Desc" xml:space="preserve">
-    <value>جميع الحملات الإعلانية</value>
+  <data name="Services_Title" xml:space="preserve">
+    <value>الخدمات</value>
   </data>
-  <data name="Ads_Active" xml:space="preserve">
+  <data name="Services_Description" xml:space="preserve">
+    <value>نظرة عامة على جميع الخدمات</value>
+  </data>
+  <data name="Services_Total" xml:space="preserve">
+    <value>إجمالي الخدمات</value>
+  </data>
+  <data name="Services_Active" xml:space="preserve">
+    <value>الخدمات النشطة</value>
+  </data>
+  <data name="Services_Inactive" xml:space="preserve">
+    <value>الخدمات غير النشطة</value>
+  </data>
+  <data name="Services_AddNew" xml:space="preserve">
+    <value>إضافة خدمة جديدة</value>
+  </data>
+  <data name="Services_Name" xml:space="preserve">
+    <value>اسم الخدمة</value>
+  </data>
+  <data name="Services_Type" xml:space="preserve">
+    <value>نوع الخدمة</value>
+  </data>
+  <data name="Services_Category" xml:space="preserve">
+    <value>تصنيف الخدمة</value>
+  </data>
+  <data name="Services_Status" xml:space="preserve">
+    <value>حالة الخدمة</value>
+  </data>
+  <data name="Services_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="ToggleServiceStatus" xml:space="preserve">
+    <value>تفعيل / تعطيل الخدمة</value>
+  </data>
+  <data name="Products_Description" xml:space="preserve">
+    <value>وصف الصفحة</value>
+  </data>
+  <data name="Products_Inactive" xml:space="preserve">
+    <value>المنتجات غير النشطة</value>
+  </data>
+  <data name="Products_AddNew" xml:space="preserve">
+    <value>إضافة منتج جديد</value>
+  </data>
+  <data name="Products_Name" xml:space="preserve">
+    <value>اسم المنتج</value>
+  </data>
+  <data name="Products_NameAr" xml:space="preserve">
+    <value>اسم المنتج بالعربية</value>
+  </data>
+  <data name="Products_NameEn" xml:space="preserve">
+    <value>اسم المنتج بالإنجليزية</value>
+  </data>
+  <data name="Products_DescriptionField" xml:space="preserve">
+    <value>حقل الوصف</value>
+  </data>
+  <data name="Products_PriceRange" xml:space="preserve">
+    <value>نطاق السعر</value>
+  </data>
+  <data name="Products_Image" xml:space="preserve">
+    <value>الصور</value>
+  </data>
+  <data name="Products_Status" xml:space="preserve">
+    <value>حالة المنتج</value>
+  </data>
+  <data name="Products_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Products_Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Products_Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ToggleProductStatus" xml:space="preserve">
+    <value>تفعيل / تعطيل</value>
+  </data>
+  <data name="Products_ActiveBadge" xml:space="preserve">
     <value>نشط</value>
   </data>
-  <data name="Ads_Running" xml:space="preserve">
-    <value>قيد التشغيل</value>
+  <data name="Products_InactiveBadge" xml:space="preserve">
+    <value>غير نشط</value>
   </data>
-  <data name="Ads_Pending" xml:space="preserve">
-    <value>قيد الانتظار</value>
+  <data name="Products_Company" xml:space="preserve">
+    <value>الشركة / البائع</value>
   </data>
-  <data name="Ads_Views" xml:space="preserve">
-    <value>عدد المشاهدات</value>
+  <data name="Products_NameAr_Placeholder" xml:space="preserve">
+    <value>أدخل اسم المنتج بالعربية</value>
   </data>
-  <data name="Lookup_Title" xml:space="preserve">
-    <value>ابحث عن البيانات</value>
+  <data name="Products_NameEn_Placeholder" xml:space="preserve">
+    <value>أدخل اسم المنتج بالإنجليزية</value>
   </data>
-  <data name="Lookup_Desc" xml:space="preserve">
-    <value>استخدم النظام للبحث عن المعلومات</value>
+  <data name="Products_DescriptionField_Placeholder" xml:space="preserve">
+    <value>أدخل وصف المنتج</value>
   </data>
-  <data name="Lookup" xml:space="preserve">
-    <value>ابحث</value>
+  <data name="Products_Category" xml:space="preserve">
+    <value>اختر التصنيف</value>
   </data>
-  <data name="Lookup_LastQuery" xml:space="preserve">
-    <value>آخر استعلام</value>
+  <data name="Min" xml:space="preserve">
+    <value>الحد الأدنى</value>
   </data>
-  <data name="Start_Lookup" xml:space="preserve">
-    <value>ابدأ البحث</value>
+  <data name="Max" xml:space="preserve">
+    <value>الحد الأقصى</value>
+  </data>
+  <data name="Total_Products" xml:space="preserve">
+    <value>إجمالي المنتجات</value>
+  </data>
+  <data name="Products_Info" xml:space="preserve">
+    <value>معلومات المنتج</value>
   </data>
 </root>

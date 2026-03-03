@@ -21,12 +21,12 @@
             <div class="breadcrumb">
                 <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
                 <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
-                <a href="@Url.Action("Index", "Ads")">@_sharedResources[SharedResourcesKeys.Ads]</a>
+                <a href="@Url.Action("Index", "Ads")">@_sharedResources[SharedResourcesKeys.Ads_Title]</a>
                 <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
-                <span>@_sharedResources[SharedResourcesKeys.Add_New_Ad]</span>
+                <span>@_sharedResources[SharedResourcesKeys.Edit_Ad]</span>
             </div>
-            <h1>@_sharedResources[SharedResourcesKeys.Add_New_Ad]</h1>
-            <p>@_sharedResources[SharedResourcesKeys.Add_Ad_Sub]</p>
+            <h1>@_sharedResources[SharedResourcesKeys.Edit_Ad]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Edit_Ad_Sub]</p>
         </div>
         <a href="@Url.Action("Index", "Ads")" class="btn btn-outline">
             <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
@@ -34,7 +34,7 @@
         </a>
     </div>
 
-    <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
 
         <div class="form-layout">
@@ -67,7 +67,6 @@
                                 <span asp-validation-for="TitleEn" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">
@@ -96,6 +95,12 @@
                         <h3>@_sharedResources[SharedResourcesKeys.Ad_Image]</h3>
                     </div>
                     <div class="form-card-body">
+                        @if (Model.Image != null)
+                        {
+                            <div class="mb-3">
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Image)" class="img-fluid" style="max-height:200px;" />
+                            </div>
+                        }
                         <div class="img-upload" onclick="document.getElementById('fileInput').click()">
                             <div class="img-upload-icon"><span class="material-symbols-outlined">cloud_upload</span></div>
                             <div class="img-upload-label">@_sharedResources[SharedResourcesKeys.Upload_Label]</div>
@@ -127,24 +132,6 @@
                         </ul>
                     </div>
                 </div>
-
-               @*  <div class="sidebar-card">
-                    <div class="sidebar-card-header"><h4>📊 @_sharedResources[SharedResourcesKeys.Quick_Stats]</h4></div>
-                    <div class="sidebar-card-body">
-                        <div class="sidebar-stat-row">
-                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Total_Ads]</span>
-                            <span class="sidebar-stat-val">@Model.TotalAds</span>
-                        </div>
-                        <div class="sidebar-stat-row">
-                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Active_Ads]</span>
-                            <span class="sidebar-stat-val">@Model.ActiveAds</span>
-                        </div>
-                        <div class="sidebar-stat-row">
-                            <span class="sidebar-stat-label">@_sharedResources[SharedResourcesKeys.Inactive_Ads]</span>
-                            <span class="sidebar-stat-val" style="color:var(--accent);">@Model.InactiveAds</span>
-                        </div>
-                    </div>
-                </div> *@
             </div>
 
         </div>
