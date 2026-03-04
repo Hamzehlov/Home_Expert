@@ -1,0 +1,225 @@
+﻿@model Home_Expert.ViewModel.Service.CodeViewModel
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/form.css" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">
+                    @_sharedResources[SharedResourcesKeys.Dashboard]
+                </a>
+
+                <span class="material-symbols-outlined sep">
+                    @(isArabic ? "chevron_left" : "chevron_right")
+                </span>
+
+                <a href="@Url.Action("Index", "CompanyTypes")">
+                    @_sharedResources[SharedResourcesKeys.CompanyTypes_Title]
+                </a>
+
+                <span class="material-symbols-outlined sep">
+                    @(isArabic ? "chevron_left" : "chevron_right")
+                </span>
+
+                <span>
+                    @_sharedResources[SharedResourcesKeys.CompanyTypes_AddNew]
+                </span>
+            </div>
+
+            <h1>@_sharedResources[SharedResourcesKeys.CompanyTypes_AddNew]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.CompanyTypes_Description]</p>
+        </div>
+
+        <a href="@Url.Action("Index", "CompanyTypes")" class="btn btn-outline">
+            <span class="material-symbols-outlined">
+                @(isArabic ? "arrow_forward" : "arrow_back")
+            </span>
+            @_sharedResources[SharedResourcesKeys.Back]
+        </a>
+    </div>
+
+    <form asp-action="CreateCompanyType" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="form-layout">
+
+            <!-- Main Form -->
+            <div>
+
+                <!-- Company Type Info Card -->
+                <div class="form-card">
+
+                    <div class="form-card-header">
+                        <div class="header-icon">
+                            <span class="material-symbols-outlined">business</span>
+                        </div>
+                        <h3>
+                            @_sharedResources[SharedResourcesKeys.CompanyTypes_Title]
+                        </h3>
+                    </div>
+
+                    <div class="form-card-body">
+
+                        <!-- Names -->
+                        <div class="form-row">
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>
+                                    @_sharedResources[SharedResourcesKeys.CompanyTypes_NameAr]
+                                </label>
+
+                                <input asp-for="DescCodeAr"
+                                       class="form-control"
+                                       placeholder="@_sharedResources[SharedResourcesKeys.CompanyTypes_NameAr_Placeholder]" />
+
+                                <span asp-validation-for="DescCodeAr"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span>
+                                    @_sharedResources[SharedResourcesKeys.CompanyTypes_NameEn]
+                                </label>
+
+                                <input asp-for="DescCodeEn"
+                                       class="form-control"
+                                       placeholder="@_sharedResources[SharedResourcesKeys.CompanyTypes_NameEn_Placeholder]" />
+
+                                <span asp-validation-for="DescCodeEn"
+                                      class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-row">
+                            <div class="form-check form-switch">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label class="form-check-label">@_sharedResources[SharedResourcesKeys.Products_Active]</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Image Upload Card -->
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="header-icon">
+                            <span class="material-symbols-outlined">photo_library</span>
+                        </div>
+                        <h3>@_sharedResources[SharedResourcesKeys.CompanyTypes_Image]</h3>
+                    </div>
+                    <div class="form-card-body">
+                        <div class="img-upload" onclick="document.getElementById('fileInput').click()">
+                            <div class="img-upload-icon">
+                                <span class="material-symbols-outlined">cloud_upload</span>
+                            </div>
+                            <div class="img-upload-label">
+                                @_sharedResources[SharedResourcesKeys.Upload_Label]
+                            </div>
+                            <div class="img-upload-hint">
+                                @_sharedResources[SharedResourcesKeys.Upload_Hint]
+                            </div>
+                            <input id="fileInput" name="ImageFile" type="file" accept="image/*" style="display:none;" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-symbols-outlined">save</span>
+                        @_sharedResources[SharedResourcesKeys.Save]
+                    </button>
+
+                    <a href="@Url.Action("Index", "CompanyTypes")"
+                       class="btn btn-outline">
+                        @_sharedResources[SharedResourcesKeys.Cancel]
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div>
+
+                <!-- Tips -->
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header">
+                        <h4>💡 @_sharedResources[SharedResourcesKeys.Input_Tips]</h4>
+                    </div>
+
+                    <div class="sidebar-card-body">
+                        <ul class="tips-list">
+                            <li>
+                                <span class="material-symbols-outlined">check_circle</span>
+                                @_sharedResources[SharedResourcesKeys.Tip_Required]
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined">check_circle</span>
+                                @_sharedResources[SharedResourcesKeys.Tip_Images]
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="sidebar-card">
+                    <div class="sidebar-card-header">
+                        <h4>📊 @_sharedResources[SharedResourcesKeys.Quick_Stats]</h4>
+                    </div>
+
+                    <div class="sidebar-card-body">
+
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">
+                                @_sharedResources[SharedResourcesKeys.CompanyTypes_Total]
+                            </span>
+                            <span class="sidebar-stat-val">
+                                @ViewBag.Total
+                            </span>
+                        </div>
+
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">
+                                @_sharedResources[SharedResourcesKeys.CompanyTypes_Active]
+                            </span>
+                            <span class="sidebar-stat-val">
+                                @ViewBag.Active
+                            </span>
+                        </div>
+
+                        <div class="sidebar-stat-row">
+                            <span class="sidebar-stat-label">
+                                @_sharedResources[SharedResourcesKeys.CompanyTypes_Inactive]
+                            </span>
+                            <span class="sidebar-stat-val" style="color:var(--accent);">
+                                @ViewBag.Inactive
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>

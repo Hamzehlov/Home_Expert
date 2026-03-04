@@ -565,10 +565,19 @@ namespace Home_Expert.Controllers
                 ParentId = 7
             };
 
+            // تحويل الصورة إلى byte[] إذا تم رفعها
+            if (vm.ImageFile != null && vm.ImageFile.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await vm.ImageFile.CopyToAsync(ms);
+                code.Image = ms.ToArray();
+            }
+
             _context.Codes.Add(code);
             await _context.SaveChangesAsync();
+
             TempData["Success"] = "تم إضافة النوع بنجاح";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCompanyType));
         }
 
         // تعديل
@@ -583,7 +592,9 @@ namespace Home_Expert.Controllers
                 DescCodeAr = code.DescCodeAr,
                 DescCodeEn = code.DescCodeEn,
                 IsActive = code.IsActive ?? true,
-                ParentId = 7 // تعديل ParentId دائمًا 7
+                ParentId = 7, // تعديل ParentId دائمًا 7
+                Image = code.Image            // لا تنسى إضافة حقل لعرض الصورة الحالية إذا حبيت تعرضها بالـ View
+                                              // ImageFile = null // هذا فقط للرفع الجديد
             };
 
             return View(vm);
@@ -604,10 +615,20 @@ namespace Home_Expert.Controllers
             code.IsActive = vm.IsActive;
             code.ParentId = 7;
 
+            // معالجة رفع الصورة الجديدة
+            if (vm.ImageFile != null && vm.ImageFile.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await vm.ImageFile.CopyToAsync(ms);
+                code.Image = ms.ToArray();
+            }
+            // إذا لم يرفع المستخدم صورة جديدة، تبقى الصورة القديمة محفوظة
+
             _context.Update(code);
             await _context.SaveChangesAsync();
+
             TempData["Success"] = "تم تعديل النوع بنجاح";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCompanyType));
         }
 
         // تفعيل / إلغاء تفعيل
@@ -620,7 +641,7 @@ namespace Home_Expert.Controllers
             _context.Update(code);
             await _context.SaveChangesAsync();
             TempData["Success"] = "تم تعديل حالة النوع بنجاح";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCompanyType));
         }
 
         // حذف
@@ -632,7 +653,7 @@ namespace Home_Expert.Controllers
             _context.Codes.Remove(code);
             await _context.SaveChangesAsync();
             TempData["Success"] = "تم حذف النوع بنجاح";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCompanyType));
         }
 
 

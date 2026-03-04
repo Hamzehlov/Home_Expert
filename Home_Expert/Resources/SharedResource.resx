@@ -224,4 +224,7 @@
   <data name="Services_Edit" xml:space="preserve">
     <value />
   </data>
+  <data name="CompanyTypes_Image" xml:space="preserve">
+    <value />
+  </data>
 </root>

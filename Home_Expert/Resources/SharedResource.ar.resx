@@ -166,7 +166,7 @@
     <value>عدد المشاهدات</value>
   </data>
   <data name="Lookup_Title" xml:space="preserve">
-    <value>أنواع الشركات</value>
+    <value> انواع  الشركات</value>
   </data>
   <data name="Lookup_Desc" xml:space="preserve">
     <value>جميع أنواع الشركات</value>
@@ -1320,4 +1320,62 @@
   <data name="Products_Info" xml:space="preserve">
     <value>معلومات المنتج</value>
   </data>
+  <data name="CompanyTypes_Title" xml:space="preserve">
+    <value>أنواع الشركات</value>
+  </data>
+  <data name="CompanyTypes_Description" xml:space="preserve">
+    <value>إدارة أنواع الشركات المتاحة في النظام</value>
+  </data>
+  <data name="CompanyTypes_Total" xml:space="preserve">
+    <value>إجمالي الأنواع</value>
+  </data>
+  <data name="CompanyTypes_Active" xml:space="preserve">
+    <value>الأنواع النشطة</value>
+  </data>
+  <data name="CompanyTypes_Inactive" xml:space="preserve">
+    <value>الأنواع غير النشطة</value>
+  </data>
+  <data name="CompanyTypes_AddNew" xml:space="preserve">
+    <value>إضافة نوع شركة جديد</value>
+  </data>
+  <data name="CompanyTypes_Name" xml:space="preserve">
+    <value>اسم النوع</value>
+  </data>
+  <data name="CompanyTypes_DescriptionField" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="CompanyTypes_Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="CompanyTypes_Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="CompanyTypes_ActiveBadge" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="CompanyTypes_InactiveBadge" xml:space="preserve">
+    <value>غير نشط</value>
+  </data>
+  <data name="CompanyTypes_NameAr" xml:space="preserve">
+    <value>اسم نوع الشركة (عربي)</value>
+  </data>
+  <data name="CompanyTypes_NameAr_Placeholder" xml:space="preserve">
+    <value>أدخل اسم نوع الشركة بالعربي</value>
+  </data>
+  <data name="CompanyTypes_NameEn" xml:space="preserve">
+    <value>اسم نوع الشركة (إنجليزي)</value>
+  </data>
+  <data name="CompanyTypes_NameEn_Placeholder" xml:space="preserve">
+    <value>أدخل اسم نوع الشركة بالإنجليزي</value>
+  </data>
+  <data name="CompanyTypes_Image" xml:space="preserve">
+    <value>صورة نوع الشركة</value>
+  </data>
+
+<data name="Current_Image" xml:space="preserve">
+  <value>الصورة الحالية</value>
+</data>
+<data name="CompanyTypes_Edit" xml:space="preserve">
+  <value>تعديل نوع الشركة</value>
+</data>
 </root>

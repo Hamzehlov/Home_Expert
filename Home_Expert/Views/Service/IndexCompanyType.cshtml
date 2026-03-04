@@ -61,7 +61,7 @@
 
     <div class="table-card">
         <div class="table-toolbar-extra">
-            <a class="btn btn-primary" asp-action="Create">
+            <a class="btn btn-primary" asp-action="CreateCompanyType">
                 <span class="material-symbols-outlined">add</span>
                 @_sharedResources[SharedResourcesKeys.CompanyTypes_AddNew]
             </a>
@@ -123,19 +123,19 @@
                         <td>
                             <div class="actions-cell">
                                 <a class="action-btn edit" title="@_sharedResources[SharedResourcesKeys.Edit]"
-                                   asp-action="Edit" asp-route-id="@type.Id">
+                                   asp-action="EditCompanyType" asp-route-id="@type.Id">
                                     <span class="material-symbols-outlined">edit</span>
                                 </a>
 
                                 <a class="action-btn toggle" title="@_sharedResources[SharedResourcesKeys.ToggleStatus]"
-                                   asp-action="ToggleActive" asp-route-id="@type.Id">
+                                   asp-action="ToggleActiveCompanyType" asp-route-id="@type.Id">
                                     <span class="material-symbols-outlined">
                                         @(type.IsActive == true ? "toggle_on" : "toggle_off")
                                     </span>
                                 </a>
 
                                 <a class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]"
-                                   asp-action="Delete" asp-route-id="@type.Id"
+                                   asp-action="DeleteCompanyType" asp-route-id="@type.Id"
                                    onclick="return confirm('@_sharedResources[SharedResourcesKeys.Delete_Confirm]');">
                                     <span class="material-symbols-outlined">delete</span>
                                 </a>

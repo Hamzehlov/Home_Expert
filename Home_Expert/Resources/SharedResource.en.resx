@@ -1317,4 +1317,62 @@
   <data name="Products_Info" xml:space="preserve">
     <value>Product Information</value>
   </data>
+  <data name="CompanyTypes_Title" xml:space="preserve">
+    <value>Company Types</value>
+  </data>
+  <data name="CompanyTypes_Description" xml:space="preserve">
+    <value>Manage available company types in the system</value>
+  </data>
+  <data name="CompanyTypes_Total" xml:space="preserve">
+    <value>Total Types</value>
+  </data>
+  <data name="CompanyTypes_Active" xml:space="preserve">
+    <value>Active Types</value>
+  </data>
+  <data name="CompanyTypes_Inactive" xml:space="preserve">
+    <value>Inactive Types</value>
+  </data>
+  <data name="CompanyTypes_AddNew" xml:space="preserve">
+    <value>Add New Company Type</value>
+  </data>
+  <data name="CompanyTypes_Name" xml:space="preserve">
+    <value>Type Name</value>
+  </data>
+  <data name="CompanyTypes_DescriptionField" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CompanyTypes_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CompanyTypes_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="CompanyTypes_ActiveBadge" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="CompanyTypes_InactiveBadge" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="CompanyTypes_NameAr" xml:space="preserve">
+    <value>Company Type Name (Arabic)</value>
+  </data>
+  <data name="CompanyTypes_NameAr_Placeholder" xml:space="preserve">
+    <value>Enter company type name in Arabic</value>
+  </data>
+  <data name="CompanyTypes_NameEn" xml:space="preserve">
+    <value>Company Type Name (English)</value>
+  </data>
+  <data name="CompanyTypes_NameEn_Placeholder" xml:space="preserve">
+    <value>Enter company type name in English</value>
+  </data>
+  <data name="CompanyTypes_Image" xml:space="preserve">
+    <value>Company Type Image</value>
+  </data>
+
+<data name="Current_Image" xml:space="preserve">
+  <value>Current Image</value>
+</data>
+<data name="CompanyTypes_Edit" xml:space="preserve">
+  <value>Edit Company Type</value>
+</data>
 </root>

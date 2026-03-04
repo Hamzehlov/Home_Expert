@@ -585,9 +585,14 @@ namespace Home_Expert.Resources
         public const string CompanyTypes_InactiveBadge = "CompanyTypes_InactiveBadge"; // badge غير نشط
 
 
-
-
-
+        // Company Types   Form Fields ──
+        public const string CompanyTypes_NameAr = "CompanyTypes_NameAr";
+        public const string CompanyTypes_NameAr_Placeholder = "CompanyTypes_NameAr_Placeholder";
+        public const string CompanyTypes_NameEn = "CompanyTypes_NameEn";
+        public const string CompanyTypes_NameEn_Placeholder = "CompanyTypes_NameEn_Placeholder";
+        public const string CompanyTypes_Image = "CompanyTypes_Image"; // صورة النوع
+        public const string Current_Image = "Current_Image";        // النص للصورة الحالية
+        public const string CompanyTypes_Edit = "CompanyTypes_Edit"; // النص لزر تعديل نوع الشركة
 
     }
 }

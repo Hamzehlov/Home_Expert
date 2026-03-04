@@ -14,6 +14,12 @@ namespace Home_Expert.ViewModel.Service
 
         public bool IsActive { get; set; } = true;
 
-        public int ParentId { get; set; } = 7; 
+        public int ParentId { get; set; } = 7;
+
+        [Display(Name = "صورة")]
+        public IFormFile? ImageFile { get; set; }
+
+
+        public byte[]? Image { get; set; }
     }
 }
