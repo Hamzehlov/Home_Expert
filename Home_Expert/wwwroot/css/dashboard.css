@@ -2913,5 +2913,6 @@ html[dir="ltr"] .srv-link:hover .material-symbols-outlined {
     background: rgba(245,158,11,.12);
     color: #b45309;
     border: 1.5px solid rgba(245,158,11,.25);
+
   }
   .alert-badge .material-symbols-outlined { font-size:14px; }

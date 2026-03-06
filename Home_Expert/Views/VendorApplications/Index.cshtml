@@ -114,12 +114,22 @@
                 {
                     var statusKey = vendor.Verified == 0 ? "pending" : vendor.Verified == 1 ? "approved" : "rejected";
                     var companyName = isArabic ? vendor.CompanyNameAr : vendor.CompanyNameEn;
-                    var companyNameOther = isArabic ? vendor.CompanyNameEn : vendor.CompanyNameAr;
                     var serviceTypeName = isArabic ? vendor.ServiceType?.DescCodeAr ?? "-" : vendor.ServiceType?.DescCodeEn ?? "-";
 
+                    var lbl_num = "#";
+                    var lbl_company = isArabic ? "الشركة" : "Company";
+                    var lbl_email = isArabic ? "البريد" : "Email";
+                    var lbl_service = isArabic ? "نوع الخدمة" : "Service";
+                    var lbl_exp = isArabic ? "الخبرة" : "Exp.";
+                    var lbl_status = isArabic ? "الحالة" : "Status";
+                    var lbl_actions = isArabic ? "الإجراءات" : "Actions";
+
                     <tr data-status="@statusKey">
-                        <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
-                        <td>
+
+                        <td data-label="@lbl_num" class="row-num"
+                            style="font-weight:700;color:var(--primary);"></td>
+
+                        <td data-label="@lbl_company">
                             <div class="company-cell">
                                 <div class="company-avatar">
                                     @if (vendor.Logo != null)
@@ -131,61 +141,83 @@
                                         <span class="material-symbols-outlined">storefront</span>
                                     }
                                 </div>
-                                <div>
-                                    <div class="company-name">@companyName</div>
-                                </div>
+                                <div class="company-name">@companyName</div>
                             </div>
                         </td>
-                        <td style="font-size:.82rem;color:var(--muted);">@(vendor.User?.Email ?? "-")</td>
-                        <td>@serviceTypeName</td>
-                        <td>
+
+                        <td data-label="@lbl_email"
+                            style="font-size:.82rem;color:var(--muted);">
+                            @(vendor.User?.Email ?? "-")
+                        </td>
+
+                        <td data-label="@lbl_service">@serviceTypeName</td>
+
+                        <td data-label="@lbl_exp">
                             @if (vendor.YearsExperience.HasValue)
                             {
-                                <span>@vendor.YearsExperience</span>
+                                <span>@vendor.YearsExperience @(isArabic ? "سنة" : "yrs")</span>
                             }
                             else
                             {
-                                <span style="color:var(--muted)">-</span>
+                                <span style="color:var(--muted)">—</span>
                             }
                         </td>
-                        <td data-search="@statusKey">
+
+                        <td data-label="@lbl_status" data-search="@statusKey">
                             @if (vendor.Verified == 0)
                             {
-                                <span class="status-badge" style="background:rgba(245,158,11,.12);color:#b45309;">@_sharedResources[SharedResourcesKeys.Status_Pending]</span>
+                                <span class="status-badge"
+                                      style="background:rgba(245,158,11,.12);color:#b45309;">
+                                    @_sharedResources[SharedResourcesKeys.Status_Pending]
+                                </span>
                             }
                             else if (vendor.Verified == 1)
                             {
-                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Status_Approved]</span>
+                                <span class="status-badge active">
+                                    @_sharedResources[SharedResourcesKeys.Status_Approved]
+                                </span>
                             }
                             else
                             {
-                                <span class="status-badge" style="background:rgba(239,68,68,.1);color:#991b1b;">@_sharedResources[SharedResourcesKeys.Status_Rejected]</span>
+                                <span class="status-badge"
+                                      style="background:rgba(239,68,68,.1);color:#991b1b;">
+                                    @_sharedResources[SharedResourcesKeys.Status_Rejected]
+                                </span>
                             }
                         </td>
-                        <td>
+
+                        <td data-label="@lbl_actions">
                             <div class="actions-cell">
-                                <a asp-action="Details" asp-controller="VendorApplications" asp-route-id="@vendor.Id" class="action-btn view"
+                                <a asp-action="Details"
+                                   asp-controller="VendorApplications"
+                                   asp-route-id="@vendor.Id"
+                                   class="action-btn view"
                                    title="@_sharedResources[SharedResourcesKeys.Vendors_ViewDetails]">
                                     <span class="material-symbols-outlined">visibility</span>
                                 </a>
+
                                 @if (vendor.Verified != 1)
                                 {
-                                    <button type="button" class="action-btn approve"
+                                    <button type="button"
+                                            class="action-btn approve"
                                             title="@_sharedResources[SharedResourcesKeys.Vendors_Accept]"
-                                            onclick="confirmApprove(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\\'"))')">
+                                            onclick="confirmApprove(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\'"))')">
                                         <span class="material-symbols-outlined">check_circle</span>
                                     </button>
                                 }
+
                                 @if (vendor.Verified != 2)
                                 {
-                                    <button type="button" class="action-btn reject"
+                                    <button type="button"
+                                            class="action-btn reject"
                                             title="@_sharedResources[SharedResourcesKeys.Vendors_Reject]"
-                                            onclick="openRejectModal(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\\'"))')">
+                                            onclick="openRejectModal(@vendor.Id, '@Html.Raw(companyName.Replace("'", "\\'"))')">
                                         <span class="material-symbols-outlined">cancel</span>
                                     </button>
                                 }
                             </div>
                         </td>
+
                     </tr>
                 }
             </tbody>
