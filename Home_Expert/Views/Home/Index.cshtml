@@ -237,7 +237,62 @@
 
 
 
+    <!-- 8: خدمات الشركة -->
+    <div class="srv-card c8">
+        <div class="srv-card-header">
+            <div class="srv-top">
+                <div class="srv-icon">
+                    <span class="material-symbols-outlined">miscellaneous_services</span>
+                </div>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+            </div>
+        </div>
 
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.CompanyServices_Title]</div>
+
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.CompanyServices_Desc]</div>
+
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">75</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalServices]</div>
+                </div>
+
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">18</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveServices]</div>
+                </div>
+
+                <div class="srv-stat-item">
+                    <div class="srv-stat-val">8k</div>
+                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ServiceSales]</div>
+                </div>
+            </div>
+
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>72%</span>
+                </div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:72%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="srv-footer">
+            <a href="@Url.Action("MyServices", "Service")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+
+            <span class="srv-trend up">
+                <span class="material-symbols-outlined">trending_up</span>
+                +9%
+            </span>
+        </div>
+    </div>
 
 
 
