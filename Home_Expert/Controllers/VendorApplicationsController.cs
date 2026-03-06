@@ -265,5 +265,87 @@ namespace Home_Expert.Controllers
             if (vendor == null) return NotFound();
             return View(vendor);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetVendorProducts(int id)
+        {
+            var products = await _context.Products
+                .Where(p => p.VendorId == id)
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Select(p => new {
+                    p.Id,
+                    p.NameAr,
+                    p.NameEn,
+                    p.Description,
+                    p.PriceRangeMin,
+                    p.PriceRangeMax,
+                    p.IsActive,
+                    CategoryNameAr = p.Category.NameAr,
+                    CategoryNameEn = p.Category.NameEn,
+                    ImageIds = p.ProductImages
+                        .OrderByDescending(i => i.IsMain)
+                        .Select(i => i.Id)
+                        .ToList()
+                })
+                .ToListAsync();
+
+            return Json(products);
+        }
+
+        // ← endpoint جديد لجلب صورة بـ imageId مباشرة
+        [HttpGet]
+        public async Task<IActionResult> GetProductImageById(int imageId)
+        {
+            var img = await _context.Set<ProductImage>().FindAsync(imageId);
+            if (img == null) return NotFound();
+
+            Response.Headers["Cache-Control"] = "public,max-age=604800"; 
+
+            return File(img.ImageData, "image/jpeg");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetVendorServices(int id)
+        {
+            var services = await _context.VendorServices
+                .Where(vs => vs.VendorId == id)
+                .Include(vs => vs.Service).ThenInclude(s => s.Type)
+                .Select(vs => new {
+                    vs.Id,
+                    ServiceNameAr = vs.Service.NameAr,
+                    ServiceNameEn = vs.Service.NameEn,
+                    TypeNameAr = vs.Service.Type.DescCodeAr,
+                    TypeNameEn = vs.Service.Type.DescCodeEn,
+                    HasImage = vs.Service.Image != null,
+                    ServiceId = vs.Service.Id
+                })
+                .ToListAsync();
+
+            return Json(services);
+        }
+
+        // Endpoint لجلب صورة المنتج
+        [HttpGet]
+        public async Task<IActionResult> GetProductImage(int productId)
+        {
+            var img = await _context.Set<ProductImage>()
+                .Where(i => i.ProductId == productId && i.IsMain)
+                .FirstOrDefaultAsync()
+                ?? await _context.Set<ProductImage>()
+                .Where(i => i.ProductId == productId)
+                .FirstOrDefaultAsync();
+
+            if (img == null) return NotFound();
+            return File(img.ImageData, "image/jpeg");
+        }
+
+        // Endpoint لجلب صورة الخدمة
+        [HttpGet]
+        public async Task<IActionResult> GetServiceImage(int serviceId)
+        {
+            var service = await _context.Services.FindAsync(serviceId);
+            if (service?.Image == null) return NotFound();
+            return File(service.Image, "image/jpeg");
+        }
     }
 }
