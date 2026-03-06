@@ -206,6 +206,59 @@
         </div>
     </div>
 
+
+
+
+
+    <div class="srv-card c7">
+        <div class="srv-card-header">
+            <div class="srv-top">
+                <div class="srv-icon">
+                    <span class="material-symbols-outlined">miscellaneous_services</span>
+                </div>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+            </div>
+        </div>
+        <div class="srv-body">
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
+            <div class="srv-stats">
+                <div class="srv-stat-item">
+                    <span class="srv-stat-val">120</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
+                </div>
+                <div class="srv-stat-item">
+                    <span class="srv-stat-val">14</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
+                </div>
+                <div class="srv-stat-item">
+                    <span class="srv-stat-val">25k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
+                </div>
+            </div>
+            <div class="srv-progress-wrap">
+                <div class="srv-progress-label">
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>66%</span>
+                </div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:66%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="srv-footer">
+            <a href="@Url.Action("MyServices", "Service")" class="srv-link">
+                @_sharedResources[SharedResourcesKeys.View_Details]
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <span class="srv-trend up">
+                <span class="material-symbols-outlined">trending_up</span>
+                +10%
+            </span>
+        </div>
+    </div>
+
+
     <!-- بيع الأثاث -->
     <div class="srv-card c1">
         <div class="srv-card-header">

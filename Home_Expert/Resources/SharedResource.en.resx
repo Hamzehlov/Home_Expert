@@ -1375,4 +1375,65 @@
 <data name="CompanyTypes_Edit" xml:space="preserve">
   <value>Edit Company Type</value>
 </data>
+
+
+
+
+<data name="Services_Add" xml:space="preserve">
+    <value>Add New Service</value>
+</data>
+
+<data name="AddService" xml:space="preserve">
+    <value>Add Service</value>
+</data>
+
+<data name="AddService_Description" xml:space="preserve">
+    <value>You can add a new service here</value>
+</data>
+
+<data name="AvailableServices" xml:space="preserve">
+    <value>Available Services</value>
+</data>
+
+<data name="Active" xml:space="preserve">
+    <value>Active</value>
+</data>
+
+<data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+</data>
+
+<data name="Service" xml:space="preserve">
+    <value>Service</value>
+</data>
+
+<data name="Category" xml:space="preserve">
+    <value>Category</value>
+</data>
+
+<data name="Type" xml:space="preserve">
+    <value>Type</value>
+</data>
+
+<data name="Status" xml:space="preserve">
+    <value>Status</value>
+</data>
+
+<data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+</data>
+
+<data name="Services_Add_Description" xml:space="preserve">
+    <value>Add Service Page</value>
+</data>
+
+<data name="Services_Available" xml:space="preserve">
+    <value>Services Available</value>
+</data>
+
+
+
+
+
+
 </root>

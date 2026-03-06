@@ -1378,4 +1378,56 @@
 <data name="CompanyTypes_Edit" xml:space="preserve">
   <value>تعديل نوع الشركة</value>
 </data>
+
+<data name="Services_Add" xml:space="preserve">
+    <value>إضافة خدمة جديدة</value>
+</data>
+
+<data name="AddService" xml:space="preserve">
+    <value>إضافة خدمة</value>
+</data>
+
+<data name="AddService_Description" xml:space="preserve">
+    <value>يمكنك إضافة خدمة جديدة هنا</value>
+</data>
+
+<data name="AvailableServices" xml:space="preserve">
+    <value>عدد الخدمات المتاحة</value>
+</data>
+
+<data name="Active" xml:space="preserve">
+    <value>نشط</value>
+</data>
+
+<data name="Inactive" xml:space="preserve">
+    <value>غير نشط</value>
+</data>
+
+<data name="Service" xml:space="preserve">
+    <value>الخدمة</value>
+</data>
+
+<data name="Category" xml:space="preserve">
+    <value>التصنيف</value>
+</data>
+
+<data name="Type" xml:space="preserve">
+    <value>النوع</value>
+</data>
+
+<data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+</data>
+
+<data name="Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+</data>
+
+<data name="Services_Add_Description" xml:space="preserve">
+    <value>صفحة إضافة خدمة جديدة</value>
+</data>
+
+<data name="Services_Available" xml:space="preserve">
+    <value>الخدمات المتاحة</value>
+</data>
 </root>

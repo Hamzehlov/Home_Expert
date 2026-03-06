@@ -1,0 +1,195 @@
+﻿@model IEnumerable<Home_Expert.Models.Service>
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var tableDir = isArabic ? "rtl" : "ltr";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
+}
+
+<div class="page-wrapper">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">
+                    @_sharedResources[SharedResourcesKeys.Dashboard]
+                </a>
+                <span class="material-symbols-outlined sep">
+                    @(isArabic ? "chevron_left" : "chevron_right")
+                </span>
+                <span>@_sharedResources[SharedResourcesKeys.Services_Add]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Services_Add]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Services_Add_Description]</p>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+
+        <div class="stat-pill">
+            <div class="stat-pill-icon" style="background:rgba(10,61,68,.1);color:#0A3D44;">
+                <span class="material-symbols-outlined">handyman</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count()</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Services_Available]</div>
+            </div>
+        </div>
+
+        <div class="stat-pill">
+            <div class="stat-pill-icon green">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(s => s.IsActive)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Active]</div>
+            </div>
+        </div>
+
+        <div class="stat-pill">
+            <div class="stat-pill-icon red">
+                <span class="material-symbols-outlined">cancel</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(s => !s.IsActive)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Inactive]</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+        <table id="servicesTable" class="data-table" style="width:100%" dir="@tableDir">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Service]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Category]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Type]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Actions]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var statusKey = item.IsActive ? "active" : "inactive";
+                    var serviceName = isArabic ? item.NameAr : (item.NameEn ?? item.NameAr);
+                    var serviceOther = isArabic ? (item.NameEn ?? "-") : (item.NameAr ?? "-");
+                    var category = isArabic ? item.Category?.DescCodeAr ?? "-" : item.Category?.DescCodeEn ?? "-";
+                    var type = isArabic ? item.Type?.DescCodeAr ?? "-" : item.Type?.DescCodeEn ?? "-";
+
+                    <tr data-status="@statusKey">
+                        <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
+
+                        <!-- Service Name -->
+                        <td>
+                            <div class="company-cell">
+                                <div class="company-avatar">
+                                    @if (item.Image != null && item.Image.Length > 0)
+                                    {
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Image)" />
+                                    }
+                                    else
+                                    {
+                                        <span class="material-symbols-outlined">construction</span>
+                                    }
+                                </div>
+                                <div>
+                                    <div class="company-name">@serviceName</div>
+                                    <div class="company-other-name" style="font-size:.75rem;color:var(--muted);">
+                                        @serviceOther
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Category -->
+                        <td>@category</td>
+
+                        <!-- Type -->
+                        <td>@type</td>
+
+                        <!-- Status -->
+                        <td data-search="@statusKey">
+                            @if (item.IsActive)
+                            {
+                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Active]</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge" style="background:rgba(239,68,68,.1);color:#991b1b;">
+                                    @_sharedResources[SharedResourcesKeys.Inactive]
+                                </span>
+                            }
+                        </td>
+
+                        <!-- Actions -->
+                        <td>
+                            <div class="actions-cell">
+                                <form asp-action="AddServiceToVendor" method="post">
+                                    <input type="hidden" name="serviceId" value="@item.Id" />
+                                    <button type="submit" class="action-btn view" title="@_sharedResources[SharedResourcesKeys.Services_Add]">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+        var isArabic = @(isArabic ? "true" : "false");
+        $(document).ready(function () {
+            var dt = $('#servicesTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                ordering: true,
+                autoWidth: false,
+                columnDefs: [{ orderable: false, targets: [0, 5] }],
+                drawCallback: function () {
+                    var api = this.api();
+                    var startIndex = api.page.info().start;
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = startIndex + i + 1;
+                    });
+                },
+                language: {
+                    search: isArabic ? "بحث:" : "Search:",
+                    lengthMenu: isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+                    zeroRecords: isArabic ? "لا يوجد عناصر لعرضها" : "No matching records",
+                    info: isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: isArabic ? "لا يوجد عناصر متاحة" : "No entries available",
+                    infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)" : "(filtered from _MAX_ total entries)",
+                    paginate: {
+                        first: isArabic ? "الأول" : "First",
+                        last: isArabic ? "الأخير" : "Last",
+                        next: isArabic ? "التالي" : "Next",
+                        previous: isArabic ? "السابق" : "Previous"
+                    }
+                }
+            });
+        });
+    </script>
+}

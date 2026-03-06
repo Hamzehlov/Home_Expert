@@ -1,0 +1,241 @@
+﻿@model IEnumerable<Home_Expert.Models.Service>
+@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var tableDir = isArabic ? "rtl" : "ltr";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
+}
+
+<div class="page-wrapper">
+
+    <div class="page-header">
+        <div class="page-header-text">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
+                <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+                <span>@_sharedResources[SharedResourcesKeys.Services_Title]</span>
+            </div>
+            <h1>@_sharedResources[SharedResourcesKeys.Services_Title]</h1>
+            <p>@_sharedResources[SharedResourcesKeys.Services_Description]</p>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-pill">
+            <div class="stat-pill-icon" style="background:rgba(10,61,68,.1);color:#0A3D44;">
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count()</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Services_Total]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon green">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(s => s.IsActive == true)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Services_Active]</div>
+            </div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-pill-icon red">
+                <span class="material-symbols-outlined">cancel</span>
+            </div>
+            <div>
+                <div class="stat-pill-val">@Model.Count(s => s.IsActive == false)</div>
+                <div class="stat-pill-label">@_sharedResources[SharedResourcesKeys.Services_Inactive]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-toolbar-extra">
+            <a class="btn btn-primary" asp-action="AddServices">
+                <span class="material-symbols-outlined">add</span>
+                @_sharedResources[SharedResourcesKeys.Services_AddNew]
+            </a>
+            <select class="tbl-filter" id="statusFilter">
+                <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllStatus]</option>
+                <option value="active">@_sharedResources[SharedResourcesKeys.Services_Active]</option>
+                <option value="inactive">@_sharedResources[SharedResourcesKeys.Services_Inactive]</option>
+            </select>
+        </div>
+
+        <table id="servicesTable" class="data-table" style="width:100%" dir="@tableDir">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Name]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Type]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Category]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Image]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Status]</th>
+                    <th>@_sharedResources[SharedResourcesKeys.Services_Actions]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model)
+                {
+                    var statusKey = service.IsActive == true ? "active" : "inactive";
+                    var name = isArabic ? service.NameAr : service.NameEn;
+                    var nameOther = isArabic ? service.NameEn : service.NameAr;
+                    var typeName = isArabic ? service.Type?.DescCodeAr ?? "-" : service.Type?.DescCodeEn ?? "-";
+                    var categoryName = isArabic ? service.Category?.DescCodeAr ?? "-" : service.Category?.DescCodeEn ?? "-";
+
+                    <tr data-status="@statusKey">
+                        <td class="row-num" style="font-weight:700;color:var(--primary);"></td>
+                        <td>
+                            <div class="company-cell">
+                                <div class="company-avatar">
+                                    @if (service.Image != null && service.Image.Length > 0)
+                                    {
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(service.Image)" alt="Service Image" />
+                                    }
+                                    else
+                                    {
+                                        <span class="material-symbols-outlined">image_not_supported</span>
+                                    }
+                                </div>
+                                <div>
+                                    <div class="company-name">@name</div>
+                                    <div class="company-other-name" style="font-size:.75rem;color:var(--muted);">@nameOther</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>@typeName</td>
+                        <td>@categoryName</td>
+                        <td>
+                            @* يمكن إزالة هذه الخانة إذا لم ترغب في تكرار الصورة *@
+                        </td>
+                        <td data-search="@statusKey">
+                            @if (service.IsActive)
+                            {
+                                <span class="status-badge active">@_sharedResources[SharedResourcesKeys.Services_Active]</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge" style="background:rgba(239,68,68,.1);color:#991b1b;">
+                                    @_sharedResources[SharedResourcesKeys.Services_Inactive]
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <!-- Edit -->
+                              @*   <a class="action-btn edit" title="@_sharedResources[SharedResourcesKeys.Edit]"
+                                   asp-action="EditService" asp-route-id="@service.Id">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </a>
+
+                                <!-- Toggle Status -->
+                                <a class="action-btn toggle" title="@_sharedResources[SharedResourcesKeys.ToggleStatus]"
+                                   asp-action="ToggleActiveService" asp-route-id="@service.Id">
+                                    <span class="material-symbols-outlined">
+                                        @(service.IsActive ? "toggle_on" : "toggle_off")
+                                    </span>
+                                </a>
+ *@
+                                <!-- Delete -->
+                                <a class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]"
+                                   asp-action="RemoveServiceFromVendor" asp-route-serviceId="@service.Id"
+                                   onclick="return confirm('@_sharedResources[SharedResourcesKeys.Delete_Confirm]');">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODALS & TOASTS -->
+<div class="modal-overlay" id="serviceModal">
+    <div class="modal-box">
+        <div class="modal-title" id="serviceModalTitle"></div>
+        <div class="modal-body" id="serviceModalBody">
+            <!-- سيتم تحميل Partial View هنا -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline btn-sm" onclick="closeServiceModal()">@_sharedResources[SharedResourcesKeys.Cancel]</button>
+        </div>
+    </div>
+</div>
+
+<div class="confirm-overlay" id="confirmDialog">
+    <div class="confirm-box">
+        <div class="confirm-icon" id="confirmIcon"></div>
+        <div class="confirm-title" id="confirmTitle"></div>
+        <div class="confirm-sub" id="confirmSub"></div>
+        <div class="confirm-actions">
+            <button class="btn btn-outline btn-sm" onclick="closeConfirm()">@_sharedResources[SharedResourcesKeys.Cancel]</button>
+            <button class="btn btn-primary btn-sm" id="confirmOkBtn"></button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+@section Scripts {
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+        var isArabic = @(isArabic ? "true" : "false");
+        var dt;
+
+        $(document).ready(function () {
+            dt = $('#servicesTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                ordering: true,
+                autoWidth: false,
+                language: {
+                    search:       isArabic ? "بحث:"   : "Search:",
+                    lengthMenu:   isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+                    zeroRecords:  isArabic ? "لا يوجد عناصر لعرضها"       : "No matching records",
+                    info:         isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty:    isArabic ? "لا يوجد عناصر متاحة"         : "No entries available",
+                    infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)"        : "(filtered from _MAX_ total entries)",
+                    paginate: {
+                        first:    isArabic ? "الأول"  : "First",
+                        last:     isArabic ? "الأخير" : "Last",
+                        next:     isArabic ? "التالي" : "Next",
+                        previous: isArabic ? "السابق" : "Previous"
+                    }
+                },
+                columnDefs: [{ orderable: false, targets: [0, 6] }],
+                drawCallback: function () {
+                    var api = this.api();
+                    var startIndex = api.page.info().start;
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = startIndex + i + 1;
+                    });
+                }
+            });
+
+            /* ══ Status Filter ══*/
+            $('#statusFilter').on('change', function () {
+                dt.column(5).search($(this).val(), false, false).draw();
+            });
+
+            /* ══ Server Messages ══ */
+            var _serverMsg = '@Html.Raw(TempData["Success"] ?? "")';
+            var _serverErr = '@Html.Raw(TempData["Error"] ?? "")';
+            if (_serverMsg) showToast(_serverMsg, 'success');
+            if (_serverErr) showToast(_serverErr, 'error');
+        });
+
+        // ستضيف هنا دوال openCreateModal, openEditModal, confirmDelete, confirmToggle, showToast, showConfirm بنفس أسلوب صفحة Ads
+    </script>
+}

@@ -3,7 +3,7 @@ using Home_Expert.Resources;
 using Home_Expert.ViewModel.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Localization; 
 
 namespace Home_Expert.Controllers
 {
@@ -656,10 +656,113 @@ namespace Home_Expert.Controllers
             return RedirectToAction(nameof(IndexCompanyType));
         }
 
+        //___________________________________________________________________________
+        public async Task<IActionResult> AddServices()
+        {
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(v => v.User.UserName == User.Identity.Name);
+
+            if (vendor == null)
+                return Unauthorized();
+
+            var services = await _context.Services
+                .Include(s => s.Type)
+                .Include(s => s.Category)
+                .Where(s => s.IsActive &&
+                       !_context.VendorServices
+                        .Any(vs => vs.ServiceId == s.Id && vs.VendorId == vendor.Id))
+                .OrderBy(s => s.NameAr)
+                .ToListAsync();
+
+            return View(services);
+        }
 
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddServiceToVendor(int serviceId)
+        {
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(v => v.User.UserName == User.Identity.Name);
 
+            if (vendor == null)
+                return Unauthorized();
+
+            var exists = await _context.VendorServices
+                .AnyAsync(v => v.ServiceId == serviceId && v.VendorId == vendor.Id);
+
+            if (exists)
+            {
+                TempData["Error"] = "الخدمة مضافة مسبقاً";
+                return RedirectToAction(nameof(AddServices));
+            }
+
+            var vendorService = new VendorService
+            {
+                VendorId = vendor.Id,
+                ServiceId = serviceId
+            };
+
+            _context.VendorServices.Add(vendorService);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "تمت إضافة الخدمة بنجاح";
+
+            return RedirectToAction(nameof(AddServices));
+        }
+
+
+        public async Task<IActionResult> MyServices()
+        {
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(v => v.User.UserName == User.Identity.Name);
+
+            if (vendor == null)
+                return Unauthorized();
+
+            var vendorServices = await _context.VendorServices
+                .Where(v => v.VendorId == vendor.Id)
+                .Include(v => v.Service)
+                .ThenInclude(s => s.Type)
+                .Include(v => v.Service)
+                .ThenInclude(s => s.Category)
+                .ToListAsync();
+
+            // تحويل List<VendorService> إلى List<Service>
+            var services = vendorServices.Select(vs => vs.Service).ToList();
+
+            return View(services); // الآن الـ View يستقبل IEnumerable<Service>
+        }
+
+       
+        public async Task<IActionResult> RemoveServiceFromVendor(int serviceId)
+        {
+            // جلب البائع الحالي
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(v => v.User.UserName == User.Identity.Name);
+
+            if (vendor == null)
+                return Unauthorized();
+
+            // جلب السجل المرتبط بالخدمة والبائع
+            var vendorService = await _context.VendorServices
+                .FirstOrDefaultAsync(vs => vs.ServiceId == serviceId && vs.VendorId == vendor.Id);
+
+            if (vendorService == null)
+            {
+                TempData["Error"] = "الخدمة غير موجودة أو تم حذفها مسبقاً";
+                return RedirectToAction(nameof(MyServices));
+            }
+
+            // حذف الخدمة
+            _context.VendorServices.Remove(vendorService);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "تم حذف الخدمة بنجاح";
+
+            return RedirectToAction(nameof(MyServices));
+        }
 
     }
 }

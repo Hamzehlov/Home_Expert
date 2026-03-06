@@ -594,5 +594,33 @@ namespace Home_Expert.Resources
         public const string Current_Image = "Current_Image";        // النص للصورة الحالية
         public const string CompanyTypes_Edit = "CompanyTypes_Edit"; // النص لزر تعديل نوع الشركة
 
+
+
+        // ── Services Page Keys ──
+        public const string Services_Add = "Services_Add";                       // زر إضافة خدمة جديد
+        public const string AddService = "AddService";                            // نص زر إضافة خدمة
+        public const string AddService_Description = "AddService_Description";   // وصف صفحة إضافة خدمة
+        public const string AvailableServices = "AvailableServices";             // نص عدد الخدمات الكلي
+        public const string Active = "Active";                                   // حالة نشط
+        public const string Inactive = "Inactive";                               // حالة غير نشط
+        public const string Service = "Service";                                 // عمود اسم الخدمة
+        public const string Category = "Category";                               // عمود تصنيف الخدمة
+        public const string Type = "Type";                                       // عمود نوع الخدمة
+        public const string Status = "Status";                                   // عمود الحالة
+        public const string Actions = "Actions";                                 // عمود الإجراءات
+        public const string Services_Add_Description = "Services_Add_Description"; // وصف صفحة إضافة خدمة
+        public const string Services_Available = "Services_Available";             // نص عدد الخدمات المتاحة
+
+
+
+
+
+
+        // Resource Keys  كارد
+        public const string CompanyServices_Title = "CompanyServices_Title";         // اسم الكارد
+        public const string CompanyServices_Desc = "CompanyServices_Desc";           // وصف الكارد
+        public const string Srv_TotalServices = "Srv_TotalServices";                 // إجمالي الخدمات
+        public const string Srv_ActiveServices = "Srv_ActiveServices";               // الخدمات النشطة
+        public const string Srv_ServiceSales = "Srv_ServiceSales";                   // مبيعات الخدمات
     }
 }
