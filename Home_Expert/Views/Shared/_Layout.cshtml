@@ -167,8 +167,9 @@
                       method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="culture" id="cultureInput" />
-                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                    <button type="button" onclick="toggleLanguage()" class="btn-language">
+                    <input type="hidden" name="returnUrl"
+                           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                           <button type="button" onclick="toggleLanguage()" class="btn-language">
                         <span class="material-symbols-outlined">language</span>
                         @if (isArabic)
                         {

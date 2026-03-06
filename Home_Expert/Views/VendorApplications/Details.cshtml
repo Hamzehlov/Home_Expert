@@ -17,11 +17,10 @@
         ? (Model.RejectionReasonAr ?? Model.RejectionReasonEn)
         : (Model.RejectionReasonEn ?? Model.RejectionReasonAr);
 
-    // User Info
-    var userFirstName = isArabic 
+    var userFirstName = isArabic
         ? (Model.User?.FirstNameAr ?? Model.User?.FirstNameEn ?? "")
         : (Model.User?.FirstNameEn ?? Model.User?.FirstNameAr ?? "");
-  
+
     var userInitial = userFirstName.Length > 0 ? userFirstName[0].ToString().ToUpper() : "C";
     var userEmail = Model.User?.Email ?? "—";
     var userPhone = Model.User?.Phone ?? Model.PhoneNumber ?? "—";
@@ -31,24 +30,22 @@
     {
         case 1:
             statusLabel = _sharedResources[SharedResourcesKeys.Status_Approved].Value;
-            statusClass = "badge-approved";
-            statusIcon = "verified";
+            statusClass = "badge-approved"; statusIcon = "verified";
             break;
         case 2:
             statusLabel = _sharedResources[SharedResourcesKeys.Status_Rejected].Value;
-            statusClass = "badge-rejected";
-            statusIcon = "cancel";
+            statusClass = "badge-rejected"; statusIcon = "cancel";
             break;
         default:
             statusLabel = _sharedResources[SharedResourcesKeys.Status_Pending].Value;
-            statusClass = "badge-pending";
-            statusIcon = "pending_actions";
+            statusClass = "badge-pending"; statusIcon = "pending_actions";
             break;
     }
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/details.css" />
+    
 }
 
 <div class="page-wrapper" dir="@dir">
@@ -139,13 +136,13 @@
         </div>
     }
 
-    <!-- Main Grid -->
+    <!-- ═══════════════════════ MAIN GRID ═══════════════════════ -->
     <div class="detail-grid">
 
-        <!-- Main Column -->
+        <!-- MAIN COLUMN -->
         <div class="detail-col-main">
 
-            <!-- User Information Card -->
+            <!-- User Information -->
             <div class="detail-card">
                 <div class="detail-card-header">
                     <div class="header-icon"><span class="material-symbols-outlined">person</span></div>
@@ -162,18 +159,14 @@
                         </div>
                         <div class="user-contact-grid">
                             <div class="contact-item">
-                                <div class="contact-icon">
-                                    <span class="material-symbols-outlined">mail</span>
-                                </div>
+                                <div class="contact-icon"><span class="material-symbols-outlined">mail</span></div>
                                 <div class="contact-info">
                                     <div class="contact-label">@(isArabic ? "البريد الإلكتروني" : "Email")</div>
                                     <div class="contact-value">@userEmail</div>
                                 </div>
                             </div>
                             <div class="contact-item">
-                                <div class="contact-icon">
-                                    <span class="material-symbols-outlined">phone</span>
-                                </div>
+                                <div class="contact-icon"><span class="material-symbols-outlined">phone</span></div>
                                 <div class="contact-info">
                                     <div class="contact-label">@(isArabic ? "رقم الهاتف" : "Phone")</div>
                                     <div class="contact-value" style="direction:ltr;text-align:start;">@userPhone</div>
@@ -184,7 +177,7 @@
                 </div>
             </div>
 
-            <!-- Company Details Card -->
+            <!-- Company Details -->
             <div class="detail-card">
                 <div class="detail-card-header">
                     <div class="header-icon"><span class="material-symbols-outlined">business</span></div>
@@ -225,6 +218,7 @@
                                 }
                                 else
                                 {
+
                                     <span style="color:var(--muted)">—</span>
                                 }
                             </div>
@@ -243,7 +237,7 @@
                 </div>
             </div>
 
-            <!-- Description Card -->
+            <!-- Description -->
             @if (!string.IsNullOrWhiteSpace(Model.DescriptionAr) || !string.IsNullOrWhiteSpace(Model.DescriptionEn))
             {
                 <div class="detail-card">
@@ -267,7 +261,7 @@
                 </div>
             }
 
-            <!-- Showroom Image Card -->
+            <!-- Showroom Image -->
             @if (Model.ShowroomImage != null)
             {
                 <div class="detail-card">
@@ -282,9 +276,72 @@
                 </div>
             }
 
-        </div>
+            <!-- Products & Services Card -->
+            <div class="detail-card" id="productsServicesCard">
+                <div class="detail-card-header">
+                    <div class="header-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                    <h3>@(isArabic ? "المنتجات والخدمات" : "Products & Services")</h3>
+                </div>
+                <div class="detail-card-body" style="padding-top:0;">
 
-        <!-- Side Column -->
+                    <div class="ps-tabs">
+                        <button class="ps-tab active" data-tab="products" onclick="switchTab('products')">
+                            <span class="material-symbols-outlined" style="font-size:1rem;">inventory_2</span>
+                            @(isArabic ? "المنتجات" : "Products")
+                            <span class="ps-badge" id="badgeProducts">...</span>
+                        </button>
+                        <button class="ps-tab" data-tab="services" onclick="switchTab('services')">
+                            <span class="material-symbols-outlined" style="font-size:1rem;">handyman</span>
+                            @(isArabic ? "الخدمات" : "Services")
+                            <span class="ps-badge" id="badgeServices">...</span>
+                        </button>
+                    </div>
+
+                    <!-- Products Panel -->
+                    <div class="ps-panel" id="panelProducts">
+                        <div class="ps-search-bar">
+                            <span class="material-symbols-outlined" style="color:var(--muted);font-size:1.1rem;">search</span>
+                            <input type="text" id="searchProducts"
+                                   placeholder="@(isArabic ? "بحث في المنتجات..." : "Search products...")"
+                                   oninput="filterAndRender('products')" />
+                        </div>
+                        <div id="loadingProducts" style="text-align:center;padding:32px;">
+                            <span class="material-symbols-outlined spin">autorenew</span>
+                        </div>
+                        <div class="ps-grid" id="productGrid"></div>
+                        <div class="ps-pagination" id="paginationProducts"></div>
+                        <div class="ps-empty" id="emptyProducts" style="display:none;">
+                            <span class="material-symbols-outlined">search_off</span>
+                            <p>@(isArabic ? "لا توجد نتائج" : "No results found")</p>
+                        </div>
+                    </div>
+
+                    <!-- Services Panel -->
+                    <div class="ps-panel" id="panelServices" style="display:none;">
+                        <div class="ps-search-bar">
+                            <span class="material-symbols-outlined" style="color:var(--muted);font-size:1.1rem;">search</span>
+                            <input type="text" id="searchServices"
+                                   placeholder="@(isArabic ? "بحث في الخدمات..." : "Search services...")"
+                                   oninput="filterAndRender('services')" />
+                        </div>
+                        <div id="loadingServices" style="text-align:center;padding:32px;">
+                            <span class="material-symbols-outlined spin">autorenew</span>
+                        </div>
+                        <div class="ps-grid" id="serviceGrid"></div>
+                        <div class="ps-pagination" id="paginationServices"></div>
+                        <div class="ps-empty" id="emptyServices" style="display:none;">
+                            <span class="material-symbols-outlined">search_off</span>
+                            <p>@(isArabic ? "لا توجد نتائج" : "No results found")</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END Products & Services -->
+
+        </div>
+        <!-- END MAIN COLUMN -->
+        <!-- SIDE COLUMN -->
         <div class="detail-col-side">
 
             <!-- Status Card -->
@@ -309,7 +366,6 @@
                 </div>
                 <div class="detail-card-body">
                     <div class="doc-list">
-                        <!-- Commercial Registration -->
                         <div class="doc-item @(Model.CommercialRegistrationFile != null ? "doc-present" : "doc-missing")">
                             <span class="material-symbols-outlined">
                                 @(Model.CommercialRegistrationFile != null ? "task_alt" : "description")
@@ -326,14 +382,11 @@
                             {
                                 <a href="data:application/pdf;base64,@Convert.ToBase64String(Model.CommercialRegistrationFile)"
                                    download="commercial_registration_@(Model.Id).pdf"
-                                   class="doc-download"
-                                   title="@(isArabic ? "تحميل" : "Download")">
+                                   class="doc-download" title="@(isArabic ? "تحميل" : "Download")">
                                     <span class="material-symbols-outlined">download</span>
                                 </a>
                             }
                         </div>
-
-                        <!-- Work License -->
                         <div class="doc-item @(Model.WorkLicenseFile != null ? "doc-present" : "doc-missing")">
                             <span class="material-symbols-outlined">
                                 @(Model.WorkLicenseFile != null ? "task_alt" : "badge")
@@ -350,8 +403,7 @@
                             {
                                 <a href="data:application/pdf;base64,@Convert.ToBase64String(Model.WorkLicenseFile)"
                                    download="work_license_@(Model.Id).pdf"
-                                   class="doc-download"
-                                   title="@(isArabic ? "تحميل" : "Download")">
+                                   class="doc-download" title="@(isArabic ? "تحميل" : "Download")">
                                     <span class="material-symbols-outlined">download</span>
                                 </a>
                             }
@@ -360,7 +412,7 @@
                 </div>
             </div>
 
-            <!-- Quick Actions Card -->
+            <!-- Quick Actions -->
             <div class="detail-card">
                 <div class="detail-card-header">
                     <div class="header-icon"><span class="material-symbols-outlined">bolt</span></div>
@@ -391,9 +443,13 @@
             </div>
 
         </div>
-    </div>
-</div>
+        <!-- END SIDE COLUMN -->
 
+    </div>
+    <!-- END detail-grid -->
+
+</div>
+<!-- END page-wrapper -->
 <!-- Reject Modal -->
 <div class="modal-overlay" id="rejectModal">
     <div class="modal-box">
@@ -407,10 +463,12 @@
         </div>
         <hr class="modal-divider" />
         <div class="modal-label">@_sharedResources[SharedResourcesKeys.Rejection_ReasonAr]</div>
-        <textarea class="modal-textarea" id="rejectReasonAr" placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="rtl"></textarea>
+        <textarea class="modal-textarea" id="rejectReasonAr"
+                  placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="rtl"></textarea>
         <div style="margin-top:12px;"></div>
         <div class="modal-label">@_sharedResources[SharedResourcesKeys.Rejection_ReasonEn]</div>
-        <textarea class="modal-textarea" id="rejectReasonEn" placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="ltr"></textarea>
+        <textarea class="modal-textarea" id="rejectReasonEn"
+                  placeholder="@_sharedResources[SharedResourcesKeys.Rejection_Reason]..." dir="ltr"></textarea>
         <div class="modal-footer">
             <button class="btn btn-outline btn-sm" onclick="closeRejectModal()">@_sharedResources[SharedResourcesKeys.Rejection_Cancel]</button>
             <button class="btn btn-danger btn-sm" onclick="submitReject()">
@@ -428,18 +486,14 @@
         <div class="confirm-title" id="confirmTitle"></div>
         <div class="confirm-sub" id="confirmSub"></div>
         <div class="confirm-actions">
-            <button class="btn btn-outline btn-sm" onclick="closeConfirm()">
-                @_sharedResources[SharedResourcesKeys.Rejection_Cancel]
-            </button>
+            <button class="btn btn-outline btn-sm" onclick="closeConfirm()">@_sharedResources[SharedResourcesKeys.Rejection_Cancel]</button>
             <button class="btn btn-primary btn-sm" id="confirmOkBtn" onclick="confirmOk()"></button>
         </div>
     </div>
 </div>
 
-<!-- Toast Notifications -->
 <div class="toast-wrap" id="toastWrap"></div>
 
-<!-- Forms -->
 <form id="approveForm" method="post" action="@Url.Action("Approve","VendorApplications")" style="display:none">
     @Html.AntiForgeryToken()
     <input type="hidden" id="approveVendorId" name="id" />
@@ -454,59 +508,50 @@
 @section Scripts {
     <script src="~/js/jquery-3.7.1.min.js"></script>
     <script>
-        var isArabic = @(isArabic ? "true" : "false");
-        var currentRejectId = null;
-        var _rejectAr = '', _rejectEn = '';
-        var _confirmCallback = null;
+        var isArabic         = @(isArabic ? "true" : "false");
+        var currentRejectId  = null;
+        var _rejectAr = '', _rejectEn = '', _confirmCallback = null;
         var msgReasonRequired = isArabic ? 'يرجى إدخال سبب الرفض' : 'Please enter a rejection reason';
 
-        $(function () {
-            var _ok  = '@Html.Raw(TempData["Success"] ?? "")';
-            var _err = '@Html.Raw(TempData["Error"] ?? "")';
-            if (_ok)  showToast(_ok,  'success');
-            if (_err) showToast(_err, 'error');
-        });
+        var PS_PAGE_SIZE = 6;
+        var allProducts = [], allServices = [];
+        var productPage = 1, servicePage = 1;
+        var vendorId = @Model.Id;
 
+        // ── Toast ──────────────────────────────────────────
+        function showToast(msg, type) {
+            var icon = type === 'success' ? 'check_circle' : 'error';
+            var $t = $('<div class="toast ' + type + '"><span class="material-symbols-outlined">' + icon + '</span><span>' + msg + '</span></div>');
+            $('#toastWrap').append($t);
+            setTimeout(function () { $t.fadeOut(400, function () { $t.remove(); }); }, 4000);
+        }
+
+        // ── Confirm ────────────────────────────────────────
         function showConfirm(icon, title, sub, okLabel, okColor, callback) {
             document.getElementById('confirmIcon').textContent  = icon;
             document.getElementById('confirmTitle').textContent = title;
             document.getElementById('confirmSub').textContent   = sub;
             var btn = document.getElementById('confirmOkBtn');
-            btn.textContent       = okLabel;
-            btn.style.background  = okColor;
-            btn.style.borderColor = okColor;
+            btn.textContent = okLabel;
+            btn.style.background = btn.style.borderColor = okColor;
             _confirmCallback = callback;
             document.getElementById('confirmDialog').classList.add('open');
         }
+        function closeConfirm() { document.getElementById('confirmDialog').classList.remove('open'); _confirmCallback = null; }
+        function confirmOk()    { var cb = _confirmCallback; closeConfirm(); if (cb) cb(); }
+        document.getElementById('confirmDialog').addEventListener('click', function (e) { if (e.target === this) closeConfirm(); });
 
-        function closeConfirm() {
-            document.getElementById('confirmDialog').classList.remove('open');
-            _confirmCallback = null;
-        }
-
-        function confirmOk() {
-            var cb = _confirmCallback;
-            closeConfirm();
-            if (cb) cb();
-        }
-
-        document.getElementById('confirmDialog').addEventListener('click', function (e) {
-            if (e.target === this) closeConfirm();
-        });
-
+        // ── Approve ────────────────────────────────────────
         function confirmApprove(id, name) {
             showConfirm('✅',
                 isArabic ? 'تأكيد القبول' : 'Confirm Approval',
                 (isArabic ? 'هل تريد قبول طلب: ' : 'Approve application for: ') + name + '؟',
-                isArabic ? 'قبول' : 'Approve',
-                '#10b981',
-                function () {
-                    document.getElementById('approveVendorId').value = id;
-                    document.getElementById('approveForm').submit();
-                }
+                isArabic ? 'قبول' : 'Approve', '#10b981',
+                function () { document.getElementById('approveVendorId').value = id; document.getElementById('approveForm').submit(); }
             );
         }
 
+        // ── Reject ─────────────────────────────────────────
         function openRejectModal(id, name) {
             currentRejectId = id;
             document.getElementById('rejectCompanyName').textContent = name;
@@ -514,11 +559,7 @@
             document.getElementById('rejectReasonEn').value = '';
             document.getElementById('rejectModal').classList.add('open');
         }
-
-        function closeRejectModal() {
-            document.getElementById('rejectModal').classList.remove('open');
-        }
-
+        function closeRejectModal() { document.getElementById('rejectModal').classList.remove('open'); }
         function submitReject() {
             var ar = document.getElementById('rejectReasonAr').value.trim();
             var en = document.getElementById('rejectReasonEn').value.trim();
@@ -529,8 +570,7 @@
             showConfirm('❌',
                 isArabic ? 'تأكيد الرفض' : 'Confirm Rejection',
                 (isArabic ? 'هل تريد رفض طلب: ' : 'Reject application for: ') + name + '؟',
-                isArabic ? 'تأكيد الرفض' : 'Confirm Reject',
-                '#ef4444',
+                isArabic ? 'تأكيد الرفض' : 'Confirm Reject', '#ef4444',
                 function () {
                     document.getElementById('rejectVendorId').value      = currentRejectId;
                     document.getElementById('rejectReasonArInput').value = _rejectAr;
@@ -539,18 +579,193 @@
                 }
             );
         }
+        document.getElementById('rejectModal').addEventListener('click', function (e) { if (e.target === this) closeRejectModal(); });
 
-        document.getElementById('rejectModal').addEventListener('click', function (e) {
-            if (e.target === this) closeRejectModal();
-        });
-
-        function showToast(msg, type) {
-            var icon = type === 'success' ? 'check_circle' : 'error';
-            var $t = $('<div class="toast ' + type + '">' +
-                       '<span class="material-symbols-outlined">' + icon + '</span>' +
-                       '<span>' + msg + '</span></div>');
-            $('#toastWrap').append($t);
-            setTimeout(function () { $t.fadeOut(400, function () { $t.remove(); }); }, 4000);
+        // ── Tabs ───────────────────────────────────────────
+        function switchTab(tab) {
+            document.querySelectorAll('.ps-tab').forEach(function(t){ t.classList.remove('active'); });
+            document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+            document.getElementById('panelProducts').style.display = tab === 'products' ? '' : 'none';
+            document.getElementById('panelServices').style.display = tab === 'services'  ? '' : 'none';
         }
+
+        function filterAndRender(type) {
+            if (type === 'products') { productPage = 1; renderGrid('products'); }
+            else                     { servicePage = 1; renderGrid('services'); }
+        }
+
+        function renderGrid(type) {
+            var isP = type === 'products';
+            var all = isP ? allProducts : allServices;
+            var q   = document.getElementById(isP ? 'searchProducts' : 'searchServices').value.toLowerCase();
+
+            var filtered = q ? all.filter(function(x){
+                var n = isArabic ? (isP ? x.NameAr : x.ServiceNameAr) : (isP ? x.NameEn : x.ServiceNameEn);
+                return n && n.toLowerCase().indexOf(q) !== -1;
+            }) : all;
+
+            var page  = isP ? productPage  : servicePage;
+            var grid  = document.getElementById(isP ? 'productGrid'        : 'serviceGrid');
+            var empty = document.getElementById(isP ? 'emptyProducts'      : 'emptyServices');
+            var pagEl = document.getElementById(isP ? 'paginationProducts' : 'paginationServices');
+            var total = Math.ceil(filtered.length / PS_PAGE_SIZE);
+            var slice = filtered.slice((page - 1) * PS_PAGE_SIZE, page * PS_PAGE_SIZE);
+
+            grid.innerHTML = slice.map(isP ? renderProductCard : renderServiceCard).join('');
+            empty.style.display = filtered.length === 0 ? '' : 'none';
+            grid.style.display  = filtered.length === 0 ? 'none' : '';
+
+            pagEl.innerHTML = '';
+            if (total > 1) {
+                for (var i = 1; i <= total; i++) {
+                    (function(p){
+                        var btn = document.createElement('button');
+                        btn.className   = 'ps-page-btn' + (p === page ? ' active' : '');
+                        btn.textContent = p;
+                        btn.onclick = function(){ if(isP) productPage=p; else servicePage=p; renderGrid(type); };
+                        pagEl.appendChild(btn);
+                    })(i);
+                }
+            }
+        }
+
+        // ── Gallery builder (multiple images) ─────────────
+        function buildGallery(imageIds, placeholderIcon) {
+            if (!imageIds || imageIds.length === 0) {
+                return '<div class="ps-card-gallery"><div class="gallery-placeholder">' +
+                       '<span class="material-symbols-outlined">' + placeholderIcon + '</span></div></div>';
+            }
+
+            var imgs = imageIds.map(function(imgId, idx){
+                return '<img src="/VendorApplications/GetProductImageById?imageId=' + imgId + '" ' +
+                       'class="' + (idx === 0 ? 'active' : '') + '" loading="lazy" ' +
+                       'onerror="this.style.display=\'none\'" />';
+            }).join('');
+
+            var nav = imageIds.length > 1
+                ? '<button class="ps-gallery-nav prev" onclick="galleryPrev(this)" type="button">' +
+                  '<span class="material-symbols-outlined" style="font-size:.85rem;">chevron_left</span></button>' +
+                  '<button class="ps-gallery-nav next" onclick="galleryNext(this)" type="button">' +
+                  '<span class="material-symbols-outlined" style="font-size:.85rem;">chevron_right</span></button>'
+                : '';
+
+            var dots = imageIds.length > 1
+                ? '<div class="ps-gallery-dots">' +
+                  imageIds.map(function(_, idx){
+                      return '<div class="ps-gallery-dot' + (idx===0?' active':'') + '" onclick="galleryGoTo(this,' + idx + ')"></div>';
+                  }).join('') + '</div>'
+                : '';
+
+            var count = imageIds.length > 1 ? '<div class="ps-img-count">1 / ' + imageIds.length + '</div>' : '';
+
+            return '<div class="ps-card-gallery" data-current="0" data-total="' + imageIds.length + '">' +
+                   imgs + nav + dots + count + '</div>';
+        }
+
+        function galleryMove(btn, dir) {
+            var g = btn.closest('.ps-card-gallery');
+            var imgs = g.querySelectorAll('img'), dots = g.querySelectorAll('.ps-gallery-dot');
+            var counter = g.querySelector('.ps-img-count');
+            var total = parseInt(g.dataset.total) || imgs.length;
+            var cur   = parseInt(g.dataset.current) || 0;
+            imgs[cur].classList.remove('active');
+            if (dots[cur]) dots[cur].classList.remove('active');
+            cur = (cur + dir + total) % total;
+            g.dataset.current = cur;
+            imgs[cur].classList.add('active');
+            if (dots[cur]) dots[cur].classList.add('active');
+            if (counter) counter.textContent = (cur+1) + ' / ' + total;
+        }
+        function galleryPrev(btn) { galleryMove(btn, -1); }
+        function galleryNext(btn) { galleryMove(btn, +1); }
+        function galleryGoTo(dot, idx) {
+            var g = dot.closest('.ps-card-gallery');
+            var imgs = g.querySelectorAll('img'), dots = g.querySelectorAll('.ps-gallery-dot');
+            var counter = g.querySelector('.ps-img-count');
+            var cur = parseInt(g.dataset.current) || 0;
+            imgs[cur].classList.remove('active'); if(dots[cur]) dots[cur].classList.remove('active');
+            g.dataset.current = idx;
+            imgs[idx].classList.add('active'); dots[idx].classList.add('active');
+            if (counter) counter.textContent = (idx+1) + ' / ' + g.dataset.total;
+        }
+
+        // ── Render Cards ───────────────────────────────────
+        function renderProductCard(p) {
+            var name    = isArabic ? (p.NameAr || '') : (p.NameEn || '');
+            var cat     = isArabic ? (p.CategoryNameAr || '') : (p.CategoryNameEn || '');
+            var gallery = buildGallery(p.ImageIds, 'inventory_2');
+
+            var price = '';
+            if (p.PriceRangeMin && p.PriceRangeMax)
+                price = '<div class="ps-price">' + Number(p.PriceRangeMin).toLocaleString() + ' – ' + Number(p.PriceRangeMax).toLocaleString() + ' <span class="ps-currency">JOD</span></div>';
+            else if (p.PriceRangeMin)
+                price = '<div class="ps-price">' + (isArabic?'من':'From') + ' ' + Number(p.PriceRangeMax).toLocaleString() + ' <span class="ps-currency">JOD</span></div>';
+            else if (p.PriceRangeMax)
+                price = '<div class="ps-price">' + (isArabic?'حتى':'Up to') + ' ' + Number(p.PriceRangeMax).toLocaleString() + ' <span class="ps-currency">JOD</span></div>';
+
+            var statusCls = p.IsActive ? 'status-active' : 'status-inactive';
+            var statusTxt = p.IsActive ? (isArabic?'نشط':'Active') : (isArabic?'غير نشط':'Inactive');
+            var desc = p.Description ? '<div class="ps-desc">' + p.Description + '</div>' : '';
+
+            return '<div class="ps-card">' + gallery +
+                '<div class="ps-card-body">' +
+                    '<div class="ps-card-title">' + name + '</div>' +
+                    '<div class="ps-card-meta"><span class="material-symbols-outlined" style="font-size:.75rem;">category</span>' + cat + '</div>' +
+                    price + desc +
+                '</div>' +
+                '<div class="ps-card-status ' + statusCls + '">' + statusTxt + '</div>' +
+            '</div>';
+        }
+
+        function renderServiceCard(s) {
+            var name = isArabic ? (s.ServiceNameAr||'') : (s.ServiceNameEn||'');
+            var type = isArabic ? (s.TypeNameAr||'')    : (s.TypeNameEn||'');
+
+            var gallery = s.HasImage
+                ? '<div class="ps-card-gallery" data-current="0" data-total="1">' +
+                  '<img class="active" src="/VendorApplications/GetServiceImage?serviceId=' + s.ServiceId + '" loading="lazy" ' +
+                  'onerror="this.parentElement.innerHTML=\'<div class=gallery-placeholder><span class=material-symbols-outlined>handyman</span></div>\'" /></div>'
+                : '<div class="ps-card-gallery"><div class="gallery-placeholder">' +
+                  '<span class="material-symbols-outlined">handyman</span></div></div>';
+
+            return '<div class="ps-card">' + gallery +
+                '<div class="ps-card-body">' +
+                    '<div class="ps-card-title">' + name + '</div>' +
+                    '<div class="ps-card-meta"><span class="material-symbols-outlined" style="font-size:.75rem;">label</span>' + type + '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        // ── Load Data ──────────────────────────────────────
+        $(function () {
+            var _ok  = '@Html.Raw(TempData["Success"] ?? "")';
+            var _err = '@Html.Raw(TempData["Error"] ?? "")';
+            if (_ok)  showToast(_ok,  'success');
+            if (_err) showToast(_err, 'error');
+
+            $.getJSON('/VendorApplications/GetVendorProducts?id=' + vendorId)
+                .done(function (data) {
+                    allProducts = data;
+                    document.getElementById('badgeProducts').textContent     = data.length;
+                    document.getElementById('loadingProducts').style.display = 'none';
+                    renderGrid('products');
+                })
+                .fail(function () {
+                    document.getElementById('loadingProducts').style.display = 'none';
+                    document.getElementById('emptyProducts').style.display   = '';
+                });
+
+            $.getJSON('/VendorApplications/GetVendorServices?id=' + vendorId)
+                .done(function (data) {
+                    allServices = data;
+                    document.getElementById('badgeServices').textContent     = data.length;
+                    document.getElementById('loadingServices').style.display = 'none';
+                    renderGrid('services');
+                })
+                .fail(function () {
+                    document.getElementById('loadingServices').style.display = 'none';
+                    document.getElementById('emptyServices').style.display   = '';
+                });
+        });
     </script>
 }

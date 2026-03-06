@@ -4,9 +4,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = _sharedResources[SharedResourcesKeys.Dashboard].Value;
+    var isArabic = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ar");
 }
-
-
 
 <!-- ── Services Section ── -->
 <div class="section-title">@_sharedResources[SharedResourcesKeys.Main_Services]</div>
@@ -30,16 +29,16 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.PendingVendors_Description]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">@ViewBag.PendingCount</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Pending]</div>
+                    <span class="srv-stat-val">@ViewBag.PendingCount</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Pending]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">@ViewBag.ApprovedCount</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Approved]</div>
+                    <span class="srv-stat-val">@ViewBag.ApprovedCount</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Approved]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">@ViewBag.RejectedCount</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Rejected]</div>
+                    <span class="srv-stat-val">@ViewBag.RejectedCount</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Rejected]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
@@ -61,11 +60,7 @@
         </div>
     </div>
 
-
-
-
-
-     <!-- Products Card -->
+    <!-- Products Card -->
     <div class="srv-card c1">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -78,16 +73,16 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Products_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">320</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
+                    <span class="srv-stat-val">320</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Total]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">45</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_New]</div>
+                    <span class="srv-stat-val">45</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_New]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">12k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Sales]</div>
+                    <span class="srv-stat-val">12k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Sales]</span>
                 </div>
             </div>
         </div>
@@ -112,16 +107,16 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Ads_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">15</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Running]</div>
+                    <span class="srv-stat-val">15</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Running]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">5</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Pending]</div>
+                    <span class="srv-stat-val">5</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Pending]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">20k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Views]</div>
+                    <span class="srv-stat-val">20k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Views]</span>
                 </div>
             </div>
         </div>
@@ -146,7 +141,8 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Lookup_Desc]</div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Lookup_LastQuery]</span><span>---</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Lookup_LastQuery]</span>
+                    <span>---</span>
                 </div>
                 <div class="srv-progress-bar">
                     <div class="srv-progress-fill" style="width:0%"></div>
@@ -161,53 +157,33 @@
         </div>
     </div>
 
-
-    <!-- جديد -->
-    <!-- 7: الخدمات -->
+    <!-- الخدمات -->
     <div class="srv-card c7">
         <div class="srv-card-header">
             <div class="srv-top">
                 <div class="srv-icon">
                     <span class="material-symbols-outlined">miscellaneous_services</span>
                 </div>
-                <span class="srv-badge active">
-                    @_sharedResources[SharedResourcesKeys.Srv_Active]
-                </span>
+                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
             </div>
         </div>
-
         <div class="srv-body">
-            <div class="srv-name">
-                @_sharedResources[SharedResourcesKeys.Srv_Services]
-            </div>
-
-            <div class="srv-desc">
-                @_sharedResources[SharedResourcesKeys.Srv_Services_Desc]
-            </div>
-
+            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
+            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">120</div>
-                    <div class="srv-stat-label">
-                        @_sharedResources[SharedResourcesKeys.Srv_TotalOrders]
-                    </div>
+                    <span class="srv-stat-val">120</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
-
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">14</div>
-                    <div class="srv-stat-label">
-                        @_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]
-                    </div>
+                    <span class="srv-stat-val">14</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
-
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">25k</div>
-                    <div class="srv-stat-label">
-                        @_sharedResources[SharedResourcesKeys.Srv_Sales]
-                    </div>
+                    <span class="srv-stat-val">25k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
-
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
                     <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
@@ -218,13 +194,11 @@
                 </div>
             </div>
         </div>
-
         <div class="srv-footer">
             <a href="@Url.Action("IndexService", "Service")" class="srv-link">
                 @_sharedResources[SharedResourcesKeys.View_Details]
                 <span class="material-symbols-outlined">arrow_back_ios</span>
             </a>
-
             <span class="srv-trend up">
                 <span class="material-symbols-outlined">trending_up</span>
                 +10%
@@ -232,20 +206,7 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- جديد -->
-    <!-- 1: بيع الأثاث -->
+    <!-- بيع الأثاث -->
     <div class="srv-card c1">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -258,23 +219,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">248</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">248</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">18</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">18</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">32k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">32k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>78%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>78%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:78%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:78%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
@@ -286,7 +250,7 @@
         </div>
     </div>
 
-    <!-- 2: ترحيل الأثاث -->
+    <!-- ترحيل الأثاث -->
     <div class="srv-card c2">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -299,23 +263,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">185</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">185</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">9</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">9</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">18k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">18k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>62%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>62%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:62%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:62%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
@@ -327,7 +294,7 @@
         </div>
     </div>
 
-    <!-- 3: بيع المطابخ -->
+    <!-- بيع المطابخ -->
     <div class="srv-card c3">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -340,23 +307,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">312</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">312</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">22</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">22</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">58k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">58k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>85%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>85%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:85%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:85%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
@@ -368,7 +338,7 @@
         </div>
     </div>
 
-    <!-- 4: تركيب المطابخ -->
+    <!-- تركيب المطابخ -->
     <div class="srv-card c4">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -381,23 +351,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">197</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">197</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">11</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">11</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">41k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">41k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>71%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>71%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:71%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:71%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
@@ -409,7 +382,7 @@
         </div>
     </div>
 
-    <!-- 5: تركيب الأثاث -->
+    <!-- تركيب الأثاث -->
     <div class="srv-card c5">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -422,23 +395,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">89</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">89</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">7</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">7</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">12k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">12k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>48%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>48%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:48%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:48%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
@@ -450,7 +426,7 @@
         </div>
     </div>
 
-    <!-- 6: صيانة وإصلاح -->
+    <!-- صيانة وإصلاح -->
     <div class="srv-card c6">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -463,23 +439,26 @@
             <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Maintenance_Desc]</div>
             <div class="srv-stats">
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">143</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                    <span class="srv-stat-val">143</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">5</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                    <span class="srv-stat-val">5</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
                 </div>
                 <div class="srv-stat-item">
-                    <div class="srv-stat-val">9k</div>
-                    <div class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                    <span class="srv-stat-val">9k</span>
+                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
                 </div>
             </div>
             <div class="srv-progress-wrap">
                 <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span><span>55%</span>
+                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                    <span>55%</span>
                 </div>
-                <div class="srv-progress-bar"><div class="srv-progress-fill" style="width:55%"></div></div>
+                <div class="srv-progress-bar">
+                    <div class="srv-progress-fill" style="width:55%"></div>
+                </div>
             </div>
         </div>
         <div class="srv-footer">
