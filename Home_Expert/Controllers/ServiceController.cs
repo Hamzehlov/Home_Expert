@@ -108,8 +108,6 @@ namespace Home_Expert.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var ad = await _context.Ads.FindAsync(id);
@@ -263,8 +261,7 @@ namespace Home_Expert.Controllers
         }
 
     
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+    
         public async Task<IActionResult> DeleteService(int id)
         {
             var service = await _context.Services.FindAsync(id);
@@ -562,7 +559,9 @@ namespace Home_Expert.Controllers
                 DescCodeAr = vm.DescCodeAr,
                 DescCodeEn = vm.DescCodeEn,
                 IsActive = vm.IsActive,
-                ParentId = 7
+                ParentId = 7,
+                Type=_context.Codes.Where(x=>x.ParentId==7).Select(x=>x.DescCodeAr).FirstOrDefault()
+                
             };
 
             // تحويل الصورة إلى byte[] إذا تم رفعها

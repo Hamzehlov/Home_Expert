@@ -197,6 +197,8 @@ namespace Home_Expert.Resources
 
         // ── عام ──
         public const string Dashboard = "Dashboard";
+        public const string MyServices = "MyServices";
+
         public const string Search = "Search";
         public const string Admin = "Admin";
         public const string Logout = "Logout";

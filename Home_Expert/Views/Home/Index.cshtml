@@ -13,6 +13,10 @@
 <div class="services-grid">
 
     <!-- Vendor Applications Card -->
+       @if (User.IsInRole("Admin"))
+
+
+   {
     <div class="srv-card vendor-card">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -59,8 +63,12 @@
             </span>
         </div>
     </div>
-
+    }
     <!-- Products Card -->
+    @if (User.IsInRole("Admin") || User.IsInRole("Vendor"))
+
+
+    {
     <div class="srv-card c1">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -93,8 +101,12 @@
             </a>
         </div>
     </div>
-
+    }
     <!-- Ads Card -->
+   @if (User.IsInRole("Admin"))
+
+
+    {
     <div class="srv-card c2">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -127,8 +139,12 @@
             </a>
         </div>
     </div>
-
+    }
     <!-- Look Up Card -->
+   @if (User.IsInRole("Admin"))
+
+
+    {
     <div class="srv-card c3">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -156,8 +172,10 @@
             </a>
         </div>
     </div>
-
+    }
     <!-- الخدمات -->
+   @if (User.IsInRole("Admin"))
+    {
     <div class="srv-card c7">
         <div class="srv-card-header">
             <div class="srv-top">
@@ -205,9 +223,12 @@
             </span>
         </div>
     </div>
+    }
+
+    @if (User.IsInRole("Vendor"))
 
 
-
+    {
 
 
     <div class="srv-card c7">
@@ -257,10 +278,10 @@
             </span>
         </div>
     </div>
-
+    }
 
     <!-- بيع الأثاث -->
-    <div class="srv-card c1">
+   @*  <div class="srv-card c1">
         <div class="srv-card-header">
             <div class="srv-top">
                 <div class="srv-icon"><span class="material-symbols-outlined">chair</span></div>
@@ -521,6 +542,6 @@
             </a>
             <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+6%</span>
         </div>
-    </div>
+    </div> *@
 
 </div><!-- /services-grid -->

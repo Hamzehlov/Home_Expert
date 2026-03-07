@@ -61,10 +61,14 @@
 
     <div class="table-card">
         <div class="table-toolbar-extra">
+           @if( User.IsInRole("Vendor"))
+            {
             <a class="btn btn-primary" asp-action="CreateProduc">
                 <span class="material-symbols-outlined">add</span>
                 @_sharedResources[SharedResourcesKeys.Products_AddNew]
             </a>
+            }
+          
             <select class="tbl-filter" id="statusFilter">
                 <option value="">@_sharedResources[SharedResourcesKeys.Filter_AllStatus]</option>
                 <option value="active">@_sharedResources[SharedResourcesKeys.Products_Active]</option>
@@ -154,7 +158,7 @@
                                 </a>
 
                                 <a class="action-btn delete" title="@_sharedResources[SharedResourcesKeys.Delete]"
-                                   asp-action="DeleteProduct" asp-route-id="@product.Id"
+                                   asp-action="DeleteProduc" asp-route-id="@product.Id"
                                    onclick="return confirm('@_sharedResources[SharedResourcesKeys.Delete_Confirm]');">
                                     <span class="material-symbols-outlined">delete</span>
                                 </a>

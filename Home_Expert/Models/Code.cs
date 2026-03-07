@@ -19,7 +19,7 @@ public partial class Code
     public string DescCodeEn { get; set; } = null!;
 
     [StringLength(50)]
-    public string Type { get; set; } = null!;
+    public string? Type { get; set; } = null!;
 
     public int? ParentId { get; set; }
 
