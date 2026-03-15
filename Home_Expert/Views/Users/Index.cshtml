@@ -1,0 +1,337 @@
+﻿@model Home_Expert.ViewModel.UsersIndexViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isArabic = culture.StartsWith("ar");
+    var dir = isArabic ? "rtl" : "ltr";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/users.css" />
+<style>
+        #uTable_filter{
+            display:none
+        }
+
+        #uTable_length {
+            padding: 8px;
+        }
+</style>
+}
+
+<div class="users-page" dir="@dir">
+
+    <!-- Header -->
+    <div class="u-header">
+        <div class="u-breadcrumb">
+            <a href="@Url.Action("Index", "Home")">
+                <span class="material-symbols-outlined" style="font-size:.9rem;vertical-align:middle;">home</span>
+                @(isArabic ? "لوحة التحكم" : "Dashboard")
+            </a>
+            <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
+            <span>@(isArabic ? "إدارة المستخدمين" : "Users Management")</span>
+        </div>
+        <h1 class="u-title">@(isArabic ? "إدارة المستخدمين" : "Users Management")</h1>
+        <p class="u-subtitle">@(isArabic ? "عرض وإدارة جميع المستخدمين المسجلين في المنصة" : "View and manage all registered platform users")</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="u-stats">
+        <div class="u-stat s-total">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">group</span></div>
+            <div><div class="u-stat-val">@Model.TotalCount</div><div class="u-stat-lbl">@(isArabic ? "الإجمالي" : "Total")</div></div>
+        </div>
+        <div class="u-stat s-admin">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">admin_panel_settings</span></div>
+            <div><div class="u-stat-val">@Model.Admins.Count</div><div class="u-stat-lbl">@(isArabic ? "مديرون" : "Admins")</div></div>
+        </div>
+        <div class="u-stat s-vendor">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">storefront</span></div>
+            <div><div class="u-stat-val">@Model.Vendors.Count</div><div class="u-stat-lbl">@(isArabic ? "شركات" : "Vendors")</div></div>
+        </div>
+        <div class="u-stat s-customer">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">person</span></div>
+            <div><div class="u-stat-val">@Model.Customers.Count</div><div class="u-stat-lbl">@(isArabic ? "عملاء" : "Customers")</div></div>
+        </div>
+        <div class="u-stat s-active">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">check_circle</span></div>
+            <div><div class="u-stat-val">@Model.ActiveCount</div><div class="u-stat-lbl">@(isArabic ? "نشط" : "Active")</div></div>
+        </div>
+        <div class="u-stat s-inactive">
+            <div class="u-stat-icon"><span class="material-symbols-outlined">block</span></div>
+            <div><div class="u-stat-val">@Model.InactiveCount</div><div class="u-stat-lbl">@(isArabic ? "موقوف" : "Suspended")</div></div>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="u-card">
+
+        <!-- Toolbar -->
+        <div class="u-toolbar">
+            <div class="u-toolbar-left">
+                <div class="u-search">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" id="uSearch"
+                           placeholder="@(isArabic ? "بحث بالاسم أو البريد..." : "Search by name or email...")"
+                           oninput="uFilter()" />
+                </div>
+            </div>
+            <div class="u-toolbar-right">
+                <select id="uRoleFilter" class="u-filter" onchange="uFilter()">
+                    <option value="">@(isArabic ? "كل الأنواع" : "All Roles")</option>
+                    <option value="admin">@(isArabic ? "مدير" : "Admin")</option>
+                    <option value="vendor">@(isArabic ? "شركة" : "Vendor")</option>
+                    <option value="customer">@(isArabic ? "عميل" : "Customer")</option>
+                </select>
+                <select id="uStatusFilter" class="u-filter" onchange="uFilter()">
+                    <option value="">@(isArabic ? "كل الحالات" : "All Status")</option>
+                    <option value="on">@(isArabic ? "نشط" : "Active")</option>
+                    <option value="off">@(isArabic ? "موقوف" : "Suspended")</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="u-scroll p-2">
+            <table class="data-table mt-2 " id="uTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>@(isArabic ? "المستخدم" : "User")</th>
+                        <th>@(isArabic ? "البريد" : "Email")</th>
+                        <th>@(isArabic ? "الهاتف" : "Phone")</th>
+                        <th>@(isArabic ? "النوع" : "Role")</th>
+                        <th>@(isArabic ? "الحالة" : "Status")</th>
+                        <th>@(isArabic ? "الإجراءات" : "Actions")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int rowNum = 0;
+                        var allRows = Model.Admins
+                        .Select(u => (u, rk: "admin", rl: isArabic ? "مدير" : "Admin"))
+                        .Concat(Model.Vendors.Select(u => (u, rk: "vendor", rl: isArabic ? "شركة" : "Vendor")))
+                        .Concat(Model.Customers.Select(u => (u, rk: "customer", rl: isArabic ? "عميل" : "Customer")));
+                    }
+                    @foreach (var (u, rk, rl) in allRows)
+                    {
+                        rowNum++;
+                        var dn = isArabic ? u.NameAr : u.NameEn;
+                        if (string.IsNullOrWhiteSpace(dn)) dn = u.Email;
+                        var dn2 = isArabic ? u.NameEn : u.NameAr;
+                        var init = dn.Length > 0 ? dn[0].ToString().ToUpper() : "?";
+                        var stC = u.IsActive ? "st-on" : "st-off";
+                        var stL = u.IsActive ? (isArabic ? "نشط" : "Active") : (isArabic ? "موقوف" : "Suspended");
+                        var rico = rk == "admin" ? "admin_panel_settings" : rk == "vendor" ? "storefront" : "person";
+
+                        <tr data-role="@rk" data-status="@(u.IsActive ? "on" : "off")"
+                            data-search="@(dn.ToLower()) @(u.Email.ToLower())">
+
+                            <td class="td-num">@rowNum</td>
+
+                            <td>
+                                <div class="u-cell">
+                                    <div class="u-av av-@rk">@init</div>
+                                    <div>
+                                        <div class="u-name">@dn</div>
+                                        @if (!string.IsNullOrWhiteSpace(dn2) && dn2 != dn)
+                                        {
+                                            <div class="u-sub">@dn2</div>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="td-muted">@u.Email</td>
+                            <td class="td-muted" dir="ltr">@u.Phone</td>
+
+                            <td>
+                                <span class="u-role r-@rk">
+                                    <span class="material-symbols-outlined">@rico</span>@rl
+                                </span>
+                            </td>
+
+                            <td><span class="u-status @stC">@stL</span></td>
+
+                            <td>
+                                <div class="u-actions">
+                                    <button type="button"
+                                            class="u-btn @(u.IsActive ? "btn-suspend" : "btn-activate")"
+                                            title="@(u.IsActive ? (isArabic ? "إيقاف" : "Suspend") : (isArabic ? "تفعيل" : "Activate"))"
+                                            onclick="uToggle('@u.Id',this)">
+                                        <span class="material-symbols-outlined">@(u.IsActive ? "block" : "check_circle")</span>
+                                    </button>
+                                    <button type="button" class="u-btn btn-delete"
+                                            title="@(isArabic ? "حذف" : "Delete")"
+                                            onclick="uDelete('@u.Id','@Html.Raw(dn.Replace("'", "\\'"))')">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="u-foot"><span class="u-count" id="uCount"></span></div>
+    </div>
+
+</div><!-- /users-page -->
+<!-- Confirm Dialog -->
+<div class="u-dialog" id="uDialog">
+    <div class="u-dialog-box">
+        <div class="u-dialog-icon" id="uDIcon"></div>
+        <div class="u-dialog-title" id="uDTitle"></div>
+        <div class="u-dialog-sub" id="uDSub"></div>
+        <div class="u-dialog-acts">
+            <button class="u-dbtn u-outline" onclick="uCloseDialog()">@(isArabic ? "إلغاء" : "Cancel")</button>
+            <button class="u-dbtn" id="uDOkBtn" onclick="uConfirmOk()"></button>
+        </div>
+    </div>
+</div>
+
+<div class="u-toasts" id="uToasts"></div>
+
+<form id="uToggleForm" method="post" action="@Url.Action("ToggleStatus","Users")" style="display:none">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="uToggleId" name="id" />
+</form>
+<form id="uDeleteForm" method="post" action="@Url.Action("Delete","Users")" style="display:none">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="uDeleteId" name="id" />
+</form>
+
+@section Scripts {
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+          /* ══ Global Variables ══ */
+        var isArabic = @(isArabic ? "true" : "false");
+       
+
+
+        $(document).ready(function () {
+
+            dt = $('#uTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                ordering: true,
+                autoWidth: false,
+                language: {
+                    search:       isArabic ? "بحث:"   : "Search:",
+                    lengthMenu:   isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+                    zeroRecords:  isArabic ? "لا يوجد عناصر لعرضها"       : "No matching records",
+                    info:         isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty:    isArabic ? "لا يوجد عناصر متاحة"         : "No entries available",
+                    infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)"        : "(filtered from _MAX_ total entries)",
+                    paginate: {
+                        first:    isArabic ? "الأول"  : "First",
+                        last:     isArabic ? "الأخير" : "Last",
+                        next:     isArabic ? "التالي" : "Next",
+                        previous: isArabic ? "السابق" : "Previous"
+                    }
+                },
+                columnDefs: [
+                    { orderable: false, targets: [0, 6] }
+                ],
+                drawCallback: function () {
+                    var api = this.api();
+                    var startIndex = api.page.info().start;
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = startIndex + i + 1;
+                    });
+                }
+            });
+
+            /* ══ Status Filter ══*/
+            $('#statusFilter').on('change', function () {
+                dt.column(5).search($(this).val(), false, false).draw();
+            });
+
+            /* ══ Server Messages ══ */
+            var _serverMsg = '@Html.Raw(TempData["Success"] ?? "")';
+            var _serverErr = '@Html.Raw(TempData["Error"] ?? "")';
+            if (_serverMsg) showToast(_serverMsg, 'success');
+            if (_serverErr) showToast(_serverErr, 'error');
+
+        });
+
+        function uFilter(){
+            var q=document.getElementById('uSearch').value.toLowerCase();
+            var rol=document.getElementById('uRoleFilter').value;
+            var sta=document.getElementById('uStatusFilter').value;
+            var rows=document.querySelectorAll('#uTable tbody tr'), vis=0;
+            rows.forEach(function(r){
+                var ok=(!q||r.dataset.search.includes(q))&&(!rol||r.dataset.role===rol)&&(!sta||r.dataset.status===sta);
+                r.style.display=ok?'':'none'; if(ok)vis++;
+            });
+            document.getElementById('uCount').textContent=(isArabic?'يعرض ':'Showing ')+vis+(isArabic?' مستخدم':' users');
+        }
+
+        function uShowDialog(icon,title,sub,okLabel,okColor,cb){
+            document.getElementById('uDIcon').textContent=icon;
+            document.getElementById('uDTitle').textContent=title;
+            document.getElementById('uDSub').textContent=sub;
+            var btn=document.getElementById('uDOkBtn');
+            btn.textContent=okLabel; btn.style.background=btn.style.borderColor=okColor;
+            _uCb=cb; document.getElementById('uDialog').classList.add('open');
+        }
+        function uCloseDialog(){document.getElementById('uDialog').classList.remove('open');_uCb=null;}
+        function uConfirmOk(){var cb=_uCb;uCloseDialog();if(cb)cb();}
+        document.getElementById('uDialog').addEventListener('click',function(e){if(e.target===this)uCloseDialog();});
+
+        function uToggle(id,btn){
+            var row=btn.closest('tr'), isOn=row.dataset.status==='on';
+            var name=row.querySelector('.u-name').textContent;
+            uShowDialog(isOn?'🔒':'✅',
+                isOn?(isArabic?'تأكيد الإيقاف':'Confirm Suspend'):(isArabic?'تأكيد التفعيل':'Confirm Activate'),
+                (isOn?(isArabic?'إيقاف: ':'Suspend: '):(isArabic?'تفعيل: ':'Activate: '))+name,
+                isOn?(isArabic?'إيقاف':'Suspend'):(isArabic?'تفعيل':'Activate'),
+                isOn?'#ef4444':'#10b981',
+                function(){
+                    document.getElementById('uToggleId').value=id;
+                    fetch(document.getElementById('uToggleForm').action,{method:'POST',body:new FormData(document.getElementById('uToggleForm'))})
+                    .then(r=>r.json()).then(function(res){
+                        if(res.success){
+                            var n=res.isActive; row.dataset.status=n?'on':'off';
+                            var b=row.querySelector('.u-status'); b.className='u-status '+(n?'st-on':'st-off');
+                            b.textContent=n?(isArabic?'نشط':'Active'):(isArabic?'موقوف':'Suspended');
+                            btn.className='u-btn '+(n?'btn-suspend':'btn-activate');
+                            btn.querySelector('.material-symbols-outlined').textContent=n?'block':'check_circle';
+                            uToast(res.message,'success'); uFilter();
+                        }else{uToast(res.message,'error');}
+                    }).catch(function(){uToast(isArabic?'حدث خطأ':'Error','error');});
+                });
+        }
+
+        function uDelete(id,name){
+            uShowDialog('🗑️',isArabic?'تأكيد الحذف':'Confirm Delete',
+                (isArabic?'حذف: ':'Delete: ')+name+'\n'+(isArabic?'لا يمكن التراجع عن هذا.':'This cannot be undone.'),
+                isArabic?'حذف':'Delete','#ef4444',
+                function(){
+                    document.getElementById('uDeleteId').value=id;
+                    fetch(document.getElementById('uDeleteForm').action,{method:'POST',body:new FormData(document.getElementById('uDeleteForm'))})
+                    .then(r=>r.json()).then(function(res){
+                        if(res.success){
+                            var row=[...document.querySelectorAll('#uTable tbody tr')].find(r=>r.querySelector('[onclick*="'+id+'"]'));
+                            if(row){row.style.transition='opacity .3s,transform .3s';row.style.opacity='0';row.style.transform='scale(.97)';setTimeout(function(){row.remove();uFilter();},320);}
+                            uToast(res.message,'success');
+                        }else{uToast(res.message,'error');}
+                    }).catch(function(){uToast(isArabic?'حدث خطأ':'Error','error');});
+                });
+        }
+
+        function uToast(msg,type){
+            var el=document.createElement('div');
+            el.className='u-toast '+type;
+            el.innerHTML='<span class="material-symbols-outlined">'+(type==='success'?'check_circle':'error')+'</span><span>'+msg+'</span>';
+            document.getElementById('uToasts').appendChild(el);
+            setTimeout(function(){el.style.transition='opacity .4s';el.style.opacity='0';setTimeout(function(){el.remove();},420);},3800);
+        }
+
+        document.addEventListener('DOMContentLoaded',uFilter);
+    </script>
+}

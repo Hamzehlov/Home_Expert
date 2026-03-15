@@ -60,9 +60,9 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.ToTable("AspNetUsers");
 
             // ===== الأسماء الثنائية =====
-            entity.Property(e => e.FirstNameAr).IsRequired().HasMaxLength(50);
-            entity.Property(e => e.FirstNameEn).IsRequired().HasMaxLength(50);
-            entity.Property(e => e.LastName).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.FirstNameAr).IsRequired(false).HasMaxLength(50);
+            entity.Property(e => e.FirstNameEn).IsRequired(false).HasMaxLength(50);
+            entity.Property(e => e.LastName).IsRequired(false).HasMaxLength(50);
 
             // ===== باقي الخصائص =====
             entity.Property(e => e.Phone).HasMaxLength(20);

@@ -795,9 +795,9 @@ body {
 
         /* الصفحة الحالية */
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background: #0A3D44 !important;
+            background: #c5a059 !important;
             color: #ffffff !important;
-            border-color: #0A3D44 !important;
+            border-color: #c5a059 !important;
         }
 
         /* زر معطل */

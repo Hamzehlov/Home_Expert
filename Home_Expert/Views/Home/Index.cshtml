@@ -7,541 +7,370 @@
     var isArabic = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ar");
 }
 
-<!-- ── Services Section ── -->
-<div class="section-title">@_sharedResources[SharedResourcesKeys.Main_Services]</div>
 
-<div class="services-grid">
+<div class="dash-home">
 
-    <!-- Vendor Applications Card -->
-       @if (User.IsInRole("Admin"))
-
-
-   {
-    <div class="srv-card vendor-card">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon">
-                    <span class="material-symbols-outlined">business</span>
-                </div>
-                <span class="srv-badge active">
-                    @ViewBag.PendingCount @_sharedResources[SharedResourcesKeys.Status_Pending]
-                </span>
+    <div class="dh-welcome">
+        <div class="dh-welcome-text">
+            <h2>
+                @{
+                    var hour = DateTime.Now.Hour;
+                    string greeting;
+                    if (isArabic)
+                        greeting = hour < 12 ? "صباح الخير" : hour < 17 ? "مساء الخير" : "أهلاً بك";
+                    else
+                        greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Welcome Back";
+                }
+                @greeting 👋
+            </h2>
+            <p>@(isArabic ? "إليك ملخص نشاط المنصة اليوم" : "Here's what's happening on the platform today")</p>
+            <div class="dh-welcome-time">
+                <span class="material-symbols-outlined">schedule</span>
+                <span id="dhClock"></span>
             </div>
         </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.PendingVendors_Description]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">@ViewBag.PendingCount</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Pending]</span>
+        <div class="dh-welcome-stats">
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="dh-wstat">
+                    <div class="dh-wstat-val">@(ViewBag.TotalUsers ?? 0)</div>
+                    <div class="dh-wstat-lbl">@(isArabic ? "المستخدمون" : "Users")</div>
                 </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">@ViewBag.ApprovedCount</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Approved]</span>
+                <div class="dh-wstat-div"></div>
+                <div class="dh-wstat">
+                    <div class="dh-wstat-val">@(ViewBag.PendingCount ?? 0)</div>
+                    <div class="dh-wstat-lbl">@(isArabic ? "طلبات معلقة" : "Pending")</div>
                 </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">@ViewBag.RejectedCount</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Status_Rejected]</span>
-                </div>
+                <div class="dh-wstat-div"></div>
+            }
+            <div class="dh-wstat">
+                <div class="dh-wstat-val" id="dhDate"></div>
+                <div class="dh-wstat-lbl">@(isArabic ? "اليوم" : "Today")</div>
             </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>@(ViewBag.PendingCount > 0 ? "⚠️" : "✅")</span>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "VendorApplications")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend @(ViewBag.PendingCount > 5 ? "up" : "down")">
-                <span class="material-symbols-outlined">@(ViewBag.PendingCount > 5 ? "trending_up" : "trending_down")</span>
-                @ViewBag.PendingCount
-            </span>
-        </div>
-    </div>
-    }
-    <!-- Products Card -->
-    @if (User.IsInRole("Admin") || User.IsInRole("Vendor"))
-
-
-    {
-    <div class="srv-card c1">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">inventory_2</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Products_Title]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Products_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">320</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Total]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">45</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_New]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">12k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Products_Sales]</span>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("IndexProduct", "Service")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-        </div>
-    </div>
-    }
-    <!-- Ads Card -->
-   @if (User.IsInRole("Admin"))
-
-
-    {
-    <div class="srv-card c2">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">campaign</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Ads_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Ads_Title]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Ads_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">15</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Running]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">5</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Pending]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">20k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Ads_Views]</span>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "Service")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-        </div>
-    </div>
-    }
-    <!-- Look Up Card -->
-   @if (User.IsInRole("Admin"))
-
-
-    {
-    <div class="srv-card c3">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">search</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Lookup]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Lookup_Title]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Lookup_Desc]</div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Lookup_LastQuery]</span>
-                    <span>---</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:0%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("IndexCompanyType", "Service")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-        </div>
-    </div>
-    }
-    <!-- الخدمات -->
-   @if (User.IsInRole("Admin"))
-    {
-    <div class="srv-card c7">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon">
-                    <span class="material-symbols-outlined">miscellaneous_services</span>
-                </div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">120</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">14</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">25k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>66%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:66%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("IndexService", "Service")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up">
-                <span class="material-symbols-outlined">trending_up</span>
-                +10%
-            </span>
-        </div>
-    </div>
-    }
-
-    @if (User.IsInRole("Vendor"))
-
-
-    {
-
-
-    <div class="srv-card c7">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon">
-                    <span class="material-symbols-outlined">miscellaneous_services</span>
-                </div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">120</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">14</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">25k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>66%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:66%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("MyServices", "Service")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up">
-                <span class="material-symbols-outlined">trending_up</span>
-                +10%
-            </span>
-        </div>
-    </div>
-    }
-
-    <!-- بيع الأثاث -->
-   @*  <div class="srv-card c1">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">chair</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureSale_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">248</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">18</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">32k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>78%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:78%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "FurnitureSales")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+12%</span>
         </div>
     </div>
 
-    <!-- ترحيل الأثاث -->
-    <div class="srv-card c2">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">local_shipping</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureMoving_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">185</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">9</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">18k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>62%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:62%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "FurnitureMoving")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+8%</span>
-        </div>
-    </div>
+    <div class="dh-body">
 
-    <!-- بيع المطابخ -->
-    <div class="srv-card c3">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">countertops</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="dh-section">
+                <span class="dh-section-text">@(isArabic ? "إدارة النظام" : "System Management")</span>
+                <div class="dh-section-line"></div>
+                <span class="dh-section-pill">Admin</span>
             </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenSale_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">312</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">22</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">58k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>85%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:85%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "KitchenSales")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+21%</span>
-        </div>
-    </div>
 
-    <!-- تركيب المطابخ -->
-    <div class="srv-card c4">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">construction</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_KitchenInstall_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">197</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">11</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">41k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>71%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:71%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "KitchenInstall")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+15%</span>
-        </div>
-    </div>
+            <div class="dh-grid">
 
-    <!-- تركيب الأثاث -->
-    <div class="srv-card c5">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">handyman</span></div>
-                <span class="srv-badge new">@_sharedResources[SharedResourcesKeys.Srv_New]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_FurnitureInstall_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">89</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">7</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">12k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>48%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:48%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "FurnitureInstall")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend down"><span class="material-symbols-outlined">trending_down</span>-3%</span>
-        </div>
-    </div>
+                <a href="@Url.Action("Index", "VendorApplications")" class="dh-card t-vendor">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">business</span></div>
+                        <span class="dh-badge @(ViewBag.PendingCount > 0 ? "warning" : "active")">
+                            @ViewBag.PendingCount @_sharedResources[SharedResourcesKeys.Status_Pending]
+                        </span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.PendingVendors_Description]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@ViewBag.PendingCount</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Status_Pending]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@ViewBag.ApprovedCount</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Status_Approved]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@ViewBag.RejectedCount</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Status_Rejected]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                        <span class="dh-trend @(ViewBag.PendingCount > 5 ? "up" : "down")">
+                            <span class="material-symbols-outlined">@(ViewBag.PendingCount > 5 ? "trending_up" : "trending_down")</span>
+                            @ViewBag.PendingCount
+                        </span>
+                    </div>
+                </a>
 
-    <!-- صيانة وإصلاح -->
-    <div class="srv-card c6">
-        <div class="srv-card-header">
-            <div class="srv-top">
-                <div class="srv-icon"><span class="material-symbols-outlined">build</span></div>
-                <span class="srv-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
-            </div>
-        </div>
-        <div class="srv-body">
-            <div class="srv-name">@_sharedResources[SharedResourcesKeys.Srv_Maintenance]</div>
-            <div class="srv-desc">@_sharedResources[SharedResourcesKeys.Srv_Maintenance_Desc]</div>
-            <div class="srv-stats">
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">143</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">5</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</span>
-                </div>
-                <div class="srv-stat-item">
-                    <span class="srv-stat-val">9k</span>
-                    <span class="srv-stat-label">@_sharedResources[SharedResourcesKeys.Srv_Sales]</span>
-                </div>
-            </div>
-            <div class="srv-progress-wrap">
-                <div class="srv-progress-label">
-                    <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
-                    <span>55%</span>
-                </div>
-                <div class="srv-progress-bar">
-                    <div class="srv-progress-fill" style="width:55%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="srv-footer">
-            <a href="@Url.Action("Index", "Maintenance")" class="srv-link">
-                @_sharedResources[SharedResourcesKeys.View_Details]
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <span class="srv-trend up"><span class="material-symbols-outlined">trending_up</span>+6%</span>
-        </div>
-    </div> *@
+                <a href="@Url.Action("Index", "Users")" class="dh-card t-users">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">group</span></div>
+                        <span class="dh-badge active">@(isArabic ? "نشط" : "Active")</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@(isArabic ? "إدارة المستخدمين" : "Users Management")</div>
+                        <div class="dh-desc">@(isArabic ? "عرض وإدارة جميع المستخدمين — عملاء وشركات ومديرين." : "View and manage all registered users — customers, vendors, and admins.")</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@(ViewBag.TotalUsers ?? 0)</div>
+                                <div class="dh-metric-lbl">@(isArabic ? "الكل" : "Total")</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@(ViewBag.TotalVendors ?? 0)</div>
+                                <div class="dh-metric-lbl">@(isArabic ? "شركات" : "Vendors")</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">@(ViewBag.TotalCustomers ?? 0)</div>
+                                <div class="dh-metric-lbl">@(isArabic ? "عملاء" : "Customers")</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                        <span class="dh-trend up">
+                            <span class="material-symbols-outlined">trending_up</span>
+                            @(isArabic ? "نشط" : "Active")
+                        </span>
+                    </div>
+                </a>
 
-</div><!-- /services-grid -->
+                <a href="@Url.Action("Index", "Service")" class="dh-card t-c2">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">campaign</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Ads_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Ads_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Ads_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">15</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Ads_Running]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">5</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Ads_Pending]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">20k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Ads_Views]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("IndexCompanyType", "Service")" class="dh-card t-c3">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">search</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Lookup]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Lookup_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Lookup_Desc]</div>
+                        <div class="dh-progress">
+                            <div class="dh-progress-top">
+                                <span>@_sharedResources[SharedResourcesKeys.Lookup_LastQuery]</span>
+                                <span class="dh-progress-pct">—</span>
+                            </div>
+                            <div class="dh-bar-bg"><div class="dh-bar-fill" style="width:0%"></div></div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("IndexService", "Service")" class="dh-card t-c7">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined"></span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">120</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">14</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">25k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                            </div>
+                        </div>
+                        <div class="dh-progress">
+                            <div class="dh-progress-top">
+                                <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                                <span class="dh-progress-pct">66%</span>
+                            </div>
+                            <div class="dh-bar-bg"><div class="dh-bar-fill" style="width:66%"></div></div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                        <span class="dh-trend up"><span class="material-symbols-outlined">trending_up</span>+10%</span>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("IndexProduct", "Service")" class="dh-card t-c1">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Products_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Products_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">320</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">45</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_New]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">12k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Sales]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        
+            <!-- /admin grid -->
+        }
+
+        @if (User.IsInRole("Vendor"))
+        {
+            <div class="dh-section" style="@(User.IsInRole("Admin") ? "margin-top:36px" : "margin-top:0")">
+                <span class="dh-section-text">@(isArabic ? "لوحة المورد" : "Vendor Panel")</span>
+                <div class="dh-section-line"></div>
+                <span class="dh-section-pill">Vendor</span>
+            </div>
+
+            <div class="dh-grid">
+
+                <a href="@Url.Action("MyServices", "Service")" class="dh-card t-c7">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">miscellaneous_services</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Srv_Services]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Srv_Services_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">120</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_TotalOrders]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">14</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_ActiveOrders]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">25k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Srv_Sales]</div>
+                            </div>
+                        </div>
+                        <div class="dh-progress">
+                            <div class="dh-progress-top">
+                                <span>@_sharedResources[SharedResourcesKeys.Srv_MonthProgress]</span>
+                                <span class="dh-progress-pct">66%</span>
+                            </div>
+                            <div class="dh-bar-bg"><div class="dh-bar-fill" style="width:66%"></div></div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                        <span class="dh-trend up"><span class="material-symbols-outlined">trending_up</span>+10%</span>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("IndexProduct", "Service")" class="dh-card t-c1">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.Products_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.Products_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">320</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">45</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_New]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">12k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Sales]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        }
+
+    </div></div>
+
+@section Scripts {
+    <script>
+        // ── Live clock ──
+        function dhUpdateClock() {
+          var now  = new Date();
+          var h    = String(now.getHours()).padStart(2,'0');
+          var m    = String(now.getMinutes()).padStart(2,'0');
+          var s    = String(now.getSeconds()).padStart(2,'0');
+          var clk  = document.getElementById('dhClock');
+          var dat  = document.getElementById('dhDate');
+          if (clk) clk.textContent = h + ':' + m + ':' + s;
+          if (dat) dat.textContent = now.toLocaleDateString('@(isArabic ? "ar-JO" : "en-GB")', {day:'numeric', month:'short'});
+        }
+        dhUpdateClock();
+        setInterval(dhUpdateClock, 1000);
+    </script>
+}
