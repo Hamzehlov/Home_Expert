@@ -1,0 +1,531 @@
+﻿@using Home_Expert.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> _sharedResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isArabic = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ar");
+    var dir = isArabic ? "rtl" : "ltr";
+}
+
+
+<div class="settings-page" dir="@dir">
+
+  <div class="sp-header">
+    <div class="sp-breadcrumb">
+      <a href="@Url.Action("Index","Home")">
+        <span class="material-symbols-outlined" style="font-size:.9rem;vertical-align:middle;">home</span>
+        @(isArabic?"لوحة التحكم":"Dashboard")
+      </a>
+      <span class="material-symbols-outlined sep">@(isArabic?"chevron_left":"chevron_right")</span>
+      <span>@(isArabic?"الإعدادات":"Settings")</span>
+    </div>
+    <h1 class="sp-title">@(isArabic?"إعدادات الحساب":"Account Settings")</h1>
+    <p class="sp-subtitle">@(isArabic?"عرض معلومات حسابك وتعديل كلمة المرور ورقم الهاتف":"View your account information and update your password or phone number")</p>
+  </div>
+
+  <div class="sp-hero">
+    <div class="sp-hero-logo" id="spHeroLogo">
+      <span class="init" id="spHeroInit">—</span>
+    </div>
+    <div class="sp-hero-info">
+      <div class="sp-hero-name"  id="spHeroName">—</div>
+      <div class="sp-hero-sub"   id="spHeroSub">—</div>
+      <div class="sp-hero-badges">
+        <span class="sp-hero-badge">
+          <span class="material-symbols-outlined">verified_user</span>
+          <span id="spHeroRole">—</span>
+        </span>
+        <span class="sp-hero-badge">
+          <span class="material-symbols-outlined">check_circle</span>
+          @(isArabic?"نشط":"Active")
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sp-section">
+    <span class="sp-section-text">@(isArabic?"المعلومات الشخصية":"Personal Information")</span>
+    <div class="sp-section-line"></div>
+  </div>
+
+  <div class="sp-card">
+    <div class="sp-info-grid">
+      <div class="sp-info-item">
+        <div class="sp-info-label"><span class="material-symbols-outlined">person</span>@(isArabic?"الاسم بالعربي":"Name (Arabic)")</div>
+        <div class="sp-info-value" id="spNameAr">—</div>
+      </div>
+      <div class="sp-info-item">
+        <div class="sp-info-label"><span class="material-symbols-outlined">person</span>@(isArabic?"الاسم بالإنجليزي":"Name (English)")</div>
+        <div class="sp-info-value" id="spNameEn">—</div>
+      </div>
+      <div class="sp-info-item">
+        <div class="sp-info-label"><span class="material-symbols-outlined">mail</span>@(isArabic?"البريد الإلكتروني":"Email")</div>
+        <div class="sp-info-value" id="spEmail">—</div>
+      </div>
+      <div class="sp-info-item">
+        <div class="sp-info-label"><span class="material-symbols-outlined">badge</span>@(isArabic?"الدور في النظام":"System Role")</div>
+        <div class="sp-info-value" id="spRole">—</div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div id="vendorSection" style="display:none">
+
+    <div class="sp-section">
+      <span class="sp-section-text">@(isArabic?"معلومات الشركة":"Company Information")</span>
+      <div class="sp-section-line"></div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-company-header">
+        <div class="sp-company-logo" id="spCompanyLogo">
+          <span class="material-symbols-outlined">storefront</span>
+        </div>
+        <div>
+          <div class="sp-company-name-ar" id="spCompanyNameAr">—</div>
+          <div class="sp-company-name-en" id="spCompanyNameEn">—</div>
+        </div>
+      </div>
+
+      <div class="sp-info-grid">
+        <div class="sp-info-item">
+          <div class="sp-info-label"><span class="material-symbols-outlined">category</span>@(isArabic?"نوع الخدمة":"Service Type")</div>
+          <div class="sp-info-value" id="spServiceType">—</div>
+        </div>
+        <div class="sp-info-item">
+          <div class="sp-info-label"><span class="material-symbols-outlined">work_history</span>@(isArabic?"سنوات الخبرة":"Years of Experience")</div>
+          <div class="sp-info-value" id="spYearsExp">—</div>
+        </div>
+        <div class="sp-info-item">
+          <div class="sp-info-label"><span class="material-symbols-outlined">location_on</span>@(isArabic?"عنوان المعرض (عربي)":"Showroom Address (AR)")</div>
+          <div class="sp-info-value" id="spAddressAr">—</div>
+        </div>
+        <div class="sp-info-item">
+          <div class="sp-info-label"><span class="material-symbols-outlined">location_on</span>@(isArabic?"عنوان المعرض (إنجليزي)":"Showroom Address (EN)")</div>
+          <div class="sp-info-value" id="spAddressEn">—</div>
+        </div>
+        <div class="sp-info-item sp-full">
+          <div class="sp-info-label"><span class="material-symbols-outlined">description</span>@(isArabic?"وصف الشركة (عربي)":"Company Description (AR)")</div>
+          <div class="sp-info-value" id="spDescAr">—</div>
+        </div>
+        <div class="sp-info-item sp-full">
+          <div class="sp-info-label"><span class="material-symbols-outlined">description</span>@(isArabic?"وصف الشركة (إنجليزي)":"Company Description (EN)")</div>
+          <div class="sp-info-value" id="spDescEn">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-section" style="margin-top:20px">
+      <span class="sp-section-text" id="spFilesLabel">الصور والملفات</span>
+      <div class="sp-section-line"></div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-files-grid">
+
+        <div class="sp-file-item">
+          <div class="sp-file-label"><span class="material-symbols-outlined">badge</span><span id="lbLogo">شعار الشركة</span></div>
+          <div class="sp-file-preview" id="fileLogoPreview">
+            <div class="sp-file-loading" id="fileLogoLoader" style="display:none"><span class="material-symbols-outlined">autorenew</span></div>
+            <span class="sp-file-placeholder material-symbols-outlined">image</span>
+          </div>
+        </div>
+
+        <div class="sp-file-item">
+          <div class="sp-file-label"><span class="material-symbols-outlined">storefront</span><span id="lbShowroom">صورة المعرض</span></div>
+          <div class="sp-file-preview" id="fileShowroomPreview">
+            <div class="sp-file-loading" id="fileShowroomLoader" style="display:none"><span class="material-symbols-outlined">autorenew</span></div>
+            <span class="sp-file-placeholder material-symbols-outlined">image</span>
+          </div>
+        </div>
+
+        <div class="sp-file-item">
+          <div class="sp-file-label"><span class="material-symbols-outlined">article</span><span id="lbCommercial">السجل التجاري</span></div>
+          <div class="sp-file-preview sp-file-doc" id="fileCommercialPreview">
+            <div class="sp-file-loading" id="fileCommercialLoader" style="display:none"><span class="material-symbols-outlined">autorenew</span></div>
+            <span class="sp-file-placeholder material-symbols-outlined">description</span>
+          </div>
+          <a class="sp-file-dl" id="fileCommercialDl" href="/api/Account/VendorImage/commercial" target="_blank" style="display:none">
+            <span class="material-symbols-outlined">download</span><span id="lbDownload">تحميل</span>
+          </a>
+        </div>
+
+        <div class="sp-file-item">
+          <div class="sp-file-label"><span class="material-symbols-outlined">badge</span><span id="lbLicense">رخصة المهن</span></div>
+          <div class="sp-file-preview sp-file-doc" id="fileLicensePreview">
+            <div class="sp-file-loading" id="fileLicenseLoader" style="display:none"><span class="material-symbols-outlined">autorenew</span></div>
+            <span class="sp-file-placeholder material-symbols-outlined">description</span>
+          </div>
+          <a class="sp-file-dl" id="fileLicenseDl" href="/api/Account/VendorImage/license" target="_blank" style="display:none">
+            <span class="material-symbols-outlined">download</span><span>تحميل</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="sp-section">
+    <span class="sp-section-text">@(isArabic?"المعلومات القابلة للتعديل":"Editable Information")</span>
+    <div class="sp-section-line"></div>
+  </div>
+
+  <div class="sp-card">
+    <div class="sp-form">
+      <div class="sp-field">
+        <div class="sp-field-label">
+          <span class="material-symbols-outlined">call</span>
+          @(isArabic?"رقم الهاتف":"Phone Number")
+        </div>
+        <div class="sp-input-wrap" id="phoneWrap">
+          <div class="sp-input-icon"><span class="material-symbols-outlined">call</span></div>
+          <input type="tel" id="spPhone" class="sp-input"
+                 placeholder="07xxxxxxxx" maxlength="10" inputmode="numeric" dir="ltr" />
+        </div>
+        <div class="sp-field-hint">
+          <span class="material-symbols-outlined">info</span>
+          @(isArabic?"أدخل 10 أرقام":"Enter 10 digits")
+        </div>
+        <div class="sp-field-error" id="phoneError" style="display:none">
+          <span class="material-symbols-outlined">error</span>
+          <span id="phoneErrorMsg"></span>
+        </div>
+      </div>
+      <button class="sp-save-btn" id="savePhoneBtn" onclick="savePhone()">
+        <span class="material-symbols-outlined">save</span>
+        @(isArabic?"حفظ رقم الهاتف":"Save Phone Number")
+      </button>
+    </div>
+  </div>
+
+
+  <div class="sp-section">
+    <span class="sp-section-text">@(isArabic?"تغيير كلمة المرور":"Change Password")</span>
+    <div class="sp-section-line"></div>
+  </div>
+
+  <div class="sp-card">
+    <div class="sp-form">
+
+      <div class="sp-field">
+        <div class="sp-field-label">
+          <span class="material-symbols-outlined">lock</span>
+          @(isArabic?"كلمة المرور الحالية":"Current Password")
+        </div>
+        <div class="sp-input-wrap" id="curPwWrap">
+          <div class="sp-input-icon"><span class="material-symbols-outlined">lock</span></div>
+          <input type="password" id="spCurrentPw" class="sp-input" placeholder="••••••••" />
+          <button type="button" class="sp-pw-toggle" onclick="spTogglePw('spCurrentPw','spCurPwIcon')">
+            <span class="material-symbols-outlined" id="spCurPwIcon">visibility</span>
+          </button>
+        </div>
+        <div class="sp-field-error" id="curPwError" style="display:none">
+          <span class="material-symbols-outlined">error</span>
+          <span id="curPwErrorMsg"></span>
+        </div>
+      </div>
+
+      <div class="sp-field">
+        <div class="sp-field-label">
+          <span class="material-symbols-outlined">lock_reset</span>
+          @(isArabic?"كلمة المرور الجديدة":"New Password")
+        </div>
+        <div class="sp-input-wrap" id="newPwWrap">
+          <div class="sp-input-icon"><span class="material-symbols-outlined">lock_reset</span></div>
+          <input type="password" id="spNewPw" class="sp-input" placeholder="••••••••" oninput="spCheckStrength()" />
+          <button type="button" class="sp-pw-toggle" onclick="spTogglePw('spNewPw','spNewPwIcon')">
+            <span class="material-symbols-outlined" id="spNewPwIcon">visibility</span>
+          </button>
+        </div>
+        <div class="sp-strength" id="spStrength">
+          <div class="sp-strength-bar"><div class="sp-strength-fill"></div></div>
+          <span class="sp-strength-text" id="spStrengthText"></span>
+        </div>
+        <div class="sp-field-hint">
+          <span class="material-symbols-outlined">info</span>
+          @(isArabic?"8 أحرف على الأقل مع حرف كبير ورقم":"Min 8 chars with uppercase and number")
+        </div>
+        <div class="sp-field-error" id="newPwError" style="display:none">
+          <span class="material-symbols-outlined">error</span>
+          <span id="newPwErrorMsg"></span>
+        </div>
+      </div>
+
+      <div class="sp-field">
+        <div class="sp-field-label">
+          <span class="material-symbols-outlined">lock_check</span>
+          @(isArabic?"تأكيد كلمة المرور":"Confirm New Password")
+        </div>
+        <div class="sp-input-wrap" id="confirmPwWrap">
+          <div class="sp-input-icon"><span class="material-symbols-outlined">lock_check</span></div>
+          <input type="password" id="spConfirmPw" class="sp-input" placeholder="••••••••" />
+          <button type="button" class="sp-pw-toggle" onclick="spTogglePw('spConfirmPw','spConfirmPwIcon')">
+            <span class="material-symbols-outlined" id="spConfirmPwIcon">visibility</span>
+          </button>
+        </div>
+        <div class="sp-field-error" id="confirmPwError" style="display:none">
+          <span class="material-symbols-outlined">error</span>
+          <span id="confirmPwErrorMsg"></span>
+        </div>
+      </div>
+
+      <button class="sp-save-btn" id="savePwBtn" onclick="savePassword()">
+        <span class="material-symbols-outlined">lock_reset</span>
+        @(isArabic?"تغيير كلمة المرور":"Change Password")
+      </button>
+
+    </div>
+  </div>
+
+</div><div class="sp-toasts" id="spToasts"></div>
+
+@section Scripts {
+<script>
+var isArabic = @(isArabic ? "true" : "false");
+
+/* ═══════════════════════════════════════
+   LOAD PROFILE
+═══════════════════════════════════════ */
+
+/* ═══════════════════════════════════════
+   LAZY LOAD VENDOR FILES
+═══════════════════════════════════════ */
+function loadVendorFiles(v) {
+    if (!isArabic) {
+        var lbls = {
+            spFilesLabel:'Photos & Documents',
+            lbLogo:'Company Logo', lbShowroom:'Showroom Photo',
+            lbCommercial:'Commercial Registration', lbLicense:'Work License'
+        };
+        Object.keys(lbls).forEach(function(id){
+            var e = document.getElementById(id);
+            if (e) e.textContent = lbls[id];
+        });
+    }
+
+    if (v.hasLogo)          lazyLoadImage('logo',       'fileLogoPreview');
+    else                    showFileMissing('fileLogoPreview');
+
+    if (v.hasShowroomImage) lazyLoadImage('showroom',   'fileShowroomPreview');
+    else                    showFileMissing('fileShowroomPreview');
+
+    if (v.hasCommercialReg) lazyLoadDoc('commercial', 'fileCommercialPreview', 'fileCommercialDl');
+    else                    showFileMissing('fileCommercialPreview');
+
+    if (v.hasWorkLicense)   lazyLoadDoc('license',    'fileLicensePreview',    'fileLicenseDl');
+    else                    showFileMissing('fileLicensePreview');
+}
+
+function lazyLoadImage(type, previewId) {
+    var preview = document.getElementById(previewId);
+    if (!preview) return;
+    preview.innerHTML = '<div class="sp-file-loading" style="display:flex"><span class="material-symbols-outlined">autorenew</span></div>';
+    var img = new Image();
+    img.onload = function() {
+        preview.innerHTML = '';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:10px;';
+        preview.appendChild(img);
+    };
+    img.onerror = function() {
+        preview.innerHTML = '<span class="sp-file-placeholder material-symbols-outlined">broken_image</span>';
+    };
+    img.src = '/api/Account/VendorImage/' + type + '?t=' + Date.now();
+}
+
+function lazyLoadDoc(type, previewId, dlId) {
+    var preview = document.getElementById(previewId);
+    var dlBtn   = document.getElementById(dlId);
+    if (!preview) return;
+    preview.innerHTML = '<div class="sp-file-loading" style="display:flex"><span class="material-symbols-outlined">autorenew</span></div>';
+    var img = new Image();
+    img.onload = function() {
+        preview.innerHTML = '';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:10px;';
+        preview.appendChild(img);
+        if (dlBtn) dlBtn.style.display = 'inline-flex';
+    };
+    img.onerror = function() {
+        preview.innerHTML =
+            '<div style="display:flex;flex-direction:column;align-items:center;gap:8px;">' +
+            '<span class="material-symbols-outlined" style="font-size:2.8rem;color:var(--primary)">picture_as_pdf</span>' +
+            '<span style="font-size:.72rem;font-weight:700;color:var(--primary)">PDF</span>' +
+            '</div>';
+        if (dlBtn) dlBtn.style.display = 'inline-flex';
+    };
+    img.src = '/api/Account/VendorImage/' + type + '?t=' + Date.now();
+}
+
+function showFileMissing(previewId) {
+    var preview = document.getElementById(previewId);
+    if (!preview) return;
+    preview.innerHTML =
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;">' +
+        '<span class="material-symbols-outlined" style="font-size:2rem;color:#cbd5e1">upload_file</span>' +
+        '<span style="font-size:.7rem;color:var(--muted)">' + (isArabic ? 'لم يُرفع' : 'Not uploaded') + '</span>' +
+        '</div>';
+}
+async function loadProfile() {
+    try {
+        const res  = await fetch('/api/Account/Profile');
+        if (!res.ok) return;
+        const d    = await res.json();
+
+        var nameAr   = ((d.firstNameAr||'') + ' ' + (d.lastName||'')).trim();
+        var nameEn   = ((d.firstNameEn||'') + ' ' + (d.lastName||'')).trim();
+        var dispName = isArabic ? nameAr : nameEn;
+        var role     = d.role || (d.roles&&d.roles[0]) || '—';
+        var init     = dispName.length > 0 ? dispName[0].toUpperCase() : '?';
+
+        // Hero
+        document.getElementById('spHeroInit').textContent  = init;
+        document.getElementById('spHeroName').textContent  = dispName || '—';
+        document.getElementById('spHeroSub').textContent   = d.email || '—';
+        document.getElementById('spHeroRole').textContent  = role;
+
+        // Personal info
+        document.getElementById('spNameAr').textContent = nameAr || '—';
+        document.getElementById('spNameEn').textContent = nameEn || '—';
+        document.getElementById('spEmail').textContent  = d.email || '—';
+        document.getElementById('spRole').textContent   = role;
+        document.getElementById('spPhone').value        = d.phone || d.phoneNumber || '';
+
+        // Vendor section
+        if (d.isVendor && d.vendor) {
+            loadVendorFiles(d.vendor);
+            var v = d.vendor;
+            document.getElementById('vendorSection').style.display = '';
+
+            // Hero: show logo if available, else company name initial
+            var logoEl = document.getElementById('spHeroLogo');
+            if (v.logoBase64) {
+                logoEl.innerHTML = '<img src="data:image/jpeg;base64,' + v.logoBase64 + '" alt="logo" />';
+            } else {
+                var compInit = (isArabic ? v.companyNameAr : v.companyNameEn) || '';
+                document.getElementById('spHeroInit').textContent = compInit.length > 0 ? compInit[0].toUpperCase() : init;
+            }
+            document.getElementById('spHeroName').textContent = isArabic ? v.companyNameAr : v.companyNameEn;
+            document.getElementById('spHeroSub').textContent  = isArabic ? v.serviceType : v.serviceType;
+
+            // Company logo in card
+            var cLogo = document.getElementById('spCompanyLogo');
+            if (v.logoBase64) {
+                cLogo.innerHTML = '<img src="data:image/jpeg;base64,' + v.logoBase64 + '" alt="logo" />';
+            }
+
+            spSet('spCompanyNameAr', v.companyNameAr);
+            spSet('spCompanyNameEn', v.companyNameEn);
+            spSet('spServiceType',   v.serviceType);
+            spSet('spYearsExp',      v.yearsExperience != null ? v.yearsExperience + ' ' + (isArabic ? 'سنة' : 'yrs') : null);
+            spSet('spAddressAr',     v.showroomAddressAr);
+            spSet('spAddressEn',     v.showroomAddressEn);
+            spSet('spDescAr',        v.descriptionAr);
+            spSet('spDescEn',        v.descriptionEn);
+        }
+
+    } catch(e) { console.error('Profile load error:', e); }
+}
+
+function spSet(id, val) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (val && val.toString().trim()) {
+        el.textContent = val;
+        el.classList.remove('sp-empty');
+    } else {
+        el.textContent = isArabic ? 'غير محدد' : 'Not set';
+        el.classList.add('sp-empty');
+    }
+}
+
+loadProfile();
+
+/* ═══════════════════════════════════════
+   SAVE PHONE
+═══════════════════════════════════════ */
+async function savePhone() {
+    var phone = document.getElementById('spPhone').value.trim();
+    spClearErr('phoneWrap','phoneError');
+    if (!phone)              return spShowErr('phoneWrap','phoneError','phoneErrorMsg', isArabic?'رقم الهاتف مطلوب':'Phone is required');
+    if (!/^\d{10}$/.test(phone)) return spShowErr('phoneWrap','phoneError','phoneErrorMsg', isArabic?'يجب أن يكون 10 أرقام':'Must be 10 digits');
+
+    var btn = document.getElementById('savePhoneBtn');
+    spLoad(btn, true);
+    try {
+        var res  = await fetch('/api/Account/UpdatePhone', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({phone}) });
+        var data = await res.json();
+        spToast(data.message || (isArabic?'تم التحديث':'Updated'), res.ok&&(data.success||data.Success) ? 'success' : 'error');
+    } catch(e) { spToast(isArabic?'خطأ في الاتصال':'Connection error','error'); }
+    finally    { spLoad(btn, false); }
+}
+
+/* ═══════════════════════════════════════
+   SAVE PASSWORD
+═══════════════════════════════════════ */
+async function savePassword() {
+    var cur  = document.getElementById('spCurrentPw').value;
+    var nw   = document.getElementById('spNewPw').value;
+    var conf = document.getElementById('spConfirmPw').value;
+    spClearErr('curPwWrap','curPwError');
+    spClearErr('newPwWrap','newPwError');
+    spClearErr('confirmPwWrap','confirmPwError');
+
+    var ok = true;
+    if (!cur)         { spShowErr('curPwWrap','curPwError','curPwErrorMsg',         isArabic?'كلمة المرور الحالية مطلوبة':'Current password required');    ok=false; }
+    if (!nw||nw.length<8){ spShowErr('newPwWrap','newPwError','newPwErrorMsg',      isArabic?'8 أحرف على الأقل':'At least 8 characters');                  ok=false; }
+    if (nw!==conf)    { spShowErr('confirmPwWrap','confirmPwError','confirmPwErrorMsg', isArabic?'كلمتا المرور غير متطابقتين':'Passwords do not match'); ok=false; }
+    if (!ok) return;
+
+    var btn = document.getElementById('savePwBtn');
+    spLoad(btn, true);
+    try {
+        var res  = await fetch('/api/Account/ChangePassword', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({currentPassword:cur,newPassword:nw,confirmPassword:conf}) });
+        var data = await res.json();
+        if (res.ok && (data.success||data.Success)) {
+            spToast(data.message||(isArabic?'تم تغيير كلمة المرور':'Password changed'), 'success');
+            ['spCurrentPw','spNewPw','spConfirmPw'].forEach(id=>document.getElementById(id).value='');
+            document.getElementById('spStrength').classList.remove('show','weak','medium','strong');
+        } else {
+            spToast(data.message||(isArabic?'حدث خطأ':'An error occurred'), 'error');
+        }
+    } catch(e) { spToast(isArabic?'خطأ في الاتصال':'Connection error','error'); }
+    finally    { spLoad(btn, false); }
+}
+
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
+function spTogglePw(inId, icId) {
+    var i=document.getElementById(inId), ic=document.getElementById(icId);
+    i.type = i.type==='password' ? 'text' : 'password';
+    ic.textContent = i.type==='password' ? 'visibility' : 'visibility_off';
+}
+function spCheckStrength() {
+    var pw=document.getElementById('spNewPw').value, el=document.getElementById('spStrength');
+    if(!pw){ el.classList.remove('show','weak','medium','strong'); return; }
+    var s=0;
+    if(pw.length>=8) s++; if(/[a-z]/.test(pw)) s++; if(/[A-Z]/.test(pw)) s++;
+    if(/\d/.test(pw)) s++; if(/[^a-zA-Z0-9]/.test(pw)) s++;
+    el.classList.remove('weak','medium','strong'); el.classList.add('show');
+    var lv = s<=2?'weak':s<=4?'medium':'strong';
+    el.classList.add(lv);
+    document.getElementById('spStrengthText').textContent = lv==='weak'?(isArabic?'ضعيفة':'Weak'):lv==='medium'?(isArabic?'متوسطة':'Medium'):(isArabic?'قوية':'Strong');
+}
+function spShowErr(w,e,m,msg) { document.getElementById(w).classList.add('has-error'); document.getElementById(e).style.display='flex'; document.getElementById(m).textContent=msg; }
+function spClearErr(w,e)      { document.getElementById(w).classList.remove('has-error'); document.getElementById(e).style.display='none'; }
+function spLoad(btn,on) {
+    btn.disabled=on;
+    if(on){ btn._t=btn.innerHTML; btn.innerHTML='<span class="material-symbols-outlined" style="animation:spSpin 1s linear infinite">autorenew</span> '+(isArabic?'جاري الحفظ...':'Saving...'); }
+    else btn.innerHTML=btn._t||btn.innerHTML;
+}
+document.head.insertAdjacentHTML('beforeend','<style>@@keyframes spSpin{to{transform:rotate(360deg)}}</style>');
+function spToast(msg,type) {
+    var el=document.createElement('div'); el.className='sp-toast '+type;
+    el.innerHTML='<span class="material-symbols-outlined">'+(type==='success'?'check_circle':'error')+'</span><span>'+msg+'</span>';
+    document.getElementById('spToasts').appendChild(el);
+    setTimeout(function(){ el.style.transition='opacity .4s'; el.style.opacity='0'; setTimeout(function(){el.remove();},420); },3800);
+}
+document.getElementById('spPhone').addEventListener('input',function(e){ e.target.value=e.target.value.replace(/[^0-9]/g,'').substring(0,10); });
+</script>
+}

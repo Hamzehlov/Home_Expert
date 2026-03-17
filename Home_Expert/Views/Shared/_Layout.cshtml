@@ -104,7 +104,7 @@
             <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_System]</p>
             <ul>
                 <li>
-                    <a href="@Url.Action("Index", "Settings")"
+                    <a href="@Url.Action("Settings", "Settings")"
                        class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Settings" ? "active" : "")">
                         <span class="material-symbols-outlined">tune</span>
                         <span>@_sharedResources[SharedResourcesKeys.Settings]</span>
