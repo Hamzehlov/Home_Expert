@@ -1,4 +1,4 @@
-﻿@using Home_Expert.Controllers
+﻿@using Home_Expert.ViewModel
 @model ServiceOfferDetailsVm
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -416,7 +416,6 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
 <script>
 var isArabic = @(isArabic ? "true" : "false");
 var OFFER_ID = @Model.OfferId;
-
 async function submitOffer() {
     var price      = parseFloat(document.getElementById('sodPrice').value);
     var inspection = document.getElementById('sodInspection').checked;
