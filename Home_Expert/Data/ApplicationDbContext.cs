@@ -7,10 +7,10 @@ namespace Home_Expert.Models;
 
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public ApplicationDbContext()
-    {
-    }
-
+    public ApplicationDbContext() 
+    { 
+    }  
+     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
@@ -176,6 +176,10 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__KitchenMe__Input__17F790F9");
 
+            entity.HasOne(d => d.ServiceRequest).WithMany(p => p.KitchenMeasurements)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KitchenMeasurement_ServiceRequest");
+
             entity.HasOne(d => d.Unit).WithMany(p => p.KitchenMeasurementUnits)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__KitchenMe__UnitI__18EBB532");
@@ -218,6 +222,10 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(d => d.Customer).WithMany(p => p.MovingRequests)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MovingRequests_AspNetUsers");
+
+            entity.HasOne(d => d.ServiceRequest).WithMany(p => p.MovingRequests)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MovingRequest_ServiceRequest");
 
             entity.HasOne(d => d.Status).WithMany(p => p.MovingRequests)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -270,6 +278,8 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.HasOne(d => d.Customer).WithMany(p => p.Reviews)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Reviews_AspNetUsers");
+
+            entity.HasOne(d => d.ServiceRequest).WithMany(p => p.Reviews).HasConstraintName("FK_Reviews_ServiceRequests");
 
             entity.HasOne(d => d.Vendor).WithMany(p => p.Reviews)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -340,7 +350,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         {
             entity.HasKey(e => e.Id).HasName("PK__Subscrip__3214EC07AD0B687E");
         });
-
+         
         modelBuilder.Entity<SubscriptionFeature>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Subscrip__3214EC07D62F0262");
