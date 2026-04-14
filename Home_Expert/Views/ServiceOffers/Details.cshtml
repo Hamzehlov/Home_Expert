@@ -1,0 +1,482 @@
+﻿@using Home_Expert.Controllers
+@model ServiceOfferDetailsVm
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isArabic = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ar");
+    var dir      = isArabic ? "rtl" : "ltr";
+    var custName = (isArabic ? Model.CustomerNameAr : Model.CustomerNameEn).Trim();
+    if (string.IsNullOrWhiteSpace(custName)) custName = isArabic ? "عميل" : "Customer";
+    var svcName  = isArabic ? Model.ServiceNameAr : Model.ServiceNameEn;
+    var svcType  = isArabic ? Model.ServiceTypeAr : Model.ServiceTypeEn;
+    var svcCat   = isArabic ? Model.ServiceCatAr  : Model.ServiceCatEn;
+    var offerSt  = isArabic ? Model.OfferStatusAr  : Model.OfferStatusEn;
+    var reqSt    = isArabic ? Model.RequestStatusAr : Model.RequestStatusEn;
+}
+
+@section Styles {
+<style>
+/* ═══════════════════════════ sod-page ═══════════════════════════ */
+.sod-page { padding:24px 24px 56px; max-width:1100px; margin:0 auto; }
+
+.sod-breadcrumb { display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--muted);margin-bottom:8px;flex-wrap:wrap; }
+.sod-breadcrumb a { color:var(--muted);text-decoration:none;font-weight:600;transition:color .18s; }
+.sod-breadcrumb a:hover { color:var(--primary); }
+.sod-breadcrumb .sep { font-size:14px;opacity:.4; }
+
+/* ── Hero ── */
+.sod-hero {
+  background:linear-gradient(135deg,var(--primary) 0%,#0d5562 100%);
+  border-radius:20px;padding:26px 32px;
+  display:flex;align-items:center;gap:20px;
+  margin-bottom:24px;position:relative;overflow:hidden;
+  box-shadow:0 8px 32px rgba(10,61,68,.2);
+  flex-wrap:wrap;
+}
+.sod-hero::before { content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(197,160,89,.1);filter:blur(50px);top:-60px; }
+html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::before { right:-40px; }
+.sod-hero-icon { width:68px;height:68px;border-radius:16px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1; }
+.sod-hero-icon .material-symbols-outlined { font-size:30px;color:#fff; }
+.sod-hero-text { flex:1;min-width:0;position:relative;z-index:1; }
+.sod-hero-title { font-size:1.3rem;font-weight:900;color:#fff;margin:0 0 4px;line-height:1.2; }
+.sod-hero-sub   { font-size:.82rem;color:rgba(255,255,255,.7);margin:0 0 10px; }
+.sod-hero-badges { display:flex;gap:8px;flex-wrap:wrap; }
+.sod-hbadge { display:inline-flex;align-items:center;gap:5px;font-size:.65rem;font-weight:800;padding:4px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px); }
+.sod-hbadge .material-symbols-outlined { font-size:12px; }
+.sod-hero-actions { display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1; }
+
+.sod-back-btn { display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:11px;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.3);font-size:.84rem;font-weight:700;text-decoration:none;transition:all .2s;backdrop-filter:blur(8px);white-space:nowrap; }
+.sod-back-btn:hover { background:rgba(255,255,255,.3);color:#fff; }
+.sod-back-btn .material-symbols-outlined { font-size:16px; }
+
+/* ── Grid layout ── */
+.sod-grid { display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start; }
+.sod-col  { display:flex;flex-direction:column;gap:18px; }
+
+/* ── Card ── */
+.sod-card { background:#fff;border-radius:18px;border:1.5px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden; }
+.sod-card-head { display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1.5px solid var(--border);background:#fafbfc; }
+.sod-card-icon { width:38px;height:38px;border-radius:10px;background:rgba(10,61,68,.08);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.sod-card-icon .material-symbols-outlined { font-size:19px; }
+.sod-card-title { font-size:.95rem;font-weight:800;color:var(--primary);margin:0; }
+.sod-card-body { padding:20px; }
+
+/* ── Info grid ── */
+.sod-info { display:grid;grid-template-columns:repeat(2,1fr);gap:16px; }
+.sod-info-full { grid-column:1/-1; }
+.sod-lbl { font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:5px;margin-bottom:5px; }
+.sod-lbl .material-symbols-outlined { font-size:12px; }
+.sod-val { font-size:.9rem;font-weight:700;color:var(--text);line-height:1.45;word-break:break-word; }
+.sod-val.empty { color:var(--muted);font-style:italic;font-weight:400;font-size:.82rem; }
+
+/* ── Status badge ── */
+.sod-badge { display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:800;padding:6px 14px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em; }
+.sod-badge.pending   { background:rgba(245,158,11,.1); color:#b45309; border:1.5px solid rgba(245,158,11,.22); }
+.sod-badge.submitted { background:rgba(59,130,246,.1); color:#2563eb; border:1.5px solid rgba(59,130,246,.22); }
+.sod-badge.accepted  { background:rgba(16,185,129,.1); color:#059669; border:1.5px solid rgba(16,185,129,.22); }
+.sod-badge.rejected  { background:rgba(239,68,68,.1);  color:#dc2626; border:1.5px solid rgba(239,68,68,.2);  }
+.sod-badge .material-symbols-outlined { font-size:14px; }
+
+/* ── Customer avatar ── */
+.sod-cust-av { width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0A3D44,#1a8a96);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:900;flex-shrink:0; }
+
+/* ── Inspection ── */
+.sod-insp { display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:999px; }
+.sod-insp.yes { background:#fef3c7;color:#92400e;border:1.5px solid #fde68a; }
+.sod-insp.no  { background:#f0fdf4;color:#15803d;border:1.5px solid #bbf7d0; }
+.sod-insp .material-symbols-outlined { font-size:16px; }
+
+/* ── Price big display ── */
+.sod-price-big { font-size:2rem;font-weight:900;color:var(--primary);line-height:1; }
+.sod-price-currency { font-size:.9rem;font-weight:600;color:var(--muted); }
+
+/* ── Map placeholder ── */
+.sod-map {
+  width:100%;height:160px;border-radius:12px;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1.5px solid #bbf7d0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--primary);margin-top:12px;
+}
+.sod-map .material-symbols-outlined { font-size:2rem;opacity:.5; }
+.sod-map-coords { font-size:.72rem;color:var(--muted);font-family:monospace; }
+
+/* ── Offer Form ── */
+.sod-form-field { margin-bottom:16px; }
+.sod-form-label { font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text);display:flex;align-items:center;gap:6px;margin-bottom:7px; }
+.sod-form-label .material-symbols-outlined { font-size:14px;color:var(--primary); }
+.sod-input-wrap { display:flex;align-items:center;background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s; }
+.sod-input-wrap:focus-within { border-color:var(--primary);box-shadow:0 0 0 3px rgba(10,61,68,.07);background:#fff; }
+.sod-input-wrap.has-error { border-color:#ef4444; }
+.sod-inp-icon { width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0; }
+.sod-inp-icon .material-symbols-outlined { font-size:17px; }
+.sod-input { flex:1;border:none;background:transparent;outline:none;font-size:.9rem;font-family:inherit;color:var(--text);height:44px;padding-inline-end:14px; }
+html[dir="ltr"] .sod-input { padding-inline-start:0; }
+.sod-input::placeholder { color:#b0b8c4; }
+.sod-input:disabled { color:var(--muted);cursor:not-allowed; }
+
+.sod-toggle-row { display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#f8fafc;border-radius:12px;border:1.5px solid var(--border); }
+.sod-toggle-lbl { font-size:.86rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px; }
+.sod-toggle-lbl .material-symbols-outlined { font-size:17px;color:var(--primary); }
+.sod-toggle-sub { font-size:.7rem;color:var(--muted);margin-top:2px; }
+.sod-switch { position:relative;width:44px;height:24px;flex-shrink:0; }
+.sod-switch input { opacity:0;width:0;height:0; }
+.sod-slider { position:absolute;inset:0;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:background .25s; }
+.sod-slider::before { content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2); }
+html[dir="rtl"] .sod-slider::before { right:3px; } html[dir="ltr"] .sod-slider::before { left:3px; }
+.sod-switch input:checked + .sod-slider { background:var(--primary); }
+html[dir="rtl"] .sod-switch input:checked + .sod-slider::before { transform:translateX(-20px); }
+html[dir="ltr"] .sod-switch input:checked + .sod-slider::before { transform:translateX(20px); }
+.sod-switch input:disabled + .sod-slider { opacity:.5;cursor:not-allowed; }
+
+.sod-err { font-size:.7rem;color:#dc2626;margin-top:5px;display:flex;align-items:center;gap:4px; }
+.sod-err .material-symbols-outlined { font-size:12px; }
+
+/* ── Locked notice ── */
+.sod-locked { display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:12px;font-size:.84rem;font-weight:600;margin-bottom:16px; }
+.sod-locked.accepted { background:rgba(16,185,129,.08);color:#065f46;border:1.5px solid rgba(16,185,129,.2); }
+.sod-locked.rejected { background:rgba(239,68,68,.07);color:#991b1b;border:1.5px solid rgba(239,68,68,.18); }
+.sod-locked .material-symbols-outlined { font-size:20px; }
+
+/* ── Submit button ── */
+.sod-submit-btn { display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#0d5562);color:#fff;font-size:.9rem;font-weight:800;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(10,61,68,.22);transition:all .25s;margin-top:4px; }
+.sod-submit-btn:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,61,68,.3); }
+.sod-submit-btn:disabled { opacity:.6;cursor:not-allowed;transform:none; }
+.sod-submit-btn .material-symbols-outlined { font-size:18px; }
+
+/* Toasts */
+.sod-toasts { position:fixed;bottom:22px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none; }
+html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:22px; }
+.sod-toast { display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:13px;font-size:.84rem;font-weight:600;color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.17);pointer-events:all;min-width:210px;max-width:330px;animation:sodToastIn .3s ease; }
+@@keyframes sodToastIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+.sod-toast.success { background:#059669; } .sod-toast.error { background:#dc2626; }
+.sod-toast .material-symbols-outlined { font-size:18px;flex-shrink:0; }
+
+@@media(max-width:900px) {
+  .sod-grid { grid-template-columns:1fr; }
+  .sod-col:last-child { order:-1; }
+}
+@@media(max-width:600px) {
+  .sod-page { padding:14px 12px 40px; }
+  .sod-hero { padding:20px 18px; gap:14px; }
+  .sod-info { grid-template-columns:1fr; }
+  .sod-info-full { grid-column:1; }
+}
+</style>
+}
+
+<div class="sod-page" dir="@dir">
+
+  <div class="sod-breadcrumb" style="margin-bottom:14px;">
+    <a href="@Url.Action("Index","Home")">
+      <span class="material-symbols-outlined" style="font-size:.9rem;vertical-align:middle;">home</span>
+      @(isArabic?"لوحة التحكم":"Dashboard")
+    </a>
+    <span class="material-symbols-outlined sep">@(isArabic?"chevron_left":"chevron_right")</span>
+    <a href="@Url.Action("Index","ServiceOffers")">@(isArabic?"طلبات الخدمات":"Service Requests")</a>
+    <span class="material-symbols-outlined sep">@(isArabic?"chevron_left":"chevron_right")</span>
+    <span>@(isArabic?"تفاصيل الطلب":"Request Details")</span>
+  </div>
+
+  <div class="sod-hero">
+    <div class="sod-hero-icon"><span class="material-symbols-outlined">handyman</span></div>
+    <div class="sod-hero-text">
+      <div class="sod-hero-title">@svcName</div>
+      <div class="sod-hero-sub">@svcType @(string.IsNullOrWhiteSpace(svcCat) ? "" : "· " + svcCat)</div>
+      <div class="sod-hero-badges">
+        <span class="sod-hbadge">
+          <span class="material-symbols-outlined">tag</span>
+          @(isArabic?"طلب رقم":"Request #")@Model.RequestId
+        </span>
+        <span class="sod-hbadge">
+          <span class="material-symbols-outlined">receipt_long</span>
+          @(isArabic?"عرض رقم":"Offer #")@Model.OfferId
+        </span>
+        @if (Model.PreferredTime.HasValue)
+        {
+          <span class="sod-hbadge">
+            <span class="material-symbols-outlined">schedule</span>
+            @Model.PreferredTime.Value.ToString("dd/MM/yyyy hh:mm tt")
+          </span>
+        }
+      </div>
+    </div>
+    <div class="sod-hero-actions">
+      <a href="@Url.Action("Index","ServiceOffers")" class="sod-back-btn">
+        <span class="material-symbols-outlined">@(isArabic?"arrow_forward":"arrow_back")</span>
+        @(isArabic?"رجوع":"Back")
+      </a>
+    </div>
+  </div>
+
+  <div class="sod-grid">
+
+    <div class="sod-col">
+
+      <div class="sod-card">
+        <div class="sod-card-head">
+          <div class="sod-card-icon"><span class="material-symbols-outlined">home_repair_service</span></div>
+          <h3 class="sod-card-title">@(isArabic?"تفاصيل الخدمة":"Service Details")</h3>
+        </div>
+        <div class="sod-card-body">
+          <div class="sod-info">
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">translate</span>@(isArabic?"الاسم عربي":"Arabic Name")</div>
+              <div class="sod-val">@Model.ServiceNameAr</div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">language</span>@(isArabic?"الاسم إنجليزي":"English Name")</div>
+              <div class="sod-val">@Model.ServiceNameEn</div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">category</span>@(isArabic?"النوع":"Type")</div>
+              <div class="sod-val">@(string.IsNullOrWhiteSpace(svcType) ? "—" : svcType)</div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">folder</span>@(isArabic?"التصنيف":"Category")</div>
+              <div class="sod-val @(string.IsNullOrWhiteSpace(svcCat) ? "empty" : "")">@(string.IsNullOrWhiteSpace(svcCat) ? (isArabic?"غير محدد":"Not set") : svcCat)</div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">schedule</span>@(isArabic?"الوقت المفضل":"Preferred Time")</div>
+              <div class="sod-val @(!Model.PreferredTime.HasValue ? "empty" : "")">
+                @(Model.PreferredTime.HasValue ? Model.PreferredTime.Value.ToString("dd/MM/yyyy — hh:mm tt") : (isArabic?"غير محدد":"Not specified"))
+              </div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">info</span>@(isArabic?"حالة الطلب":"Request Status")</div>
+              <div><span class="sod-badge @Model.StatusKey"><span class="material-symbols-outlined">circle</span>@reqSt</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sod-card">
+        <div class="sod-card-head">
+          <div class="sod-card-icon"><span class="material-symbols-outlined">person</span></div>
+          <h3 class="sod-card-title">@(isArabic?"معلومات العميل":"Customer Information")</h3>
+        </div>
+        <div class="sod-card-body">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+            <div class="sod-cust-av">@(custName.Length > 0 ? custName[0].ToString().ToUpper() : "?")</div>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--text);">@custName</div>
+              <div style="font-size:.8rem;color:var(--muted);">@Model.CustomerEmail</div>
+            </div>
+          </div>
+          <div class="sod-info">
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">call</span>@(isArabic?"الهاتف":"Phone")</div>
+              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? "empty" : "")" dir="ltr">
+                @(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? (isArabic?"غير متوفر":"N/A") : Model.CustomerPhone)
+              </div>
+            </div>
+            <div>
+              <div class="sod-lbl"><span class="material-symbols-outlined">location_city</span>@(isArabic?"المدينة":"City")</div>
+              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerCity) ? "empty" : "")">
+                @(string.IsNullOrWhiteSpace(Model.CustomerCity) ? (isArabic?"غير محدد":"N/A") : Model.CustomerCity)
+              </div>
+            </div>
+            <div class="sod-info-full">
+              <div class="sod-lbl"><span class="material-symbols-outlined">location_on</span>@(isArabic?"المنطقة":"Area")</div>
+              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerArea) ? "empty" : "")">
+                @(string.IsNullOrWhiteSpace(Model.CustomerArea) ? (isArabic?"غير محدد":"N/A") : Model.CustomerArea)
+              </div>
+            </div>
+          </div>
+
+          @if (Model.CustomerLatitude.HasValue && Model.CustomerLongitude.HasValue)
+          {
+            <div class="sod-map">
+              <span class="material-symbols-outlined">map</span>
+              <div class="sod-map-coords">@Model.CustomerLatitude.Value.ToString("F6"), @Model.CustomerLongitude.Value.ToString("F6")</div>
+              <a href="https://maps.google.com?q=@Model.CustomerLatitude,@Model.CustomerLongitude"
+                 target="_blank"
+                 style="font-size:.78rem;font-weight:700;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:5px;">
+                <span class="material-symbols-outlined" style="font-size:15px;">open_in_new</span>
+                @(isArabic?"فتح في خرائط Google":"Open in Google Maps")
+              </a>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sod-col">
+
+      <div class="sod-card">
+        <div class="sod-card-head">
+          <div class="sod-card-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+          <h3 class="sod-card-title">@(isArabic?"حالة العرض":"Offer Status")</h3>
+        </div>
+        <div class="sod-card-body" style="text-align:center;padding:24px;">
+          <span class="sod-badge @Model.StatusKey" style="font-size:.85rem;padding:10px 24px;">
+            @{
+              var stIcon = Model.StatusKey switch {
+                "pending"   => "pending_actions",
+                "submitted" => "send",
+                "accepted"  => "check_circle",
+                "rejected"  => "cancel",
+                _           => "help"
+              };
+            }
+            <span class="material-symbols-outlined">@stIcon</span>
+            @offerSt
+          </span>
+          @if (Model.PriceEstimate.HasValue)
+          {
+            <div style="margin-top:20px;">
+              <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">@(isArabic?"السعر المقدم":"Your Price")</div>
+              <span class="sod-price-big">@Model.PriceEstimate.Value.ToString("N0")</span>
+              <span class="sod-price-currency"> JOD</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="sod-card">
+        <div class="sod-card-head">
+          <div class="sod-card-icon"><span class="material-symbols-outlined">local_offer</span></div>
+          <h3 class="sod-card-title">@(isArabic?"تقديم / تعديل العرض":"Submit / Edit Offer")</h3>
+        </div>
+        <div class="sod-card-body">
+
+          @if (!Model.CanSubmit)
+          {
+            <div class="sod-locked @Model.StatusKey">
+              <span class="material-symbols-outlined">@(Model.StatusKey == "accepted" ? "check_circle" : "block")</span>
+              <span>
+                @if (Model.StatusKey == "accepted")
+                { @(isArabic?"تم قبول عرضك من قبل العميل — لا يمكن التعديل":"Your offer was accepted — editing is not allowed") }
+                else
+                { @(isArabic?"تم رفض هذا العرض — لا يمكن التعديل":"This offer was rejected — editing is not allowed") }
+              </span>
+            </div>
+          }
+
+          <div class="sod-form-field">
+            <div class="sod-form-label">
+              <span class="material-symbols-outlined">payments</span>
+              @(isArabic?"السعر التقديري (JOD)":"Price Estimate (JOD)")
+            </div>
+            <div class="sod-input-wrap @(!Model.CanSubmit ? "has-error" : "")" id="sodPriceWrap" style="@(!Model.CanSubmit ? "opacity:.6;" : "")">
+              <div class="sod-inp-icon"><span class="material-symbols-outlined">attach_money</span></div>
+              <input type="number" id="sodPrice" class="sod-input"
+                     placeholder="@(isArabic?"أدخل السعر":"Enter price")"
+                     value="@(Model.PriceEstimate.HasValue ? Model.PriceEstimate.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "")"
+                     min="0" step="0.01" dir="ltr"
+                     @(!Model.CanSubmit ? "disabled" : "") />
+            </div>
+            <div class="sod-err" id="sodPriceErr" style="display:none">
+              <span class="material-symbols-outlined">error</span><span id="sodPriceErrMsg"></span>
+            </div>
+          </div>
+
+          <div class="sod-form-field">
+            <div class="sod-toggle-row" style="@(!Model.CanSubmit ? "opacity:.6;" : "")">
+              <div>
+                <div class="sod-toggle-lbl">
+                  <span class="material-symbols-outlined">search</span>
+                  @(isArabic?"هل يحتاج كشف ميداني؟":"Requires inspection?")
+                </div>
+                <div class="sod-toggle-sub">@(isArabic?"يتم الاتفاق مع العميل":"Agreed with customer")</div>
+              </div>
+              <label class="sod-switch">
+                <input type="checkbox" id="sodInspection"
+                       @(Model.InspectionRequired ? "checked" : "")
+                       @(!Model.CanSubmit ? "disabled" : "") />
+                <span class="sod-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          @if (Model.CanSubmit)
+          {
+            <button class="sod-submit-btn" id="sodSubmitBtn" onclick="submitOffer()">
+              <span class="material-symbols-outlined">send</span>
+              @(Model.PriceEstimate.HasValue ? (isArabic?"تعديل العرض":"Update Offer") : (isArabic?"إرسال العرض":"Send Offer"))
+            </button>
+          }
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div class="sod-toasts" id="sodToasts"></div>
+
+<form id="sodForm" method="post" action="@Url.Action("SubmitOffer","ServiceOffers")" style="display:none">
+  @Html.AntiForgeryToken()
+</form>
+
+@section Scripts {
+<script>
+var isArabic = @(isArabic ? "true" : "false");
+var OFFER_ID = @Model.OfferId;
+
+async function submitOffer() {
+    var price      = parseFloat(document.getElementById('sodPrice').value);
+    var inspection = document.getElementById('sodInspection').checked;
+
+    // Validate
+    document.getElementById('sodPriceWrap').classList.remove('has-error');
+    document.getElementById('sodPriceErr').style.display = 'none';
+
+    if (!price || price <= 0) {
+        document.getElementById('sodPriceWrap').classList.add('has-error');
+        document.getElementById('sodPriceErr').style.display  = 'flex';
+        document.getElementById('sodPriceErrMsg').textContent = isArabic ? 'يرجى إدخال سعر صحيح' : 'Please enter a valid price';
+        return;
+    }
+
+    var btn   = document.getElementById('sodSubmitBtn');
+    btn.disabled = true;
+    btn._orig    = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:sodSpin 1s linear infinite">autorenew</span> ' +
+                   (isArabic ? 'جاري الإرسال...' : 'Sending...');
+
+    var token = document.querySelector('#sodForm input[name="__RequestVerificationToken"]').value;
+
+    try {
+        var res = await fetch(document.getElementById('sodForm').action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': token
+            },
+            body: JSON.stringify({
+                offerId:            OFFER_ID,
+                priceEstimate:      price,
+                inspectionRequired: inspection
+            })
+        });
+        var data = await res.json();
+
+        if (res.ok && (data.success || data.Success)) {
+            sodToast(data.message || (isArabic ? 'تم تقديم العرض بنجاح' : 'Offer submitted successfully'), 'success');
+            setTimeout(function () { location.reload(); }, 1500);
+        } else {
+            sodToast(data.message || (isArabic ? 'حدث خطأ' : 'An error occurred'), 'error');
+            btn.disabled  = false;
+            btn.innerHTML = btn._orig;
+        }
+    } catch(e) {
+        sodToast(isArabic ? 'خطأ في الاتصال' : 'Connection error', 'error');
+        btn.disabled  = false;
+        btn.innerHTML = btn._orig;
+    }
+}
+
+function sodToast(msg, type) {
+    var el = document.createElement('div');
+    el.className = 'sod-toast ' + type;
+    el.innerHTML = '<span class="material-symbols-outlined">' + (type==='success'?'check_circle':'error') + '</span><span>' + msg + '</span>';
+    document.getElementById('sodToasts').appendChild(el);
+    setTimeout(function(){ el.style.transition='opacity .4s'; el.style.opacity='0'; setTimeout(function(){el.remove();},420); }, 3800);
+}
+
+document.head.insertAdjacentHTML('beforeend','<style>@@keyframes sodSpin{to{transform:rotate(360deg)}}</style>');
+</script>
+}
