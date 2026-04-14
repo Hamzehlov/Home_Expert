@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Home_Expert.Controllers
-{
+{   
     [Authorize]
     public class SettingsController : Controller
     {
