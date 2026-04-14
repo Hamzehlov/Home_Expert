@@ -16,6 +16,9 @@ public partial class VendorService
 
     public int ServiceId { get; set; }
 
+    public bool IsActive { get; set; }
+
+
     [ForeignKey("ServiceId")]
     [InverseProperty("VendorServices")]
     public virtual Service Service { get; set; } = null!;

@@ -32,9 +32,15 @@ public partial class Review
     [Column(TypeName = "datetime")]
     public DateTime? CreatedAt { get; set; }
 
+    public int? ServiceRequestId { get; set; }
+
     [ForeignKey("CustomerId")]
     [InverseProperty("Reviews")]
     public virtual ApplicationUser Customer { get; set; } = null!;
+
+    [ForeignKey("ServiceRequestId")]
+    [InverseProperty("Reviews")]
+    public virtual ServiceRequest? ServiceRequest { get; set; }
 
     [ForeignKey("VendorId")]
     [InverseProperty("Reviews")]

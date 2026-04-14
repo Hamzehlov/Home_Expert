@@ -23,6 +23,8 @@ public partial class KitchenMeasurement
     [Column("Generated2DPlan")]
     public byte[]? Generated2Dplan { get; set; }
 
+    public int ServiceRequestId { get; set; }
+
     [ForeignKey("CustomerId")]
     [InverseProperty("KitchenMeasurements")]
     public virtual ApplicationUser Customer { get; set; } = null!;
@@ -36,6 +38,10 @@ public partial class KitchenMeasurement
 
     [InverseProperty("Measurement")]
     public virtual ICollection<KitchenExport> KitchenExports { get; set; } = new List<KitchenExport>();
+
+    [ForeignKey("ServiceRequestId")]
+    [InverseProperty("KitchenMeasurements")]
+    public virtual ServiceRequest ServiceRequest { get; set; } = null!;
 
     [ForeignKey("UnitId")]
     [InverseProperty("KitchenMeasurementUnits")]

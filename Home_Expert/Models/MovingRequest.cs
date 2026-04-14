@@ -30,6 +30,8 @@ public partial class MovingRequest
 
     public int StatusId { get; set; }
 
+    public int ServiceRequestId { get; set; }
+
     [ForeignKey("CustomerId")]
     [InverseProperty("MovingRequests")]
     public virtual ApplicationUser Customer { get; set; } = null!;
@@ -39,6 +41,10 @@ public partial class MovingRequest
 
     [InverseProperty("MovingRequest")]
     public virtual ICollection<MovingStatusLog> MovingStatusLogs { get; set; } = new List<MovingStatusLog>();
+
+    [ForeignKey("ServiceRequestId")]
+    [InverseProperty("MovingRequests")]
+    public virtual ServiceRequest ServiceRequest { get; set; } = null!;
 
     [ForeignKey("StatusId")]
     [InverseProperty("MovingRequests")]
