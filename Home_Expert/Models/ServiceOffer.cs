@@ -22,6 +22,8 @@ public partial class ServiceOffer
 
     public int StatusId { get; set; }
 
+    public byte[]? PdfFile { get; set; }
+
     [ForeignKey("RequestId")]
     [InverseProperty("ServiceOffers")]
     public virtual ServiceRequest Request { get; set; } = null!;
