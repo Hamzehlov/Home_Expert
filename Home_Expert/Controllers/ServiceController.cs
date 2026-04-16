@@ -728,13 +728,8 @@ namespace Home_Expert.Controllers
                 .ThenInclude(s => s.Category)
                 .ToListAsync();
 
-            // تحويل List<VendorService> إلى List<Service>
-            var services = vendorServices.Select(vs => vs.Service).ToList();
-
-            return View(services); // الآن الـ View يستقبل IEnumerable<Service>
+            return View(vendorServices); // 🔥 رجع VendorService مباشرة
         }
-
-       
         public async Task<IActionResult> RemoveServiceFromVendor(int serviceId)
         {
             // جلب البائع الحالي
@@ -759,6 +754,36 @@ namespace Home_Expert.Controllers
             await _context.SaveChangesAsync();
 
             TempData["Success"] = "تم حذف الخدمة بنجاح";
+
+            return RedirectToAction(nameof(MyServices));
+        }
+
+
+        public async Task<IActionResult> TogglemyActiveService(int serviceId)
+        {
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(v => v.User.UserName == User.Identity.Name);
+
+            if (vendor == null)
+                return Unauthorized();
+
+            var vendorService = await _context.VendorServices
+                .FirstOrDefaultAsync(vs => vs.ServiceId == serviceId && vs.VendorId == vendor.Id);
+
+            if (vendorService == null)
+            {
+                TempData["Error"] = "الخدمة غير موجودة";
+                return RedirectToAction(nameof(MyServices));
+            }
+
+            // 🔥 قلب الحالة
+            vendorService.IsActive = !vendorService.IsActive;
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = vendorService.IsActive
+                ? "تم تفعيل الخدمة"
+                : "تم إلغاء تفعيل الخدمة";
 
             return RedirectToAction(nameof(MyServices));
         }
