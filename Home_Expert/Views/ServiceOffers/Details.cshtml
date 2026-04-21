@@ -11,19 +11,44 @@
     var svcCat   = isArabic ? Model.ServiceCatAr  : Model.ServiceCatEn;
     var offerSt  = isArabic ? Model.OfferStatusAr  : Model.OfferStatusEn;
     var reqSt    = isArabic ? Model.RequestStatusAr : Model.RequestStatusEn;
+    
+    string GetStatusKey(int statusId) => statusId switch
+    {
+        86 => "pending",
+        87 => "submitted",
+        88 => "accepted",
+        89 => "rejected",
+        _ => "pending"
+    };
+    
+    bool CanSubmitOffer(int offerStatusId, int requestStatusId)
+    {
+        int REQUEST_ACCEPTED = 81;
+        int REQUEST_REJECTED = 82;
+        int OFFER_ACCEPTED = 88;
+        int OFFER_REJECTED = 89;
+        
+        return offerStatusId != OFFER_ACCEPTED &&
+               offerStatusId != OFFER_REJECTED &&
+               requestStatusId != REQUEST_ACCEPTED &&
+               requestStatusId != REQUEST_REJECTED;
+    }
+    
+    var statusKey = GetStatusKey(Model.OfferStatusId);
+    var canSubmit = CanSubmitOffer(Model.OfferStatusId, Model.RequestStatusId);
 }
 
 @section Styles {
 <style>
 /* ═══════════════════════════ sod-page ═══════════════════════════ */
-.sod-page { padding:24px 24px 56px; max-width:1100px; margin:0 auto; }
+.sod-page { padding:24px 24px 56px; max-width:1200px; margin:0 auto; }
 
 .sod-breadcrumb { display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--muted);margin-bottom:8px;flex-wrap:wrap; }
 .sod-breadcrumb a { color:var(--muted);text-decoration:none;font-weight:600;transition:color .18s; }
 .sod-breadcrumb a:hover { color:var(--primary); }
 .sod-breadcrumb .sep { font-size:14px;opacity:.4; }
 
-/* ── Hero ── */
+/* Hero */
 .sod-hero {
   background:linear-gradient(135deg,var(--primary) 0%,#0d5562 100%);
   border-radius:20px;padding:26px 32px;
@@ -48,11 +73,11 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 .sod-back-btn:hover { background:rgba(255,255,255,.3);color:#fff; }
 .sod-back-btn .material-symbols-outlined { font-size:16px; }
 
-/* ── Grid layout ── */
-.sod-grid { display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start; }
+/* Grid */
+.sod-grid { display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start; }
 .sod-col  { display:flex;flex-direction:column;gap:18px; }
 
-/* ── Card ── */
+/* Cards */
 .sod-card { background:#fff;border-radius:18px;border:1.5px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden; }
 .sod-card-head { display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1.5px solid var(--border);background:#fafbfc; }
 .sod-card-icon { width:38px;height:38px;border-radius:10px;background:rgba(10,61,68,.08);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
@@ -60,7 +85,7 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 .sod-card-title { font-size:.95rem;font-weight:800;color:var(--primary);margin:0; }
 .sod-card-body { padding:20px; }
 
-/* ── Info grid ── */
+/* Info grid */
 .sod-info { display:grid;grid-template-columns:repeat(2,1fr);gap:16px; }
 .sod-info-full { grid-column:1/-1; }
 .sod-lbl { font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:5px;margin-bottom:5px; }
@@ -68,7 +93,7 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 .sod-val { font-size:.9rem;font-weight:700;color:var(--text);line-height:1.45;word-break:break-word; }
 .sod-val.empty { color:var(--muted);font-style:italic;font-weight:400;font-size:.82rem; }
 
-/* ── Status badge ── */
+/* Status badge */
 .sod-badge { display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:800;padding:6px 14px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em; }
 .sod-badge.pending   { background:rgba(245,158,11,.1); color:#b45309; border:1.5px solid rgba(245,158,11,.22); }
 .sod-badge.submitted { background:rgba(59,130,246,.1); color:#2563eb; border:1.5px solid rgba(59,130,246,.22); }
@@ -76,20 +101,20 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 .sod-badge.rejected  { background:rgba(239,68,68,.1);  color:#dc2626; border:1.5px solid rgba(239,68,68,.2);  }
 .sod-badge .material-symbols-outlined { font-size:14px; }
 
-/* ── Customer avatar ── */
-.sod-cust-av { width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0A3D44,#1a8a96);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:900;flex-shrink:0; }
+/* Kitchen & Moving specific styles */
+.sod-details-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px; }
+.sod-detail-item { border-bottom:1px solid var(--border);padding:8px 0; }
+.sod-detail-label { font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:flex;align-items:center;gap:5px; }
+.sod-detail-value { font-size:.85rem;font-weight:600;color:var(--text); }
+.sod-price-value { font-size:1.2rem;font-weight:900;color:var(--primary); }
+.sod-section-title { font-size:.85rem;font-weight:800;color:var(--primary);margin:16px 0 12px 0;padding-bottom:6px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px; }
+.sod-section-title .material-symbols-outlined { font-size:18px; }
 
-/* ── Inspection ── */
-.sod-insp { display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:999px; }
-.sod-insp.yes { background:#fef3c7;color:#92400e;border:1.5px solid #fde68a; }
-.sod-insp.no  { background:#f0fdf4;color:#15803d;border:1.5px solid #bbf7d0; }
-.sod-insp .material-symbols-outlined { font-size:16px; }
-
-/* ── Price big display ── */
+/* Price big */
 .sod-price-big { font-size:2rem;font-weight:900;color:var(--primary);line-height:1; }
 .sod-price-currency { font-size:.9rem;font-weight:600;color:var(--muted); }
 
-/* ── Map placeholder ── */
+/* Map */
 .sod-map {
   width:100%;height:160px;border-radius:12px;
   background:linear-gradient(135deg,#f0fdf4,#dcfce7);
@@ -100,7 +125,7 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 .sod-map .material-symbols-outlined { font-size:2rem;opacity:.5; }
 .sod-map-coords { font-size:.72rem;color:var(--muted);font-family:monospace; }
 
-/* ── Offer Form ── */
+/* Offer Form */
 .sod-form-field { margin-bottom:16px; }
 .sod-form-label { font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text);display:flex;align-items:center;gap:6px;margin-bottom:7px; }
 .sod-form-label .material-symbols-outlined { font-size:14px;color:var(--primary); }
@@ -113,6 +138,10 @@ html[dir="rtl"] .sod-hero::before { left:-40px; } html[dir="ltr"] .sod-hero::bef
 html[dir="ltr"] .sod-input { padding-inline-start:0; }
 .sod-input::placeholder { color:#b0b8c4; }
 .sod-input:disabled { color:var(--muted);cursor:not-allowed; }
+.sod-input[type="file"] { padding-block: 10px; cursor: pointer; }
+.sod-input[type="file"]:disabled { cursor: not-allowed; opacity: 0.6; }
+.sod-input[type="file"]::file-selector-button { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 6px 12px; margin-inline-end: 12px; font-family: inherit; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.sod-input[type="file"]::file-selector-button:hover { background: #0d5562; }
 
 .sod-toggle-row { display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#f8fafc;border-radius:12px;border:1.5px solid var(--border); }
 .sod-toggle-lbl { font-size:.86rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px; }
@@ -126,22 +155,20 @@ html[dir="rtl"] .sod-slider::before { right:3px; } html[dir="ltr"] .sod-slider::
 .sod-switch input:checked + .sod-slider { background:var(--primary); }
 html[dir="rtl"] .sod-switch input:checked + .sod-slider::before { transform:translateX(-20px); }
 html[dir="ltr"] .sod-switch input:checked + .sod-slider::before { transform:translateX(20px); }
-.sod-switch input:disabled + .sod-slider { opacity:.5;cursor:not-allowed; }
 
 .sod-err { font-size:.7rem;color:#dc2626;margin-top:5px;display:flex;align-items:center;gap:4px; }
-.sod-err .material-symbols-outlined { font-size:12px; }
-
-/* ── Locked notice ── */
-.sod-locked { display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:12px;font-size:.84rem;font-weight:600;margin-bottom:16px; }
-.sod-locked.accepted { background:rgba(16,185,129,.08);color:#065f46;border:1.5px solid rgba(16,185,129,.2); }
-.sod-locked.rejected { background:rgba(239,68,68,.07);color:#991b1b;border:1.5px solid rgba(239,68,68,.18); }
-.sod-locked .material-symbols-outlined { font-size:20px; }
-
-/* ── Submit button ── */
 .sod-submit-btn { display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#0d5562);color:#fff;font-size:.9rem;font-weight:800;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(10,61,68,.22);transition:all .25s;margin-top:4px; }
 .sod-submit-btn:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,61,68,.3); }
 .sod-submit-btn:disabled { opacity:.6;cursor:not-allowed;transform:none; }
-.sod-submit-btn .material-symbols-outlined { font-size:18px; }
+
+/* Attachment */
+.sod-attachment-viewer { margin-top: 20px; border-top: 1.5px solid var(--border); padding-top: 16px; }
+.sod-attachment-preview { background: #f8fafc; border-radius: 12px; border: 1.5px solid var(--border); overflow: hidden; }
+.sod-attachment-preview iframe { width: 100%; height: 400px; border: none; }
+.sod-attachment-preview img { width: 100%; max-height: 400px; object-fit: contain; display: block; }
+.sod-attachment-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 12px 16px; background: #fff; border-top: 1.5px solid var(--border); }
+.sod-attachment-filename { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--text); font-family: monospace; }
+.sod-no-attachment { background: #f8fafc; border-radius: 12px; border: 1.5px dashed var(--border); padding: 32px; text-align: center; color: var(--muted); }
 
 /* Toasts */
 .sod-toasts { position:fixed;bottom:22px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none; }
@@ -149,7 +176,6 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
 .sod-toast { display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:13px;font-size:.84rem;font-weight:600;color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.17);pointer-events:all;min-width:210px;max-width:330px;animation:sodToastIn .3s ease; }
 @@keyframes sodToastIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
 .sod-toast.success { background:#059669; } .sod-toast.error { background:#dc2626; }
-.sod-toast .material-symbols-outlined { font-size:18px;flex-shrink:0; }
 
 @@media(max-width:900px) {
   .sod-grid { grid-template-columns:1fr; }
@@ -159,7 +185,7 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
   .sod-page { padding:14px 12px 40px; }
   .sod-hero { padding:20px 18px; gap:14px; }
   .sod-info { grid-template-columns:1fr; }
-  .sod-info-full { grid-column:1; }
+  .sod-details-grid { grid-template-columns:1fr; }
 }
 </style>
 }
@@ -183,20 +209,10 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
       <div class="sod-hero-title">@svcName</div>
       <div class="sod-hero-sub">@svcType @(string.IsNullOrWhiteSpace(svcCat) ? "" : "· " + svcCat)</div>
       <div class="sod-hero-badges">
-        <span class="sod-hbadge">
-          <span class="material-symbols-outlined">tag</span>
-          @(isArabic?"طلب رقم":"Request #")@Model.RequestId
-        </span>
-        <span class="sod-hbadge">
-          <span class="material-symbols-outlined">receipt_long</span>
-          @(isArabic?"عرض رقم":"Offer #")@Model.OfferId
-        </span>
-        @if (Model.PreferredTime.HasValue)
-        {
-          <span class="sod-hbadge">
-            <span class="material-symbols-outlined">schedule</span>
-            @Model.PreferredTime.Value.ToString("dd/MM/yyyy hh:mm tt")
-          </span>
+        <span class="sod-hbadge"><span class="material-symbols-outlined">tag</span>@(isArabic?"طلب رقم":"Request #")@Model.RequestId</span>
+        <span class="sod-hbadge"><span class="material-symbols-outlined">receipt_long</span>@(isArabic?"عرض رقم":"Offer #")@Model.OfferId</span>
+        @if (Model.PreferredTime.HasValue) {
+          <span class="sod-hbadge"><span class="material-symbols-outlined">schedule</span>@Model.PreferredTime.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
         }
       </div>
     </div>
@@ -212,6 +228,7 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
 
     <div class="sod-col">
 
+      <!-- Service Details Card -->
       <div class="sod-card">
         <div class="sod-card-head">
           <div class="sod-card-icon"><span class="material-symbols-outlined">home_repair_service</span></div>
@@ -219,36 +236,17 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
         </div>
         <div class="sod-card-body">
           <div class="sod-info">
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">translate</span>@(isArabic?"الاسم عربي":"Arabic Name")</div>
-              <div class="sod-val">@Model.ServiceNameAr</div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">language</span>@(isArabic?"الاسم إنجليزي":"English Name")</div>
-              <div class="sod-val">@Model.ServiceNameEn</div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">category</span>@(isArabic?"النوع":"Type")</div>
-              <div class="sod-val">@(string.IsNullOrWhiteSpace(svcType) ? "—" : svcType)</div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">folder</span>@(isArabic?"التصنيف":"Category")</div>
-              <div class="sod-val @(string.IsNullOrWhiteSpace(svcCat) ? "empty" : "")">@(string.IsNullOrWhiteSpace(svcCat) ? (isArabic?"غير محدد":"Not set") : svcCat)</div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">schedule</span>@(isArabic?"الوقت المفضل":"Preferred Time")</div>
-              <div class="sod-val @(!Model.PreferredTime.HasValue ? "empty" : "")">
-                @(Model.PreferredTime.HasValue ? Model.PreferredTime.Value.ToString("dd/MM/yyyy — hh:mm tt") : (isArabic?"غير محدد":"Not specified"))
-              </div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">info</span>@(isArabic?"حالة الطلب":"Request Status")</div>
-              <div><span class="sod-badge @Model.StatusKey"><span class="material-symbols-outlined">circle</span>@reqSt</span></div>
-            </div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">translate</span>@(isArabic?"الاسم عربي":"Arabic Name")</div><div class="sod-val">@Model.ServiceNameAr</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">language</span>@(isArabic?"الاسم إنجليزي":"English Name")</div><div class="sod-val">@Model.ServiceNameEn</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">category</span>@(isArabic?"النوع":"Type")</div><div class="sod-val">@(string.IsNullOrWhiteSpace(svcType) ? "—" : svcType)</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">folder</span>@(isArabic?"التصنيف":"Category")</div><div class="sod-val @(string.IsNullOrWhiteSpace(svcCat) ? "empty" : "")">@(string.IsNullOrWhiteSpace(svcCat) ? (isArabic?"غير محدد":"Not set") : svcCat)</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">schedule</span>@(isArabic?"الوقت المفضل":"Preferred Time")</div><div class="sod-val @(!Model.PreferredTime.HasValue ? "empty" : "")">@(Model.PreferredTime.HasValue ? Model.PreferredTime.Value.ToString("dd/MM/yyyy — hh:mm tt") : (isArabic?"غير محدد":"Not specified"))</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">info</span>@(isArabic?"حالة الطلب":"Request Status")</div><div><span class="sod-badge @statusKey"><span class="material-symbols-outlined">circle</span>@reqSt</span></div></div>
           </div>
         </div>
       </div>
 
+      <!-- Customer Information Card -->
       <div class="sod-card">
         <div class="sod-card-head">
           <div class="sod-card-icon"><span class="material-symbols-outlined">person</span></div>
@@ -257,44 +255,287 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
         <div class="sod-card-body">
           <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
             <div class="sod-cust-av">@(custName.Length > 0 ? custName[0].ToString().ToUpper() : "?")</div>
-            <div>
-              <div style="font-size:1rem;font-weight:800;color:var(--text);">@custName</div>
-              <div style="font-size:.8rem;color:var(--muted);">@Model.CustomerEmail</div>
-            </div>
+            <div><div style="font-size:1rem;font-weight:800;color:var(--text);">@custName</div><div style="font-size:.8rem;color:var(--muted);">@Model.CustomerEmail</div></div>
           </div>
           <div class="sod-info">
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">call</span>@(isArabic?"الهاتف":"Phone")</div>
-              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? "empty" : "")" dir="ltr">
-                @(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? (isArabic?"غير متوفر":"N/A") : Model.CustomerPhone)
-              </div>
-            </div>
-            <div>
-              <div class="sod-lbl"><span class="material-symbols-outlined">location_city</span>@(isArabic?"المدينة":"City")</div>
-              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerCity) ? "empty" : "")">
-                @(string.IsNullOrWhiteSpace(Model.CustomerCity) ? (isArabic?"غير محدد":"N/A") : Model.CustomerCity)
-              </div>
-            </div>
-            <div class="sod-info-full">
-              <div class="sod-lbl"><span class="material-symbols-outlined">location_on</span>@(isArabic?"المنطقة":"Area")</div>
-              <div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerArea) ? "empty" : "")">
-                @(string.IsNullOrWhiteSpace(Model.CustomerArea) ? (isArabic?"غير محدد":"N/A") : Model.CustomerArea)
-              </div>
-            </div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">call</span>@(isArabic?"الهاتف":"Phone")</div><div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? "empty" : "")" dir="ltr">@(string.IsNullOrWhiteSpace(Model.CustomerPhone) ? (isArabic?"غير متوفر":"N/A") : Model.CustomerPhone)</div></div>
+            <div><div class="sod-lbl"><span class="material-symbols-outlined">location_city</span>@(isArabic?"المدينة":"City")</div><div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerCity) ? "empty" : "")">@(string.IsNullOrWhiteSpace(Model.CustomerCity) ? (isArabic?"غير محدد":"N/A") : Model.CustomerCity)</div></div>
+            <div class="sod-info-full"><div class="sod-lbl"><span class="material-symbols-outlined">location_on</span>@(isArabic?"المنطقة":"Area")</div><div class="sod-val @(string.IsNullOrWhiteSpace(Model.CustomerArea) ? "empty" : "")">@(string.IsNullOrWhiteSpace(Model.CustomerArea) ? (isArabic?"غير محدد":"N/A") : Model.CustomerArea)</div></div>
           </div>
-
-          @if (Model.CustomerLatitude.HasValue && Model.CustomerLongitude.HasValue)
-          {
+          @if (Model.CustomerLatitude.HasValue && Model.CustomerLongitude.HasValue) {
             <div class="sod-map">
               <span class="material-symbols-outlined">map</span>
               <div class="sod-map-coords">@Model.CustomerLatitude.Value.ToString("F6"), @Model.CustomerLongitude.Value.ToString("F6")</div>
-              <a href="https://maps.google.com?q=@Model.CustomerLatitude,@Model.CustomerLongitude"
-                 target="_blank"
-                 style="font-size:.78rem;font-weight:700;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:5px;">
-                <span class="material-symbols-outlined" style="font-size:15px;">open_in_new</span>
-                @(isArabic?"فتح في خرائط Google":"Open in Google Maps")
-              </a>
+              <a href="https://maps.google.com?q=@Model.CustomerLatitude,@Model.CustomerLongitude" target="_blank" style="font-size:.78rem;font-weight:700;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:5px;"><span class="material-symbols-outlined" style="font-size:15px;">open_in_new</span>@(isArabic?"فتح في خرائط Google":"Open in Google Maps")</a>
             </div>
+          }
+        </div>
+      </div>
+
+   <!-- ========================================================= -->
+<!-- قسم تفاصيل المطابخ (يظهر فقط إذا كانت الخدمة مطابخ)        -->
+<!-- ========================================================= -->
+@if (Model.IsKitchenService)
+{
+    <div class="sod-card">
+        <div class="sod-card-head">
+            <div class="sod-card-icon"><span class="material-symbols-outlined">kitchen</span></div>
+            <h3 class="sod-card-title">@(isArabic?"تفاصيل المطبخ":"Kitchen Details")</h3>
+        </div>
+        <div class="sod-card-body">
+            
+            @if (Model.KitchenMeasurement != null)
+            {
+                <!-- قياسات المطبخ -->
+                <div class="sod-section-title">
+                    <span class="material-symbols-outlined">straighten</span>
+                    @(isArabic ? "بيانات القياس" : "Measurement Data")
+                </div>
+                <div class="sod-details-grid">
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">edit_note</span>@(isArabic?"طريقة الإدخال":"Input Mode")</div>
+                        <div class="sod-detail-value">@(isArabic ? Model.KitchenMeasurement.InputMode?.DescCodeAr : Model.KitchenMeasurement.InputMode?.DescCodeEn)</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">straighten</span>@(isArabic?"وحدة القياس":"Unit")</div>
+                        <div class="sod-detail-value">@(isArabic ? Model.KitchenMeasurement.Unit?.DescCodeAr : Model.KitchenMeasurement.Unit?.DescCodeEn)</div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.KitchenMeasurement.RawData))
+                    {
+                        <div class="sod-info-full">
+                            <div class="sod-detail-label"><span class="material-symbols-outlined">data_array</span>@(isArabic?"بيانات القياس الخام":"Raw Data")</div>
+                            <div class="sod-detail-value" style="font-family:monospace;font-size:.75rem;background:#f8fafc;padding:8px;border-radius:8px;max-height:100px;overflow:auto;">@Model.KitchenMeasurement.RawData</div>
+                        </div>
+                    }
+                </div>
+
+                <!-- تقدير التكلفة -->
+                @if (Model.KitchenCostEstimate != null)
+                {
+                    <div class="sod-section-title">
+                        <span class="material-symbols-outlined">calculate</span>
+                        @(isArabic ? "تقدير التكلفة" : "Cost Estimate")
+                    </div>
+                    <div class="sod-details-grid">
+                        <div class="sod-detail-item">
+                            <div class="sod-detail-label"><span class="material-symbols-outlined">wood</span>@(isArabic?"نوع الخشب":"Wood Type")</div>
+                            <div class="sod-detail-value">@(isArabic ? Model.KitchenCostEstimate.WoodType?.DescCodeAr : Model.KitchenCostEstimate.WoodType?.DescCodeEn)</div>
+                        </div>
+                        <div class="sod-detail-item">
+                            <div class="sod-detail-label"><span class="material-symbols-outlined">inventory</span>@(isArabic?"الإكسسوارات":"Accessories")</div>
+                            <div class="sod-detail-value">@(string.IsNullOrEmpty(Model.KitchenCostEstimate.Accessories) ? (isArabic?"غير محدد":"Not specified") : Model.KitchenCostEstimate.Accessories)</div>
+                        </div>
+                        <div class="sod-detail-item">
+                            <div class="sod-detail-label"><span class="material-symbols-outlined">payments</span>@(isArabic?"التكلفة التقديرية":"Estimated Cost")</div>
+                            <div class="sod-detail-value sod-price-value">@(Model.KitchenCostEstimate.EstimatedCost?.ToString("N2") ?? "—") JOD</div>
+                        </div>
+                        <div class="sod-detail-item">
+                            <div class="sod-detail-label"><span class="material-symbols-outlined">flag</span>@(isArabic?"الحالة":"Status")</div>
+                            <div class="sod-detail-value">@(isArabic ? Model.KitchenCostEstimate.Status?.DescCodeAr : Model.KitchenCostEstimate.Status?.DescCodeEn)</div>
+                        </div>
+                    </div>
+                }
+
+                <!-- المخططات والملفات المصدرة -->
+                @if (Model.KitchenExports != null && Model.KitchenExports.Any())
+                {
+                    <div class="sod-section-title">
+                        <span class="material-symbols-outlined">file_download</span>
+                        @(isArabic ? "الملفات المصدرة" : "Exported Files")
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        @foreach (var export in Model.KitchenExports)
+                        {
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#f8fafc;border-radius:10px;border:1px solid var(--border);">
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span class="material-symbols-outlined" style="color:var(--primary);">description</span>
+                                    <span style="font-size:.8rem;font-weight:600;">@(isArabic ? export.Format?.DescCodeAr : export.Format?.DescCodeEn)</span>
+                                </div>
+                                @if (export.File != null && export.File.Length > 0)
+                                {
+                                    <a href="@Url.Action("DownloadKitchenExport", "ServiceOffers", new { exportId = export.Id })" class="sod-back-btn" style="background:var(--primary);border-color:var(--primary);text-decoration:none;padding:5px 12px;">
+                                        <span class="material-symbols-outlined" style="font-size:14px;">download</span>
+                                        @(isArabic ? "تحميل" : "Download")
+                                    </a>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+
+                <!-- المخطط ثنائي الأبعاد -->
+                @if (Model.KitchenMeasurement.Generated2Dplan != null && Model.KitchenMeasurement.Generated2Dplan.Length > 0)
+                {
+                    <div class="sod-section-title">
+                        <span class="material-symbols-outlined">grid_view</span>
+                        @(isArabic ? "المخطط ثنائي الأبعاد" : "2D Plan")
+                    </div>
+                    <div style="text-align:center;">
+                        <a href="@Url.Action("DownloadKitchenPlan", "ServiceOffers", new { measurementId = Model.KitchenMeasurement.Id })" class="sod-back-btn" style="background:var(--primary);border-color:var(--primary);text-decoration:none;">
+                            <span class="material-symbols-outlined">download</span>
+                            @(isArabic ? "تحميل المخطط" : "Download Plan")
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- ✅ رسالة عندما لا توجد بيانات قياس للمطبخ -->
+                <div style="text-align:center;padding:40px 20px;">
+                    <span class="material-symbols-outlined" style="font-size:48px;color:var(--muted);margin-bottom:12px;display:block;">kitchen</span>
+                    <div style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:8px;">
+                        @(isArabic ? "لا توجد بيانات قياس للمطبخ" : "No kitchen measurement data available")
+                    </div>
+                    <div style="font-size:.8rem;color:var(--muted);">
+                        @(isArabic ? "لم يتم إدخال بيانات القياس لهذا الطلب بعد" : "Measurement data has not been entered for this request yet")
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+}
+
+<!-- ========================================================= -->
+<!-- قسم تفاصيل النقل (يظهر فقط إذا كانت الخدمة نقل أثاث)       -->
+<!-- ========================================================= -->
+@if (Model.IsMovingService)
+{
+    <div class="sod-card">
+        <div class="sod-card-head">
+            <div class="sod-card-icon"><span class="material-symbols-outlined">moving</span></div>
+            <h3 class="sod-card-title">@(isArabic?"تفاصيل النقل":"Moving Details")</h3>
+        </div>
+        <div class="sod-card-body">
+            
+            @if (Model.MovingRequest != null)
+            {
+                <!-- معلومات النقل الأساسية -->
+                <div class="sod-details-grid">
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">location_on</span>@(isArabic?"من العنوان":"From Address")</div>
+                        <div class="sod-detail-value">@(string.IsNullOrEmpty(Model.MovingRequest.FromAddress) ? (isArabic?"غير محدد":"Not specified") : Model.MovingRequest.FromAddress)</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">location_on</span>@(isArabic?"إلى العنوان":"To Address")</div>
+                        <div class="sod-detail-value">@(string.IsNullOrEmpty(Model.MovingRequest.ToAddress) ? (isArabic?"غير محدد":"Not specified") : Model.MovingRequest.ToAddress)</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">home</span>@(isArabic?"نوع المنزل":"House Type")</div>
+                        <div class="sod-detail-value">@(string.IsNullOrEmpty(Model.MovingRequest.HouseType) ? (isArabic?"غير محدد":"Not specified") : Model.MovingRequest.HouseType)</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">meeting_room</span>@(isArabic?"عدد الغرف":"Rooms Count")</div>
+                        <div class="sod-detail-value">@(Model.MovingRequest.RoomsCount?.ToString() ?? (isArabic?"غير محدد":"Not specified"))</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">event</span>@(isArabic?"تاريخ النقل":"Move Date")</div>
+                        <div class="sod-detail-value">@(Model.MovingRequest.MoveDate?.ToString("dd/MM/yyyy") ?? (isArabic?"غير محدد":"Not specified"))</div>
+                    </div>
+                    <div class="sod-detail-item">
+                        <div class="sod-detail-label"><span class="material-symbols-outlined">flag</span>@(isArabic?"حالة طلب النقل":"Moving Request Status")</div>
+                        <div class="sod-detail-value">@(isArabic ? Model.MovingRequest.Status?.DescCodeAr : Model.MovingRequest.Status?.DescCodeEn)</div>
+                    </div>
+                </div>
+
+                <!-- عروض النقل المقدمة من الشركة -->
+                @if (Model.MovingOffers != null && Model.MovingOffers.Any())
+                {
+                    <div class="sod-section-title">
+                        <span class="material-symbols-outlined">local_offer</span>
+                        @(isArabic ? "عروض النقل المقدمة" : "Your Moving Offers")
+                    </div>
+                    @foreach (var movingOffer in Model.MovingOffers)
+                    {
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px;margin-bottom:10px;border:1px solid var(--border);">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <div style="font-size:1.1rem;font-weight:900;color:var(--primary);">@(movingOffer.Price?.ToString("N2") ?? "—") JOD</div>
+                                    <div style="font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:5px;margin-top:4px;">
+                                        <span class="material-symbols-outlined" style="font-size:12px;">schedule</span>
+                                        @(isArabic ? "الوقت المقدر:" : "Estimated time:") @(string.IsNullOrEmpty(movingOffer.EstimatedTime) ? (isArabic?"غير محدد":"Not specified") : movingOffer.EstimatedTime)
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="sod-badge @GetStatusKey(movingOffer.StatusId)">
+                                        <span class="material-symbols-outlined">@(movingOffer.StatusId == 88 ? "check_circle" : movingOffer.StatusId == 89 ? "cancel" : "pending_actions")</span>
+                                        @(isArabic ? movingOffer.Status?.DescCodeAr : movingOffer.Status?.DescCodeEn)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <!-- سجل حالة النقل -->
+                @if (Model.MovingStatusLogs != null && Model.MovingStatusLogs.Any())
+                {
+                    <div class="sod-section-title">
+                        <span class="material-symbols-outlined">history</span>
+                        @(isArabic ? "سجل الحالة" : "Status Log")
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        @foreach (var log in Model.MovingStatusLogs)
+                        {
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#f8fafc;border-radius:10px;border:1px solid var(--border);">
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span class="material-symbols-outlined" style="font-size:18px;color:var(--primary);">@(log.StatusId == 88 ? "check_circle" : "pending")</span>
+                                    <span style="font-size:.8rem;">@(isArabic ? log.Status?.DescCodeAr : log.Status?.DescCodeEn)</span>
+                                </div>
+                                @if (log.Proof != null && log.Proof.Length > 0)
+                                {
+                                    <a href="@Url.Action("DownloadMovingProof", "ServiceOffers", new { logId = log.Id })" class="sod-back-btn" style="background:var(--primary);border-color:var(--primary);text-decoration:none;padding:4px 10px;">
+                                        <span class="material-symbols-outlined" style="font-size:14px;">download</span>
+                                        @(isArabic ? "إثبات" : "Proof")
+                                    </a>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- ✅ رسالة عندما لا توجد بيانات نقل -->
+                <div style="text-align:center;padding:40px 20px;">
+                    <span class="material-symbols-outlined" style="font-size:48px;color:var(--muted);margin-bottom:12px;display:block;">moving</span>
+                    <div style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:8px;">
+                        @(isArabic ? "لا توجد بيانات نقل" : "No moving data available")
+                    </div>
+                    <div style="font-size:.8rem;color:var(--muted);">
+                        @(isArabic ? "لم يتم إدخال بيانات النقل لهذا الطلب بعد" : "Moving data has not been entered for this request yet")
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+}
+      <!-- Attachment Viewer Card -->
+      <div class="sod-card">
+        <div class="sod-card-head">
+          <div class="sod-card-icon"><span class="material-symbols-outlined">attachment</span></div>
+          <h3 class="sod-card-title">@(isArabic?"الملف المرفق":"Attachment")</h3>
+        </div>
+        <div class="sod-card-body">
+          @if (Model.HasAttachment)
+          {
+            <div class="sod-attachment-viewer">
+              <div class="sod-attachment-preview">
+                @{
+                  var downloadUrl = Url.Action("DownloadAttachment", "ServiceOffers", new { offerId = Model.OfferId });
+                }
+                <iframe src="@downloadUrl" title="File Preview" style="width:100%;height:400px;border:none;"></iframe>
+              </div>
+              <div class="sod-attachment-actions">
+                <div class="sod-attachment-filename"><span class="material-symbols-outlined">description</span><span>@(isArabic ? "الملف المرفق" : "Attachment")</span></div>
+                <a href="@downloadUrl" class="sod-back-btn" style="background:var(--primary);border-color:var(--primary);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:16px;">download</span>@(isArabic ? "تحميل الملف" : "Download File")</a>
+              </div>
+            </div>
+          }
+          else
+          {
+            <div class="sod-no-attachment"><span class="material-symbols-outlined">attach_file</span><div>@(isArabic ? "لا يوجد ملف مرفق" : "No attachment available")</div></div>
           }
         </div>
       </div>
@@ -303,101 +544,50 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
 
     <div class="sod-col">
 
+      <!-- Offer Status Card -->
       <div class="sod-card">
         <div class="sod-card-head">
           <div class="sod-card-icon"><span class="material-symbols-outlined">receipt_long</span></div>
           <h3 class="sod-card-title">@(isArabic?"حالة العرض":"Offer Status")</h3>
         </div>
         <div class="sod-card-body" style="text-align:center;padding:24px;">
-          <span class="sod-badge @Model.StatusKey" style="font-size:.85rem;padding:10px 24px;">
-            @{
-              var stIcon = Model.StatusKey switch {
-                "pending"   => "pending_actions",
-                "submitted" => "send",
-                "accepted"  => "check_circle",
-                "rejected"  => "cancel",
-                _           => "help"
-              };
-            }
-            <span class="material-symbols-outlined">@stIcon</span>
-            @offerSt
+          <span class="sod-badge @statusKey" style="font-size:.85rem;padding:10px 24px;">
+            @{ var stIcon = statusKey switch { "pending"=>"pending_actions", "submitted"=>"send", "accepted"=>"check_circle", "rejected"=>"cancel", _=>"help" }; }
+            <span class="material-symbols-outlined">@stIcon</span>@offerSt
           </span>
-          @if (Model.PriceEstimate.HasValue)
-          {
-            <div style="margin-top:20px;">
-              <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">@(isArabic?"السعر المقدم":"Your Price")</div>
-              <span class="sod-price-big">@Model.PriceEstimate.Value.ToString("N0")</span>
-              <span class="sod-price-currency"> JOD</span>
-            </div>
+          @if (Model.PriceEstimate.HasValue) {
+            <div style="margin-top:20px;"><div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">@(isArabic?"السعر المقدم":"Your Price")</div><span class="sod-price-big">@Model.PriceEstimate.Value.ToString("N0")</span><span class="sod-price-currency"> JOD</span></div>
           }
         </div>
       </div>
 
+      <!-- Submit Offer Card -->
       <div class="sod-card">
         <div class="sod-card-head">
           <div class="sod-card-icon"><span class="material-symbols-outlined">local_offer</span></div>
           <h3 class="sod-card-title">@(isArabic?"تقديم / تعديل العرض":"Submit / Edit Offer")</h3>
-
         </div>
         <div class="sod-card-body">
-
-          @if (!Model.CanSubmit)
-          {
-            <div class="sod-locked @Model.StatusKey">
-              <span class="material-symbols-outlined">@(Model.StatusKey == "accepted" ? "check_circle" : "block")</span>
-              <span>
-                @if (Model.StatusKey == "accepted")
-                { @(isArabic?"تم قبول عرضك من قبل العميل — لا يمكن التعديل":"Your offer was accepted — editing is not allowed") }
-                else
-                { @(isArabic?"تم رفض هذا العرض — لا يمكن التعديل":"This offer was rejected — editing is not allowed") }
-              </span>
-            </div>
+          @if (!canSubmit) {
+            <div class="sod-locked accepted"><span class="material-symbols-outlined">lock</span><span>@(statusKey == "accepted" ? (isArabic?"تم قبول عرضك — لا يمكن التعديل":"Your offer was accepted — editing is not allowed") : (isArabic?"تم رفض هذا العرض — لا يمكن التعديل":"This offer was rejected — editing is not allowed"))</span></div>
           }
-
           <div class="sod-form-field">
-            <div class="sod-form-label">
-              <span class="material-symbols-outlined">payments</span>
-              @(isArabic?"السعر التقديري (JOD)":"Price Estimate (JOD)")
-            </div>
-            <div class="sod-input-wrap @(!Model.CanSubmit ? "has-error" : "")" id="sodPriceWrap" style="@(!Model.CanSubmit ? "opacity:.6;" : "")">
-              <div class="sod-inp-icon"><span class="material-symbols-outlined">attach_money</span></div>
-              <input type="number" id="sodPrice" class="sod-input"
-                     placeholder="@(isArabic?"أدخل السعر":"Enter price")"
-                     value="@(Model.PriceEstimate.HasValue ? Model.PriceEstimate.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "")"
-                     min="0" step="0.01" dir="ltr"
-                     @(!Model.CanSubmit ? "disabled" : "") />
-            </div>
-            <div class="sod-err" id="sodPriceErr" style="display:none">
-              <span class="material-symbols-outlined">error</span><span id="sodPriceErrMsg"></span>
-            </div>
+            <div class="sod-form-label"><span class="material-symbols-outlined">payments</span>@(isArabic?"السعر التقديري (JOD)":"Price Estimate (JOD)")</div>
+            <div class="sod-input-wrap" style="@(!canSubmit ? "opacity:.6;" : "")"><div class="sod-inp-icon"><span class="material-symbols-outlined">attach_money</span></div><input type="number" id="sodPrice" class="sod-input" placeholder="@(isArabic?"أدخل السعر":"Enter price")" value="@(Model.PriceEstimate.HasValue ? Model.PriceEstimate.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "")" min="0" step="0.01" dir="ltr" @(!canSubmit ? "disabled" : "") /></div>
+            <div class="sod-err" id="sodPriceErr" style="display:none"><span class="material-symbols-outlined">error</span><span id="sodPriceErrMsg"></span></div>
           </div>
-
           <div class="sod-form-field">
-            <div class="sod-toggle-row" style="@(!Model.CanSubmit ? "opacity:.6;" : "")">
-              <div>
-                <div class="sod-toggle-lbl">
-                  <span class="material-symbols-outlined">search</span>
-                  @(isArabic?"هل يحتاج كشف ميداني؟":"Requires inspection?")
-                </div>
-                <div class="sod-toggle-sub">@(isArabic?"يتم الاتفاق مع العميل":"Agreed with customer")</div>
-              </div>
-              <label class="sod-switch">
-                <input type="checkbox" id="sodInspection"
-                       @(Model.InspectionRequired ? "checked" : "")
-                       @(!Model.CanSubmit ? "disabled" : "") />
-                <span class="sod-slider"></span>
-              </label>
-            </div>
+            <div class="sod-toggle-row" style="@(!canSubmit ? "opacity:.6;" : "")"><div><div class="sod-toggle-lbl"><span class="material-symbols-outlined">search</span>@(isArabic?"هل يحتاج كشف ميداني؟":"Requires inspection?")</div><div class="sod-toggle-sub">@(isArabic?"يتم الاتفاق مع العميل":"Agreed with customer")</div></div><label class="sod-switch"><input type="checkbox" id="sodInspection" @(Model.InspectionRequired ? "checked" : "") @(!canSubmit ? "disabled" : "") /><span class="sod-slider"></span></label></div>
           </div>
-
-          @if (Model.CanSubmit)
-          {
-            <button class="sod-submit-btn" id="sodSubmitBtn" onclick="submitOffer()">
-              <span class="material-symbols-outlined">send</span>
-              @(Model.PriceEstimate.HasValue ? (isArabic?"تعديل العرض":"Update Offer") : (isArabic?"إرسال العرض":"Send Offer"))
-            </button>
+          <div class="sod-form-field">
+            <div class="sod-form-label"><span class="material-symbols-outlined">cloud_upload</span>@(isArabic ? "رفع ملف جديد" : "Upload New File")</div>
+            <div class="sod-input-wrap" style="@(!canSubmit ? "opacity:.6;" : "")"><div class="sod-inp-icon"><span class="material-symbols-outlined">attach_file</span></div><input type="file" id="sodAttachment" class="sod-input" style="padding-block:10px;" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" @(!canSubmit ? "disabled" : "") /></div>
+            <div style="font-size:.7rem;color:var(--muted);margin-top:5px;"><span class="material-symbols-outlined" style="font-size:12px;">info</span>@(isArabic ? "الحد الأقصى 5 ميجابايت. الصيغ المدعومة: PDF, Word, صور" : "Max 5MB. Supported: PDF, Word, Images")</div>
+            <div class="sod-err" id="sodFileErr" style="display:none"><span class="material-symbols-outlined">error</span><span id="sodFileErrMsg"></span></div>
+          </div>
+          @if (canSubmit) {
+            <button class="sod-submit-btn" id="sodSubmitBtn" onclick="submitOffer()"><span class="material-symbols-outlined">send</span>@(Model.PriceEstimate.HasValue ? (isArabic?"تعديل العرض":"Update Offer") : (isArabic?"إرسال العرض":"Send Offer"))</button>
           }
-
         </div>
       </div>
 
@@ -406,23 +596,30 @@ html[dir="rtl"] .sod-toasts { right:22px; } html[dir="ltr"] .sod-toasts { left:2
   </div>
 
 </div>
+
 <div class="sod-toasts" id="sodToasts"></div>
 
-<form id="sodForm" method="post" action="@Url.Action("SubmitOffer","ServiceOffers")" style="display:none">
+<form id="sodForm" method="post" action="@Url.Action("SubmitOffer","ServiceOffers")" style="display:none" enctype="multipart/form-data">
   @Html.AntiForgeryToken()
+  <input type="hidden" name="offerId" id="formOfferId" />
+  <input type="hidden" name="priceEstimate" id="formPriceEstimate" />
+  <input type="hidden" name="inspectionRequired" id="formInspectionRequired" />
 </form>
 
 @section Scripts {
 <script>
 var isArabic = @(isArabic ? "true" : "false");
 var OFFER_ID = @Model.OfferId;
+
 async function submitOffer() {
     var price      = parseFloat(document.getElementById('sodPrice').value);
     var inspection = document.getElementById('sodInspection').checked;
+    var fileInput  = document.getElementById('sodAttachment');
+    var file       = fileInput.files[0];
 
-    // Validate
-    document.getElementById('sodPriceWrap').classList.remove('has-error');
+    document.getElementById('sodPriceWrap')?.classList.remove('has-error');
     document.getElementById('sodPriceErr').style.display = 'none';
+    document.getElementById('sodFileErr').style.display = 'none';
 
     if (!price || price <= 0) {
         document.getElementById('sodPriceWrap').classList.add('has-error');
@@ -431,26 +628,41 @@ async function submitOffer() {
         return;
     }
 
+    if (file && file.size > 5 * 1024 * 1024) {
+        document.getElementById('sodFileErr').style.display = 'flex';
+        document.getElementById('sodFileErrMsg').textContent = isArabic ? 'حجم الملف يتجاوز 5 ميجابايت' : 'File size exceeds 5MB';
+        return;
+    }
+
+    if (file) {
+        var allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
+        var fileName = file.name;
+        var ext = '.' + fileName.split('.').pop().toLowerCase();
+        if (!allowedExts.includes(ext)) {
+            document.getElementById('sodFileErr').style.display = 'flex';
+            document.getElementById('sodFileErrMsg').textContent = isArabic ? 'نوع الملف غير مسموح. المسموح: PDF, Word, صور' : 'File type not allowed. Allowed: PDF, Word, Images';
+            return;
+        }
+    }
+
     var btn   = document.getElementById('sodSubmitBtn');
     btn.disabled = true;
     btn._orig    = btn.innerHTML;
-    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:sodSpin 1s linear infinite">autorenew</span> ' +
-                   (isArabic ? 'جاري الإرسال...' : 'Sending...');
+    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:sodSpin 1s linear infinite">autorenew</span> ' + (isArabic ? 'جاري الإرسال...' : 'Sending...');
+
+    var formData = new FormData();
+    formData.append('offerId', OFFER_ID);
+    formData.append('priceEstimate', price);
+    formData.append('inspectionRequired', inspection);
+    if (file) formData.append('attachmentFile', file);
 
     var token = document.querySelector('#sodForm input[name="__RequestVerificationToken"]').value;
 
     try {
-        var res = await fetch(document.getElementById('sodForm').action, {
+        var res = await fetch('@Url.Action("SubmitOffer","ServiceOffers")', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': token
-            },
-            body: JSON.stringify({
-                offerId:            OFFER_ID,
-                priceEstimate:      price,
-                inspectionRequired: inspection
-            })
+            headers: { 'RequestVerificationToken': token },
+            body: formData
         });
         var data = await res.json();
 

@@ -1,4 +1,6 @@
-﻿namespace Home_Expert.ViewModel
+﻿using Home_Expert.Models;
+
+namespace Home_Expert.ViewModel
 {
     public class ServiceOfferDetailsVm
     {
@@ -11,6 +13,7 @@
         public string OfferStatusEn { get; set; } = "";
 
         // Service
+        public int ServiceTypeId { get; set; }
         public string ServiceNameAr { get; set; } = "";
         public string ServiceNameEn { get; set; } = "";
         public string ServiceTypeAr { get; set; } = "";
@@ -34,16 +37,27 @@
         public double? CustomerLatitude { get; set; }
         public double? CustomerLongitude { get; set; }
 
-        // Helpers
-        public string StatusKey => OfferStatusId switch
-        {
-            86 => "pending",
-            87 => "submitted",
-            88 => "accepted",
-            89 => "rejected",
-            _ => "other"
-        };
-        public bool CanSubmit => OfferStatusId == 86 || OfferStatusId == 87;
-    }
+        // Attachment
+        public bool HasAttachment { get; set; }
+        public string? AttachmentFileName { get; set; }
 
+        // ✅ تعديل: جعلها خصائص قابلة للقراءة والكتابة (with setters)
+        public string StatusKey { get; set; } = "pending";
+        public bool CanSubmit { get; set; }
+
+
+        // خصائص المطابخ (Kitchen)
+        public KitchenMeasurement? KitchenMeasurement { get; set; }
+        public KitchenCostEstimate? KitchenCostEstimate { get; set; }
+        public List<KitchenExport>? KitchenExports { get; set; }
+
+        // خصائص النقل (Moving)
+        public MovingRequest? MovingRequest { get; set; }
+        public List<MovingOffer>? MovingOffers { get; set; }
+        public List<MovingStatusLog>? MovingStatusLogs { get; set; }
+
+        // تحديد نوع الخدمة
+        public bool IsKitchenService { get; set; }
+        public bool IsMovingService { get; set; }
+    }
 }

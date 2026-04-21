@@ -9,218 +9,6 @@
 
 @section Styles {
 <link rel="stylesheet" href="~/css/table.css" />
-<style>
-/* ═══════════════════════════════════ so-page ═══════════════════════════════════ */
-.so-page { padding:24px 24px 56px; }
-
-.so-breadcrumb { display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--muted);margin-bottom:8px;flex-wrap:wrap; }
-.so-breadcrumb a { color:var(--muted);text-decoration:none;font-weight:600;transition:color .18s; }
-.so-breadcrumb a:hover { color:var(--primary); }
-.so-breadcrumb .sep { font-size:14px;opacity:.4; }
-.so-title    { font-size:1.45rem;font-weight:900;color:var(--text);margin:0 0 4px; }
-.so-subtitle { font-size:.84rem;color:var(--muted);margin:0 0 22px; }
-
-/* Stats */
-.so-stats { display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px; }
-.so-stat  { background:#fff;border-radius:14px;border:1.5px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.04);cursor:pointer;transition:transform .22s,box-shadow .22s; }
-.so-stat:hover { transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.09); }
-.so-stat.active-filter { box-shadow:0 0 0 2.5px var(--primary); }
-.so-stat-icon { width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-.so-stat-icon .material-symbols-outlined { font-size:19px; }
-.so-stat-val { font-size:1.3rem;font-weight:900;line-height:1;margin-bottom:2px; }
-.so-stat-lbl { font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted); }
-.so-stat.s-all       .so-stat-icon { background:rgba(10,61,68,.08);color:#0A3D44; } .so-stat.s-all       .so-stat-val { color:#0A3D44; }
-.so-stat.s-pending   .so-stat-icon { background:rgba(245,158,11,.1);color:#b45309; } .so-stat.s-pending   .so-stat-val { color:#b45309; }
-.so-stat.s-submitted .so-stat-icon { background:rgba(59,130,246,.1);color:#2563eb; } .so-stat.s-submitted .so-stat-val { color:#2563eb; }
-.so-stat.s-accepted  .so-stat-icon { background:rgba(16,185,129,.1);color:#059669; } .so-stat.s-accepted  .so-stat-val { color:#059669; }
-.so-stat.s-rejected  .so-stat-icon { background:rgba(239,68,68,.08);color:#dc2626; } .so-stat.s-rejected  .so-stat-val { color:#dc2626; }
-
-/* Table card */
-.so-card { background:#fff;border-radius:18px;border:1.5px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden; }
-
-/* Toolbar */
-.so-toolbar { display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1.5px solid var(--border);flex-wrap:wrap; }
-.so-search  { display:flex;align-items:center;gap:8px;background:#f8fafc;border:1.5px solid var(--border);border-radius:11px;padding:8px 14px;flex:1;min-width:200px;transition:border-color .2s,box-shadow .2s; }
-.so-search:focus-within { border-color:var(--primary);box-shadow:0 0 0 3px rgba(10,61,68,.07);background:#fff; }
-.so-search .material-symbols-outlined { font-size:17px;color:var(--muted);flex-shrink:0; }
-.so-search input { border:none;background:transparent;outline:none;font-size:.84rem;font-family:inherit;color:var(--text);width:100%; }
-.so-search input::placeholder { color:#b0b8c4; }
-.so-filter { height:40px;padding:0 14px;border:1.5px solid var(--border);border-radius:11px;font-size:.82rem;font-family:inherit;background:#f8fafc;color:var(--text);cursor:pointer;transition:border-color .2s;min-width:145px; }
-.so-filter:focus { outline:none;border-color:var(--primary);background:#fff; }
-
-/* Table */
-.so-scroll { overflow-x:auto;-webkit-overflow-scrolling:touch; }
-.so-scroll::-webkit-scrollbar { height:5px; } .so-scroll::-webkit-scrollbar-track { background:#f1f5f9; } .so-scroll::-webkit-scrollbar-thumb { background:#cbd5e1;border-radius:99px; } .so-scroll::-webkit-scrollbar-thumb:hover { background:var(--primary); }
-
-.so-table { width:100%;min-width:780px;border-collapse:collapse;font-size:.85rem; }
-.so-table thead th { background:#f8fafc;color:var(--muted);font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-bottom:2px solid var(--border);white-space:nowrap; }
-.so-table tbody tr { border-bottom:1px solid #f3f5f8;transition:background .13s;animation:soRowIn .38s ease backwards; }
-.so-table tbody tr:nth-child(1){animation-delay:.04s} .so-table tbody tr:nth-child(2){animation-delay:.07s} .so-table tbody tr:nth-child(3){animation-delay:.10s} .so-table tbody tr:nth-child(n+4){animation-delay:.13s}
-@@keyframes soRowIn { from{opacity:0;transform:translateX(6px)} to{opacity:1;transform:none} }
-.so-table tbody tr:last-child { border-bottom:none; }
-.so-table tbody tr:hover td   { background:#fafbfc; }
-.so-table tbody td { padding:13px 16px;vertical-align:middle; }
-.td-num  { font-weight:700;color:var(--muted);font-size:.78rem;width:40px; }
-.td-muted{ font-size:.82rem;color:var(--muted); }
-
-/* Service cell */
-.so-svc { display:flex;align-items:center;gap:10px; }
-.so-svc-icon { width:38px;height:38px;border-radius:10px;background:rgba(10,61,68,.08);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-.so-svc-icon .material-symbols-outlined { font-size:19px; }
-.so-svc-name { font-size:.88rem;font-weight:700;color:var(--text); }
-.so-svc-type { font-size:.72rem;color:var(--muted);margin-top:1px; }
-
-/* Customer avatar */
-.so-cust { display:flex;align-items:center;gap:9px; }
-.so-cust-av { width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#0A3D44,#1a8a96);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:800;flex-shrink:0; }
-.so-cust-name { font-size:.85rem;font-weight:600;color:var(--text); }
-
-/* Time */
-.so-time       { font-size:.82rem;font-weight:600;color:var(--text);white-space:nowrap; }
-.so-time-sub   { font-size:.7rem;color:var(--muted); }
-.so-time-empty { font-size:.78rem;color:var(--muted);font-style:italic; }
-
-/* Price */
-.so-price       { font-size:.9rem;font-weight:900;color:var(--primary); }
-.so-price-empty { font-size:.78rem;color:var(--muted);font-style:italic; }
-
-/* Inspection */
-.so-insp { display:inline-flex;align-items:center;gap:4px;font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:999px; }
-.so-insp.yes { background:#fef3c7;color:#92400e;border:1px solid #fde68a; }
-.so-insp.no  { background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0; }
-.so-insp .material-symbols-outlined { font-size:12px; }
-
-/* Status badge */
-.so-badge { display:inline-flex;align-items:center;gap:5px;font-size:.65rem;font-weight:800;padding:4px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap; }
-.so-badge.pending   { background:rgba(245,158,11,.1); color:#b45309; border:1.5px solid rgba(245,158,11,.22); }
-.so-badge.submitted { background:rgba(59,130,246,.1); color:#2563eb; border:1.5px solid rgba(59,130,246,.22); }
-.so-badge.accepted  { background:rgba(16,185,129,.1); color:#059669; border:1.5px solid rgba(16,185,129,.22); }
-.so-badge.rejected  { background:rgba(239,68,68,.1);  color:#dc2626; border:1.5px solid rgba(239,68,68,.2);  }
-.so-badge .material-symbols-outlined { font-size:12px; }
-
-/* Action btn */
-.so-offer-btn { display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;padding:7px 14px;border-radius:9px;border:1.5px solid;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap; }
-.so-offer-btn.new     { background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 3px 10px rgba(10,61,68,.2); }
-.so-offer-btn.new:hover { transform:translateY(-2px);box-shadow:0 6px 16px rgba(10,61,68,.28); }
-.so-offer-btn.edit    { background:#eff6ff;color:#2563eb;border-color:#bfdbfe; }
-.so-offer-btn.edit:hover { background:#2563eb;color:#fff;border-color:#2563eb; }
-.so-offer-btn.done    { background:#f0fdf4;color:#059669;border-color:#bbf7d0;cursor:default; }
-.so-offer-btn .material-symbols-outlined { font-size:15px; }
-
-/* Footer */
-.so-foot { padding:12px 20px;border-top:1.5px solid var(--border);background:#fafbfc;font-size:.78rem;color:var(--muted);font-weight:600; }
-
-/* Empty */
-.so-empty { padding:56px 24px;text-align:center;color:var(--muted); }
-.so-empty .material-symbols-outlined { font-size:3rem;display:block;margin-bottom:10px;opacity:.4; }
-.so-empty-title { font-size:1rem;font-weight:700;margin-bottom:5px;color:var(--text); }
-
-/* ── Offer Modal ── */
-.so-modal-overlay {
-  position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);
-  z-index:9100;display:flex;align-items:center;justify-content:center;
-  padding:16px;opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.so-modal-overlay.open { opacity:1;pointer-events:all; }
-.so-modal-box {
-  background:#fff;border-radius:20px;padding:0;width:min(480px,100%);
-  box-shadow:0 28px 72px rgba(0,0,0,.22);
-  transform:translateY(18px) scale(.97);
-  transition:transform .3s cubic-bezier(.34,1.4,.64,1);
-  overflow:hidden;
-}
-.so-modal-overlay.open .so-modal-box { transform:none; }
-
-.so-modal-head {
-  background:linear-gradient(135deg,var(--primary),#0d5562);
-  padding:22px 24px; color:#fff;
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-}
-.so-modal-head-title { font-size:1.05rem;font-weight:900;margin:0 0 4px; }
-.so-modal-head-sub   { font-size:.8rem;color:rgba(255,255,255,.7);margin:0; }
-.so-modal-close {
-  width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);
-  border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:background .2s;
-}
-.so-modal-close:hover { background:rgba(255,255,255,.28); }
-.so-modal-close .material-symbols-outlined { font-size:18px; }
-
-.so-modal-body { padding:24px; }
-
-.so-m-field { margin-bottom:18px; }
-.so-m-label {
-  font-size:.7rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:.08em;color:var(--text);
-  display:flex;align-items:center;gap:6px;margin-bottom:7px;
-}
-.so-m-label .material-symbols-outlined { font-size:14px;color:var(--primary); }
-
-.so-m-input-wrap {
-  display:flex;align-items:center;
-  background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;
-  transition:border-color .2s,box-shadow .2s;
-}
-.so-m-input-wrap:focus-within { border-color:var(--primary);box-shadow:0 0 0 3px rgba(10,61,68,.07);background:#fff; }
-.so-m-input-wrap.has-error { border-color:#ef4444; }
-.so-m-icon { width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0; }
-.so-m-icon .material-symbols-outlined { font-size:17px; }
-.so-m-input { flex:1;border:none;background:transparent;outline:none;font-size:.9rem;font-family:inherit;color:var(--text);height:44px;padding-inline-end:14px; }
-html[dir="ltr"] .so-m-input { padding-inline-start:0; }
-.so-m-input::placeholder { color:#b0b8c4; }
-
-/* Toggle switch for inspection */
-.so-toggle-row { display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f8fafc;border-radius:12px;border:1.5px solid var(--border); }
-.so-toggle-label { font-size:.88rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px; }
-.so-toggle-label .material-symbols-outlined { font-size:18px;color:var(--primary); }
-.so-toggle-sub   { font-size:.72rem;color:var(--muted);margin-top:2px; }
-.so-switch { position:relative;width:44px;height:24px;flex-shrink:0; }
-.so-switch input { opacity:0;width:0;height:0; }
-.so-slider {
-  position:absolute;inset:0;background:#cbd5e1;border-radius:999px;cursor:pointer;
-  transition:background .25s;
-}
-.so-slider::before {
-  content:'';position:absolute;width:18px;height:18px;border-radius:50%;
-  background:#fff;top:3px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2);
-}
-html[dir="rtl"] .so-slider::before { right:3px; }
-html[dir="ltr"] .so-slider::before { left:3px; }
-.so-switch input:checked + .so-slider { background:var(--primary); }
-html[dir="rtl"] .so-switch input:checked + .so-slider::before { transform:translateX(-20px); }
-html[dir="ltr"] .so-switch input:checked + .so-slider::before { transform:translateX(20px); }
-
-.so-m-error { font-size:.7rem;color:#dc2626;margin-top:5px;display:flex;align-items:center;gap:4px; }
-.so-m-error .material-symbols-outlined { font-size:12px; }
-
-.so-modal-foot { padding:0 24px 24px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap; }
-.so-m-btn { display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:11px;font-size:.86rem;font-weight:800;cursor:pointer;border:2px solid transparent;transition:all .22s;font-family:inherit;white-space:nowrap; }
-.so-m-btn.primary { background:linear-gradient(135deg,var(--primary),#0d5562);color:#fff;box-shadow:0 4px 14px rgba(10,61,68,.22); }
-.so-m-btn.primary:hover { transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,61,68,.3); }
-.so-m-btn.primary:disabled { opacity:.6;cursor:not-allowed;transform:none; }
-.so-m-btn.outline { background:#fff;color:var(--text);border-color:var(--border); }
-.so-m-btn.outline:hover { background:#f3f5f8; }
-.so-m-btn .material-symbols-outlined { font-size:16px; }
-
-/* Toasts */
-.so-toasts { position:fixed;bottom:22px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none; }
-html[dir="rtl"] .so-toasts { right:22px; } html[dir="ltr"] .so-toasts { left:22px; }
-.so-toast { display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:13px;font-size:.84rem;font-weight:600;color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.17);pointer-events:all;min-width:210px;max-width:330px;animation:soToastIn .3s ease; }
-@@keyframes soToastIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-.so-toast.success { background:#059669; } .so-toast.error { background:#dc2626; }
-.so-toast .material-symbols-outlined { font-size:18px;flex-shrink:0; }
-
-/* Responsive */
-@@media(max-width:1100px){ .so-stats { grid-template-columns:repeat(3,1fr); } }
-@@media(max-width:700px) {
-  .so-page { padding:14px 12px 40px; }
-  .so-stats { grid-template-columns:repeat(2,1fr);gap:10px; }
-  .so-stat  { padding:12px;gap:8px; } .so-stat-val { font-size:1.15rem; }
-  .so-toolbar { flex-direction:column;align-items:stretch; }
-  .so-filter,.so-search { min-width:unset; }
-  .so-modal-foot { flex-direction:column; } .so-m-btn { justify-content:center; }
-}
-</style>
 }
 
 <div class="so-page" dir="@dir">
@@ -369,37 +157,43 @@ html[dir="rtl"] .so-toasts { right:22px; } html[dir="ltr"] .so-toasts { left:22p
                 </span>
               </td>
 
-              <td>
-                @if (o.CanSubmit)
-                {
-                  var btnClass = o.PriceEstimate.HasValue ? "edit" : "new";
-                  var btnLabel = isArabic
-                    ? (o.PriceEstimate.HasValue ? "تعديل العرض" : "تقديم عرض")
-                    : (o.PriceEstimate.HasValue ? "Edit Offer"   : "Submit Offer");
-                  var btnIcon  = o.PriceEstimate.HasValue ? "edit" : "local_offer";
-                  <button class="so-offer-btn @btnClass"
-                          onclick="openOfferModal(@o.OfferId, '@Html.Raw(svc.Replace("'","\\'"))',
-                                   @(o.PriceEstimate.HasValue ? o.PriceEstimate.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "0"),
-                                   @(o.InspectionRequired ? "true" : "false"))">
-                    <span class="material-symbols-outlined">@btnIcon</span>@btnLabel
-                  </button>
-                }
-                else if (o.StatusKey == "accepted")
-                {
-                  <span class="so-offer-btn done">
-                    <span class="material-symbols-outlined">check_circle</span>
-                    @(isArabic?"تم القبول":"Accepted")
-                  </span>
-                }
-                else
-                {
-                  <span class="so-offer-btn done" style="color:var(--muted);border-color:var(--border);background:#f8fafc;">
-                    <span class="material-symbols-outlined">block</span>
-                    @(isArabic?"مرفوض":"Rejected")
-                  </span>
-                }
-              </td>
-              <td>
+<td>
+    @if (o.CanEditOffer)
+    {
+        var btnClass = o.PriceEstimate.HasValue ? "edit" : "new";
+        var btnLabel = isArabic
+            ? (o.PriceEstimate.HasValue ? "تعديل العرض" : "تقديم عرض")
+            : (o.PriceEstimate.HasValue ? "Edit Offer"   : "Submit Offer");
+        var btnIcon  = o.PriceEstimate.HasValue ? "edit" : "local_offer";
+        <button class="so-offer-btn @btnClass"
+                onclick="openOfferModal(@o.OfferId, '@Html.Raw(o.ServiceNameEn.Replace("'","\\'"))',
+                         @(o.PriceEstimate.HasValue ? o.PriceEstimate.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "0"),
+                         @(o.InspectionRequired ? "true" : "false"))">
+            <span class="material-symbols-outlined">@btnIcon</span>@btnLabel
+        </button>
+    }
+    else if (o.OfferStatusId == 88 || o.RequestStatusId == 81)  // العرض مقبول أو الطلب مقبول
+    {
+        <span class="so-offer-btn done">
+            <span class="material-symbols-outlined">check_circle</span>
+            @(isArabic ? "تم القبول" : "Accepted")
+        </span>
+    }
+    else if (o.OfferStatusId == 89 || o.RequestStatusId == 82)  // العرض مرفوض أو الطلب مرفوض
+    {
+        <span class="so-offer-btn done" style="color:var(--muted);border-color:var(--border);background:#f8fafc;">
+            <span class="material-symbols-outlined">block</span>
+            @(isArabic ? "مغلق" : "Closed")
+        </span>
+    }
+    else
+    {
+        <span class="so-offer-btn done" style="color:var(--muted);border-color:var(--border);background:#f8fafc;">
+            <span class="material-symbols-outlined">lock</span>
+            @(isArabic ? "غير قابل للتعديل" : "Locked")
+        </span>
+    }
+</td>              <td>
                 <a href="@Url.Action("Details","ServiceOffers")/@o.OfferId"
                    class="so-offer-btn" style="background:#f8fafc;color:var(--primary);border-color:var(--border);">
                   <span class="material-symbols-outlined">visibility</span>
@@ -446,7 +240,48 @@ html[dir="rtl"] .so-toasts { right:22px; } html[dir="ltr"] .so-toasts { left:22p
           <span id="soPriceErrMsg"></span>
         </div>
       </div>
+      <!-- حقل رفع المرفق -->
+<div class="so-m-field">
+    <div class="so-m-label">
+        <span class="material-symbols-outlined">attach_file</span>
+        @(isArabic ? "المرفقات (PDF/Word/صور)" : "Attachments (PDF/Word/Images)")
+    </div>
+    <div class="so-m-input-wrap" id="soMAttachmentWrap">
+        <div class="so-m-icon"><span class="material-symbols-outlined">cloud_upload</span></div>
+        <input type="file" id="soMAttachment" class="so-m-input" 
+               accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+               style="padding-block: 10px;" />
+    </div>
+    <div class="so-m-info" style="font-size:.7rem;color:var(--muted);margin-top:5px;">
+        <span class="material-symbols-outlined" style="font-size:12px;">info</span>
+        @(isArabic ? "الحد الأقصى 5 ميجابايت. الصيغ المدعومة: PDF, Word, صور" : "Max 5MB. Supported: PDF, Word, Images")
+    </div>
+    <div class="so-m-error" id="soFileErr" style="display:none">
+        <span class="material-symbols-outlined">error</span>
+        <span id="soFileErrMsg"></span>
+    </div>
+</div>
 
+<!-- عرض الملف المرفق الحالي (إذا وجد) -->
+<div class="so-m-field" id="soExistingFileDiv" style="display:none">
+    <div class="so-m-label">
+        <span class="material-symbols-outlined">description</span>
+        @(isArabic ? "الملف المرفق الحالي" : "Current Attachment")
+    </div>
+    <div id="soExistingFileInfo" class="so-toggle-row" style="background:#f8fafc;border-radius:12px;padding:8px 12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span class="material-symbols-outlined" style="color:var(--primary);">picture_as_pdf</span>
+            <span id="soExistingFileName" style="font-size:.85rem;"></span>
+        </div>
+        <a href="#" id="soDownloadLink" class="so-m-btn outline" style="padding:5px 12px;text-decoration:none;">
+            <span class="material-symbols-outlined" style="font-size:16px;">download</span>
+            @(isArabic ? "تحميل" : "Download")
+        </a>
+    </div>
+    <div class="so-m-info" style="font-size:.7rem;color:var(--muted);margin-top:5px;">
+        @(isArabic ? "اختر ملفاً جديداً لاستبدال الملف الحالي" : "Choose a new file to replace the current one")
+    </div>
+</div>
       <div class="so-m-field">
         <div class="so-toggle-row">
           <div>
@@ -539,60 +374,115 @@ document.getElementById('soModal').addEventListener('click', function(e){
 
 /* ── Submit ── */
 async function submitOffer() {
-    var price      = parseFloat(document.getElementById('soMPrice').value);
+    var price = parseFloat(document.getElementById('soMPrice').value);
     var inspection = document.getElementById('soMInspection').checked;
+    var fileInput = document.getElementById('soMAttachment');
+    var file = fileInput.files[0];
 
-    // validate
+    // Validate price
     document.getElementById('soMPriceWrap').classList.remove('has-error');
     document.getElementById('soPriceErr').style.display = 'none';
+    document.getElementById('soFileErr').style.display = 'none';
 
     if (!price || price <= 0) {
         document.getElementById('soMPriceWrap').classList.add('has-error');
-        document.getElementById('soPriceErr').style.display   = 'flex';
-        document.getElementById('soPriceErrMsg').textContent  = isArabic ? 'يرجى إدخال سعر صحيح' : 'Please enter a valid price';
+        document.getElementById('soPriceErr').style.display = 'flex';
+        document.getElementById('soPriceErrMsg').textContent = isArabic ? 'يرجى إدخال سعر صحيح' : 'Please enter a valid price';
         return;
+    }
+
+    // Validate file size (5MB max)
+    if (file && file.size > 5 * 1024 * 1024) {
+        document.getElementById('soFileErr').style.display = 'flex';
+        document.getElementById('soFileErrMsg').textContent = isArabic ? 'حجم الملف يتجاوز 5 ميجابايت' : 'File size exceeds 5MB';
+        return;
+    }
+
+    // Validate file extension
+    if (file) {
+        var allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
+        var ext = '.' + file.name.split('.').pop().toLowerCase();
+        if (!allowedExts.includes(ext)) {
+            document.getElementById('soFileErr').style.display = 'flex';
+            document.getElementById('soFileErrMsg').textContent = isArabic ? 'نوع الملف غير مسموح' : 'File type not allowed';
+            return;
+        }
     }
 
     var btn = document.getElementById('soMSubmitBtn');
     btn.disabled = true;
-    btn._orig    = btn.innerHTML;
-    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:soSpin 1s linear infinite">autorenew</span> ' + (isArabic?'جاري الإرسال...':'Sending...');
+    btn._orig = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:soSpin 1s linear infinite">autorenew</span> ' + (isArabic ? 'جاري الإرسال...' : 'Sending...');
 
-    // ✅ JSON مباشرة — أضمن من FormData
+    // Prepare FormData for file upload
+    var formData = new FormData();
+    formData.append('offerId', _currentId);
+    formData.append('priceEstimate', price);
+    formData.append('inspectionRequired', inspection);
+    if (file) {
+        formData.append('attachmentFile', file);
+    }
+
     var token = document.querySelector('#soOfferForm input[name="__RequestVerificationToken"]').value;
 
     try {
         var res = await fetch(document.getElementById('soOfferForm').action, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'RequestVerificationToken': token
+                // Don't set Content-Type when using FormData (browser sets it with boundary)
             },
-            body: JSON.stringify({
-                offerId:            _currentId,
-                priceEstimate:      price,
-                inspectionRequired: inspection
-            })
+            body: formData
         });
         var data = await res.json();
 
         if (res.ok && (data.success || data.Success)) {
             closeOfferModal();
             soToast(data.message || (isArabic ? 'تم تقديم العرض بنجاح' : 'Offer submitted successfully'), 'success');
-            // ✅ Reload بعد 1.5 ثانية عشان يشوف التوست
             setTimeout(function () { location.reload(); }, 1500);
         } else {
             soToast(data.message || (isArabic ? 'حدث خطأ' : 'An error occurred'), 'error');
-            btn.disabled  = false;
+            btn.disabled = false;
             btn.innerHTML = btn._orig;
         }
-    } catch(e) {
+    } catch (e) {
         soToast(isArabic ? 'خطأ في الاتصال' : 'Connection error', 'error');
-        btn.disabled  = false;
+        btn.disabled = false;
         btn.innerHTML = btn._orig;
     }
 }
 
+// تعديل دالة openOfferModal لإظهار الملف المرفق الحالي إن وجد
+async function openOfferModal(offerId, serviceName, currentPrice, currentInspection) {
+    _currentId = offerId;
+    document.getElementById('soModalTitle').textContent = isArabic ? 'تقديم عرض' : 'Submit Offer';
+    document.getElementById('soModalSub').textContent = serviceName;
+    document.getElementById('soMPrice').value = currentPrice > 0 ? currentPrice : '';
+    document.getElementById('soMInspection').checked = currentInspection;
+    
+    // Reset file input
+    document.getElementById('soMAttachment').value = '';
+    document.getElementById('soFileErr').style.display = 'none';
+    document.getElementById('soMPriceWrap').classList.remove('has-error');
+    
+    // Check for existing attachment
+    try {
+        var res = await fetch('/ServiceOffers/GetAttachmentInfo?offerId=' + offerId);
+        var data = await res.json();
+        if (data.hasAttachment) {
+            document.getElementById('soExistingFileDiv').style.display = 'block';
+            document.getElementById('soExistingFileName').textContent = data.fileName || (isArabic ? 'ملف مرفق' : 'Attachment');
+            document.getElementById('soDownloadLink').href = '/ServiceOffers/DownloadAttachment?offerId=' + offerId;
+        } else {
+            document.getElementById('soExistingFileDiv').style.display = 'none';
+        }
+    } catch(e) {
+        document.getElementById('soExistingFileDiv').style.display = 'none';
+    }
+    
+    document.getElementById('soModal').classList.add('open');
+    setTimeout(function(){ document.getElementById('soMPrice').focus(); }, 300);
+}
 function updateRow(offerId, price, inspection) {
     // Find the row with this offerId in the action button onclick
     var rows = document.querySelectorAll('#soTable tbody tr');

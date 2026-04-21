@@ -222,6 +222,9 @@
   <data name="CompanyTypes_Image" xml:space="preserve">
     <value>صورة نوع الشركة</value>
   </data>
+  <data name="MyServices" xml:space="preserve">
+    <value>خدماتي</value>
+  </data>
   <data name="Service_Sales" xml:space="preserve">
     <value>مبيعات</value>
   </data>
@@ -1416,7 +1419,10 @@
   <data name="Services_Available" xml:space="preserve">
     <value>الخدمات المتاحة</value>
   </data>
-  <data name="MyServices" xml:space="preserve">
-    <value>خدماتي</value>
+  <data name="ServiceOffers_Title" xml:space="preserve">
+    <value>العروض</value>
+  </data>
+  <data name="ServiceOffers_Desc" xml:space="preserve">
+    <value>العروض</value>
   </data>
 </root>

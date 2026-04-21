@@ -283,7 +283,7 @@
                 <a href="@Url.Action("MyServices", "Service")" class="dh-card t-c7">
                     <div class="dh-stripe"></div>
                     <div class="dh-head">
-                        <div class="dh-icon"><span class="material-symbols-outlined">miscellaneous_services</span></div>
+                        <div class="dh-icon"></div>
                         <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Srv_Active]</span>
                     </div>
                     <div class="dh-content">
@@ -319,6 +319,39 @@
                         <span class="dh-trend up"><span class="material-symbols-outlined">trending_up</span>+10%</span>
                     </div>
                 </a>
+
+                <a href="@Url.Action("Index", "ServiceOffers")" class="dh-card t-c1">
+                    <div class="dh-stripe"></div>
+                    <div class="dh-head">
+                        <div class="dh-icon"><span class="material-symbols-outlined">inventory_2</span></div>
+                        <span class="dh-badge active">@_sharedResources[SharedResourcesKeys.Products_Active]</span>
+                    </div>
+                    <div class="dh-content">
+                        <div class="dh-title">@_sharedResources[SharedResourcesKeys.ServiceOffers_Title]</div>
+                        <div class="dh-desc">@_sharedResources[SharedResourcesKeys.ServiceOffers_Desc]</div>
+                        <div class="dh-metrics">
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">320</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Total]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">45</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_New]</div>
+                            </div>
+                            <div class="dh-metric">
+                                <div class="dh-metric-val">12k</div>
+                                <div class="dh-metric-lbl">@_sharedResources[SharedResourcesKeys.Products_Sales]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dh-foot">
+                        <span class="dh-link">
+                            @_sharedResources[SharedResourcesKeys.View_Details]
+                            <span class="material-symbols-outlined">@(isArabic ? "arrow_back_ios" : "arrow_forward_ios")</span>
+                        </span>
+                    </div>
+                </a>
+
 
                 <a href="@Url.Action("IndexProduct", "Service")" class="dh-card t-c1">
                     <div class="dh-stripe"></div>

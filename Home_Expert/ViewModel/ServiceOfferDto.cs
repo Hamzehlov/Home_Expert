@@ -15,9 +15,13 @@
         public string OfferStatusAr { get; set; } = "";
         public string OfferStatusEn { get; set; } = "";
         public int RequestStatusId { get; set; }
+        public string? RequestStatusAr { get; set; }
+        public string? RequestStatusEn { get; set; }
+
         public string CustomerNameAr { get; set; } = "";
         public string CustomerNameEn { get; set; } = "";
-
+        public IFormFile? AttachmentFile { get; set; }
+        public bool CanEditOffer { get; set; }
         public string StatusKey => OfferStatusId switch
         {
             86 => "pending",

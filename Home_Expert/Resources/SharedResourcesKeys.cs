@@ -440,7 +440,8 @@ namespace Home_Expert.Resources
         public const string Products_Total = "Products_Total";
         public const string Products_New = "Products_New";
         public const string Products_Sales = "Products_Sales";
-
+        public const string ServiceOffers_Title = "ServiceOffers_Title";
+        public const string ServiceOffers_Desc = "ServiceOffers_Desc";
         // ── Ads Card ──
         public const string Ads_Title = "Ads_Title";
         public const string Ads_Desc = "Ads_Desc";
