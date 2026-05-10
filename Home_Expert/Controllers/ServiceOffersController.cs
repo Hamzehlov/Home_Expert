@@ -322,19 +322,43 @@ namespace Home_Expert.Controllers
             {
                 // التحقق من حجم الملف (حد أقصى 5 ميجابايت)
                 if (attachmentFile.Length > 5 * 1024 * 1024)
-                    return Json(new { success = false, message = "حجم الملف يتجاوز 5 ميجابايت" });
+                    return Json(new
+                    {
+                        success = false,
+                        message = "حجم الملف يتجاوز 5 ميجابايت"
+                    });
 
                 // التحقق من امتداد الملف
-                var allowedExtensions = new[] { ".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png" };
-                var extension = Path.GetExtension(attachmentFile.FileName).ToLowerInvariant();
+                var allowedExtensions = new[]
+                {
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".jpg",
+        ".jpeg",
+        ".png"
+    };
+
+                var extension = Path.GetExtension(attachmentFile.FileName)
+                                    .ToLowerInvariant();
+
                 if (!allowedExtensions.Contains(extension))
-                    return Json(new { success = false, message = "نوع الملف غير مسموح. المسموح: PDF, Word, صور" });
+                    return Json(new
+                    {
+                        success = false,
+                        message = "نوع الملف غير مسموح. المسموح: PDF, Word, صور"
+                    });
 
                 using var memoryStream = new MemoryStream();
-                await attachmentFile.CopyToAsync(memoryStream);
-                offer.PdfFile = memoryStream.ToArray();
-            }
 
+                await attachmentFile.CopyToAsync(memoryStream);
+
+                // تخزين الملف
+                offer.PdfFile = memoryStream.ToArray();
+
+                // تخزين نوع الملف
+                offer.FileType = attachmentFile.ContentType;
+            }
             await _db.SaveChangesAsync();
 
             return Json(new { success = true, message = "تم تقديم العرض بنجاح" });
