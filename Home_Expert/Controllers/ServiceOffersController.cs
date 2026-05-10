@@ -349,7 +349,7 @@ namespace Home_Expert.Controllers
                         message = "نوع الملف غير مسموح. المسموح: PDF, Word, صور"
                     });
 
-                using var memoryStream = new MemoryStream();
+                using var memoryStream = new MemoryStream(); 
 
                 await attachmentFile.CopyToAsync(memoryStream);
 
