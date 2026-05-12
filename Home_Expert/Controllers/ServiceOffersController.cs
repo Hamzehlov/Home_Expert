@@ -336,7 +336,8 @@ namespace Home_Expert.Controllers
         ".docx",
         ".jpg",
         ".jpeg",
-        ".png"
+        ".png",
+        ".glb"
     };
 
                 var extension = Path.GetExtension(attachmentFile.FileName)
