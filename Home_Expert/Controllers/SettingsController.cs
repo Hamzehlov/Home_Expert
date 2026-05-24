@@ -15,6 +15,7 @@ namespace Home_Expert.Controllers
             => _userManager = userManager;
 
         public IActionResult Settings() => View();
+
     }
 }
 
