@@ -24,16 +24,17 @@
     }
 
     <link href="~/css/dashboard.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/table.css" />  
-    <link rel="stylesheet" href="~/css/details.css" /> 
-    <link rel="stylesheet" href="~/css/form.css" />    
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link rel="stylesheet" href="~/css/details.css" />
+    <link rel="stylesheet" href="~/css/form.css" />
     @await RenderSectionAsync("Styles", required: false)
+
 </head>
 <body>
 
     <!-- SIDEBAR -->
     <aside id="sidebar">
-
+        <!-- ... محتوى السايدبار كما هو ... -->
         <div class="sb-header">
             <div class="sb-logo-icon">
                 <img src="~/img/logo.png" width="80px" />
@@ -48,94 +49,143 @@
         </div>
 
         <nav class="sb-nav">
+            @if (User.IsInRole("Admin"))
+            {
+                <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Main]</p>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Dashboard]</span>
+                        </a>
+                    </li>
+                </ul>
 
-            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Main]</p>
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index", "Home")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
-                        <span class="material-symbols-outlined">dashboard</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Dashboard]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Orders")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Orders" ? "active" : "")">
-                        <span class="material-symbols-outlined">receipt_long</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Orders]</span>
-                        <span class="sb-badge">12</span>
-                    </a>
-                </li>
-            </ul>
-
-            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Management]</p>
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index", "Services")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Services" ? "active" : "")">
-                        <span class="material-symbols-outlined">home_repair_service</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Services]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Companies")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Companies" ? "active" : "")">
-                        <span class="material-symbols-outlined">store</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Companies]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Users")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "active" : "")">
-                        <span class="material-symbols-outlined">group</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Users]</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Messages")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Messages" ? "active" : "")">
-                        <span class="material-symbols-outlined">chat_bubble</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Messages]</span>
-                        <span class="sb-badge">3</span>
-                    </a>
-                </li>
-            </ul>
-
-            <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_System]</p>
-            <ul>
-                <li>
-                    <a href="@Url.Action("Settings", "Settings")"
-                       class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Settings" ? "active" : "")">
-                        <span class="material-symbols-outlined">tune</span>
-                        <span>@_sharedResources[SharedResourcesKeys.Settings]</span>
-                    </a>
-                </li>
-            </ul>
-
+                <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Management]</p>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "VendorApplications")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "VendorApplications" ? "active" : "")">
+                            <span class="material-symbols-outlined">business</span>
+                            <span>@_sharedResources[SharedResourcesKeys.PendingVendors_Title]</span>
+                            @if (ViewBag.PendingCount > 0)
+                            {
+                                <span class="sb-badge warning">@ViewBag.PendingCount</span>
+                            }
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Users")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "active" : "")">
+                            <span class="material-symbols-outlined">group</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Users]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" ? "active" : "")">
+                            <span class="material-symbols-outlined">campaign</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Ads_Title]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("IndexCompanyType", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" && ViewContext.RouteData.Values["action"]?.ToString() == "IndexCompanyType" ? "active" : "")">
+                            <span class="material-symbols-outlined">search</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Lookup_Title]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("IndexService", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" && ViewContext.RouteData.Values["action"]?.ToString() == "IndexService" ? "active" : "")">
+                            <span class="material-symbols-outlined">home_repair_service</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Srv_Services]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("IndexProduct", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" && ViewContext.RouteData.Values["action"]?.ToString() == "IndexProduct" ? "active" : "")">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Products_Title]</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+            else if (User.IsInRole("Vendor"))
+            {
+                <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Main]</p>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Dashboard]</span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="sb-section-label">@(isArabic ? "خدماتي" : "My Services")</p>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("MyServices", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" && ViewContext.RouteData.Values["action"]?.ToString() == "MyServices" ? "active" : "")">
+                            <span class="material-symbols-outlined">home_repair_service</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Srv_Services]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ServiceOffers")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "ServiceOffers" ? "active" : "")">
+                            <span class="material-symbols-outlined">local_offer</span>
+                            <span>@_sharedResources[SharedResourcesKeys.ServiceOffers_Title]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("IndexProduct", "Service")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Service" && ViewContext.RouteData.Values["action"]?.ToString() == "IndexProduct" ? "active" : "")">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Products_Title]</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <p class="sb-section-label">@_sharedResources[SharedResourcesKeys.Nav_Main]</p>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <span>@_sharedResources[SharedResourcesKeys.Dashboard]</span>
+                        </a>
+                    </li>
+                </ul>
+            }
         </nav>
 
         <div class="sb-footer">
             <div class="sb-user">
                 <div class="sb-user-avatar">
                     <div class="avatar-btn">
-                        <img src="~/img/account.png"
-                             alt="Admin" />
+                        <img src="~/img/account.png" alt="Admin" />
                     </div>
                 </div>
                 <div>
                     <p class="sb-user-name">@_sharedResources[SharedResourcesKeys.SystemManager]</p>
-                    <p class="sb-user-role">@_sharedResources[SharedResourcesKeys.SuperAdmin]</p>
+                    <p class="sb-user-role">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @_sharedResources[SharedResourcesKeys.SuperAdmin]
+                        }
+                        else if (User.IsInRole("Vendor"))
+                        {
+
+                            @(isArabic ? "شركة" : "Vendor")
+                        }
+                        else
+                        {
+
+                            @(isArabic ? "زائر" : "Guest")
+                        }
+                    </p>
                 </div>
                 <form asp-controller="Registration" asp-action="Logout" method="post" class="ms-auto me-0">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="sb-logout"
-                            title="@_sharedResources[SharedResourcesKeys.Logout]">
+                    <button type="submit" class="sb-logout" title="@_sharedResources[SharedResourcesKeys.Logout]">
                         <span class="material-symbols-outlined">logout</span>
                     </button>
                 </form>
             </div>
         </div>
-
     </aside>
 
     <!-- OVERLAY (mobile) -->
@@ -146,30 +196,22 @@
 
         <!-- TOP BAR -->
         <div class="top-bar">
-
             <div class="top-bar-left">
                 <button class="d-lg-none sb-hamburger" onclick="toggleSidebar()">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <div class="search-box">
+                <form class="search-box" action="https://www.google.com/search" method="get" target="_blank">
                     <span class="material-symbols-outlined">search</span>
-                    <input type="text"
-                           placeholder="@_sharedResources[SharedResourcesKeys.Search]" />
-                </div>
+                    <input type="text" name="q" placeholder="@_sharedResources[SharedResourcesKeys.Search]" />
+                </form>
             </div>
 
             <div class="top-bar-right">
-
-                <!-- Language -->
-                <form id="languageForm"
-                      asp-controller="Language"
-                      asp-action="SetLanguage"
-                      method="post">
+                <form id="languageForm" asp-controller="Language" asp-action="SetLanguage" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="culture" id="cultureInput" />
-                    <input type="hidden" name="returnUrl"
-                           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
-                           <button type="button" onclick="toggleLanguage()" class="btn-language">
+                    <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                    <button type="button" onclick="toggleLanguage()" class="btn-language">
                         <span class="material-symbols-outlined">language</span>
                         @if (isArabic)
                         {
@@ -183,28 +225,17 @@
                     </button>
                 </form>
 
-                <!-- Notifications -->
-                <div class="notif-wrap">
-                    <a href="@Url.Action("Index", "Messages")" class="top-btn">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </a>
-                    <span class="notif-dot"></span>
-                </div>
-
-                <!-- Avatar -->
                 <div class="avatar-btn">
-                    <img src="~/img/account.png"
-                         
-                         alt="Admin" />
+                    <img src="~/img/account.png" alt="Admin" />
                 </div>
-
             </div>
         </div>
 
+        <!-- Toast Container -->
+        <div id="toastContainer" class="toast-container-custom"></div>
+
         <!-- PAGE BODY -->
         <div class="page-body">
-
-         
             @RenderBody()
         </div>
 
@@ -212,14 +243,80 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function toggleLanguage() {
-            var c = '@culture';
-            document.getElementById('cultureInput').value = c.startsWith('ar') ? 'en-US' : 'ar-JO';
-            document.getElementById('languageForm').submit();
+        // ========================================
+        // TOAST NOTIFICATION SYSTEM
+        // ========================================
+        function showToast(message, type, title) {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+        const titles = {
+        success: title || (isRtl ? '✅ نجاح' : '✅ Success'),
+        error: title || (isRtl ? '❌ خطأ' : '❌ Error'),
+        warning: title || (isRtl ? '⚠️ تنبيه' : '⚠️ Warning'),
+        info: title || (isRtl ? 'ℹ️ معلومات' : 'ℹ️ Info')
+        };
+
+        const icons = { success: 'check_circle', error: 'cancel', warning: 'warning', info: 'info' };
+
+        const toast = document.createElement('div');
+        toast.className = `toast-notification ${type}`;
+        toast.innerHTML = `
+        <div class="toast-icon">
+        <span class="material-symbols-outlined">${icons[type] || 'notifications'}</span>
+        </div>
+        <div class="toast-content">
+        <div class="toast-title">${titles[type]}</div>
+        <div class="toast-message">${escapeHtml(message)}</div>
+        </div>
+        <button class="toast-close" onclick="this.closest('.toast-notification').remove()">
+        <span class="material-symbols-outlined">close</span>
+        </button>
+        `;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+        if (toast && toast.parentNode) {
+        toast.classList.add('toast-exit');
+        setTimeout(() => toast.remove(), 250);
         }
+        }, 5000);
+        }
+
+        function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+        }
+
+        // عرض الرسائل من TempData (إذا وجدت)
+        @if (TempData["ToastMessage"] != null)
+        {
+            var message = TempData["ToastMessage"]?.ToString()?.Replace("\"", "\\\"")?.Replace("\n", "\\n");
+            var type = TempData["ToastType"]?.ToString() ?? "info";
+            var title = TempData["ToastTitle"]?.ToString()?.Replace("\"", "\\\"") ?? "";
+            if (!string.IsNullOrEmpty(message))
+            {
+                <text>
+                    showToast("@Html.Raw(message)", "@type", "@title");
+                </text>
+                TempData.Remove("ToastMessage");
+                TempData.Remove("ToastType");
+                TempData.Remove("ToastTitle");
+            }
+        }
+
+        function toggleLanguage() {
+        var c = '@culture';
+        document.getElementById('cultureInput').value = c.startsWith('ar') ? 'en-US' : 'ar-JO';
+        document.getElementById('languageForm').submit();
+        }
+
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('show');
-            document.getElementById('overlay').classList.toggle('show');
+        document.getElementById('sidebar').classList.toggle('show');
+        document.getElementById('overlay').classList.toggle('show');
         }
     </script>
     @await RenderSectionAsync("Scripts", required: false)

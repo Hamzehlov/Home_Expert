@@ -20,14 +20,14 @@
             <div class="breadcrumb">
                 <a href="@Url.Action("Index", "Home")">@_sharedResources[SharedResourcesKeys.Dashboard]</a>
                 <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
-                <a href="@Url.Action("Index", "Products")">@_sharedResources[SharedResourcesKeys.Products_Title]</a>
+                <a href="@Url.Action("IndexProduct", "Service")">@_sharedResources[SharedResourcesKeys.Products_Title]</a>
                 <span class="material-symbols-outlined sep">@(isArabic ? "chevron_left" : "chevron_right")</span>
                 <span>@_sharedResources[SharedResourcesKeys.Products_AddNew]</span>
             </div>
             <h1>@_sharedResources[SharedResourcesKeys.Products_AddNew]</h1>
             <p>@_sharedResources[SharedResourcesKeys.Products_Description]</p>
         </div>
-        <a href="@Url.Action("Index", "Products")" class="btn btn-outline">
+        <a href="@Url.Action("IndexProduct", "Service")" class="btn btn-outline">
             <span class="material-symbols-outlined">@(isArabic ? "arrow_forward" : "arrow_back")</span>
             @_sharedResources[SharedResourcesKeys.Back]
         </a>

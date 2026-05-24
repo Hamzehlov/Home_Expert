@@ -225,6 +225,9 @@
   <data name="MyServices" xml:space="preserve">
     <value>MyServices</value>
   </data>
+  <data name="ServiceOffers_Title" xml:space="preserve">
+    <value>Offers</value>
+  </data>
   <data name="Service_Sales" xml:space="preserve">
     <value>Sales</value>
   </data>
@@ -589,7 +592,7 @@
     <value>Dashboard</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search the system...</value>
+    <value>Search the google...</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
@@ -1415,9 +1418,6 @@
   </data>
   <data name="Services_Available" xml:space="preserve">
     <value>Services Available</value>
-  </data>
-  <data name="ServiceOffers_Title" xml:space="preserve">
-    <value>Offers</value>
   </data>
   <data name="ServiceOffers_Desc" xml:space="preserve">
     <value>Offers</value>

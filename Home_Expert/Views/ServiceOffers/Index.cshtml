@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var isArabic = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ar");
     var dir      = isArabic ? "rtl" : "ltr";
+    var tableDir = isArabic ? "rtl" : "ltr";
+
 }
 
 @section Styles {
-<link rel="stylesheet" href="~/css/table.css" />
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link href="~/lib/datatable/datatable.min.css" rel="stylesheet" />
 }
+
 
 <div class="so-page" dir="@dir">
 
@@ -75,7 +79,7 @@
     else
     {
       <div class="so-scroll">
-        <table class="so-table" id="soTable">
+                <table class="so-table data-table" style="width:100%" id="soTable" dir="@tableDir">
           <thead>
             <tr>
               <th>#</th>
@@ -321,227 +325,249 @@
 </form>
 
 @section Scripts {
-<script>
-var isArabic   = @(isArabic ? "true" : "false");
-var _currentId = null;
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/datatable/jquery.datatables.min.js"></script>
+    <script>
+        var isArabic = @(isArabic ? "true" : "false");
+        var _currentId = null;
+        var dt;
 
-/* ── Filter ── */
-function soFilter() {
-    var q   = document.getElementById('soSearch').value.toLowerCase();
-    var sta = document.getElementById('soStatusFilter').value;
-    var rows= document.querySelectorAll('#soTable tbody tr');
-    var vis = 0, num = 0;
-    rows.forEach(function(r) {
-        var ok = (!q || r.dataset.search.includes(q)) && (!sta || r.dataset.status === sta);
-        r.style.display = ok ? '' : 'none';
-        if (ok) { vis++; var td = r.querySelector('.td-num'); if(td) td.textContent = ++num; }
-    });
-    var el = document.getElementById('soCount');
-    if (el) el.textContent = (isArabic?'يعرض ':'Showing ') + vis + (isArabic?' طلب':' requests');
-}
+        $(document).ready(function () {
+        dt = $('#soTable').DataTable({
+        responsive: true,
+        pageLength: 10,
+        ordering: true,
+        autoWidth: false,
+        searching: false,
+        language: {
+        lengthMenu:   isArabic ? "عرض _MENU_ عناصر لكل صفحة" : "Show _MENU_ entries",
+        zeroRecords:  isArabic ? "لا يوجد عناصر لعرضها"       : "No matching records",
+        info:         isArabic ? "عرض _START_ إلى _END_ من _TOTAL_ عنصر" : "Showing _START_ to _END_ of _TOTAL_ entries",
+        infoEmpty:    isArabic ? "لا يوجد عناصر متاحة"         : "No entries available",
+        infoFiltered: isArabic ? "(مصفى من _MAX_ عنصر)"        : "(filtered from _MAX_ total entries)",
+        paginate: {
+        first:    isArabic ? "الأول"  : "First",
+        last:     isArabic ? "الأخير" : "Last",
+        next:     isArabic ? "التالي" : "Next",
+        previous: isArabic ? "السابق" : "Previous"
+        }
+        },
+        columnDefs: [{ orderable: false, targets: [0, 7, 8] }],
+        drawCallback: function () {
+        var api = this.api();
+        var startIndex = api.page.info().start;
+        api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+        cell.innerHTML = startIndex + i + 1;
+        });
+        }
+        });
 
-function filterByStatus(status) {
-    document.getElementById('soStatusFilter').value = status;
-    // update active stat card
-    document.querySelectorAll('.so-stat').forEach(function(s){ s.classList.remove('active-filter'); });
-    var id = status ? 'stat-' + status : 'stat-all';
-    var el = document.getElementById(id);
-    if (el) el.classList.add('active-filter');
-    soFilter();
-}
+        soFilter();
+        });
 
-/* ── Modal ── */
-function openOfferModal(offerId, serviceName, currentPrice, currentInspection) {
-    _currentId = offerId;
-    document.getElementById('soModalTitle').textContent = isArabic ? 'تقديم عرض' : 'Submit Offer';
-    document.getElementById('soModalSub').textContent   = serviceName;
-    document.getElementById('soMPrice').value           = currentPrice > 0 ? currentPrice : '';
-    document.getElementById('soMInspection').checked    = currentInspection;
-    // clear errors
-    document.getElementById('soMPriceWrap').classList.remove('has-error');
-    document.getElementById('soPriceErr').style.display = 'none';
-    document.getElementById('soModal').classList.add('open');
-    setTimeout(function(){ document.getElementById('soMPrice').focus(); }, 300);
-}
+        /* ── Filter ── */
+        function soFilter() {
+        var q   = $('#soSearch').val().toLowerCase();
+        var sta = $('#soStatusFilter').val();
 
-function closeOfferModal() {
-    document.getElementById('soModal').classList.remove('open');
-    _currentId = null;
-}
-document.getElementById('soModal').addEventListener('click', function(e){
-    if (e.target === this) closeOfferModal();
-});
+        dt.rows().every(function () {
+        var row = this.node();
+        var ok  = (!q  || $(row).data('search').includes(q)) &&
+        (!sta || $(row).data('status') === sta);
+        $(row).toggle(ok);
+        });
 
-/* ── Submit ── */
-async function submitOffer() {
-    var price = parseFloat(document.getElementById('soMPrice').value);
-    var inspection = document.getElementById('soMInspection').checked;
-    var fileInput = document.getElementById('soMAttachment');
-    var file = fileInput.files[0];
+        dt.draw(false);
 
-    // Validate price
-    document.getElementById('soMPriceWrap').classList.remove('has-error');
-    document.getElementById('soPriceErr').style.display = 'none';
-    document.getElementById('soFileErr').style.display = 'none';
+        var vis = dt.rows(function (i, data, node) {
+        return $(node).is(':visible');
+        }).count();
 
-    if (!price || price <= 0) {
+        $('#soCount').text(
+        (isArabic ? 'يعرض ' : 'Showing ') + vis + (isArabic ? ' طلب' : ' requests')
+        );
+        }
+
+        function filterByStatus(status) {
+        $('#soStatusFilter').val(status);
+        $('.so-stat').removeClass('active-filter');
+        $('#' + (status ? 'stat-' + status : 'stat-all')).addClass('active-filter');
+        soFilter();
+        }
+
+        /* ── Modal ── */
+        async function openOfferModal(offerId, serviceName, currentPrice, currentInspection) {
+        _currentId = offerId;
+        document.getElementById('soModalTitle').textContent = isArabic ? 'تقديم عرض' : 'Submit Offer';
+        document.getElementById('soModalSub').textContent   = serviceName;
+        document.getElementById('soMPrice').value           = currentPrice > 0 ? currentPrice : '';
+        document.getElementById('soMInspection').checked    = currentInspection;
+
+        document.getElementById('soMAttachment').value = '';
+        document.getElementById('soFileErr').style.display  = 'none';
+        document.getElementById('soMPriceWrap').classList.remove('has-error');
+        document.getElementById('soPriceErr').style.display = 'none';
+
+        try {
+        var res  = await fetch('/ServiceOffers/GetAttachmentInfo?offerId=' + offerId);
+        var data = await res.json();
+        if (data.hasAttachment) {
+        document.getElementById('soExistingFileDiv').style.display  = 'block';
+        document.getElementById('soExistingFileName').textContent   = data.fileName || (isArabic ? 'ملف مرفق' : 'Attachment');
+        document.getElementById('soDownloadLink').href              = '/ServiceOffers/DownloadAttachment?offerId=' + offerId;
+        } else {
+        document.getElementById('soExistingFileDiv').style.display = 'none';
+        }
+        } catch (e) {
+        document.getElementById('soExistingFileDiv').style.display = 'none';
+        }
+
+        document.getElementById('soModal').classList.add('open');
+        setTimeout(function () { document.getElementById('soMPrice').focus(); }, 300);
+        }
+
+        function closeOfferModal() {
+        document.getElementById('soModal').classList.remove('open');
+        _currentId = null;
+        }
+
+        document.getElementById('soModal').addEventListener('click', function (e) {
+        if (e.target === this) closeOfferModal();
+        });
+
+        /* ── Submit ── */
+        async function submitOffer() {
+        var price      = parseFloat(document.getElementById('soMPrice').value);
+        var inspection = document.getElementById('soMInspection').checked;
+        var fileInput  = document.getElementById('soMAttachment');
+        var file       = fileInput.files[0];
+
+        document.getElementById('soMPriceWrap').classList.remove('has-error');
+        document.getElementById('soPriceErr').style.display = 'none';
+        document.getElementById('soFileErr').style.display  = 'none';
+
+        if (!price || price <= 0) {
         document.getElementById('soMPriceWrap').classList.add('has-error');
         document.getElementById('soPriceErr').style.display = 'flex';
         document.getElementById('soPriceErrMsg').textContent = isArabic ? 'يرجى إدخال سعر صحيح' : 'Please enter a valid price';
         return;
-    }
+        }
 
-    // Validate file size (5MB max)
-    if (file && file.size > 5 * 1024 * 1024) {
+        if (file && file.size > 5 * 1024 * 1024) {
         document.getElementById('soFileErr').style.display = 'flex';
         document.getElementById('soFileErrMsg').textContent = isArabic ? 'حجم الملف يتجاوز 5 ميجابايت' : 'File size exceeds 5MB';
         return;
-    }
+        }
 
-    // Validate file extension
-    if (file) {
+        if (file) {
         var allowedExts = ['.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png'];
         var ext = '.' + file.name.split('.').pop().toLowerCase();
         if (!allowedExts.includes(ext)) {
-            document.getElementById('soFileErr').style.display = 'flex';
-            document.getElementById('soFileErrMsg').textContent = isArabic ? 'نوع الملف غير مسموح' : 'File type not allowed';
-            return;
+        document.getElementById('soFileErr').style.display = 'flex';
+        document.getElementById('soFileErrMsg').textContent = isArabic ? 'نوع الملف غير مسموح' : 'File type not allowed';
+        return;
         }
-    }
+        }
 
-    var btn = document.getElementById('soMSubmitBtn');
-    btn.disabled = true;
-    btn._orig = btn.innerHTML;
-    btn.innerHTML = '<span class="material-symbols-outlined" style="animation:soSpin 1s linear infinite">autorenew</span> ' + (isArabic ? 'جاري الإرسال...' : 'Sending...');
+        var btn    = document.getElementById('soMSubmitBtn');
+        btn.disabled  = true;
+        btn._orig     = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined" style="animation:soSpin 1s linear infinite">autorenew</span> ' +
+        (isArabic ? 'جاري الإرسال...' : 'Sending...');
 
-    // Prepare FormData for file upload
-    var formData = new FormData();
-    formData.append('offerId', _currentId);
-    formData.append('priceEstimate', price);
-    formData.append('inspectionRequired', inspection);
-    if (file) {
-        formData.append('attachmentFile', file);
-    }
+        var formData = new FormData();
+        formData.append('offerId',             _currentId);
+        formData.append('priceEstimate',       price);
+        formData.append('inspectionRequired',  inspection);
+        if (file) formData.append('attachmentFile', file);
 
-    var token = document.querySelector('#soOfferForm input[name="__RequestVerificationToken"]').value;
+        var token = document.querySelector('#soOfferForm input[name="__RequestVerificationToken"]').value;
 
-    try {
-        var res = await fetch(document.getElementById('soOfferForm').action, {
-            method: 'POST',
-            headers: {
-                'RequestVerificationToken': token
-                // Don't set Content-Type when using FormData (browser sets it with boundary)
-            },
-            body: formData
+        try {
+        var res  = await fetch(document.getElementById('soOfferForm').action, {
+        method: 'POST',
+        headers: { 'RequestVerificationToken': token },
+        body: formData
         });
         var data = await res.json();
 
         if (res.ok && (data.success || data.Success)) {
-            closeOfferModal();
-            soToast(data.message || (isArabic ? 'تم تقديم العرض بنجاح' : 'Offer submitted successfully'), 'success');
-            setTimeout(function () { location.reload(); }, 1500);
+        closeOfferModal();
+        soToast(data.message || (isArabic ? 'تم تقديم العرض بنجاح' : 'Offer submitted successfully'), 'success');
+        setTimeout(function () { location.reload(); }, 1500);
         } else {
-            soToast(data.message || (isArabic ? 'حدث خطأ' : 'An error occurred'), 'error');
-            btn.disabled = false;
-            btn.innerHTML = btn._orig;
-        }
-    } catch (e) {
-        soToast(isArabic ? 'خطأ في الاتصال' : 'Connection error', 'error');
-        btn.disabled = false;
+        soToast(data.message || (isArabic ? 'حدث خطأ' : 'An error occurred'), 'error');
+        btn.disabled  = false;
         btn.innerHTML = btn._orig;
-    }
-}
-
-// تعديل دالة openOfferModal لإظهار الملف المرفق الحالي إن وجد
-async function openOfferModal(offerId, serviceName, currentPrice, currentInspection) {
-    _currentId = offerId;
-    document.getElementById('soModalTitle').textContent = isArabic ? 'تقديم عرض' : 'Submit Offer';
-    document.getElementById('soModalSub').textContent = serviceName;
-    document.getElementById('soMPrice').value = currentPrice > 0 ? currentPrice : '';
-    document.getElementById('soMInspection').checked = currentInspection;
-    
-    // Reset file input
-    document.getElementById('soMAttachment').value = '';
-    document.getElementById('soFileErr').style.display = 'none';
-    document.getElementById('soMPriceWrap').classList.remove('has-error');
-    
-    // Check for existing attachment
-    try {
-        var res = await fetch('/ServiceOffers/GetAttachmentInfo?offerId=' + offerId);
-        var data = await res.json();
-        if (data.hasAttachment) {
-            document.getElementById('soExistingFileDiv').style.display = 'block';
-            document.getElementById('soExistingFileName').textContent = data.fileName || (isArabic ? 'ملف مرفق' : 'Attachment');
-            document.getElementById('soDownloadLink').href = '/ServiceOffers/DownloadAttachment?offerId=' + offerId;
-        } else {
-            document.getElementById('soExistingFileDiv').style.display = 'none';
         }
-    } catch(e) {
-        document.getElementById('soExistingFileDiv').style.display = 'none';
-    }
-    
-    document.getElementById('soModal').classList.add('open');
-    setTimeout(function(){ document.getElementById('soMPrice').focus(); }, 300);
-}
-function updateRow(offerId, price, inspection) {
-    // Find the row with this offerId in the action button onclick
-    var rows = document.querySelectorAll('#soTable tbody tr');
-    rows.forEach(function(row) {
+        } catch (e) {
+        soToast(isArabic ? 'خطأ في الاتصال' : 'Connection error', 'error');
+        btn.disabled  = false;
+        btn.innerHTML = btn._orig;
+        }
+        }
+
+        /* ── Update Row (بعد تقديم العرض بدون reload) ── */
+        function updateRow(offerId, price, inspection) {
+        var rows = document.querySelectorAll('#soTable tbody tr');
+        rows.forEach(function (row) {
         var btn = row.querySelector('[onclick*="openOfferModal(' + offerId + ',"]') ||
-                  row.querySelector('[onclick*="openOfferModal(' + offerId + ', "]');
+        row.querySelector('[onclick*="openOfferModal(' + offerId + ', "]');
         if (!btn) return;
 
-        // Update status badge
         var badge = row.querySelector('.so-badge');
         if (badge) {
-            badge.className   = 'so-badge submitted';
-            badge.innerHTML   = '<span class="material-symbols-outlined">send</span>' +
-                                (isArabic ? 'تم تقديم العرض' : 'Submitted');
+        badge.className = 'so-badge submitted';
+        badge.innerHTML = '<span class="material-symbols-outlined">send</span>' +
+        (isArabic ? 'تم تقديم العرض' : 'Submitted');
         }
         row.dataset.status = 'submitted';
 
-        // Update price cell
         var priceTd = row.cells[4];
-        if (priceTd) priceTd.innerHTML = '<span class="so-price">' + Math.round(price).toLocaleString() + ' <small style="font-size:.68rem;color:var(--muted);font-weight:600;">JOD</small></span>';
+        if (priceTd) priceTd.innerHTML = '<span class="so-price">' + Math.round(price).toLocaleString() +
+        ' <small style="font-size:.68rem;color:var(--muted);font-weight:600;">JOD</small></span>';
 
-        // Update inspection cell
         var inspTd = row.cells[5];
         if (inspTd) {
-            inspTd.innerHTML = inspection
-                ? '<span class="so-insp yes"><span class="material-symbols-outlined">search</span>' + (isArabic?'مطلوب':'Yes') + '</span>'
-                : '<span class="so-insp no"><span class="material-symbols-outlined">check</span>' + (isArabic?'لا':'No') + '</span>';
+        inspTd.innerHTML = inspection
+        ? '<span class="so-insp yes"><span class="material-symbols-outlined">search</span>' + (isArabic ? 'مطلوب' : 'Yes') + '</span>'
+        : '<span class="so-insp no"><span class="material-symbols-outlined">check</span>'  + (isArabic ? 'لا'     : 'No')  + '</span>';
         }
 
-        // Update action button
         var actTd = row.cells[7];
         if (actTd) {
-            actTd.innerHTML =
-                '<button class="so-offer-btn edit" onclick="openOfferModal(' + offerId + ', \'' +
-                document.getElementById('soModalSub').textContent.replace(/'/g,"\\'") + '\',' +
-                price + ',' + inspection + ')">' +
-                '<span class="material-symbols-outlined">edit</span>' +
-                (isArabic?'تعديل العرض':'Edit Offer') + '</button>';
+        actTd.innerHTML =
+        '<button class="so-offer-btn edit" onclick="openOfferModal(' + offerId + ',\'' +
+        document.getElementById('soModalSub').textContent.replace(/'/g, "\\'") + '\',' +
+        price + ',' + inspection + ')">' +
+        '<span class="material-symbols-outlined">edit</span>' +
+        (isArabic ? 'تعديل العرض' : 'Edit Offer') + '</button>';
         }
 
-        // Update submitted stat count
-        var subEl = document.querySelector('#stat-submitted .so-stat-val');
-        var pendEl= document.querySelector('#stat-pending .so-stat-val');
+        var subEl  = document.querySelector('#stat-submitted .so-stat-val');
+        var pendEl = document.querySelector('#stat-pending .so-stat-val');
         if (subEl)  subEl.textContent  = parseInt(subEl.textContent)  + 1;
         if (pendEl && parseInt(pendEl.textContent) > 0)
-            pendEl.textContent = parseInt(pendEl.textContent) - 1;
-    });
-}
+        pendEl.textContent = parseInt(pendEl.textContent) - 1;
+        });
+        }
 
-/* ── Toast ── */
-function soToast(msg, type) {
-    var el = document.createElement('div');
-    el.className = 'so-toast ' + type;
-    el.innerHTML = '<span class="material-symbols-outlined">' + (type==='success'?'check_circle':'error') + '</span><span>' + msg + '</span>';
-    document.getElementById('soToasts').appendChild(el);
-    setTimeout(function(){ el.style.transition='opacity .4s'; el.style.opacity='0'; setTimeout(function(){el.remove();},420); }, 3800);
-}
+        /* ── Toast ── */
+        function soToast(msg, type) {
+        var el = document.createElement('div');
+        el.className = 'so-toast ' + type;
+        el.innerHTML = '<span class="material-symbols-outlined">' +
+        (type === 'success' ? 'check_circle' : 'error') +
+        '</span><span>' + msg + '</span>';
+        document.getElementById('soToasts').appendChild(el);
+        setTimeout(function () {
+        el.style.transition = 'opacity .4s';
+        el.style.opacity    = '0';
+        setTimeout(function () { el.remove(); }, 420);
+        }, 3800);
+        }
 
-document.head.insertAdjacentHTML('beforeend','<style>@@keyframes soSpin{to{transform:rotate(360deg)}}</style>');
-document.addEventListener('DOMContentLoaded', soFilter);
-</script>
+        document.head.insertAdjacentHTML('beforeend',
+        '<style>@@keyframes soSpin{to{transform:rotate(360deg)}}</style>');
+    </script>
 }

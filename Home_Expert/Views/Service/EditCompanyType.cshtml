@@ -27,7 +27,7 @@
                     @(isArabic ? "chevron_left" : "chevron_right")
                 </span>
 
-                <a href="@Url.Action("Index", "CompanyTypes")">
+                <a href="@Url.Action("IndexCompanyType", "Service")">
                     @_sharedResources[SharedResourcesKeys.CompanyTypes_Title]
                 </a>
 
@@ -44,7 +44,7 @@
             <p>@_sharedResources[SharedResourcesKeys.CompanyTypes_Description]</p>
         </div>
 
-        <a href="@Url.Action("Index", "CompanyTypes")" class="btn btn-outline">
+        <a href="@Url.Action("IndexCompanyType", "Service")" class="btn btn-outline">
             <span class="material-symbols-outlined">
                 @(isArabic ? "arrow_forward" : "arrow_back")
             </span>
